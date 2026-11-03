@@ -15,6 +15,7 @@ const initial = () => ({
   content: { lessons: DEFAULTS.lessons, tests: DEFAULTS.tests, videos: DEFAULTS.videos, book: null },
   progress: { done: {}, attempts: {}, hintsUsed: {}, lastEx: null },
   chats: {},
+  coach: {},
 });
 
 function load() {

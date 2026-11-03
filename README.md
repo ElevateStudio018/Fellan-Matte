@@ -13,7 +13,11 @@ Testa båda sidor: öppna länken i två olika webbläsare (eller ett vanligt oc
 ### För eleven
 - **Boken** – kapitel, teori i korthet och alla uppgifter med nivå (●●○).
 - **Hjälpsteg** – Ledtråd 1 → Ledtråd 2 → Regel/formel → Liknande exempel med *andra* tal. Öppnas ett i taget.
-- **AI-läraren** – förklarar vilken regel som gäller, ställer ledande frågor, visar en alternativ lösning med andra tal och pekar ut första felsteget i elevens uträkning. Ger **aldrig** svaret.
+- **AI-läraren** (egen sida i menyn) – fyra lägen: **Hjälp med ett kapitel**, **Prata om matte**, **Jag har fastnat** (text eller foto av uppgiften) och **Förhör mig**. Guidad problemlösning med ledtrådstrappa i fyra nivåer, förklaringar på fem olika sätt, felanalys och minne under samtalet. Ger **aldrig** det färdiga svaret.
+- **Ledtrådstrappa** – Liten ledtråd → Tydligare ledtråd → Vägledning med liknande exempel → Extra pedagogisk hjälp. Eleven kan be om nästa nivå, men svaret avslöjas aldrig.
+- **Förhör** – en fråga i taget från bokens kapitel (eller ett valt moment), nivå som anpassas efter svaren, feedback på resonemanget och en ny liknande fråga när eleven förstått. Facit används bara för rättning och visas aldrig.
+- **Förklara på annat sätt** – enklare förklaring, steg för steg, visuellt, vardagsexempel eller en annan metod.
+- **AI-läraren i uppgiften** – chatten bredvid varje uppgift förklarar vilken regel som gäller, ställer ledande frågor, visar en alternativ lösning med andra tal och pekar ut första felsteget i elevens uträkning.
 - **Facitkoll** – eleven skriver sitt svar och får rätt/fel, utan att facit visas. Förstår `x = 13`, `896 kr`, `0,5` och uttryck som `2(x+6)`.
 - **Räck upp handen** – välj uppgift och typ av problem (”förstår inte frågan”, ”fastnat på ett steg”, ”vill kolla min lösning”) och skriv vad du provat. Läraren ser också vad du frågat AI:n.
 - **Medan du väntar** – köplats, ungefärlig väntetid, länk till nästa hjälpsteg, ”hoppa till nästa uppgift så länge” och **kompishjälp** från klasskamrater som redan klarat uppgiften.
@@ -61,7 +65,11 @@ npx wrangler deploy
 
 Klistra in adressen du får (t.ex. `https://fellan-matte-ai.<namn>.workers.dev`) under **Inställningar → AI-adress**. Den skickas automatiskt till elevernas datorer när lektionen startar. I `worker/wrangler.toml` kan du låsa AI:n till era klasskoder (`CLASS_CODES`).
 
-Modell: `claude-opus-5-5` med låg ”effort” för snabba svar. Instruktionen som hindrar AI:n från att ge svar finns i `worker/src/index.js`.
+Modell: `claude-opus-5-5` med låg ”effort” för snabba svar. De pedagogiska reglerna är systeminstruktioner på servern (`worker/src/index.js`): guidad problemlösning, ledtrådsnivåer, felanalys och förbud mot färdiga svar.
+
+Servern har tre vägar: `/chat` (strömmar samtalet), `/quiz` (skapar en förhörsfråga med dolt facit) och `/extract` (lärarens boksidor).
+
+**Svarsskydd:** eftersom en språkmodell inte kan garantera reglerna bara genom en instruktion kontrolleras svaren också maskinellt i `shared/tutor-core.js`. Om ett svar innehåller det slutliga svaret på elevens uppgift stoppas det – servern håller tillbaka de sista tecknen i strömmen och byter ut hela svaret mot en vänlig omdirigering, och klienten gör samma kontroll en gång till. Elevens egna svar får däremot bekräftas. Kontrollen har enhetstester (`npm test`).
 
 ---
 
@@ -90,6 +98,7 @@ Exempelboken i appen är egenskriven. Så här lägger ni in er egen:
 - **Realtid** går via ntfy-kanaler som heter som klasskoden. Den publika servern `ntfy.sh` är gratis men har gränser per IP-adress, och en hel skola delar ofta samma IP. Kör gärna en egen ntfy-server (`docker run -p 80:80 binwiederhier/ntfy serve`) och skriv adressen under Inställningar. Det är också bättre för integriteten (GDPR), eftersom elevnamn skickas över kanalen. Ett alternativ är att eleverna bara skriver förnamn eller initialer.
 - **Fokusläget** kan inte fysiskt låsa en dator – ingen webbsida kan det. Det upptäcker och rapporterar istället när eleven lämnar. För helt låsta enheter: Guidad åtkomst (iPad), kioskläge (Chromebook) eller Safe Exam Browser.
 - Allt sparas lokalt i webbläsaren (localStorage). Lärarens lektioner/prov/genomgångar skickas till eleverna när de sparas (knappen **Skicka om allt innehåll** finns under Inställningar).
+- AI-lärarnas minne (kapitel, ledtrådsnivå, återkommande misstag och samtalet) sparas också bara lokalt. Eleven ser och rensar det under **AI-läraren → Ditt minne**. Inga bilder sparas – de skickas bara med i den fråga eleven ställer.
 
 ## Teknik
 
@@ -99,14 +108,19 @@ Ren HTML/CSS/JavaScript (ES-moduler) utan byggsteg – fungerar direkt på GitHu
 index.html          appens skal
 css/app.css         design (ljust/mörkt läge)
 js/app.js           routing och layout
-js/student.js       elevvyer, handuppräckning, AI-chatt
+js/student.js       elevvyer, handuppräckning, AI-chatt i uppgiften
+js/coach.js         AI-läraren: startvy, fyra lägen, förhör, minne
 js/teacher.js       klassrum, lektioner, prov, bok, inställningar
 js/sync.js          realtid (ntfy + BroadcastChannel)
 js/focus.js         fokusläge
-js/tutor.js         AI-klient + inbyggt hjälpläge
+js/tutor.js         AI-klient, förhörsfrågor + inbyggt hjälpläge
 js/calc.js          säker räknare och facitkoll
 js/content.js       exempelbok, lektioner, prov
+shared/tutor-core.js  pedagogisk kärna: ledtrådsnivåer, svarsskydd, felanalys
 worker/             AI-server (Cloudflare Worker + Claude)
+tests/              enhetstester för svarsskyddet (`npm test`)
 ```
 
 Kör lokalt: `python3 -m http.server` och öppna http://localhost:8000.
+
+Tester: `npm test` (Node 18+). De kontrollerar att svarsskyddet stoppar facit men släpper igenom ledtrådar, att elevens egna svar får bekräftas, felanalysen och nivåanpassningen.

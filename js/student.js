@@ -4,6 +4,7 @@ import { ask, hasAI, summarizeChat } from './tutor.js';
 import { checkAnswer } from './calc.js';
 import { esc, md, renderMath, toast, modal, closeModal, $, dateBox, fmtDate, daysUntil, mins, levelDots, youtubeId } from './ui.js';
 import { render, go } from './app.js';
+import * as C from './coach.js';
 
 let loginRole = 'student';
 let openSteps = {};
@@ -99,6 +100,7 @@ export function view(r) {
     case 'bok': return bookView();
     case 'kapitel': return chapterView(r.arg);
     case 'uppgift': return exerciseView(r.arg);
+    case 'ai': return C.view(r);
     case 'genomgangar': return videosView();
     case 'video': return videoView(r.arg);
     case 'prov': return testsView();
@@ -221,7 +223,7 @@ function chapterView(id) {
   return `<a href="#/bok" class="muted small" style="text-decoration:none;font-weight:700">← Boken</a>
     <div class="hero" style="margin-top:10px"><div class="hero-art" style="background:${ch.color};min-height:200px"><span class="big">${esc(ch.id)}</span><h1>${esc(ch.title)}</h1></div>
     <div class="hero-side"><h3>Teori i korthet</h3><p style="margin:0;color:var(--ink-2)">${md(ch.theory || '')}</p>
-    ${vids.length ? `<div class="btns">${vids.map((v) => `<a class="btn sm ghost" href="#/video/${v.id}">▶ ${esc(v.title)}</a>`).join('')}</div>` : ''}</div></div>
+    <div class="btns"><button class="btn sm ghost" data-act="coach-chapter-open" data-id="${esc(ch.id)}">✦ Fråga AI-läraren</button>${vids.map((v) => `<a class="btn sm ghost" href="#/video/${v.id}">▶ ${esc(v.title)}</a>`).join('')}</div></div></div>
     <div class="section"><div class="section-head"><h2>Uppgifter</h2><span class="muted small">${chapterProgress(ch).d} av ${ch.exercises.length} klara</span></div>
     <div class="ex-list">${ch.exercises.map((ex) => `<a class="ex-item" href="#/uppgift/${ex.id}">
       <span class="ex-num">${esc(ex.id)}</span><span class="ex-text">${esc(stripMath(ex.text))}</span>${levelDots(ex.level || 1)}
@@ -321,6 +323,7 @@ export function mount(r) {
       if (m) m.scrollTop = m.scrollHeight;
     }
   }
+  if (r.name === 'ai') C.mount(r);
 }
 
 let statusTimer = null;
@@ -481,6 +484,7 @@ function exitTicket() {
 
 /* ---------- Klick och formulär ---------- */
 export function action(act, el) {
+  if (act.startsWith('coach-')) return C.action(act, el);
   if (act === 'loginrole') { loginRole = el.dataset.role; render(); }
   else if (act === 'hand') handSheet(el.dataset.ex);
   else if (act === 'mood') { statusSoon({ mood: el.dataset.mood }); live.students[me()] = { ...(live.students[me()] || {}), mood: el.dataset.mood }; render(); }
@@ -500,6 +504,7 @@ export function action(act, el) {
 }
 
 export function submit(f) {
+  if (f.dataset.form === 'coach-chat') { C.submit(f); return; }
   if (f.dataset.form === 'answer') {
     const id = f.dataset.ex;
     const { ex } = findExercise(id);

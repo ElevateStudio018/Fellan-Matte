@@ -11,7 +11,7 @@ const app = $('#app');
 export const go = (hash) => { if (location.hash === hash) render(); else location.hash = hash; };
 
 const STUDENT_NAV = [
-  ['#/', 'Hem', '⌂'], ['#/bok', 'Boken', '▤'], ['#/genomgangar', 'Genomgångar', '▶'], ['#/prov', 'Prov', '◷'],
+  ['#/', 'Hem', '⌂'], ['#/bok', 'Boken', '▤'], ['#/ai', 'AI-läraren', '✦'], ['#/genomgangar', 'Genomgångar', '▶'], ['#/prov', 'Prov', '◷'],
 ];
 const TEACHER_NAV = [
   ['#/', 'Klassrum', '◉'], ['#/lektioner', 'Lektioner', '▤'], ['#/prov', 'Prov', '◷'], ['#/genomgangar', 'Genomgångar', '▶'], ['#/bok', 'Boken', '✎'], ['#/installningar', 'Inställningar', '⚙'],
