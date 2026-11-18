@@ -25,8 +25,8 @@ const hours = `${SEASON.open.slice(0, 2)}–${SEASON.close.slice(0, 2)}`;
 function seasonState(now = new Date()) {
   const today = isoDate(now);
   if (SEASON.days.includes(today)) {
-    if (now < at(today, SEASON.open)) return { state: 'soon', text: `Öppet idag kl. ${hours}. Välkommen!` };
-    if (now < at(today, SEASON.close)) return { state: 'open', text: `Öppet just nu, till kl. ${SEASON.close.slice(0, 2)} idag` };
+    if (now < at(today, SEASON.open)) return { state: 'soon', text: `Öppet idag kl. ${hours}` };
+    if (now < at(today, SEASON.close)) return { state: 'open', text: `Öppet nu, till kl. ${SEASON.close.slice(0, 2)}` };
   }
   const next = SEASON.days.find((d) => at(d, SEASON.open) > now);
   if (next) {
@@ -34,7 +34,7 @@ function seasonState(now = new Date()) {
     const when = isoDate(new Date(now.getTime() + 864e5)) === next ? 'i morgon' : `${weekday.format(d)} ${dayMonth.format(d)}`;
     return { state: 'soon', next, text: `${SEASON.name} · nästa öppetdag ${when}, kl. ${hours}` };
   }
-  return { state: 'closed', text: 'Stängt för säsongen. Följ @axelochgren för nästa öppning' };
+  return { state: 'closed', text: 'Stängt för säsongen' };
 }
 
 function renderStatus() {
@@ -137,22 +137,6 @@ function initContactForm() {
   });
 }
 
-/* ---- Mjuk inglidning ---------------------------------------------------- */
-function initReveal() {
-  const els = document.querySelectorAll('[data-reveal]');
-  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((en) => {
-      if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
-    });
-  }, { rootMargin: '0px 0px -8% 0px' });
-  els.forEach((el) => {
-    if (el.getBoundingClientRect().top < innerHeight) return; // redan i bild: visa direkt
-    el.classList.add('reveal');
-    io.observe(el);
-  });
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
   renderStatus();
@@ -160,5 +144,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initFeeds();
   initContactForm();
-  initReveal();
 });

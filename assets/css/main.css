@@ -125,9 +125,8 @@ figure { margin: 0; }
   width: 8px; height: 8px; border-radius: 50%; flex: none;
   background: var(--green-200); box-shadow: 0 0 0 3px rgba(215, 225, 140, .25);
 }
-[data-status="open"] .status-dot { background: #8ef0a2; animation: pulse 2.4s var(--ease) infinite; }
+[data-status="open"] .status-dot { background: #8ef0a2; }
 [data-status="closed"] .status-dot { background: rgba(255, 255, 255, .55); box-shadow: none; }
-@keyframes pulse { 50% { box-shadow: 0 0 0 6px rgba(142, 240, 162, 0); } }
 .utility__links { display: flex; align-items: stretch; align-self: stretch; }
 .utility__links li { display: flex; border-left: 1px solid rgba(255, 255, 255, .22); }
 .utility__links a {
@@ -314,13 +313,6 @@ figure { margin: 0; }
 .section--sand + .section, .section--green + .section, .section--tint + .section,
 .section + .section--sand, .section + .section--green, .section + .section--tint { padding-top: var(--section); }
 
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  font: 600 .8125rem/1 var(--font-sans); letter-spacing: .12em; text-transform: uppercase;
-  color: var(--green-800); margin-bottom: 20px;
-}
-.eyebrow::before { content: ""; width: 24px; height: 2px; background: currentColor; }
-.section--green .eyebrow { color: var(--green-200); }
 
 .display { font-size: var(--fs-display); letter-spacing: -.01em; line-height: 1.02; }
 .h1 { font-size: var(--fs-h1); letter-spacing: -.01em; }
@@ -409,11 +401,9 @@ figure { margin: 0; }
     radial-gradient(120% 80% at 50% 120%, rgba(14, 53, 25, .45), transparent 60%),
     radial-gradient(70% 60% at 85% 0%, rgba(255, 255, 255, .14), transparent 70%);
 }
-.card__media svg { position: relative; z-index: 2; width: clamp(72px, 9vw, 112px); height: auto; aspect-ratio: 1; transition: transform .5s var(--ease); filter: drop-shadow(0 2px 12px rgba(0, 0, 0, .25)); }
-.card:hover .card__media svg { transform: translateY(-4px) scale(1.04); }
-.card__media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform .8s var(--ease); }
+.card__media svg { position: relative; z-index: 2; width: clamp(72px, 9vw, 112px); height: auto; aspect-ratio: 1; filter: drop-shadow(0 2px 12px rgba(0, 0, 0, .25)); }
+.card__media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
 .card__media:has(> img)::before { z-index: 1; background: linear-gradient(0deg, rgba(14, 53, 25, .35), rgba(14, 53, 25, .12)); }
-.card:hover .card__media > img { transform: scale(1.04); }
 .card__media .card__label { z-index: 2; }
 .card__media--700 { background: var(--green-700); }
 .card__media--800 { background: var(--green-800); }
@@ -497,21 +487,6 @@ a.panel:hover .panel__title { text-decoration: underline; text-underline-offset:
 .tag--soon { background: var(--green-200); color: var(--green-950); }
 .tag--open { background: var(--green-800); color: var(--white); }
 
-/* --- Faktaremsa ---------------------------------------------------------- */
-.facts { display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); border-top: 1px solid var(--line); }
-.facts > div { padding: 28px 24px 0 0; }
-.facts > div + div { padding-left: 24px; border-left: 1px solid var(--line); }
-.facts dt { font: 500 var(--fs-small) var(--font-sans); color: var(--ink-soft); margin-top: 10px; order: 2; }
-.facts dd { margin: 0; font-family: var(--font-serif); font-weight: 700; font-size: clamp(2.2rem, 1.6rem + 2vw, 3.4rem); line-height: 1; letter-spacing: -.008em; color: var(--green-800); }
-.facts > div { display: flex; flex-direction: column; }
-.section--green .facts, .section--green .facts > div + div { border-color: var(--line-inverted); }
-.section--green .facts dd { color: var(--green-200); }
-.section--green .facts dt { color: rgba(255, 255, 255, .8); }
-@media (max-width: 720px) {
-  .facts { grid-template-columns: 1fr; border-top: 0; }
-  .facts > div, .facts > div + div { padding: 20px 0; border-left: 0; border-top: 1px solid var(--line); }
-}
-
 /* --- Innehållslayouter ---------------------------------------------------- */
 .cols { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
 .cols--even { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -523,32 +498,16 @@ a.panel:hover .panel__title { text-decoration: underline; text-underline-offset:
 
 /* Lista med rader och tunna linjer (Lantmännens expandable list) */
 .rows { border-top: 1px solid var(--line-strong); }
-.rows > li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--line); }
-.rows__icon { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--green-50); color: var(--green-800); }
-.rows__icon svg { width: 32px; height: 32px; }
+.rows > li { padding: 24px 0; border-bottom: 1px solid var(--line); }
 .rows h3 { font-size: 1.25rem; line-height: 1.25; }
 .rows p { margin-top: 6px; color: var(--ink-soft); font-size: var(--fs-small); }
 
 /* Produktlista för jord */
-.product-list { border-top: 1px solid var(--line-strong); counter-reset: p; }
-.product-list li { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--line); }
-.product-list li::before { counter-increment: p; content: counter(p, decimal-leading-zero); font: 500 .875rem var(--font-sans); color: var(--green-800); }
+.product-list { border-top: 1px solid var(--line-strong); }
+.product-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--line); }
 .product-list h3 { font-size: 1.25rem; line-height: 1.25; }
 .product-list p { color: var(--ink-soft); font-size: var(--fs-small); margin-top: 4px; }
 .product-list .tag { align-self: center; }
-
-/* Steg */
-.steps { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 1.8vw, 24px); counter-reset: s; }
-@media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
-.steps li { background: var(--white); border-radius: var(--radius-sm); padding: 28px; position: relative; }
-.section--tint .steps li, .section--sand .steps li { background: var(--white); }
-.steps li::before {
-  counter-increment: s; content: counter(s);
-  display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
-  background: var(--green-800); color: var(--white); font: 600 1rem var(--font-sans); margin-bottom: 40px;
-}
-.steps h3 { font-size: 1.3125rem; }
-.steps p { margin-top: 8px; color: var(--ink-soft); font-size: var(--fs-small); }
 
 /* Datumkalender för julöppet */
 .dates { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
@@ -563,27 +522,7 @@ a.panel:hover .panel__title { text-decoration: underline; text-underline-offset:
 .date.is-past { opacity: .5; }
 .date.is-past .date__days { text-decoration: line-through; text-decoration-thickness: 1.5px; }
 .date.is-next { border-color: var(--green-800); box-shadow: inset 0 0 0 1px var(--green-800); }
-.date.is-next .date__week::after { content: " · nästa"; }
-
-/* Personer */
-.person { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 64px); align-items: start; }
-.person + .person { margin-top: var(--section); padding-top: var(--section); border-top: 1px solid var(--line); }
-@media (max-width: 860px) { .person { grid-template-columns: 1fr; } }
-.person__card {
-  aspect-ratio: 4 / 4.6; border-radius: var(--radius-sm); position: relative; overflow: hidden;
-  display: flex; flex-direction: column; justify-content: space-between; padding: 28px;
-}
-.person__card--axel { background: var(--green-800); color: var(--white); }
-.person__card--gren { background: var(--green-200); color: var(--green-950); }
-.person__nick { font-family: var(--font-serif); font-weight: 700; font-size: clamp(4rem, 3rem + 5vw, 8rem); line-height: .9; letter-spacing: -.02em; }
-.person__nick span { font-size: .4em; display: block; letter-spacing: -.01em; margin-bottom: .2em; font-weight: 600; opacity: .8; }
-.person__meta { font: 500 var(--fs-small) var(--font-sans); }
-.person__card svg { position: absolute; right: -40px; top: -40px; width: 240px; height: 240px; opacity: .14; }
-.person h2 { font-size: var(--fs-h2); }
-.person .role { font: 500 var(--fs-ui) var(--font-sans); color: var(--green-800); margin-top: 12px; }
-.person .prose { margin-top: 28px; }
-.person .prose p { font-size: 1.125rem; }
-.traits { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.date.is-next .date__week::after { content: " · nästa helg"; }
 
 /* Karta */
 .map { border-radius: var(--radius-sm); overflow: hidden; background: var(--green-100); aspect-ratio: 4 / 3; position: relative; }
@@ -663,22 +602,6 @@ a.panel:hover .panel__title { text-decoration: underline; text-underline-offset:
   .site-footer__bottom p:first-of-type { margin-left: 0; width: 100%; }
 }
 
-/* --- Rörelse ------------------------------------------------------------- */
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-.reveal.is-in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  .reveal { opacity: 1; transform: none; }
-}
-
-/* --- Mobil: lägre bildytor ---------------------------------------------- */
-@media (max-width: 860px) {
-  .card__media { aspect-ratio: 16 / 10; }
-  .jord-art { aspect-ratio: 16 / 9 !important; }
-  .person__card { aspect-ratio: 16 / 11; }
-}
-
 /* --- Rad med bild och text (Lantmännens undersidor) ----------------------- */
 .media-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 5vw, 80px); align-items: stretch; }
 .media-row + .media-row { margin-top: var(--section); padding-top: var(--section); border-top: 1px solid var(--line); }
@@ -706,8 +629,6 @@ a.panel:hover .panel__title { text-decoration: underline; text-underline-offset:
 .panel--photo .round-link__btn { background: var(--white); color: var(--green-900); }
 a.panel--photo { text-decoration: none; }
 a.panel--photo:hover .round-link__btn { background: var(--green-50); }
-a.panel--photo > img { transition: transform .8s var(--ease); }
-a.panel--photo:hover > img { transform: scale(1.03); }
 
 /* Bildgalleri som scrollar i sidled */
 .gallery {
@@ -727,12 +648,6 @@ a.panel--photo:hover > img { transform: scale(1.03); }
 @media (max-width: 720px) { .photo-pair { grid-template-columns: 1fr; } .photo-pair img { min-height: 0; aspect-ratio: 4 / 3; } }
 
 .credit { margin-top: 12px; font: 400 .8125rem var(--font-sans); color: var(--ink-mute); }
-
-/* Etiketter med kantlinje (Lantmännens nyhetstaggar) */
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); font: 500 .8125rem var(--font-sans); color: var(--ink); }
-.meta { font: 400 .875rem var(--font-sans); color: var(--ink-soft); display: flex; gap: 10px; align-items: center; margin-bottom: 14px; }
-.meta span + span::before { content: "•"; margin-right: 10px; color: var(--ink-mute); }
 
 /* Porträtt */
 .person__photo { aspect-ratio: 4 / 5; border-radius: var(--radius-sm); overflow: hidden; position: relative; background: var(--green-100); }
@@ -755,8 +670,7 @@ a.panel--photo:hover > img { transform: scale(1.03); }
 /* Fotorutnät "Från gården" */
 .photo-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(140px, 16vw, 240px); gap: clamp(8px, 1vw, 16px); }
 .photo-grid figure { margin: 0; overflow: hidden; border-radius: var(--radius-sm); background: var(--green-100); }
-.photo-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
-.photo-grid figure:hover img { transform: scale(1.04); }
+.photo-grid img { width: 100%; height: 100%; object-fit: cover; }
 .photo-grid__big { grid-column: span 2; grid-row: span 2; }
 @media (max-width: 720px) {
   .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 42vw; }
@@ -766,7 +680,17 @@ a.panel--photo:hover > img { transform: scale(1.03); }
 .page-hero--photo { position: relative; overflow: hidden; color: var(--white); background: var(--green-900); isolation: isolate; }
 .page-hero--photo .page-hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
 .page-hero--photo::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(14, 53, 25, .85), rgba(14, 53, 25, .35)); }
-.page-hero--photo .eyebrow { color: var(--green-200); }
 .page-hero--photo .body-lg { color: rgba(255, 255, 255, .9); }
 .page-hero--photo .btn { --btn-bg: var(--white); --btn-fg: var(--green-900); --btn-border: var(--white); }
 .page-hero--photo .page-hero__inner { min-height: 70svh; display: flex; align-items: center; }
+
+/* Personer */
+.person { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 64px); align-items: start; }
+.person + .person { margin-top: var(--section); padding-top: var(--section); border-top: 1px solid var(--line); }
+.person h2 { font-size: var(--fs-h2); }
+.person .prose { margin-top: 24px; }
+@media (max-width: 860px) { .person { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+}
