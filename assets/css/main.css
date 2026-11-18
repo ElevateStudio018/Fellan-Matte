@@ -92,6 +92,7 @@ p { margin: 0; text-wrap: pretty; }
 a { color: inherit; }
 ul { margin: 0; padding: 0; list-style: none; }
 address { font-style: normal; }
+figure { margin: 0; }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 2px; }
 ::selection { background: var(--green-200); color: var(--ink); }
 
@@ -747,3 +748,25 @@ a.panel--photo:hover > img { transform: scale(1.03); }
   .intro__actions .btn, .cta-band__actions .btn, .stack-mobile .btn { width: 100%; }
   .cta-band__actions { flex-direction: column; }
 }
+
+/* Bilder i nyhetsflödet */
+.feed__img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 20px; background: var(--green-100); }
+
+/* Fotorutnät "Från gården" */
+.photo-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(140px, 16vw, 240px); gap: clamp(8px, 1vw, 16px); }
+.photo-grid figure { margin: 0; overflow: hidden; border-radius: var(--radius-sm); background: var(--green-100); }
+.photo-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.photo-grid figure:hover img { transform: scale(1.04); }
+.photo-grid__big { grid-column: span 2; grid-row: span 2; }
+@media (max-width: 720px) {
+  .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 42vw; }
+}
+
+/* 404 med foto */
+.page-hero--photo { position: relative; overflow: hidden; color: var(--white); background: var(--green-900); isolation: isolate; }
+.page-hero--photo .page-hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.page-hero--photo::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(14, 53, 25, .85), rgba(14, 53, 25, .35)); }
+.page-hero--photo .eyebrow { color: var(--green-200); }
+.page-hero--photo .body-lg { color: rgba(255, 255, 255, .9); }
+.page-hero--photo .btn { --btn-bg: var(--white); --btn-fg: var(--green-900); --btn-border: var(--white); }
+.page-hero--photo .page-hero__inner { min-height: 70svh; display: flex; align-items: center; }
