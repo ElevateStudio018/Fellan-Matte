@@ -36,7 +36,7 @@ och `src/partials/header.html` (den texten syns om JavaScript är avstängt).
 Formspråket bygger på samma principer som Lantmännens designsystem Harvest, som byrån Hoy har tagit fram:
 
 - **Färg:** en grön skala från `#134623` till `#d7e18c`, sand (`#efe7dc`) som lugn komplementyta och vit bakgrund.
-- **Typografi:** en kraftig serif (Source Serif 4) för rubriker och brödtext, en sans (Instrument Sans) för knappar, menyer och etiketter.
+- **Typografi:** Zilla Slab för rubriker och brödtext och Jost för knappar, menyer och etiketter. De är valda för att ligga nära Lantmännens egna LM Serif och Lantmannen Sans (ritade av Letters from Sweden, inte fritt licensierade): kompakt slabserif med låg kontrast, och en geometrisk sans med enkelvånings a och g.
 - **Komponenter:** pillerformade knappar på 56 px, runda pilknappar, fotokort med vita linjepiktogram ovanpå, fotopaneler med text, tunna linjer mellan sektionerna och sandfärgade "läs mer"-paneler.
 - **Navigering:** hamburgare till vänster om logotypen som öppnar en mörkgrön megameny i rutnät, transparent sidhuvud över hero-bilden på startsidan, och tillbakalänk med stor rubrik och ingress på undersidorna.
 - **Tillgänglighet:** länk för att hoppa förbi menyn, tydlig fokusmarkering, semantiska landmärken, respekt för `prefers-reduced-motion` och kontrast enligt WCAG AA.
