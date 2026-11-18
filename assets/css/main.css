@@ -120,14 +120,8 @@ figure { margin: 0; }
   max-width: var(--max); margin-inline: auto; padding: 0 var(--gutter);
   min-height: 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
-.utility__status { display: flex; align-items: center; gap: 10px; padding-block: 8px; line-height: 1.35; }
-.status-dot {
-  width: 8px; height: 8px; border-radius: 50%; flex: none;
-  background: var(--green-200); box-shadow: 0 0 0 3px rgba(215, 225, 140, .25);
-}
-[data-status="open"] .status-dot { background: #8ef0a2; }
-[data-status="closed"] .status-dot { background: rgba(255, 255, 255, .55); box-shadow: none; }
-.utility__links { display: flex; align-items: stretch; align-self: stretch; }
+.utility__status { display: flex; align-items: center; padding-block: 8px; line-height: 1.35; }
+[data-status="open"] [data-status="closed"] .utility__links { display: flex; align-items: stretch; align-self: stretch; }
 .utility__links li { display: flex; border-left: 1px solid rgba(255, 255, 255, .22); }
 .utility__links a {
   display: inline-flex; align-items: center; gap: 8px; padding: 0 16px;
