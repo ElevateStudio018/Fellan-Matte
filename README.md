@@ -37,11 +37,20 @@ Formspråket bygger på samma principer som Lantmännens designsystem Harvest, s
 
 - **Färg:** en grön skala från `#134623` till `#d7e18c`, sand (`#efe7dc`) som lugn komplementyta och vit bakgrund.
 - **Typografi:** en kraftig serif (Source Serif 4) för rubriker och brödtext, en sans (Instrument Sans) för knappar, menyer och etiketter.
-- **Komponenter:** pillerformade knappar på 56 px, runda pilknappar, kort med vita linjepiktogram, tunna linjer mellan sektionerna och sandfärgade "läs mer"-paneler.
+- **Komponenter:** pillerformade knappar på 56 px, runda pilknappar, fotokort med vita linjepiktogram ovanpå, fotopaneler med text, tunna linjer mellan sektionerna och sandfärgade "läs mer"-paneler.
+- **Navigering:** hamburgare till vänster om logotypen som öppnar en mörkgrön megameny i rutnät, transparent sidhuvud över hero-bilden på startsidan, och tillbakalänk med stor rubrik och ingress på undersidorna.
 - **Tillgänglighet:** länk för att hoppa förbi menyn, tydlig fokusmarkering, semantiska landmärken, respekt för `prefers-reduced-motion` och kontrast enligt WCAG AA.
 
 ## Bilder
 
-Sajten använder egna illustrationer och piktogram och inga foton. Riktiga foton från gården gör mest
-skillnad i korten (`.card__media`) och i hero-bilden. Byt ut piktogrammet mot en `<img>` med
-`object-fit: cover` så blir resten som det är.
+Fotona är hämtade från Axel&Grens nuvarande sajt och ligger i `assets/img/foto/` som WebP i två
+storlekar (`namn-800.webp` och `namn-1600.webp`). På sidorna skriver man bara
+
+```html
+<img data-pic="solrosfalt" sizes="100vw" alt="Beskrivning av bilden" loading="lazy">
+```
+
+så lägger byggskriptet till `src` och `srcset`. Nya bilder: spara originalet, skala till 800 och 1600 px
+bredd som WebP med samma namnmönster.
+
+Fotografer enligt originalsajten: Ulrika Ekblom och Lisbet Spörndly (självplocksbilderna).

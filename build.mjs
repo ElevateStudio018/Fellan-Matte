@@ -1,6 +1,6 @@
 // Bygger de statiska sidorna: src/layout.html + src/pages/*.html -> ./*.html
 // Varje sida börjar med en JSON-kommentar: <!--{"title": "...", "description": "...", "nav": "fika"}-->
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = new URL('.', import.meta.url).pathname;
@@ -8,6 +8,16 @@ const layout = readFileSync(join(root, 'src/layout.html'), 'utf8');
 const icons = readFileSync(join(root, 'src/partials/icons.svg'), 'utf8');
 const header = readFileSync(join(root, 'src/partials/header.html'), 'utf8');
 const footer = readFileSync(join(root, 'src/partials/footer.html'), 'utf8');
+
+// <img data-pic="namn"> blir src + srcset från assets/img/foto/namn-800.webp och -1600.webp
+const pic = (html) =>
+  html.replace(/data-pic="([^"]+)"/g, (_, name) => {
+    const base = `assets/img/foto/${name}`;
+    if (!existsSync(join(root, `${base}-800.webp`))) throw new Error(`bild saknas: ${name}`);
+    const big = existsSync(join(root, `${base}-1600.webp`));
+    const set = big ? ` srcset="${base}-800.webp 800w, ${base}-1600.webp 1600w"` : '';
+    return `src="${base}-800.webp"${set} decoding="async"`;
+  });
 
 const pages = readdirSync(join(root, 'src/pages')).filter((f) => f.endsWith('.html'));
 
@@ -30,8 +40,9 @@ for (const file of pages) {
     .replace('{{icons}}', icons)
     .replace('{{header}}', nav)
     .replace('{{footer}}', footer)
+    .replace('{{bodyclass}}', meta.overlay ? ' class="has-overlay"' : '')
     .replace('{{content}}', body.trim());
 
-  writeFileSync(join(root, file), html);
+  writeFileSync(join(root, file), pic(html));
   console.log('byggde', file);
 }

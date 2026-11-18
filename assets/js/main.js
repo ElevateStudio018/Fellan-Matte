@@ -59,26 +59,27 @@ function renderStatus() {
   });
 }
 
-/* ---- Mobilmeny ---------------------------------------------------------- */
+/* ---- Megameny ----------------------------------------------------------- */
 function initMenu() {
   const btn = document.querySelector('[data-menu-toggle]');
   const drawer = document.querySelector('[data-drawer]');
+  const header = document.querySelector('[data-header]');
   if (!btn || !drawer) return;
-  const label = btn.querySelector('.menu-toggle__label');
-  const use = btn.querySelector('use');
+  const label = btn.querySelector('[data-menu-label]');
 
   const set = (open) => {
     btn.setAttribute('aria-expanded', String(open));
     drawer.hidden = !open;
-    label.textContent = open ? 'Stäng' : 'Meny';
-    use.setAttribute('href', open ? '#i-close' : '#i-menu');
-    document.body.style.overflow = open ? 'hidden' : '';
+    header.classList.toggle('is-open', open);
+    if (label) label.textContent = open ? 'Stäng menyn' : 'Öppna menyn';
   };
   btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !drawer.hidden) { set(false); btn.focus(); }
   });
-  matchMedia('(min-width: 1081px)').addEventListener('change', (e) => e.matches && set(false));
+  document.addEventListener('click', (e) => {
+    if (!drawer.hidden && !header.contains(e.target)) set(false);
+  });
 }
 
 /* ---- Sidhuvud får en linje när man scrollar ------------------------------ */

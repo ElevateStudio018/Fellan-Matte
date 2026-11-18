@@ -187,117 +187,123 @@
 
 <header class="site-header" data-header>
   <div class="site-header__inner">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="meny" data-menu-toggle>
+      <span class="menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="visually-hidden" data-menu-label>Öppna menyn</span>
+    </button>
     <a class="logo" href="index.html" aria-label="Axel&amp;Gren, till startsidan">
       <svg class="logo__mark" aria-hidden="true"><use href="#i-sprig"/></svg>
       <span class="logo__word">axel<span class="logo__amp">&amp;</span>gren</span>
     </a>
-    <nav class="main-nav" aria-label="Huvudmeny">
+    <nav class="main-nav" aria-label="Genvägar">
       <ul>
-        <li><a href="aktuellt.html" data-nav="aktuellt">Aktuellt</a></li>
         <li><a href="fika.html" data-nav="fika">Glass &amp; fika</a></li>
         <li><a href="butik.html" data-nav="butik" aria-current="page">Butiken</a></li>
-        <li><a href="jord.html" data-nav="jord">Jord</a></li>
         <li><a href="sjalvplock.html" data-nav="sjalvplock">Självplock</a></li>
         <li><a href="om-oss.html" data-nav="om">Om oss</a></li>
       </ul>
     </nav>
     <a class="btn btn--sm site-header__cta" href="hitta-hit.html" data-nav="hitta">Hitta hit</a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="meny" data-menu-toggle>
-      <svg class="icon icon--md" aria-hidden="true"><use href="#i-menu"/></svg>
-      <span class="menu-toggle__label">Meny</span>
-    </button>
   </div>
 
-  <div class="drawer" id="meny" hidden data-drawer>
-    <nav aria-label="Mobilmeny">
-      <ul class="drawer__list">
-        <li><a href="index.html" data-nav="hem">Hem</a></li>
-        <li><a href="aktuellt.html" data-nav="aktuellt">Aktuellt</a></li>
-        <li><a href="fika.html" data-nav="fika">Glass &amp; fika</a></li>
-        <li><a href="butik.html" data-nav="butik" aria-current="page">Butiken</a></li>
-        <li><a href="jord.html" data-nav="jord">Jord</a></li>
-        <li><a href="sjalvplock.html" data-nav="sjalvplock">Självplock</a></li>
-        <li><a href="om-oss.html" data-nav="om">Om oss</a></li>
-        <li><a href="hitta-hit.html" data-nav="hitta">Hitta hit</a></li>
-      </ul>
+  <div class="mega" id="meny" hidden data-drawer>
+    <nav class="mega__grid" aria-label="Huvudmeny">
+      <section class="mega__cell">
+        <h2><a href="om-oss.html" data-nav="om">Axel&amp;Gren</a></h2>
+        <p>Gårdsbutik i ett före detta garage på Stabby gård, sedan 2019. Drivs av Petronella och Mia.</p>
+        <ul>
+          <li><a href="index.html" data-nav="hem"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Startsidan</a></li>
+          <li><a href="om-oss.html" data-nav="om"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Om oss</a></li>
+          <li><a href="aktuellt.html" data-nav="aktuellt"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Aktuellt</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="fika.html" data-nav="fika">Glass &amp; fika</a></h2>
+        <p>Ekologisk glass i 18 smaker, hembakat, våfflor och kaffe från Sigtuna kafferosteri.</p>
+        <ul>
+          <li><a href="fika.html" data-nav="fika"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Glass &amp; fika</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="butik.html" data-nav="butik" aria-current="page">Butiken</a></h2>
+        <p>Inredning, mathantverk och presenter. Vi sätter ihop gåvor till företag och privatpersoner.</p>
+        <ul>
+          <li><a href="butik.html" data-nav="butik" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Butiken</a></li>
+          <li><a href="jord.html" data-nav="jord"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Jord dygnet runt</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="sjalvplock.html" data-nav="sjalvplock">Självplock</a></h2>
+        <p>Ekologisk majs, solrosor och snittblommor som du plockar själv på sommaren.</p>
+        <ul>
+          <li><a href="sjalvplock.html" data-nav="sjalvplock"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Självplock</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="hitta-hit.html" data-nav="hitta">Hitta hit</a></h2>
+        <p>Stabby 186, 755 91 Uppsala. Buss 107 till Stabby Vägskäl, 17 minuter från Centralen.</p>
+        <ul>
+          <li><a href="hitta-hit.html" data-nav="hitta"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Vägbeskrivning</a></li>
+          <li><a href="mailto:axelochgren@gmail.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>axelochgren@gmail.com</a></li>
+          <li><a href="https://www.instagram.com/axelochgren/" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>Instagram</a></li>
+        </ul>
+      </section>
     </nav>
-    <p class="drawer__meta">Stabby 186, 755 91 Uppsala<br><a href="mailto:axelochgren@gmail.com">axelochgren@gmail.com</a></p>
   </div>
 </header>
 
 <main id="innehall">
-<section class="page-hero page-hero--art">
-  <svg class="page-hero__pict" aria-hidden="true"><use href="#i-gift"/></svg>
+<section class="page-hero">
   <div class="wrap page-hero__inner">
-    <div>
-      <nav class="crumbs" aria-label="Brödsmulor"><a href="index.html">Hem</a><span aria-hidden="true">/</span><span>Butiken</span></nav>
-      <h1 class="h1">Butiken</h1>
-    </div>
-    <div>
-      <p class="body-lg">Butiken är liten och hyllorna är fyllda med sådant vi själva gillar: inredning och mathantverk från några av de bästa producenterna i Sverige, om du frågar oss.</p>
+    <a class="back-link" href="index.html"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg>Till startsidan</a>
+    <h1>Butiken</h1>
+    <p class="page-hero__lead">Butiken är liten och hyllorna är fyllda med sådant vi själva gillar: inredning och mathantverk från några av de bästa producenterna i Sverige, om du frågar oss.</p>
+    <figure class="page-hero__media"><img src="assets/img/foto/butik-interior-800.webp" srcset="assets/img/foto/butik-interior-800.webp 800w, assets/img/foto/butik-interior-1600.webp 1600w" decoding="async" sizes="100vw" alt="Butiken inifrån med hyllor, krukor och presentartiklar under takbjälkarna"></figure>
+  </div>
+</section>
+
+<section class="section section--rule" aria-labelledby="hyllorna" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="cols">
+      <div class="cols__sticky">
+        <h2 class="h2" id="hyllorna">Utvalt, inte inköpt i bulk</h2>
+      </div>
+      <ul class="rows">
+        <li><span class="rows__icon"><svg aria-hidden="true"><use href="#i-barn"/></svg></span><div><h3>Inredning</h3><p>Saker till hemmet som vi två har valt ut, en sak i taget.</p></div></li>
+        <li><span class="rows__icon"><svg aria-hidden="true"><use href="#i-bun"/></svg></span><div><h3>Mathantverk</h3><p>Från svenska producenter som vi räknar till landets bästa.</p></div></li>
+        <li><span class="rows__icon"><svg aria-hidden="true"><use href="#i-cup"/></svg></span><div><h3>Kaffe att ta hem</h3><p>Huskaffet från Sigtuna kafferosteri, malet eller som hela bönor.</p></div></li>
+        <li><span class="rows__icon"><svg aria-hidden="true"><use href="#i-gift"/></svg></span><div><h3>Presenter</h3><p>Till någon du tycker om, eller till dig själv. Det räknas också.</p></div></li>
+      </ul>
     </div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="hyllorna">
-  <div class="wrap">
-    <div class="cols">
-      <div class="cols__sticky">
-        <p class="eyebrow">I hyllorna</p>
-        <h2 class="h2" id="hyllorna">Utvalt, inte inköpt i bulk</h2>
-      </div>
-      <ul class="rows">
-        <li>
-          <span class="rows__icon"><svg aria-hidden="true"><use href="#i-barn"/></svg></span>
-          <div>
-            <h3>Inredning</h3>
-            <p>Saker till hemmet som vi två har valt ut, en sak i taget.</p>
-          </div>
-        </li>
-        <li>
-          <span class="rows__icon"><svg aria-hidden="true"><use href="#i-bun"/></svg></span>
-          <div>
-            <h3>Mathantverk</h3>
-            <p>Från svenska producenter som vi räknar till landets bästa. Vi säljer bara det vi själva skulle köpa.</p>
-          </div>
-        </li>
-        <li>
-          <span class="rows__icon"><svg aria-hidden="true"><use href="#i-cup"/></svg></span>
-          <div>
-            <h3>Kaffe att ta hem</h3>
-            <p>Huskaffet från Sigtuna kafferosteri, malet eller som hela bönor.</p>
-          </div>
-        </li>
-        <li>
-          <span class="rows__icon"><svg aria-hidden="true"><use href="#i-gift"/></svg></span>
-          <div>
-            <h3>Presenter</h3>
-            <p>Till någon du tycker om, eller till dig själv. Det räknas också.</p>
-          </div>
-        </li>
-      </ul>
-    </div>
+<section class="section" aria-label="Bilder från butiken" style="padding-top: 0;">
+  <div class="gallery" tabindex="0" aria-label="Bildgalleri, scrolla i sidled">
+    <figure><img src="assets/img/foto/butik-krukor-800.webp" srcset="assets/img/foto/butik-krukor-800.webp 800w, assets/img/foto/butik-krukor-1600.webp 1600w" decoding="async" sizes="400px" alt="Blågröna keramikkrukor på en trälåda" loading="lazy"><figcaption>Keramik och krukor</figcaption></figure>
+    <figure><img src="assets/img/foto/butik-tavlor-800.webp" srcset="assets/img/foto/butik-tavlor-800.webp 800w, assets/img/foto/butik-tavlor-1600.webp 1600w" decoding="async" sizes="400px" alt="Terrakottakrukor och botaniska tavlor på träväggen" loading="lazy"><figcaption>Tavlor och terrakotta</figcaption></figure>
+    <figure><img src="assets/img/foto/butik-hylla-800.webp" srcset="assets/img/foto/butik-hylla-800.webp 800w, assets/img/foto/butik-hylla-1600.webp 1600w" decoding="async" sizes="400px" alt="Hyllor med drycker, burkar och kaffepaket" loading="lazy"><figcaption>Mathantverk i hyllorna</figcaption></figure>
+    <figure><img src="assets/img/foto/butik-tval-800.webp" srcset="assets/img/foto/butik-tval-800.webp 800w, assets/img/foto/butik-tval-1600.webp 1600w" decoding="async" sizes="400px" alt="Tvålar i en korg med halm" loading="lazy"><figcaption>Tvålar</figcaption></figure>
+    <figure><img src="assets/img/foto/butik-burkar-800.webp" srcset="assets/img/foto/butik-burkar-800.webp 800w, assets/img/foto/butik-burkar-1600.webp 1600w" decoding="async" sizes="400px" alt="Plåtaskar med julmotiv i en korg" loading="lazy"><figcaption>Plåtaskar till jul</figcaption></figure>
+    <figure><img src="assets/img/foto/solros-vas-800.webp" srcset="assets/img/foto/solros-vas-800.webp 800w, assets/img/foto/solros-vas-1600.webp 1600w" decoding="async" sizes="400px" alt="En solros i en keramikvas" loading="lazy"><figcaption>Vaser</figcaption></figure>
   </div>
 </section>
 
 <section class="section section--sand" aria-labelledby="present">
   <div class="wrap">
-    <div class="split">
-      <div class="panel panel--dark">
-        <svg class="panel__pict" aria-hidden="true"><use href="#i-gift"/></svg>
-        <p class="eyebrow">Presenter på beställning</p>
-        <p class="panel__quote" id="present">Vi sätter ihop presenten åt dig.</p>
-      </div>
-      <div class="panel" style="background: var(--white);">
-        <div>
-          <h3 class="panel__title">Till kunder, kollegor eller någon i familjen</h3>
-          <p class="panel__text">Vi plockar ihop gåvor till både företag och privatpersoner. Berätta vem den är till, ungefär vad du vill lägga och när den behövs, så hör vi av oss med ett förslag.</p>
+    <article class="media-row">
+      <div class="media-row__media"><img src="assets/img/foto/butik-lokal-800.webp" srcset="assets/img/foto/butik-lokal-800.webp 800w, assets/img/foto/butik-lokal-1600.webp 1600w" decoding="async" sizes="(max-width: 860px) 100vw, 50vw" alt="Butikslokalen med växter, krukor och hyllor" loading="lazy"></div>
+      <div class="media-row__body">
+        <p class="media-row__label">Presenter på beställning</p>
+        <h2 id="present">Vi sätter ihop presenten åt dig</h2>
+        <div class="prose">
+          <p>Vi plockar ihop gåvor till både företag och privatpersoner. Berätta vem den är till, ungefär vad du vill lägga och när den behövs, så hör vi av oss med ett förslag.</p>
         </div>
-        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+        <div class="media-row__foot stack-mobile">
           <a class="btn" href="mailto:axelochgren@gmail.com?subject=Presentf%C3%B6rfr%C3%A5gan"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>Skriv till oss</a>
         </div>
       </div>
-    </div>
+    </article>
   </div>
 </section>
 

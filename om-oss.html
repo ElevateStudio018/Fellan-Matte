@@ -187,63 +187,85 @@
 
 <header class="site-header" data-header>
   <div class="site-header__inner">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="meny" data-menu-toggle>
+      <span class="menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="visually-hidden" data-menu-label>Öppna menyn</span>
+    </button>
     <a class="logo" href="index.html" aria-label="Axel&amp;Gren, till startsidan">
       <svg class="logo__mark" aria-hidden="true"><use href="#i-sprig"/></svg>
       <span class="logo__word">axel<span class="logo__amp">&amp;</span>gren</span>
     </a>
-    <nav class="main-nav" aria-label="Huvudmeny">
+    <nav class="main-nav" aria-label="Genvägar">
       <ul>
-        <li><a href="aktuellt.html" data-nav="aktuellt">Aktuellt</a></li>
         <li><a href="fika.html" data-nav="fika">Glass &amp; fika</a></li>
         <li><a href="butik.html" data-nav="butik">Butiken</a></li>
-        <li><a href="jord.html" data-nav="jord">Jord</a></li>
         <li><a href="sjalvplock.html" data-nav="sjalvplock">Självplock</a></li>
         <li><a href="om-oss.html" data-nav="om" aria-current="page">Om oss</a></li>
       </ul>
     </nav>
     <a class="btn btn--sm site-header__cta" href="hitta-hit.html" data-nav="hitta">Hitta hit</a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="meny" data-menu-toggle>
-      <svg class="icon icon--md" aria-hidden="true"><use href="#i-menu"/></svg>
-      <span class="menu-toggle__label">Meny</span>
-    </button>
   </div>
 
-  <div class="drawer" id="meny" hidden data-drawer>
-    <nav aria-label="Mobilmeny">
-      <ul class="drawer__list">
-        <li><a href="index.html" data-nav="hem">Hem</a></li>
-        <li><a href="aktuellt.html" data-nav="aktuellt">Aktuellt</a></li>
-        <li><a href="fika.html" data-nav="fika">Glass &amp; fika</a></li>
-        <li><a href="butik.html" data-nav="butik">Butiken</a></li>
-        <li><a href="jord.html" data-nav="jord">Jord</a></li>
-        <li><a href="sjalvplock.html" data-nav="sjalvplock">Självplock</a></li>
-        <li><a href="om-oss.html" data-nav="om" aria-current="page">Om oss</a></li>
-        <li><a href="hitta-hit.html" data-nav="hitta">Hitta hit</a></li>
-      </ul>
+  <div class="mega" id="meny" hidden data-drawer>
+    <nav class="mega__grid" aria-label="Huvudmeny">
+      <section class="mega__cell">
+        <h2><a href="om-oss.html" data-nav="om" aria-current="page">Axel&amp;Gren</a></h2>
+        <p>Gårdsbutik i ett före detta garage på Stabby gård, sedan 2019. Drivs av Petronella och Mia.</p>
+        <ul>
+          <li><a href="index.html" data-nav="hem"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Startsidan</a></li>
+          <li><a href="om-oss.html" data-nav="om" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Om oss</a></li>
+          <li><a href="aktuellt.html" data-nav="aktuellt"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Aktuellt</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="fika.html" data-nav="fika">Glass &amp; fika</a></h2>
+        <p>Ekologisk glass i 18 smaker, hembakat, våfflor och kaffe från Sigtuna kafferosteri.</p>
+        <ul>
+          <li><a href="fika.html" data-nav="fika"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Glass &amp; fika</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="butik.html" data-nav="butik">Butiken</a></h2>
+        <p>Inredning, mathantverk och presenter. Vi sätter ihop gåvor till företag och privatpersoner.</p>
+        <ul>
+          <li><a href="butik.html" data-nav="butik"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Butiken</a></li>
+          <li><a href="jord.html" data-nav="jord"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Jord dygnet runt</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="sjalvplock.html" data-nav="sjalvplock">Självplock</a></h2>
+        <p>Ekologisk majs, solrosor och snittblommor som du plockar själv på sommaren.</p>
+        <ul>
+          <li><a href="sjalvplock.html" data-nav="sjalvplock"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Självplock</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="hitta-hit.html" data-nav="hitta">Hitta hit</a></h2>
+        <p>Stabby 186, 755 91 Uppsala. Buss 107 till Stabby Vägskäl, 17 minuter från Centralen.</p>
+        <ul>
+          <li><a href="hitta-hit.html" data-nav="hitta"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Vägbeskrivning</a></li>
+          <li><a href="mailto:axelochgren@gmail.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>axelochgren@gmail.com</a></li>
+          <li><a href="https://www.instagram.com/axelochgren/" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>Instagram</a></li>
+        </ul>
+      </section>
     </nav>
-    <p class="drawer__meta">Stabby 186, 755 91 Uppsala<br><a href="mailto:axelochgren@gmail.com">axelochgren@gmail.com</a></p>
   </div>
 </header>
 
 <main id="innehall">
-<section class="page-hero page-hero--art">
-  <svg class="page-hero__pict" aria-hidden="true"><use href="#i-sprig"/></svg>
+<section class="page-hero">
   <div class="wrap page-hero__inner">
-    <div>
-      <nav class="crumbs" aria-label="Brödsmulor"><a href="index.html">Hem</a><span aria-hidden="true">/</span><span>Om oss</span></nav>
-      <h1 class="h1">En Axel och en Gren</h1>
-    </div>
-    <div>
-      <p class="body-lg">Axel&amp;Gren drivs av Petronella Axelsson och Maria Gauffin. Butiken ligger på Stabby gård i Uppsala-Näs, knappt en mil från Uppsala centrum, och öppnade i maj 2019.</p>
-    </div>
+    <a class="back-link" href="index.html"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg>Till startsidan</a>
+    <h1>En Axel och en Gren</h1>
+    <p class="page-hero__lead">Axel&amp;Gren drivs av Petronella Axelsson och Maria Gauffin. Butiken ligger på Stabby gård i Uppsala-Näs, knappt en mil från Uppsala centrum, och öppnade i maj 2019.</p>
+    <figure class="page-hero__media"><img src="assets/img/foto/agarna-800.webp" srcset="assets/img/foto/agarna-800.webp 800w, assets/img/foto/agarna-1600.webp 1600w" decoding="async" sizes="100vw" alt="Petronella och Mia framför butikens entré under skylten Axel&amp;Gren" style="object-position: 50% 35%;"></figure>
   </div>
 </section>
 
-<section class="section" aria-labelledby="historien">
+<section class="section section--rule" aria-labelledby="historien" style="padding-top: 0;">
   <div class="wrap">
     <div class="cols">
       <div class="cols__sticky">
-        <p class="eyebrow">Historien</p>
         <h2 class="h2" id="historien">Garaget som blev butik</h2>
       </div>
       <div class="prose">
@@ -257,11 +279,10 @@
 <section class="section section--rule" aria-label="Vi som driver Axel&amp;Gren">
   <div class="wrap">
     <article class="person" aria-labelledby="petronella">
-      <div class="person__card person__card--axel">
-        <svg aria-hidden="true"><use href="#i-sprig"/></svg>
-        <p class="person__nick"><span>Det här är</span>Axel</p>
-        <p class="person__meta">Petronella Axelsson</p>
-      </div>
+      <figure class="person__photo" style="margin: 0;">
+        <img src="assets/img/foto/petronella-800.webp" srcset="assets/img/foto/petronella-800.webp 800w, assets/img/foto/petronella-1600.webp 1600w" decoding="async" sizes="(max-width: 860px) 100vw, 40vw" alt="Porträtt av Petronella Axelsson" loading="lazy">
+        <figcaption>”Axel”</figcaption>
+      </figure>
       <div>
         <h2 id="petronella">Petronella</h2>
         <p class="role">Bor på gården där butiken ligger</p>
@@ -270,32 +291,27 @@
           <p>När butiken stänger för vintern går hon tillbaka till sjukhuset, där hon har jobbat som sjuksköterska. Hon är van att plåstra om andra, och det är tur, för hon kallar sig själv den klantigaste person hon känner. Köksknivarna är för vassa, ledstången i trappan verkar flytta sig och tårna sitter kvar mest av ren tur.</p>
           <p>Och historien om yxan och tummen? Den får du höra en annan gång.</p>
         </div>
-        <ul class="traits" aria-label="Petronella i korthet">
-          <li class="tag">Sjuksköterska på vintern</li>
-          <li class="tag">Hästar</li>
-          <li class="tag">Tre barn</li>
+        <ul class="chips" style="margin-top: 28px;" aria-label="Petronella i korthet">
+          <li class="chip">Sjuksköterska på vintern</li><li class="chip">Hästar</li><li class="chip">Tre barn</li>
         </ul>
       </div>
     </article>
 
     <article class="person" aria-labelledby="mia">
-      <div class="person__card person__card--gren">
-        <svg aria-hidden="true"><use href="#i-sprig"/></svg>
-        <p class="person__nick"><span>Det här är</span>Gren</p>
-        <p class="person__meta">Maria ”Mia” Gauffin</p>
-      </div>
+      <figure class="person__photo" style="margin: 0;">
+        <img src="assets/img/foto/mia-800.webp" srcset="assets/img/foto/mia-800.webp 800w, assets/img/foto/mia-1600.webp 1600w" decoding="async" sizes="(max-width: 860px) 100vw, 40vw" alt="Porträtt av Maria ”Mia” Gauffin" loading="lazy">
+        <figcaption>”Gren”</figcaption>
+      </figure>
       <div>
         <h2 id="mia">Mia</h2>
         <p class="role">Bor på den andra gården, en kilometer bort</p>
         <div class="prose">
-          <p>Mia är ”Gren”. Hon bor på den andra gården, ungefär en kilometer från butiken, med sin man och deras två barn.</p>
+          <p>Mia, egentligen Maria, är ”Gren”. Hon bor på den andra gården, ungefär en kilometer från butiken, med sin man och deras två barn.</p>
           <p>Hon får tusen idéer om dagen. De flesta är lysande, säger hon själv, och några är rätt galna, säger alla andra. Hon ser allt i färg och vägrar tänka svart eller vitt. Temperamentet är hett, men för det mesta är hon glad.</p>
           <p>Det är Mia som har de gröna fingrarna. På sommaren blommar rabatterna hemma för fullt. Hon älskar kaffe och har över 150 kaffekoppar.</p>
         </div>
-        <ul class="traits" aria-label="Mia i korthet">
-          <li class="tag">Gröna fingrar</li>
-          <li class="tag">150+ kaffekoppar</li>
-          <li class="tag">Tusen idéer om dagen</li>
+        <ul class="chips" style="margin-top: 28px;" aria-label="Mia i korthet">
+          <li class="chip">Gröna fingrar</li><li class="chip">150+ kaffekoppar</li><li class="chip">Tusen idéer om dagen</li>
         </ul>
       </div>
     </article>

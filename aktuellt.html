@@ -187,92 +187,98 @@
 
 <header class="site-header" data-header>
   <div class="site-header__inner">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="meny" data-menu-toggle>
+      <span class="menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="visually-hidden" data-menu-label>Öppna menyn</span>
+    </button>
     <a class="logo" href="index.html" aria-label="Axel&amp;Gren, till startsidan">
       <svg class="logo__mark" aria-hidden="true"><use href="#i-sprig"/></svg>
       <span class="logo__word">axel<span class="logo__amp">&amp;</span>gren</span>
     </a>
-    <nav class="main-nav" aria-label="Huvudmeny">
+    <nav class="main-nav" aria-label="Genvägar">
       <ul>
-        <li><a href="aktuellt.html" data-nav="aktuellt" aria-current="page">Aktuellt</a></li>
         <li><a href="fika.html" data-nav="fika">Glass &amp; fika</a></li>
         <li><a href="butik.html" data-nav="butik">Butiken</a></li>
-        <li><a href="jord.html" data-nav="jord">Jord</a></li>
         <li><a href="sjalvplock.html" data-nav="sjalvplock">Självplock</a></li>
         <li><a href="om-oss.html" data-nav="om">Om oss</a></li>
       </ul>
     </nav>
     <a class="btn btn--sm site-header__cta" href="hitta-hit.html" data-nav="hitta">Hitta hit</a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="meny" data-menu-toggle>
-      <svg class="icon icon--md" aria-hidden="true"><use href="#i-menu"/></svg>
-      <span class="menu-toggle__label">Meny</span>
-    </button>
   </div>
 
-  <div class="drawer" id="meny" hidden data-drawer>
-    <nav aria-label="Mobilmeny">
-      <ul class="drawer__list">
-        <li><a href="index.html" data-nav="hem">Hem</a></li>
-        <li><a href="aktuellt.html" data-nav="aktuellt" aria-current="page">Aktuellt</a></li>
-        <li><a href="fika.html" data-nav="fika">Glass &amp; fika</a></li>
-        <li><a href="butik.html" data-nav="butik">Butiken</a></li>
-        <li><a href="jord.html" data-nav="jord">Jord</a></li>
-        <li><a href="sjalvplock.html" data-nav="sjalvplock">Självplock</a></li>
-        <li><a href="om-oss.html" data-nav="om">Om oss</a></li>
-        <li><a href="hitta-hit.html" data-nav="hitta">Hitta hit</a></li>
-      </ul>
+  <div class="mega" id="meny" hidden data-drawer>
+    <nav class="mega__grid" aria-label="Huvudmeny">
+      <section class="mega__cell">
+        <h2><a href="om-oss.html" data-nav="om">Axel&amp;Gren</a></h2>
+        <p>Gårdsbutik i ett före detta garage på Stabby gård, sedan 2019. Drivs av Petronella och Mia.</p>
+        <ul>
+          <li><a href="index.html" data-nav="hem"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Startsidan</a></li>
+          <li><a href="om-oss.html" data-nav="om"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Om oss</a></li>
+          <li><a href="aktuellt.html" data-nav="aktuellt" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Aktuellt</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="fika.html" data-nav="fika">Glass &amp; fika</a></h2>
+        <p>Ekologisk glass i 18 smaker, hembakat, våfflor och kaffe från Sigtuna kafferosteri.</p>
+        <ul>
+          <li><a href="fika.html" data-nav="fika"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Glass &amp; fika</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="butik.html" data-nav="butik">Butiken</a></h2>
+        <p>Inredning, mathantverk och presenter. Vi sätter ihop gåvor till företag och privatpersoner.</p>
+        <ul>
+          <li><a href="butik.html" data-nav="butik"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Butiken</a></li>
+          <li><a href="jord.html" data-nav="jord"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Jord dygnet runt</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="sjalvplock.html" data-nav="sjalvplock">Självplock</a></h2>
+        <p>Ekologisk majs, solrosor och snittblommor som du plockar själv på sommaren.</p>
+        <ul>
+          <li><a href="sjalvplock.html" data-nav="sjalvplock"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Självplock</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="hitta-hit.html" data-nav="hitta">Hitta hit</a></h2>
+        <p>Stabby 186, 755 91 Uppsala. Buss 107 till Stabby Vägskäl, 17 minuter från Centralen.</p>
+        <ul>
+          <li><a href="hitta-hit.html" data-nav="hitta"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Vägbeskrivning</a></li>
+          <li><a href="mailto:axelochgren@gmail.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>axelochgren@gmail.com</a></li>
+          <li><a href="https://www.instagram.com/axelochgren/" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>Instagram</a></li>
+        </ul>
+      </section>
     </nav>
-    <p class="drawer__meta">Stabby 186, 755 91 Uppsala<br><a href="mailto:axelochgren@gmail.com">axelochgren@gmail.com</a></p>
   </div>
 </header>
 
 <main id="innehall">
-<section class="page-hero page-hero--art">
-  <svg class="page-hero__pict" aria-hidden="true"><use href="#i-spruce"/></svg>
+<section class="page-hero">
   <div class="wrap page-hero__inner">
-    <div>
-      <nav class="crumbs" aria-label="Brödsmulor"><a href="index.html">Hem</a><span aria-hidden="true">/</span><span>Aktuellt</span></nav>
-      <h1 class="h1">Aktuellt</h1>
-    </div>
-    <div>
-      <p class="body-lg">Sommarsäsongen är slut. Nästa gång dörren står öppen är det jul, med granar på gårdsplanen och presenter i hyllorna.</p>
-    </div>
+    <a class="back-link" href="index.html"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg>Till startsidan</a>
+    <h1>Aktuellt</h1>
+    <p class="page-hero__lead">Sommarsäsongen är slut. Nästa gång dörren står öppen är det jul, med granar på gårdsplanen och presenter i hyllorna.</p>
   </div>
 </section>
 
-<section class="section" id="julopet" aria-labelledby="julopet-title">
+<section class="section section--rule" id="julopet" aria-labelledby="julopet-title">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <span class="tag tag--soon">Snart</span>
-        <h2 class="h2" id="julopet-title" style="margin-top: 20px;">Julöppet fyra helger</h2>
-        <p class="body-lg">Lördagar och söndagar vecka 48 till 51. Samma tider varje dag, så det är lätt att komma ihåg.</p>
+        <p class="meta"><span>Vecka 48–51</span><span>Lördag och söndag</span></p>
+        <h2 class="h2" id="julopet-title">Julöppet fyra helger</h2>
+        <p class="body-lg">Samma tider varje dag, så det är lätt att komma ihåg.</p>
       </div>
-      <p class="hero__badge" data-status style="margin: 0;">
+      <p class="hero__badge" data-status style="margin: 0; border: 1px solid var(--line);">
         <svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>
         <span data-status-text>Lördag och söndag kl. 11–15</span>
       </p>
     </div>
     <ol class="dates" data-dates>
-      <li class="date" data-end="2026-11-29">
-        <span class="date__week">Vecka 48</span>
-        <span class="date__days">28–29 november</span>
-        <span class="date__time"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Lör–sön 11–15</span>
-      </li>
-      <li class="date" data-end="2026-12-06">
-        <span class="date__week">Vecka 49</span>
-        <span class="date__days">5–6 december</span>
-        <span class="date__time"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Lör–sön 11–15</span>
-      </li>
-      <li class="date" data-end="2026-12-13">
-        <span class="date__week">Vecka 50</span>
-        <span class="date__days">12–13 december</span>
-        <span class="date__time"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Lör–sön 11–15</span>
-      </li>
-      <li class="date" data-end="2026-12-20">
-        <span class="date__week">Vecka 51</span>
-        <span class="date__days">19–20 december</span>
-        <span class="date__time"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Lör–sön 11–15</span>
-      </li>
+      <li class="date" data-end="2026-11-29"><span class="date__week">Vecka 48</span><span class="date__days">28–29 november</span><span class="date__time"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Lör–sön 11–15</span></li>
+      <li class="date" data-end="2026-12-06"><span class="date__week">Vecka 49</span><span class="date__days">5–6 december</span><span class="date__time"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Lör–sön 11–15</span></li>
+      <li class="date" data-end="2026-12-13"><span class="date__week">Vecka 50</span><span class="date__days">12–13 december</span><span class="date__time"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Lör–sön 11–15</span></li>
+      <li class="date" data-end="2026-12-20"><span class="date__week">Vecka 51</span><span class="date__days">19–20 december</span><span class="date__time"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Lör–sön 11–15</span></li>
     </ol>
   </div>
 </section>
@@ -291,9 +297,9 @@
         </div>
       </article>
       <article class="card" id="pumpor">
-        <div class="card__media card__media--sand">
+        <div class="card__media">
+          <img src="assets/img/foto/pumpor-800.webp" srcset="assets/img/foto/pumpor-800.webp 800w, assets/img/foto/pumpor-1600.webp 1600w" decoding="async" sizes="(max-width: 860px) 100vw, 33vw" alt="Orange pumpor på halm" loading="lazy">
           <span class="card__label">Slutsålt</span>
-          <svg aria-hidden="true"><use href="#i-pumpkin"/></svg>
         </div>
         <div class="card__body">
           <h2 class="card__title">Pumporna är slut för i år</h2>
@@ -301,9 +307,9 @@
         </div>
       </article>
       <article class="card" id="sommaren">
-        <div class="card__media card__media--300">
+        <div class="card__media">
+          <img src="assets/img/foto/solros-narbild-800.webp" srcset="assets/img/foto/solros-narbild-800.webp 800w, assets/img/foto/solros-narbild-1600.webp 1600w" decoding="async" sizes="(max-width: 860px) 100vw, 33vw" alt="En solros i närbild med fältet bakom" loading="lazy">
           <span class="card__label">Stängt</span>
-          <svg aria-hidden="true"><use href="#i-sunflower"/></svg>
         </div>
         <div class="card__body">
           <h2 class="card__title">Tack och hej, sommaren</h2>

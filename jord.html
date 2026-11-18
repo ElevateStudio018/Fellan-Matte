@@ -187,59 +187,81 @@
 
 <header class="site-header" data-header>
   <div class="site-header__inner">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="meny" data-menu-toggle>
+      <span class="menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="visually-hidden" data-menu-label>Öppna menyn</span>
+    </button>
     <a class="logo" href="index.html" aria-label="Axel&amp;Gren, till startsidan">
       <svg class="logo__mark" aria-hidden="true"><use href="#i-sprig"/></svg>
       <span class="logo__word">axel<span class="logo__amp">&amp;</span>gren</span>
     </a>
-    <nav class="main-nav" aria-label="Huvudmeny">
+    <nav class="main-nav" aria-label="Genvägar">
       <ul>
-        <li><a href="aktuellt.html" data-nav="aktuellt">Aktuellt</a></li>
         <li><a href="fika.html" data-nav="fika">Glass &amp; fika</a></li>
         <li><a href="butik.html" data-nav="butik">Butiken</a></li>
-        <li><a href="jord.html" data-nav="jord" aria-current="page">Jord</a></li>
         <li><a href="sjalvplock.html" data-nav="sjalvplock">Självplock</a></li>
         <li><a href="om-oss.html" data-nav="om">Om oss</a></li>
       </ul>
     </nav>
     <a class="btn btn--sm site-header__cta" href="hitta-hit.html" data-nav="hitta">Hitta hit</a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="meny" data-menu-toggle>
-      <svg class="icon icon--md" aria-hidden="true"><use href="#i-menu"/></svg>
-      <span class="menu-toggle__label">Meny</span>
-    </button>
   </div>
 
-  <div class="drawer" id="meny" hidden data-drawer>
-    <nav aria-label="Mobilmeny">
-      <ul class="drawer__list">
-        <li><a href="index.html" data-nav="hem">Hem</a></li>
-        <li><a href="aktuellt.html" data-nav="aktuellt">Aktuellt</a></li>
-        <li><a href="fika.html" data-nav="fika">Glass &amp; fika</a></li>
-        <li><a href="butik.html" data-nav="butik">Butiken</a></li>
-        <li><a href="jord.html" data-nav="jord" aria-current="page">Jord</a></li>
-        <li><a href="sjalvplock.html" data-nav="sjalvplock">Självplock</a></li>
-        <li><a href="om-oss.html" data-nav="om">Om oss</a></li>
-        <li><a href="hitta-hit.html" data-nav="hitta">Hitta hit</a></li>
-      </ul>
+  <div class="mega" id="meny" hidden data-drawer>
+    <nav class="mega__grid" aria-label="Huvudmeny">
+      <section class="mega__cell">
+        <h2><a href="om-oss.html" data-nav="om">Axel&amp;Gren</a></h2>
+        <p>Gårdsbutik i ett före detta garage på Stabby gård, sedan 2019. Drivs av Petronella och Mia.</p>
+        <ul>
+          <li><a href="index.html" data-nav="hem"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Startsidan</a></li>
+          <li><a href="om-oss.html" data-nav="om"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Om oss</a></li>
+          <li><a href="aktuellt.html" data-nav="aktuellt"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Aktuellt</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="fika.html" data-nav="fika">Glass &amp; fika</a></h2>
+        <p>Ekologisk glass i 18 smaker, hembakat, våfflor och kaffe från Sigtuna kafferosteri.</p>
+        <ul>
+          <li><a href="fika.html" data-nav="fika"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Glass &amp; fika</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="butik.html" data-nav="butik">Butiken</a></h2>
+        <p>Inredning, mathantverk och presenter. Vi sätter ihop gåvor till företag och privatpersoner.</p>
+        <ul>
+          <li><a href="butik.html" data-nav="butik"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Butiken</a></li>
+          <li><a href="jord.html" data-nav="jord" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Jord dygnet runt</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="sjalvplock.html" data-nav="sjalvplock">Självplock</a></h2>
+        <p>Ekologisk majs, solrosor och snittblommor som du plockar själv på sommaren.</p>
+        <ul>
+          <li><a href="sjalvplock.html" data-nav="sjalvplock"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Självplock</a></li>
+        </ul>
+      </section>
+      <section class="mega__cell">
+        <h2><a href="hitta-hit.html" data-nav="hitta">Hitta hit</a></h2>
+        <p>Stabby 186, 755 91 Uppsala. Buss 107 till Stabby Vägskäl, 17 minuter från Centralen.</p>
+        <ul>
+          <li><a href="hitta-hit.html" data-nav="hitta"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg>Vägbeskrivning</a></li>
+          <li><a href="mailto:axelochgren@gmail.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>axelochgren@gmail.com</a></li>
+          <li><a href="https://www.instagram.com/axelochgren/" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>Instagram</a></li>
+        </ul>
+      </section>
     </nav>
-    <p class="drawer__meta">Stabby 186, 755 91 Uppsala<br><a href="mailto:axelochgren@gmail.com">axelochgren@gmail.com</a></p>
   </div>
 </header>
 
 <main id="innehall">
-<section class="page-hero page-hero--art">
-  <svg class="page-hero__pict" aria-hidden="true"><use href="#i-sprout"/></svg>
+<section class="page-hero">
   <div class="wrap page-hero__inner">
-    <div>
-      <nav class="crumbs" aria-label="Brödsmulor"><a href="index.html">Hem</a><span aria-hidden="true">/</span><span>Jord</span></nav>
-      <h1 class="h1">Jord, dygnet runt</h1>
-    </div>
-    <div>
-      <p class="body-lg">Från mars står kvalitetsjord från Rölunda gård utanför butiken. Du handlar själv, när du vill, och betalar med Swish.</p>
-    </div>
+    <a class="back-link" href="butik.html"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg>Butiken</a>
+    <h1>Jord, dygnet runt</h1>
+    <p class="page-hero__lead">Från mars står kvalitetsjord från Rölunda gård utanför butiken. Du handlar själv, när du vill, och betalar med Swish.</p>
   </div>
 </section>
 
-<section class="section" aria-label="Så fungerar det">
+<section class="section section--rule" aria-label="Så fungerar det">
   <div class="wrap">
     <dl class="facts" style="--n: 3;">
       <div><dd>24/7</dd><dt>självbetjäning, alla timmar</dt></div>
@@ -249,61 +271,36 @@
   </div>
 </section>
 
-<section class="section section--tint" aria-labelledby="sa-gar-det-till">
+<section class="section" aria-labelledby="sortiment">
   <div class="wrap">
-    <div class="section-head">
-      <h2 class="h2" id="sa-gar-det-till">Så går det till</h2>
+    <div class="media-row">
+      <div class="media-row__body">
+        <p class="media-row__label">Sortimentet</p>
+        <h2 id="sortiment">Sju sorter från Rölunda gård</h2>
+        <ul class="product-list" style="margin-top: 28px;">
+          <li><div><h3>Natur Plantjord</h3><p>Allroundjord för krukor, lådor och rabatter.</p></div></li>
+          <li><div><h3>Torvfri jord</h3><p>För dig som vill odla utan torv.</p></div></li>
+          <li><div><h3>Rhododendronjord</h3><p>Sur jord för rhododendron, azalea, blåbär och andra växter som vill ha lågt pH.</p></div></li>
+          <li><div><h3>Täckbark</h3><p>Läggs ovanpå jorden och håller ogräs borta och fukten kvar.</p></div></li>
+          <li><div><h3>Barkmull</h3><p>Jordförbättring som gör tung jord luftigare.</p></div></li>
+          <li><div><h3>Såjord</h3><p>Finare jord för frösådd och sticklingar.</p></div><span class="tag">8 liter</span></li>
+          <li><div><h3>Biokolkompost</h3><p>Kompost med biokol som ger jorden mer liv och håller näring och vatten bättre.</p></div></li>
+        </ul>
+        <p class="body-lg" style="margin-top: 24px;">Är något slut? Det kommer mer. Vi fyller på löpande under säsongen.</p>
+      </div>
+      <div class="media-row__media" style="aspect-ratio: auto;"><img src="assets/img/foto/jord-sack-800.webp" srcset="assets/img/foto/jord-sack-800.webp 800w, assets/img/foto/jord-sack-1600.webp 1600w" decoding="async" sizes="(max-width: 860px) 100vw, 50vw" alt="En öppen säck Natur Plantjord från Rölunda framför en odlingslåda med plantor" loading="lazy"></div>
     </div>
-    <ol class="steps">
-      <li>
-        <h3>Kör hit</h3>
-        <p>Säckarna står utanför butiken på Stabby gård, Stabby 186. Det spelar ingen roll om butiken är öppen.</p>
-      </li>
-      <li>
-        <h3>Ta det du behöver</h3>
-        <p>Välj bland sorterna nedan. Vi fyller på allt eftersom det går åt.</p>
-      </li>
-      <li>
-        <h3>Swisha</h3>
-        <p>Betala med Swish innan du åker. Klart.</p>
-      </li>
-    </ol>
   </div>
 </section>
 
-<section class="section" aria-labelledby="sortiment">
+<section class="section section--tint" aria-labelledby="sa-gar-det-till">
   <div class="wrap">
-    <div class="cols">
-      <div class="cols__sticky">
-        <p class="eyebrow">Sortimentet</p>
-        <h2 class="h2" id="sortiment">Sju sorter från Rölunda gård</h2>
-        <p class="body-lg" style="margin-top: 20px;">Är något slut? Det kommer mer. Vi fyller på löpande under säsongen.</p>
-      </div>
-      <ul class="product-list">
-        <li>
-          <div><h3>Natur Plantjord</h3><p>Allroundjord för krukor, lådor och rabatter.</p></div>
-        </li>
-        <li>
-          <div><h3>Torvfri jord</h3><p>För dig som vill odla utan torv.</p></div>
-        </li>
-        <li>
-          <div><h3>Rhododendronjord</h3><p>Sur jord för rhododendron, azalea, blåbär och andra växter som vill ha lågt pH.</p></div>
-        </li>
-        <li>
-          <div><h3>Täckbark</h3><p>Läggs ovanpå jorden och håller ogräs borta och fukten kvar.</p></div>
-        </li>
-        <li>
-          <div><h3>Barkmull</h3><p>Jordförbättring som gör tung jord luftigare.</p></div>
-        </li>
-        <li>
-          <div><h3>Såjord</h3><p>Finare jord för frösådd och sticklingar.</p></div>
-          <span class="tag">8 liter</span>
-        </li>
-        <li>
-          <div><h3>Biokolkompost</h3><p>Kompost med biokol som ger jorden mer liv och håller näring och vatten bättre.</p></div>
-        </li>
-      </ul>
-    </div>
+    <div class="section-head"><h2 class="h2" id="sa-gar-det-till">Så går det till</h2></div>
+    <ol class="steps">
+      <li><h3>Kör hit</h3><p>Säckarna står utanför butiken på Stabby gård, Stabby 186. Det spelar ingen roll om butiken är öppen.</p></li>
+      <li><h3>Ta det du behöver</h3><p>Välj bland sorterna ovan. Vi fyller på allt eftersom det går åt.</p></li>
+      <li><h3>Swisha</h3><p>Betala med Swish innan du åker. Klart.</p></li>
+    </ol>
   </div>
 </section>
 </main>
