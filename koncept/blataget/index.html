@@ -1,11 +1,24 @@
 <!doctype html>
-<html lang="sv">
+<!--
+  Designkoncept av Elevate Studio. Inte en officiell webbplats.
+
+  NEUTRAL VARIANT: varumärket står bara på dessa ställen.
+    1. data-brand och data-brand-url på <html> (används av main.js)
+    2. <title> och meta description
+    3. Ordmärket i headern och i sidfoten (.wordmark, 2 st)
+    4. Sidfotens konceptrad (.site-footer__concept)
+    5. Kundtjänstblocket (#kundtjanst): bolagsnamn, telefon och e-post
+    6. Länkar till blataget.com (sök på "blataget.com")
+  Videon styrs av data-video-id på .hero. Ta bort attributet så visas bara stillbilden.
+-->
+<html lang="sv" data-brand="Blå Tåget" data-brand-url="https://www.blataget.com/sv/">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Snälltåget – boka tåg till Berlin, Stockholm, Oslo och fjällen (designkoncept)</title>
-  <meta name="description" content="Designkoncept av Elevate Studio för Snälltågets startsida. Inte Snälltågets officiella webbplats.">
+  <title>Blå Tåget – klassiska tåg mellan Göteborg och Stockholm (designkoncept)</title>
+  <meta name="description" content="Designkoncept av Elevate Studio. Inte Blå Tågets officiella webbplats.">
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,7 +27,7 @@
   <!-- ===================== Header ===================== -->
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="wordmark" href="#" aria-label="Snälltåget, startsida">Snälltåget</a>
+      <a class="wordmark" href="#" aria-label="Blå Tåget, startsida">Blå Tåget</a>
 
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="huvudmeny">
         <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -24,24 +37,24 @@
       <nav id="huvudmeny" class="main-nav" aria-label="Huvudmeny">
         <ul>
           <li><a href="#boka" data-open-booking>Boka resa</a></li>
-          <li><a href="https://www.snalltaget.se/min-resa">Min resa</a></li>
-          <li><a href="https://www.snalltaget.se/trafikinformation">Trafikinfo</a></li>
-          <li><a href="https://www.snalltaget.se/krogen">Krogen</a></li>
-          <li><a href="https://www.snalltaget.se/kontakt">Hjälp</a></li>
-          <li class="main-nav__lang"><a href="https://www.snalltaget.se/en" lang="en" hreflang="en">English</a></li>
+          <li><a href="#stracka">Sträckan</a></li>
+          <li><a href="#restaurang">Restaurang och bar</a></li>
+          <li><a href="#historien">Historien</a></li>
+          <li><a href="#kundtjanst">Kundtjänst</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <!-- ===================== Trafikinfo-rad =====================
-       Planerat banarbete hämtat från snalltaget.se/trafikinformation 23 nov 2026. -->
+       Verifierat mot blataget.com/sv/ 23 nov 2026: den planerade trafikstarten våren 2022 flyttas fram,
+       och startdatum meddelas innan bokningen öppnar. Egen formulering. -->
   <aside class="traffic" id="trafikinfo" aria-label="Trafikinformation">
     <div class="container traffic__inner">
-      <svg class="sym traffic__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M24 7l19 33H5z"/><path d="M24 19v9"/><circle class="d" cx="24" cy="33.5" r="2"/></svg>
+      <svg class="sym traffic__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M24 22v11"/><circle class="d" cx="24" cy="15.5" r="2.2"/></svg>
       <p class="traffic__text">
-        <strong>5 december:</strong> tåg 3943 går via västkusten på grund av banarbete.
-        <a href="https://www.snalltaget.se/trafikinformation">All trafikinformation</a>
+        <strong>Trafikstart:</strong> datumet meddelas innan bokningen öppnar.
+        <a href="https://www.blataget.com/sv/news/">Senaste nyheterna</a>
       </p>
       <button class="traffic__close" type="button" data-dismiss="trafikinfo">Dölj</button>
     </div>
@@ -49,10 +62,13 @@
 
   <main id="innehall" tabindex="-1">
 
-    <!-- ===================== Hero: foto, fråga och en knapp (som SJ.se) ===================== -->
-    <section class="hero" aria-labelledby="hero-rubrik">
-      <img class="hero__img" src="img/vinter-skidor.jpg" width="1600" height="1067"
-           alt="Skidåkare i färgglada jackor samlas vid en skidlift i kvällssol.">
+    <!-- ===================== Hero: film (eller stillbild), fråga och en knapp =====================
+         Filmen bäddas in från YouTube (youtube-nocookie) av main.js, bara om data-video-id finns och
+         användaren inte har valt minskad rörelse. Stillbilden syns tills filmen spelar. -->
+    <section class="hero" aria-labelledby="hero-rubrik" data-video-id="ZrLJ2agojEI">
+      <img class="hero__img" src="img/hero-landskap.jpg" width="1600" height="916"
+           alt="Grönt jordbrukslandskap med blommande rapsfält ner mot en stor sjö en vårdag.">
+      <div class="hero__video" aria-hidden="true"></div>
       <div class="container hero__inner">
         <h1 id="hero-rubrik" class="hero__title">Vart vill du resa?</h1>
         <button class="btn btn--hero" type="button" data-open-booking aria-haspopup="dialog" aria-controls="boka">
@@ -60,40 +76,44 @@
           Sök resa
         </button>
       </div>
+      <button class="hero__pause" type="button" id="video-toggle" aria-pressed="false" hidden>
+        <svg class="icon icon--pause" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 6v12M15 6v12"/></svg>
+        <svg class="icon icon--play" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z"/></svg>
+        <span class="hero__pause-text">Pausa filmen</span>
+      </button>
     </section>
 
-    <!-- ===================== För dig som ska resa: snabbåtgärder =====================
-         Fakta verifierade mot snalltaget.se: ombokning senast 24 h före avresa, 50 kr avgift;
-         sms vid förseningar över 30 min; frukost 99 kr förbokad, 109 kr ombord. -->
+    <!-- ===================== Inför resan: snabbåtgärder =====================
+         Verifierat mot blataget.com/sv/customersupport/ och /sv/restaurant/ 23 nov 2026. -->
     <section class="section section--quick" aria-labelledby="resa-rubrik">
       <div class="container">
         <h2 id="resa-rubrik" class="section__title">Inför resan</h2>
         <ul class="quick">
           <li>
-            <a class="quick__card" href="https://www.snalltaget.se/min-resa">
-              <svg class="quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="qi-fill" d="M9 13h30a3 3 0 0 1 3 3v4.5a3.5 3.5 0 0 0 0 7V32a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3v-4.5a3.5 3.5 0 0 0 0-7V16a3 3 0 0 1 3-3z"/><path d="M31 14v20" stroke-dasharray="2.5 3"/><path d="M12 19v10M15.5 19v10M18 19v10M21.5 19v10M24 19v10" class="qi-thin"/><circle class="qi-dot" cx="36.5" cy="24" r="1.6"/></svg>
-              <span class="quick__text"><span class="quick__title">Mina resor</span><span class="quick__line">Biljetten, bordet och dina ändringar.</span></span>
+            <a class="quick__card" href="https://www.blataget.com/sv/customersupport/">
+              <svg class="sym quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="7" y="10" width="34" height="31" rx="5"/><path d="M7 18h34M16 6v7M32 6v7M19.5 25l9 9M28.5 25l-9 9"/></svg>
+              <span class="quick__text"><span class="quick__title">Avbokningsbar biljett</span><span class="quick__line">100 kr extra. Avboka senast 1 h före avgång.</span></span>
               <span class="quick__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </a>
           </li>
           <li>
-            <a class="quick__card" href="https://www.snalltaget.se/ombokning-avbokning">
-              <svg class="quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="qi-fill" x="7" y="10" width="34" height="31" rx="5"/><path d="M7 18h34M16 6v7M32 6v7"/><path d="M30.5 29.5a7 7 0 1 1-2-6.2"/><path d="M29.5 19.5v4.3h-4.3"/></svg>
-              <span class="quick__text"><span class="quick__title">Boka om eller avboka</span><span class="quick__line">Senast 24 h före avresa, 50 kr.</span></span>
+            <a class="quick__card" href="https://www.blataget.com/sv/customersupport/">
+              <svg class="sym quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M24 13v11l7.5 4.5"/><circle class="d" cx="24" cy="24" r="2"/></svg>
+              <span class="quick__text"><span class="quick__title">Blev tåget sent?</span><span class="quick__line">25 % tillbaka vid 60 min, 50 % vid 120 min.</span></span>
               <span class="quick__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </a>
           </li>
           <li>
-            <a class="quick__card" href="https://www.snalltaget.se/trafikinformation">
-              <svg class="quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="qi-fill" d="M15 6h18a7 7 0 0 1 7 7v18a5 5 0 0 1-5 5H13a5 5 0 0 1-5-5V13a7 7 0 0 1 7-7z"/><rect x="13" y="12" width="22" height="10" rx="3"/><circle class="qi-dot" cx="15.5" cy="29" r="2"/><circle class="qi-dot" cx="32.5" cy="29" r="2"/><path d="M14 36l-4 6M34 36l4 6M12 42h24" /><path d="M21 6V3h6v3"/></svg>
-              <span class="quick__text"><span class="quick__title">Trafikinfo för ditt tåg</span><span class="quick__line">Sms om tåget blir över 30 min sent.</span></span>
+            <a class="quick__card" href="https://www.blataget.com/sv/customersupport/">
+              <svg class="sym quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse class="f" cx="24" cy="31.5" rx="9.5" ry="8"/><circle class="f" cx="11.5" cy="21" r="4"/><circle class="f" cx="19" cy="12.5" r="4"/><circle class="f" cx="29" cy="12.5" r="4"/><circle class="f" cx="36.5" cy="21" r="4"/></svg>
+              <span class="quick__text"><span class="quick__title">Resa med djur</span><span class="quick__line">Välj Djurtillåten klass när du bokar.</span></span>
               <span class="quick__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </a>
           </li>
           <li>
-            <a class="quick__card" href="https://www.snalltaget.se/krogen">
-              <svg class="quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="qi-fill" d="M9 19h23v9a10 10 0 0 1-10 10h-3A10 10 0 0 1 9 28z"/><path d="M32 22h3a4.5 4.5 0 0 1 0 9h-3.6"/><path d="M6 43h29"/><path d="M15.5 8c-1.5 2 1.5 3.5 0 6M21.5 8c-1.5 2 1.5 3.5 0 6M27.5 8c-1.5 2 1.5 3.5 0 6" class="qi-thin"/></svg>
-              <span class="quick__text"><span class="quick__title">Förboka frukost</span><span class="quick__line">99 kr förbokad, 109 kr ombord.</span></span>
+            <a class="quick__card" href="https://www.blataget.com/sv/restaurant/">
+              <svg class="sym quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M9 19h23v9a10 10 0 0 1-10 10h-3A10 10 0 0 1 9 28z"/><path d="M32 22h3a4.5 4.5 0 0 1 0 9h-3.6"/><path d="M6 43h29"/><path d="M15.5 8c-1.5 2 1.5 3.5 0 6M21.5 8c-1.5 2 1.5 3.5 0 6M27.5 8c-1.5 2 1.5 3.5 0 6" stroke-width="1.6"/></svg>
+              <span class="quick__text"><span class="quick__title">Förbeställ maten</span><span class="quick__line">Trerätters i 1:a klass, frukost i 2:a.</span></span>
               <span class="quick__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </a>
           </li>
@@ -101,249 +121,182 @@
       </div>
     </section>
 
-    <!-- ===================== Säsong: delat block direkt under heron (SJ:s kampanjstil) =====================
-         Fakta verifierade mot snalltaget.se 23 nov 2026: Jämtland och Härjedalen 16 dec 2026 – 25 apr 2027,
-         stationer Östersund, Undersåker, Åre, Duved, Enafors, Storlien (vissa tåg Vemdalen-Röjan),
-         transfer bokas med tågbiljetten. Österrike 18 dec – 14 mars. Vasaloppet 2027: "Bokningen är öppen". -->
-    <section class="section section--flush" aria-labelledby="sasong-rubrik">
-      <div class="container">
-        <div class="promo">
-          <div class="promo__text">
-            <p class="promo__label">Fjälltågen är tillbaka</p>
-            <h2 id="sasong-rubrik" class="promo__title">Vakna i fjällen.</h2>
-            <p class="promo__body">Nattåg från Malmö och Stockholm till Östersund, Åre, Duved och Storlien, 16 dec – 25 apr. Transferbussen bokar du med tågbiljetten.</p>
-            <a class="btn btn--primary" href="https://www.snalltaget.se/tag-till-jamtland-harjedalen-vinter">
-              Se fjälltågen
-              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-            <ul class="promo__more" aria-label="Fler vintertåg">
-              <li><a href="https://www.snalltaget.se/tag-till-osterrike-vinter">Alperna i Österrike</a> <span>18 dec – 14 mars</span></li>
-              <li><a href="https://www.snalltaget.se/tag-till-vasaloppet">Vasaloppet 2027</a> <span>Bokningen är öppen</span></li>
-            </ul>
-          </div>
-          <img class="promo__img" src="img/skidor-ovanifran.jpg" width="1200" height="800" loading="lazy"
-               alt="Två skidåkare i en spårig backe, fotograferade ovanifrån i solsken.">
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== Kvällsavgångar: liten avgångstavla =====================
-         Tider från snalltaget.se (nattag-till-berlin och tag-till-jamtland-harjedalen-vinter), preliminär tidtabell
-         vintern 2026–2027. Inga spår eller platsantal visas eftersom de inte är kända. -->
-    <section class="section" aria-labelledby="avgangar-rubrik">
+    <!-- ===================== Sträckan =====================
+         Stationer enligt bokningsformuläret på blataget.com/sv/ (Göteborg C, Alingsås, Skövde C, Hallsberg,
+         Stockholm C). Inga tider eller priser är publicerade, därför ingen avgångstavla. -->
+    <section class="section" id="stracka" aria-labelledby="stracka-rubrik">
       <div class="container">
         <div class="section__head">
           <div>
-            <h2 id="avgangar-rubrik">Kvällsavgångar</h2>
-            <p class="section__sub">Nattågen i vinter. Kliv på efter jobbet och vakna framme.</p>
+            <h2 id="stracka-rubrik">Sträckan</h2>
+            <p class="section__sub">Fem stationer mellan Göteborg och Stockholm. Välj var du kliver på.</p>
           </div>
-          <a class="link-arrow" href="https://www.snalltaget.se/trafikinformation">Trafikinformation</a>
         </div>
-        <div class="board">
-          <table class="board__table">
-            <caption class="sr-only">Kvällsavgångar med nattåg, vintern 2026–2027</caption>
-            <thead>
-              <tr>
-                <th scope="col">Avgår</th>
-                <th scope="col">Till</th>
-                <th scope="col">Tåg</th>
-                <th scope="col">Går</th>
-                <th scope="col"><span class="sr-only">Boka</span></th>
-              </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td class="board__time"><time>15.25</time></td>
-              <td class="board__route"><span class="board__to">Östersund C</span><span class="board__from">från Malmö C, framme 06.05</span></td>
-              <td class="board__type"><span class="board__badge"><svg class="sym board__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M29 7a17 17 0 1 0 12 27A15 15 0 0 1 29 7z"/><path d="M38 9v5M35.5 11.5h5"/></svg>Nattåg</span></td>
-              <td class="board__days">Från 16 dec<span class="board__note">Tåg 3902. Avgångsdagar varierar.</span></td>
-              <td class="board__action"><a class="board__book" href="#boka" data-open-booking data-from="Malmö C" data-to="Östersund C">Boka<span class="sr-only"> Malmö C till Östersund C 15.25</span></a></td>
-            </tr>
-            <tr>
-              <td class="board__time"><time>16.25</time></td>
-              <td class="board__route"><span class="board__to">Berlin Hbf</span><span class="board__from">från Stockholm C, framme 07.51</span></td>
-              <td class="board__type"><span class="board__badge"><svg class="sym board__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M29 7a17 17 0 1 0 12 27A15 15 0 0 1 29 7z"/><path d="M38 9v5M35.5 11.5h5"/></svg>Nattåg</span></td>
-              <td class="board__days">Ons–fre och sön<span class="board__note">Till 11 dec, sedan fler datum i december.</span></td>
-              <td class="board__action"><a class="board__book" href="#boka" data-open-booking data-from="Stockholm C" data-to="Berlin Hbf">Boka<span class="sr-only"> Stockholm C till Berlin Hbf 16.25</span></a></td>
-            </tr>
-            <tr>
-              <td class="board__time"><time>16.35</time></td>
-              <td class="board__route"><span class="board__to">Storlien</span><span class="board__from">från Malmö C, framme 08.55</span></td>
-              <td class="board__type"><span class="board__badge"><svg class="sym board__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M29 7a17 17 0 1 0 12 27A15 15 0 0 1 29 7z"/><path d="M38 9v5M35.5 11.5h5"/></svg>Nattåg</span></td>
-              <td class="board__days">Från 16 dec<span class="board__note">Tåg 3900. Stannar i Östersund, Åre och Duved.</span></td>
-              <td class="board__action"><a class="board__book" href="#boka" data-open-booking data-from="Malmö C" data-to="Storlien">Boka<span class="sr-only"> Malmö C till Storlien 16.35</span></a></td>
-            </tr>
-            <tr>
-              <td class="board__time"><time>20.52</time></td>
-              <td class="board__route"><span class="board__to">Stockholm C</span><span class="board__from">från Berlin Hbf, framme 13.17</span></td>
-              <td class="board__type"><span class="board__badge"><svg class="sym board__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M29 7a17 17 0 1 0 12 27A15 15 0 0 1 29 7z"/><path d="M38 9v5M35.5 11.5h5"/></svg>Nattåg</span></td>
-              <td class="board__days">Mån, tor, fre och sön<span class="board__note">Till 11 dec, sedan fler datum i december.</span></td>
-              <td class="board__action"><a class="board__book" href="#boka" data-open-booking data-from="Berlin Hbf" data-to="Stockholm C">Boka<span class="sr-only"> Berlin Hbf till Stockholm C 20.52</span></a></td>
-            </tr>
-            <tr>
-              <td class="board__time"><time>21.55</time></td>
-              <td class="board__route"><span class="board__to">Berlin Hbf</span><span class="board__from">från Malmö C, framme 07.51</span></td>
-              <td class="board__type"><span class="board__badge"><svg class="sym board__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M29 7a17 17 0 1 0 12 27A15 15 0 0 1 29 7z"/><path d="M38 9v5M35.5 11.5h5"/></svg>Nattåg</span></td>
-              <td class="board__days">Ons–fre och sön<span class="board__note">Via Hamburg Hbf 05.05.</span></td>
-              <td class="board__action"><a class="board__book" href="#boka" data-open-booking data-from="Malmö C" data-to="Berlin Hbf">Boka<span class="sr-only"> Malmö C till Berlin Hbf 21.55</span></a></td>
-            </tr>
-            </tbody>
-          </table>
+        <div class="route">
+          <ol class="route__line" aria-label="Stationer från Göteborg till Stockholm">
+            <li class="route__stop route__stop--end">
+              <span class="route__dot" aria-hidden="true"></span>
+              <span class="route__name">Göteborg C</span>
+              <button class="route__go" type="button" data-open-booking data-from="Göteborg C">Res härifrån<span class="sr-only">, Göteborg C</span></button>
+            </li>
+            <li class="route__stop">
+              <span class="route__dot" aria-hidden="true"></span>
+              <span class="route__name">Alingsås</span>
+              <button class="route__go" type="button" data-open-booking data-from="Alingsås">Res härifrån<span class="sr-only">, Alingsås</span></button>
+            </li>
+            <li class="route__stop">
+              <span class="route__dot" aria-hidden="true"></span>
+              <span class="route__name">Skövde C</span>
+              <button class="route__go" type="button" data-open-booking data-from="Skövde C">Res härifrån<span class="sr-only">, Skövde C</span></button>
+            </li>
+            <li class="route__stop">
+              <span class="route__dot" aria-hidden="true"></span>
+              <span class="route__name">Hallsberg</span>
+              <button class="route__go" type="button" data-open-booking data-from="Hallsberg">Res härifrån<span class="sr-only">, Hallsberg</span></button>
+            </li>
+            <li class="route__stop route__stop--end">
+              <span class="route__dot" aria-hidden="true"></span>
+              <span class="route__name">Stockholm C</span>
+              <button class="route__go" type="button" data-open-booking data-from="Stockholm C">Res härifrån<span class="sr-only">, Stockholm C</span></button>
+            </li>
+          </ol>
+          <p class="route__note">Tidtabell och priser publiceras när bokningen öppnar.</p>
         </div>
-        <p class="board__foot">Tidtabellen är preliminär och kan ändras på grund av banarbeten.</p>
-      </div>
-    </section>
-
-    <!-- ===================== Populära resor ===================== -->
-    <section class="section" aria-labelledby="populara-rubrik">
-      <div class="container">
-        <div class="section__head">
-          <h2 id="populara-rubrik">Populära resor</h2>
-          <a class="link-arrow" href="https://www.snalltaget.se/destinationer">Alla destinationer</a>
-        </div>
-
-        <ul class="cards">
-          <li class="card">
-            <img class="card__img" src="img/berlin.jpg" width="800" height="533" loading="lazy"
-                 alt="Brandenburger Tor i Berlin, upplyst i kvällsljus.">
-            <div class="card__body">
-              <p class="card__kicker">Nattåg</p>
-              <h3 class="card__title">
-                <a class="card__link" href="https://www.snalltaget.se/nattag-till-berlin">Malmö – Berlin</a>
-              </h3>
-              <p class="card__meta">Somna i Malmö, framme i Berlin 07.51.</p>
-              <!-- Verifierat: "Sittplats från 399 SEK Malmö–Berlin", specialpris 2 nov–17 dec 2026. -->
-              <p class="card__price">fr. 399 kr <span>sittplats, enkel</span></p>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__img" src="img/stockholm.jpg" width="800" height="533" loading="lazy"
-                 alt="Riddarholmen och Gamla stan i Stockholm sedda från vattnet.">
-            <div class="card__body">
-              <p class="card__kicker">Dagtåg</p>
-              <h3 class="card__title">
-                <a class="card__link" href="https://www.snalltaget.se/kopenhamn-malmo-stockholm">Malmö – Stockholm</a>
-              </h3>
-              <p class="card__meta">Dagliga avgångar året runt, med Krogen ombord.</p>
-              <!-- Verifierat: "från 199 kr enkel resa Stockholm–Malmö" (avgångar med lägre efterfrågan). -->
-              <p class="card__price">fr. 199 kr <span>enkel</span></p>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__img" src="img/kopenhamn.jpg" width="800" height="533" loading="lazy"
-                 alt="Tre personer cyklar längs kajen i Nyhavn i Köpenhamn, med färgglada hus i bakgrunden.">
-            <div class="card__body">
-              <p class="card__kicker">Dagtåg</p>
-              <h3 class="card__title">
-                <a class="card__link" href="https://www.snalltaget.se/kopenhamn-malmo-stockholm">Stockholm – Köpenhamn</a>
-              </h3>
-              <p class="card__meta">Dagliga avgångar via Malmö, året runt.</p>
-              <!-- Verifierat: "från 349 kr enkel resa Stockholm–Köpenhamn" (avgångar med lägre efterfrågan). -->
-              <p class="card__price">fr. 349 kr <span>enkel</span></p>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__img" src="img/fjallen.jpg" width="800" height="580" loading="lazy"
-                 alt="Snötäckt fjällsluttning under blå himmel.">
-            <div class="card__body">
-              <p class="card__kicker">Nattåg <span class="tag">Vinter</span></p>
-              <h3 class="card__title">
-                <a class="card__link" href="https://www.snalltaget.se/tag-till-jamtland-harjedalen-vinter">Malmö – Åre</a>
-              </h3>
-              <p class="card__meta">Bädda i Skåne, vakna i fjällen. 16 dec – 25 apr.</p>
-              <!-- snalltaget.se visar inget från-pris för Jämtland. Lägg in riktigt pris när det finns. -->
-              <p class="card__price"><span>Se priser för din resa</span></p>
-            </div>
-          </li>
-
+        <ul class="facts">
+          <li><svg class="sym facts__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M15 7h13a4 4 0 0 1 4 4v17H15z"/><path class="f" d="M10 28h28v6H10z"/><path d="M14 34v7M34 34v7"/></svg><span><strong>1:a och 2:a klass</strong>Välj klass när du bokar.</span></li>
+          <li><svg class="sym facts__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20a23 23 0 0 1 32 0M13.5 26a15 15 0 0 1 21 0M19 32a7.5 7.5 0 0 1 10 0"/><circle class="f" cx="24" cy="38" r="3.2"/></svg><span><strong>Internet ombord</strong>I de flesta vagnar.</span></li>
+          <li><svg class="sym facts__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="14" y="5" width="20" height="38" rx="4"/><path d="M21 37.5h6"/></svg><span><strong>Biljetten i mobilen</strong>Som sms eller e-biljett.</span></li>
         </ul>
       </div>
     </section>
 
-    <!-- ===================== Res billigare =====================
-         Verifierat mot snalltaget.se: barn under 16 upp till 80 % rabatt (komfortnivaer-prisklasser);
-         specialpris 2 nov – 17 dec, ombokningsbar biljett: sittplats Malmö–Berlin fr. 399 kr, egen kupé 2 pers fr. 1 499 kr. -->
-    <section class="section section--sand" aria-labelledby="billigare-rubrik">
+    <!-- ===================== Restaurangvagnen: delat block =====================
+         Verifierat mot blataget.com/sv/restaurant/: vita dukar, mat lagad från grunden, 42 platser,
+         frukost vid tidiga avgångar och middag senare, trerätters kan förbetalas i 1:a klass,
+         frukost att ta med kan köpas i 2:a klass, barnmeny under 12 år. Ingen meny med priser på sidan. -->
+    <section class="section section--flush" id="restaurang" aria-labelledby="restaurang-rubrik">
       <div class="container">
-        <div class="section__head">
-          <h2 id="billigare-rubrik">Res billigare</h2>
+        <div class="promo">
+          <div class="promo__text">
+            <p class="promo__label">Restaurangvagnen</p>
+            <h2 id="restaurang-rubrik" class="promo__title">Vita dukar och mat lagad från grunden.</h2>
+            <p class="promo__body">Matsalen har 42 platser. På de tidiga avgångarna serveras frukost, senare på dagen middag. Barn under 12 år får en egen meny.</p>
+            <ul class="promo__list">
+              <li><svg class="sym promo__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg><span><strong>1:a klass:</strong> förbetala en trerättersmeny när du köper biljetten.</span></li>
+              <li><svg class="sym promo__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg><span><strong>2:a klass:</strong> köp till frukost att ta med när du bokar.</span></li>
+            </ul>
+            <a class="btn btn--primary" href="https://www.blataget.com/sv/restaurant/">
+              Se aktuell meny
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+          <img class="promo__img" src="img/restaurangvagn.jpg" width="1000" height="1333" loading="lazy"
+               alt="Restaurangvagn med vita dukar, läderstolar och bordslampor längs fönstren.">
         </div>
-        <ul class="deals">
-          <li class="deal">
-            <div class="deal__media">
-              <img src="img/barn-tag.jpg" width="800" height="530" loading="lazy" alt="En mamma och ett barn står vid tågfönstret och tittar ut.">
-              <span class="deal__label">Upp till 80 %</span>
-            </div>
-            <div class="deal__body">
-              <svg class="sym deal__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="21" r="5.5"/><path class="f" d="M15 41v-2a9 9 0 0 1 18 0v2z"/></svg>
-              <h3 class="deal__title"><a class="deal__link" href="https://www.snalltaget.se/komfortnivaer-prisklasser">Barn reser billigare</a></h3>
-              <p>Barn under 16 år som reser med en vuxen, senior, ungdom eller student.</p>
-            </div>
+      </div>
+    </section>
+
+    <!-- ===================== Historien =====================
+         Verifierat mot blataget.com/sv/history/: invigt 11 december 2011, möjligt efter avregleringen
+         i oktober 2010, klassiska 60-talsvagnar, restaurangvagn, barvagn med pianobar och skinnfåtöljer,
+         separata kupéer. -->
+    <section class="section" id="historien" aria-labelledby="historien-rubrik">
+      <div class="container">
+        <div class="history">
+          <div class="history__intro">
+            <p class="eyebrow">Historien</p>
+            <h2 id="historien-rubrik">Ett klassiskt tåg med vagnar från 60-talet.</h2>
+            <p class="lead">Tåget invigdes 2011, som ett privat initiativ när järnvägen öppnades för fler bolag. Vagnarna är klassiska, med restaurangvagn och en barvagn med pianobar och skinnfåtöljer.</p>
+          </div>
+          <ol class="milestones">
+            <li><span class="milestones__when">Oktober 2010</span><span class="milestones__what">Järnvägen i Sverige öppnas för fler bolag.</span></li>
+            <li><span class="milestones__when">11 december 2011</span><span class="milestones__what">Tåget invigs mellan Göteborg och Stockholm.</span></li>
+          </ol>
+        </div>
+        <ul class="tiles tiles--three">
+          <li>
+            <a class="tile" href="https://www.blataget.com/sv/history/">
+              <img class="tile__img" src="img/pianobar.jpg" width="800" height="533" loading="lazy" alt="Ett glas vin står på ett öppet piano i varmt ljus.">
+              <span class="tile__text"><span class="tile__title">Pianobaren</span><span class="tile__sub">Barvagnen med skinnfåtöljer</span></span>
+              <span class="tile__btn" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
+            </a>
           </li>
-          <li class="deal">
-            <div class="deal__media">
-              <img src="img/berlin-domen.jpg" width="800" height="1067" loading="lazy" alt="Berliner Dom med gröna kupoler vid floden Spree en solig dag.">
-              <span class="deal__label">Specialpris</span>
-            </div>
-            <div class="deal__body">
-              <svg class="sym deal__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M8 24V10a2 2 0 0 1 2-2h14l16 16-16 16z"/><circle class="d" cx="16" cy="16" r="2.6"/></svg>
-              <h3 class="deal__title"><a class="deal__link" href="https://www.snalltaget.se/nattag-till-berlin">Nattåg Malmö – Berlin</a></h3>
-              <p>Sittplats, 2 nov – 17 dec. Biljetten går att boka om.</p>
-              <p class="deal__price">fr. 399 kr</p>
-            </div>
+          <li>
+            <a class="tile" href="https://www.blataget.com/sv/history/">
+              <img class="tile__img" src="img/kupe-sate.jpg" width="800" height="532" loading="lazy" alt="Klassisk tågvagn med rader av röda stoppade säten.">
+              <span class="tile__text"><span class="tile__title">Kupéerna</span><span class="tile__sub">Separata kupéer i 60-talsvagnarna</span></span>
+              <span class="tile__btn" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
+            </a>
           </li>
-          <li class="deal">
-            <div class="deal__media">
-              <img src="img/kupe.jpg" width="1000" height="575" loading="lazy" alt="Två bäddade britsar mittemot varandra i en tågkupé.">
-              <span class="deal__label">Specialpris</span>
-            </div>
-            <div class="deal__body">
-              <svg class="sym deal__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 38V12M5 31h38v7"/><path class="f" d="M22 21h15a6 6 0 0 1 6 6v4H22z"/><circle class="f" cx="13.5" cy="25.5" r="4.5"/></svg>
-              <h3 class="deal__title"><a class="deal__link" href="https://www.snalltaget.se/nattag-till-berlin">Egen kupé för två</a></h3>
-              <p>Malmö – Berlin, 2 nov – 17 dec. Hela kupén för er.</p>
-              <p class="deal__price">fr. 1 499 kr</p>
-            </div>
+          <li>
+            <a class="tile" href="https://www.blataget.com/sv/history/">
+              <img class="tile__img" src="img/bla-vagn.jpg" width="800" height="530" loading="lazy" alt="Ett äldre blått motorvagnståg står på ett spår i kvällssol.">
+              <span class="tile__text"><span class="tile__title">Vagnarna</span><span class="tile__sub">Klassiska vagnar från 60-talet</span></span>
+              <span class="tile__btn" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
+            </a>
           </li>
         </ul>
       </div>
     </section>
 
-    <!-- ===================== Upptäck ombord ===================== -->
-    <section class="section" aria-labelledby="ombord-rubrik">
-      <div class="container">
-        <div class="section__head">
-          <h2 id="ombord-rubrik">Upptäck ombord</h2>
+    <!-- ===================== Kundtjänst =====================
+         Verifierat mot blataget.com/sv/customersupport/ 23 nov 2026. -->
+    <section class="section section--sand" id="kundtjanst" aria-labelledby="kundtjanst-rubrik">
+      <div class="container support">
+        <div class="support__contact">
+          <h2 id="kundtjanst-rubrik">Kundtjänst</h2>
+          <p class="support__lead">Frågor om resan, platser eller gruppbokning. Kundtjänst öppnar strax före trafikstarten.</p>
+          <ul class="contact">
+            <li>
+              <a class="contact__card" href="tel:+46708904421">
+                <svg class="sym contact__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="14" y="5" width="20" height="38" rx="4"/><path d="M21 37.5h6"/></svg>
+                <span class="contact__text"><span class="contact__label">Ring</span><span class="contact__value">070-890 44 21</span></span>
+              </a>
+            </li>
+            <li>
+              <a class="contact__card" href="mailto:info@blataget.com">
+                <svg class="sym contact__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="6" y="11" width="36" height="26" rx="4"/><path d="M7.5 13.5 24 26l16.5-12.5"/></svg>
+                <span class="contact__text"><span class="contact__label">Mejla</span><span class="contact__value">info@blataget.com</span></span>
+              </a>
+            </li>
+          </ul>
+          <p class="support__company">Blå Tåget Jernbanor AB, Stationsgatan 7 B, 441 30 Alingsås</p>
         </div>
-        <ul class="tiles">
-          <li>
-            <a class="tile" href="https://www.snalltaget.se/krogen">
-              <img class="tile__img" src="img/krogen-frukost.jpg" width="800" height="1200" loading="lazy" alt="Frukost med kaffe och croissant på ett dukat bord vid tågfönstret.">
-              <span class="tile__text"><span class="tile__title">Krogen</span><span class="tile__sub">Varma rätter lagade i Skåne, frukost till 11</span></span>
-              <span class="tile__btn" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
-            </a>
-          </li>
-          <li>
-            <a class="tile" href="https://www.snalltaget.se/nattag-till-berlin">
-              <img class="tile__img" src="img/nattag-sovvagn.jpg" width="700" height="938" loading="lazy" alt="Resenärer sover i britsar i en sovvagn.">
-              <span class="tile__text"><span class="tile__title">Nattåget</span><span class="tile__sub">Stockholm C 16.25, Berlin 07.51</span></span>
-              <span class="tile__btn" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
-            </a>
-          </li>
-          <li>
-            <a class="tile" href="https://www.snalltaget.se/komfortnivaer-prisklasser">
-              <img class="tile__img" src="img/sovvagn-korridor.jpg" width="700" height="1050" loading="lazy" alt="Ljus korridor i en sovvagn med kupédörrar på ena sidan.">
-              <span class="tile__text"><span class="tile__title">Kupéerna</span><span class="tile__sub">Sittplats, bädd eller egen kupé för sex</span></span>
-              <span class="tile__btn" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
-            </a>
-          </li>
-          <li>
-            <a class="tile" href="https://www.snalltaget.se/tag-till-jamtland-harjedalen-vinter">
-              <img class="tile__img" src="img/fjallen-vandring.jpg" width="700" height="1050" loading="lazy" alt="En person i gul jacka går på en snötäckt stig mellan snöiga granar och stugor.">
-              <span class="tile__text"><span class="tile__title">Fjällen</span><span class="tile__sub">Jämtland och Härjedalen, 16 dec – 25 apr</span></span>
-              <span class="tile__btn" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
-            </a>
-          </li>
-        </ul>
+        <div class="faq">
+          <h3 class="faq__title">Vanliga frågor</h3>
+          <details class="faq__item">
+            <summary>Kan jag avboka biljetten?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+            <div class="faq__body"><p>Ja, om du lägger till 100 kr när du bokar. Avboka senast en timme före avgång.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Kan jag byta plats efter bokningen?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+            <div class="faq__body"><p>Ja. Boka och betala först, och kontakta sedan kundtjänst så flyttar de dig till den plats du vill ha.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Vad får jag tillbaka om tåget blir sent?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+            <div class="faq__body"><p>25 % av biljettpriset vid 60 minuter eller mer och 50 % vid 120 minuter eller mer, oavsett orsak. Mejla biljetten med pris och plats till kundtjänst.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Får djur följa med?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+            <div class="faq__body"><p>Ja, i Djurtillåten klass som du väljer när du bokar. Djuren ligger på golvet, inte i sätena.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Kan jag ta med barnvagn?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+            <div class="faq__body"><p>Ja. Fäll ihop den innan du går ombord och lägg chassit i bagagehyllan.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Får jag ta med bagage till restaurang- och barvagnen?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+            <div class="faq__body"><p>Nej. Av säkerhetsskäl får inget bagage följa med in där.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Jag köpte biljetten på sj.se. Kan ni ändra den?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+            <div class="faq__body"><p>Nej, biljetter köpta på sj.se kan inte ändras här. Kontakta SJ.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Hur betalar jag och hur får jag biljetten?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+            <div class="faq__body"><p>Du betalar med Visa eller Mastercard. Biljetten kommer som sms eller e-biljett.</p></div>
+          </details>
+        </div>
       </div>
     </section>
 
@@ -376,12 +329,12 @@
 
           <div class="from" id="from-row">
             <span class="from__label">Från</span>
-            <strong class="from__value" id="from-value">Malmö C</strong>
+            <strong class="from__value" id="from-value">Göteborg C</strong>
             <button class="textbtn" type="button" id="from-change" aria-controls="from-field" aria-expanded="false">Ändra<span class="sr-only"> var du reser från</span></button>
           </div>
           <div class="field combo" id="from-field" hidden>
             <label for="fran">Från</label>
-            <input id="fran" name="fran" type="text" value="Malmö C" autocomplete="off" role="combobox"
+            <input id="fran" name="fran" type="text" value="Göteborg C" autocomplete="off" role="combobox"
                    aria-autocomplete="list" aria-expanded="false" aria-controls="fran-lista" aria-describedby="fran-fel">
             <ul class="combo__list" id="fran-lista" role="listbox" aria-label="Stationer" hidden></ul>
             <p class="field__error" id="fran-fel" hidden></p>
@@ -391,7 +344,7 @@
             <label for="till">Till</label>
             <div class="combo__wrap">
               <svg class="icon combo__icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
-              <input id="till" name="till" type="text" placeholder="Stad eller station" autocomplete="off" role="combobox"
+              <input id="till" name="till" type="text" placeholder="Station" autocomplete="off" role="combobox"
                      aria-autocomplete="list" aria-expanded="false" aria-controls="till-lista" aria-describedby="till-fel">
               <button class="swap" type="button" id="byt" aria-label="Byt plats på Från och Till" title="Byt plats på Från och Till">
                 <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 4v16M7 4 3 8M7 4l4 4M17 20V4M17 20l-4-4M17 20l4-4"/></svg>
@@ -402,14 +355,8 @@
           </div>
 
           <div class="quickpick">
-            <p class="quickpick__label" id="populara-mal">Populära resmål</p>
-            <ul class="pills" aria-labelledby="populara-mal">
-              <li><button class="pill" type="button" data-dest="Stockholm C">Stockholm</button></li>
-              <li><button class="pill" type="button" data-dest="Berlin Hbf">Berlin</button></li>
-              <li><button class="pill" type="button" data-dest="Köpenhamn">Köpenhamn</button></li>
-              <li><button class="pill" type="button" data-dest="Åre">Åre</button></li>
-              <li><button class="pill" type="button" data-dest="Oslo S">Oslo</button></li>
-            </ul>
+            <p class="quickpick__label" id="stationer-snabb">Stationer på sträckan</p>
+            <ul class="pills" id="dest-pills" aria-labelledby="stationer-snabb"></ul>
           </div>
         </section>
 
@@ -437,34 +384,39 @@
           </div>
         </section>
 
-        <!-- Steg 3: hur många -->
+        <!-- Steg 3: hur -->
         <section class="bk__step" data-step="3" aria-labelledby="steg3-rubrik" hidden>
-          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="32" cy="15" r="5"/><path d="M27 26.5a9 9 0 0 1 14 7.5v3"/><circle class="f" cx="18" cy="17" r="6.5"/><path class="f" d="M6 41v-3a12 12 0 0 1 24 0v3z"/></svg><h2 class="bk__title" id="steg3-rubrik" tabindex="-1">Hur många reser?</h2></div>
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="32" cy="15" r="5"/><path d="M27 26.5a9 9 0 0 1 14 7.5v3"/><circle class="f" cx="18" cy="17" r="6.5"/><path class="f" d="M6 41v-3a12 12 0 0 1 24 0v3z"/></svg><h2 class="bk__title" id="steg3-rubrik" tabindex="-1">Hur reser ni?</h2></div>
           <div class="travellers">
             <div class="stepper">
-              <svg class="sym stepper__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="15" r="7"/><path class="f" d="M10 41v-3a14 14 0 0 1 28 0v3z"/></svg><span class="stepper__label" id="vuxna-etikett">Vuxna <span class="stepper__hint">16 år och äldre</span></span>
+              <svg class="sym stepper__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="15" r="7"/><path class="f" d="M10 41v-3a14 14 0 0 1 28 0v3z"/></svg><span class="stepper__label" id="resenarer-etikett">Resenärer <span class="stepper__hint">Pris för barn ser du när du söker</span></span>
               <div class="stepper__controls">
-                <button type="button" class="stepper__btn" data-step="-1" data-target="vuxna" aria-label="En vuxen färre">−</button>
-                <output id="vuxna" class="stepper__value" aria-labelledby="vuxna-etikett" aria-live="polite" data-min="1" data-max="9">1</output>
-                <button type="button" class="stepper__btn" data-step="1" data-target="vuxna" aria-label="En vuxen fler">+</button>
-              </div>
-            </div>
-            <div class="stepper">
-              <svg class="sym stepper__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="21" r="5.5"/><path class="f" d="M15 41v-2a9 9 0 0 1 18 0v2z"/></svg><span class="stepper__label" id="barn-etikett">Barn <span class="stepper__hint">0–15 år, upp till 80 % rabatt</span></span>
-              <div class="stepper__controls">
-                <button type="button" class="stepper__btn" data-step="-1" data-target="barn" aria-label="Ett barn färre">−</button>
-                <output id="barn" class="stepper__value" aria-labelledby="barn-etikett" aria-live="polite" data-min="0" data-max="8">0</output>
-                <button type="button" class="stepper__btn" data-step="1" data-target="barn" aria-label="Ett barn fler">+</button>
+                <button type="button" class="stepper__btn" data-step="-1" data-target="resenarer" aria-label="En resenär färre">−</button>
+                <output id="resenarer" class="stepper__value" aria-labelledby="resenarer-etikett" aria-live="polite" data-min="1" data-max="9">1</output>
+                <button type="button" class="stepper__btn" data-step="1" data-target="resenarer" aria-label="En resenär fler">+</button>
               </div>
             </div>
           </div>
 
+          <fieldset class="classpick">
+            <legend class="classpick__legend">Klass</legend>
+            <div class="pills pills--two">
+              <label class="pill pill--radio"><input type="radio" name="klass" value="2:a klass" checked><span class="pill__text">2:a klass<small>Frukost att ta med</small></span></label>
+              <label class="pill pill--radio"><input type="radio" name="klass" value="1:a klass"><span class="pill__text">1:a klass<small>Trerätters kan förbetalas</small></span></label>
+            </div>
+          </fieldset>
+
+          <div class="switchrow">
+            <span class="switchrow__label"><span id="djur-etikett">Jag reser med djur</span><span class="switchrow__hint" id="djur-hint">Du får plats i Djurtillåten klass.</span></span>
+            <button class="switch" type="button" role="switch" aria-checked="false" aria-labelledby="djur-etikett" aria-describedby="djur-hint" id="djur-switch"><span class="switch__knob"></span></button>
+          </div>
+
           <div class="notice" id="sok-meddelande" role="status" aria-live="polite" hidden></div>
 
-          <!-- Tillit nära handlingen. Verifierat mot snalltaget.se 23 nov 2026. -->
+          <!-- Tillit nära handlingen. Verifierat mot blataget.com/sv/customersupport/. -->
           <ul class="trust">
-            <li><svg class="sym trust__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Ombokningsbar fram till 24 timmar före avresa, avgift 50 kr.</li>
-            <li><svg class="sym trust__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Sms om tåget blir mer än 30 minuter försenat.</li>
+            <li><svg class="sym trust__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Avbokningsbar mot 100 kr extra, senast 1 timme före avgång.</li>
+            <li><svg class="sym trust__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Pengar tillbaka om tåget blir 60 minuter sent eller mer.</li>
           </ul>
         </section>
       </div>
@@ -483,38 +435,36 @@
     <div class="container">
       <div class="site-footer__grid">
         <div>
-          <p class="wordmark wordmark--light">Snälltåget</p>
-          <address>Norra Vallgatan 34<br>211 25 Malmö</address>
+          <p class="wordmark wordmark--light">Blå Tåget</p>
+          <p class="site-footer__tag">Göteborg – Alingsås – Skövde – Hallsberg – Stockholm</p>
         </div>
         <nav aria-label="Resan">
           <h2 class="site-footer__title">Resan</h2>
           <ul>
-            <li><a href="https://www.snalltaget.se/min-resa">Min resa</a></li>
-            <li><a href="https://www.snalltaget.se/ombokning-avbokning">Ombokning och avbokning</a></li>
-            <li><a href="https://www.snalltaget.se/komfortnivaer-prisklasser">Komfortnivåer</a></li>
-            <li><a href="https://www.snalltaget.se/trafikinformation">Trafikinformation</a></li>
+            <li><a href="#stracka">Sträckan</a></li>
+            <li><a href="#restaurang">Restaurang och bar</a></li>
+            <li><a href="https://www.blataget.com/sv/trains/">Tågtider</a></li>
           </ul>
         </nav>
         <nav aria-label="Hjälp">
           <h2 class="site-footer__title">Hjälp</h2>
           <ul>
-            <li><a href="https://www.snalltaget.se/kontakt">Frågor och svar</a></li>
-            <li><a href="https://www.snalltaget.se/allt-om-resan">Bagage, cykel och djur</a></li>
-            <li><a href="https://www.snalltaget.se/dataskydd">Cookies och dataskydd</a></li>
+            <li><a href="#kundtjanst">Kundtjänst</a></li>
+            <li><a href="https://www.blataget.com/sv/customersupport/">Vanliga frågor</a></li>
+            <li><a href="https://www.blataget.com/sv/news/">Senaste nyheterna</a></li>
           </ul>
         </nav>
-        <nav aria-label="Om Snälltåget">
-          <h2 class="site-footer__title">Snälltåget</h2>
+        <nav aria-label="Om tåget">
+          <h2 class="site-footer__title">Om tåget</h2>
           <ul>
-            <li><a href="https://www.snalltaget.se/om-oss">Om oss</a></li>
-            <li><a href="https://www.snalltaget.se/jobb">Jobba hos oss</a></li>
+            <li><a href="#historien">Historien</a></li>
           </ul>
         </nav>
       </div>
 
       <div class="site-footer__legal">
-        <p class="site-footer__concept">Designkoncept av Elevate Studio – inte Snälltågets officiella webbplats.</p>
-        <p>Foton från Unsplash, se <a href="img/KALLOR.md">bildkällor</a>. Fakta och priser hämtade från snalltaget.se i november 2026.</p>
+        <p class="site-footer__concept">Designkoncept av Elevate Studio – inte Blå Tågets officiella webbplats</p>
+        <p>Foton från Unsplash, se <a href="img/KALLOR.md">bildkällor</a>. Filmen bäddas in från YouTube. Fakta från den officiella webbplatsen i november 2026.</p>
       </div>
     </div>
   </footer>

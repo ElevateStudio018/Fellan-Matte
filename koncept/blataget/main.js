@@ -1,4 +1,5 @@
-// Snälltåget – designkoncept. Ingen riktig bokning.
+// Designkoncept av Elevate Studio. Ingen riktig bokning.
+// Varumärket hämtas från data-brand och data-brand-url på <html>, aldrig hårdkodat här.
 (function () {
   "use strict";
 
@@ -23,18 +24,65 @@
     });
   });
 
+  var SITE = {
+    brand: document.documentElement.getAttribute("data-brand") || "",
+    url: document.documentElement.getAttribute("data-brand-url") || ""
+  };
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---------- Hero-film: inbäddad från YouTube, stillbild tills den spelar ----------
+  (function heroVideo() {
+    var hero = document.querySelector(".hero[data-video-id]");
+    if (!hero || reduceMotion) return;
+    var id = hero.getAttribute("data-video-id");
+    var box = hero.querySelector(".hero__video");
+    var btn = document.getElementById("video-toggle");
+    if (!id || !box || !btn) return;
+    var params = "autoplay=1&mute=1&loop=1&playlist=" + id + "&controls=0&playsinline=1&rel=0&modestbranding=1&disablekb=1&iv_load_policy=3&enablejsapi=1";
+    if (location.protocol.indexOf("http") === 0) params += "&origin=" + encodeURIComponent(location.origin);
+    var iframe = document.createElement("iframe");
+    iframe.src = "https://www.youtube-nocookie.com/embed/" + id + "?" + params;
+    iframe.title = "Bakgrundsfilm";
+    iframe.setAttribute("tabindex", "-1");
+    iframe.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture");
+    iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+    iframe.setAttribute("loading", "eager");
+    box.appendChild(iframe);
+
+    var playing = false, paused = false;
+    function send(func) {
+      if (!iframe.contentWindow) return;
+      iframe.contentWindow.postMessage(JSON.stringify({ event: "command", func: func, args: [] }), "*");
+    }
+    iframe.addEventListener("load", function () {
+      // Be spelaren skicka sina tillstånd hit
+      iframe.contentWindow.postMessage(JSON.stringify({ event: "listening", id: 1, channel: "widget" }), "*");
+    });
+    window.addEventListener("message", function (e) {
+      if (!/youtube(-nocookie)?\.com$/.test(new URL(e.origin).hostname)) return;
+      var data; try { data = typeof e.data === "string" ? JSON.parse(e.data) : e.data; } catch (err) { return; }
+      var st = data && data.info && typeof data.info.playerState === "number" ? data.info.playerState : null;
+      if (st === 1 && !playing) {
+        playing = true;
+        hero.classList.add("is-playing");
+        btn.hidden = false;
+      }
+    });
+    btn.addEventListener("click", function () {
+      paused = !paused;
+      send(paused ? "pauseVideo" : "playVideo");
+      btn.setAttribute("aria-pressed", String(paused));
+      btn.classList.toggle("is-paused", paused);
+      btn.querySelector(".hero__pause-text").textContent = paused ? "Spela filmen" : "Pausa filmen";
+    });
+  })();
+
   // ---------- Bokning: ett beslut i taget ----------
   var dialog = document.getElementById("boka");
   if (!dialog || typeof dialog.showModal !== "function") return;
 
-  // Stationer från Snälltågets tidtabeller (snalltaget.se, november 2026)
-  var STATIONS = [
-    "Malmö C", "Lund C", "Helsingborg C", "Halmstad C", "Göteborg-Mölndal", "Göteborg-Gamlestaden",
-    "Trollhättan", "Hässleholm C", "Eslöv", "Alvesta", "Nässjö C", "Linköping C", "Norrköping C",
-    "Södertälje", "Stockholm C", "Uppsala C", "Östersund C", "Undersåker", "Åre", "Duved", "Enafors",
-    "Storlien", "Vemdalen-Röjan", "Köpenhamn", "Odense", "Kolding", "Hamburg Hbf", "Berlin Hbf",
-    "Oslo S", "Innsbruck Hbf", "Zell am See", "Kitzbühel"
-  ];
+  // Stationer enligt bokningsformuläret på den officiella webbplatsen (november 2026)
+  var STATIONS = ["Göteborg C", "Alingsås", "Skövde C", "Hallsberg", "Stockholm C"];
   var DAYS = ["sön", "mån", "tis", "ons", "tors", "fre", "lör"];
   var MONTHS = ["jan", "feb", "mars", "apr", "maj", "juni", "juli", "aug", "sep", "okt", "nov", "dec"];
 
@@ -50,7 +98,7 @@
   var msg = $("sok-meddelande");
   var steps = dialog.querySelectorAll(".bk__step");
 
-  var state = { step: 1, maxStep: 1, from: "Malmö C", to: "", dateKey: "idag" };
+  var state = { step: 1, maxStep: 1, from: STATIONS[0], to: "", dateKey: "idag" };
   var opener = null;
 
   // ---- Datum ----
@@ -242,14 +290,25 @@
   }
   makeCombo(till, $("till-lista"), function () { return state.from; }, pickDestination);
 
-  dialog.querySelectorAll("[data-dest]").forEach(function (b) {
-    b.addEventListener("click", function () { pickDestination(b.getAttribute("data-dest")); });
-  });
+  // Snabbval: alla stationer utom den du reser från
+  var destPills = $("dest-pills");
+  function renderDestPills() {
+    destPills.innerHTML = "";
+    STATIONS.forEach(function (st) {
+      if (st === state.from) return;
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "pill"; b.textContent = st;
+      b.addEventListener("click", function () { pickDestination(st); });
+      li.appendChild(b); destPills.appendChild(li);
+    });
+  }
 
   function setFrom(station) {
     state.from = station;
     fran.value = station;
     fromValue.textContent = station;
+    renderDestPills();
   }
   function closeFromField(focusTill) {
     fromField.hidden = true;
@@ -260,7 +319,7 @@
   function pickFrom(station) {
     var typed = fran.value.trim();
     if (!station) station = findStation(typed) || (matches(typed, null).length === 1 ? matches(typed, null)[0] : null);
-    if (!station) { setError(fran, typed ? "Vi hittar ingen station som heter ”" + typed + "”. Välj en station i listan." : "Skriv var du reser från, till exempel Malmö C."); fran.focus(); return; }
+    if (!station) { setError(fran, typed ? "Vi hittar ingen station som heter ”" + typed + "”. Välj en station i listan." : "Skriv var du reser från, till exempel " + STATIONS[0] + "."); fran.focus(); return; }
     setError(fran, "");
     setFrom(station);
     if (state.to === station) { state.to = ""; till.value = ""; }
@@ -327,13 +386,24 @@
       renderSummary();
     });
   });
-  ["vuxna", "barn"].forEach(updateStepper);
+  updateStepper("resenarer");
+
+  var djurSwitch = $("djur-switch");
+  djurSwitch.addEventListener("click", function () {
+    var on = djurSwitch.getAttribute("aria-checked") !== "true";
+    djurSwitch.setAttribute("aria-checked", String(on));
+    msg.hidden = true;
+    renderSummary();
+  });
+  dialog.querySelectorAll('input[name="klass"]').forEach(function (r) {
+    r.addEventListener("change", function () { msg.hidden = true; renderSummary(); });
+  });
 
   function paxText() {
-    var a = parseInt($("vuxna").textContent, 10);
-    var b = parseInt($("barn").textContent, 10);
-    var t = a + (a === 1 ? " vuxen" : " vuxna");
-    if (b > 0) t += ", " + b + " barn";
+    var n = parseInt($("resenarer").textContent, 10);
+    var k = dialog.querySelector('input[name="klass"]:checked');
+    var t = n + (n === 1 ? " resenär" : " resenärer") + ", " + (k ? k.value : "2:a klass");
+    if (djurSwitch.getAttribute("aria-checked") === "true") t += ", med djur";
     return t;
   }
   function dateText() {
@@ -400,10 +470,12 @@
     strong.textContent = "Det här är ett designkoncept.";
     var p = document.createElement("p");
     p.textContent = "Sökningen " + state.from + " → " + state.to + ", " + dateText() + ", " + paxText() + " görs inte på riktigt. ";
-    var link = document.createElement("a");
-    link.href = "https://www.snalltaget.se/";
-    link.textContent = "Boka på snalltaget.se";
-    p.appendChild(link);
+    if (SITE.url) {
+      var link = document.createElement("a");
+      link.href = SITE.url;
+      link.textContent = "Till " + new URL(SITE.url).hostname.replace(/^www\./, "");
+      p.appendChild(link);
+    }
     msg.appendChild(strong);
     msg.appendChild(p);
     msg.hidden = false;
@@ -420,6 +492,10 @@
       if (f && t) {
         setFrom(f); till.value = t; state.to = t; setError(till, "");
         goTo(2);
+      } else if (f) {
+        setFrom(f);
+        if (state.to === f) { state.to = ""; till.value = ""; }
+        goTo(1);
       } else {
         goTo(1);
       }
@@ -434,5 +510,6 @@
     if (opener) opener.focus();
   });
 
+  renderDestPills();
   goTo(1, { noFocus: true });
 })();
