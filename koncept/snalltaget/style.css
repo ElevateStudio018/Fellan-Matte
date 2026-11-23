@@ -1038,3 +1038,8 @@ body:has(.bk[open]) { overflow: hidden; }
 .stepper__sym { width: 46px; height: 46px; }
 .trust__sym { width: 24px; height: 24px; flex: none; margin-top: -1px; }
 .stepper .stepper__label { flex: 1; min-width: 0; }
+
+/* Hero: egen rubrik och underrad (inte SJ:s "Vart vill du resa?") */
+.hero__head { display: grid; gap: var(--s-12); justify-items: center; text-align: center; }
+.hero__sub { margin: 0; color: #fff; font-size: var(--fs-18); font-weight: 600; line-height: 1.4; max-width: 34ch; text-shadow: 0 1px 14px rgba(0, 0, 0, .4); }
+@media (min-width: 768px) { .hero__sub { font-size: var(--fs-20); } }

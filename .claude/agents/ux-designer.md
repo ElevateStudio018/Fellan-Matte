@@ -53,7 +53,7 @@ Beställaren har själv bedömt 80 sajter i två omgångar: 29 godkändes och 47
 - **Grundform:** fotot går kant till kant och texten står direkt på fotot, aldrig bredvid eller ovanför. Rubriken är stor eller mycket stor (ca 56–100 px på dator) i 800-vikt, med mörkläggning nertill som är så lätt som kontrasten tillåter.
 - **Inga formulär och inga grafiska element i heron.** Ingen biljett, ruttlinje, tågfönster, båge, kollage eller jättesiffror. Beställaren valde aldrig något av dem.
 - **Välj heron efter sidans uppgift:**
-  - *Startsidan och vardag:* som SJ.se. Stämningsfoto, en kort fråga ("Vart vill du resa?") och en vit pill-knapp med sökikon som öppnar bokningen. Alternativ: rubrik till vänster och ett enda vitt sökfält i pill-form på fotot. Centrerat och vänsterställt är båda godkända.
+  - *Startsidan och vardag:* som SJ.se. Stämningsfoto, en kort egen rubrik och en vit pill-knapp med sökikon som öppnar bokningen. Använd aldrig konkurrenters signaturfraser (till exempel SJ:s "Vart vill du resa?"). Rubriken ska säga det bara kunden kan säga: "Vita dukar hela vägen." för ett tåg med restaurangvagn, "Somna här. Vakna där." för nattåg. Alternativ: rubrik till vänster och ett enda vitt sökfält i pill-form på fotot. Centrerat och vänsterställt är båda godkända.
   - *Kampanj, säsong, resmål och tema* (vinter, fjällen, Alperna, specialpris, helg i Berlin, hållbarhet): stor rubrik som ett påstående ("Semestern börjar på tåget.", "Vakna i fjällen.") nere till vänster, en vit knapp och eventuellt en textlänk.
   - *Sök- och servicesidor* (kundservice, trafikinfo, storstad, Köpenhamn): rubrik och ett sökfält på fotot, eventuellt med genvägar som vita pills.
 - **Nyheter:** aldrig i heron på startsidan. En nyhet eller säsong blir ett delat block direkt efter heron, i SJ:s kampanjstil (ljus färgyta med etikett, rubrik och knapp bredvid ett foto). En nyhetsrad under fotot är godkänd bara när nyheten är sidans huvudsak (ny tidtabell, ny sträcka).
@@ -125,7 +125,7 @@ Saknas ett system utgår du från detta:
 
 ## Säljande mönster du behärskar
 
-- **Uppgiften i bilden.** En vit sökknapp eller ett sökfält på stämningsfotot, som hos SJ ("Vart vill du resa?" och knappen "Sök resa"). Själva formuläret öppnas i en dialog eller på boka-sidan.
+- **Uppgiften i bilden.** En vit sökknapp eller ett sökfält på stämningsfotot, som hos SJ (knappen "Sök resa"), men med en egen rubrik. Själva formuläret öppnas i en dialog eller på boka-sidan.
 - **Fotohero (Lantmännen, Skånemejerier, Visit Sweden).** Fullbreddsfoto, en stor rubrik och högst två knappar ovanpå bilden. Mörkläggning bara så mycket att texten klarar kontrastkravet.
 - **Säsong direkt efter heron (SJ, Vy, Viking Line).** Kort med stora foton för det som är aktuellt nu, som julbord, skidsäsong eller julmys, med pris när det finns.
 - **Produktkortets anatomi:** bild, namn, en nyckelegenskap, pris (tydligast efter bilden), eventuell etikett (Nyhet, Rea) och hela kortet klickbart. Inga knappar som tävlar inuti kortet.

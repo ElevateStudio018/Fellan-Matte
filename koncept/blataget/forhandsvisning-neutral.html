@@ -1102,8 +1102,13 @@ body:has(.bk[open]) { overflow: hidden; }
 
 .site-footer__tag { color: var(--c-on-dark-muted); max-width: 30ch; }
 
+
+.hero__head { display: grid; gap: var(--s-12); justify-items: center; text-align: center; }
+.hero__sub { margin: 0; color: #fff; font-size: var(--fs-18); font-weight: 600; line-height: 1.4; max-width: 34ch; text-shadow: 0 1px 14px rgba(0, 0, 0, .4); }
+@media (min-width: 768px) { .hero__sub { font-size: var(--fs-20); } }
+
 </style>
-<script>document.documentElement.dataset.brand='Tågbolaget';document.documentElement.dataset.brandUrl='#';</script>
+<script>document.documentElement.setAttribute('data-brand','Tågbolaget');document.documentElement.setAttribute('data-brand-url','#');</script>
 
   <a class="skip-link" href="#innehall">Hoppa till innehåll</a>
 
@@ -1149,7 +1154,10 @@ body:has(.bk[open]) { overflow: hidden; }
            alt="Grönt jordbrukslandskap med blommande rapsfält ner mot en stor sjö en vårdag.">
       <div class="hero__video" aria-hidden="true"></div>
       <div class="container hero__inner">
-        <h1 id="hero-rubrik" class="hero__title">Vart vill du resa?</h1>
+        <div class="hero__head">
+          <h1 id="hero-rubrik" class="hero__title">Vita dukar hela vägen.</h1>
+          <p class="hero__sub">Klassiska tåg mellan Göteborg och Stockholm.</p>
+        </div>
         <button class="btn btn--hero" type="button" data-open-booking aria-haspopup="dialog" aria-controls="boka">
           <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
           Sök resa
