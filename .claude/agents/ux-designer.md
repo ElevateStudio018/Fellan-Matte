@@ -121,6 +121,7 @@ Saknas ett system utgår du från detta:
 - **Bilder:** riktiga foton i fasta proportioner (1:1, 4:3, 3:2, 16:9), beskurna med avsikt. Text på foto kräver mörkläggning eller en lugn yta i bilden.
 - **Ikoner:** en enda linjeikonserie i samma tjocklek, alltid med etikett i navigering.
 - **Symboler (beställarens val):** egna symboler i 48-rutnät med grön linje (2 px, rundade ändar) och ljusgrön fyllning (`#DFEADF`), samma stil överallt: snabbåtgärder, avgångstavla, erbjudanden, bokningens steg, resenärsväljare och bockar. Små gränssnittsikoner (pilar, sök, stäng, meny) är rena linjer i 2 px. Gul fyllning i symboler är underkänt.
+- **Ingen gul alls (beställarens val):** inga gula etiketter, gula trafikrader eller gula knappar. Etiketter är ljusgröna (`#DFEADF`) med mörkgrön text, på foton vita med grön text, och på ljusgröna ytor mörkgröna med vit text. Trafikinformation ligger på sand (`#ECE5D8`).
 
 ## Säljande mönster du behärskar
 
