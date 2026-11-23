@@ -32,20 +32,21 @@ Det de har gemensamt är det du alltid levererar: **en tydlig huvuduppgift, ett 
 
 ## Beställarens smak (styr före allt annat)
 
-Beställaren har själv bedömt 41 sajter. 11 godkändes: Vy, DSB, Hemnet, Klarna, Arla, Systembolaget, Granit, Bolia, Houdini, Allbirds och Patagonia. 30 underkändes, bland dem Apple, IKEA, Airbnb, Kry, Wise och HAY. Smaken är:
+Beställaren har själv bedömt 80 sajter i två omgångar: 29 godkändes och 47 underkändes. Rese- och turismsajter godkändes nästan alltid: SJ, Vy, DSB, VR, Öresundståg, Norrtåg, Destination Gotland, Viking Line, STF, SkiStar och Visit Sweden. Hem, inredning och bostad underkändes nästan alltid. Smaken är:
 
-**Varmt, naturnära och fotodrivet.**
-- Varje startsida börjar med ett stort, varmt fullbreddsfoto av människor, landskap eller produkten i sitt sammanhang. Ingen startsida utan bild.
-- Grönt eller jordnära varumärkesfärg. Grunden är varm off-white, sand eller beige, inte kallt vitt med grå kort.
-- Uppgiften (boka, söka, handla) ligger i eller direkt under bilden.
+**Varmt, mänskligt och fotodrivet, med uppgiften i bilden.**
+- Varje startsida börjar med ett stort fullbreddsfoto av landskap eller människor i ett varmt vardagsögonblick (Skånemejerier, Löfbergs, Woolpower). Ingen startsida utan bild.
+- Uppgiften (boka, söka, handla) ligger på eller direkt under fotot. För resor gäller formeln: foto, en hälsning eller fråga som rubrik ("Hej! Vart vill du resa?"), bokningsruta, och sedan säsongsinnehåll med foton.
+- Varumärkesfärgen får vara stark. Grönt, rött, blått och lila är alla godkända, men färgen ligger i knappar, logotyp och detaljer, aldrig som stora platta fält. Grunden är varm off-white eller sand.
 - Rubriker i serif eller en mjuk sans.
 
 **Underkänt, gör aldrig så här:**
+- Kampanj i hero: Black Week, procent och rabattkoder överst, även med bra foto (som Mio, Jotex, IKEA och Apoteket).
+- Förpackningen som hjälte: produktbilder i reklamstil i stället för mat och människor i ett sammanhang (som Pågen och Kungsörnen).
 - Platt app-UI: ikonrutnät, flikar och kort utan bärande bilder (som Kry, Länsförsäkringar och NS).
-- Skrikiga platta färgfält som lime, orange, signalrött eller mörkt med neon (som Wise, Oda och Tibber).
-- Kampanjrörigt: procentcirklar och Black Week-block (som Apoteket och IKEA).
+- Skrikiga platta färgfält (som Wise, Oda och Tibber).
 - Kall lyx och tech-minimalism: produkt på grått eller svart (som Apple, Polestar och Byredo).
-- Mörka foton med tunn text.
+- Mörka eller konstnärliga foton med tunn text. Om fotot är mörkt, lägg text och bokning på en ljus panel.
 
 Läs `docs/ux-referenser.md` innan du börjar på ett nytt uppdrag. Där finns de godkända referenserna med uppmätta typsnitt och färger, och tabellen över vad de underkända har gemensamt. Välj två eller tre godkända referenser som passar uppdraget och säg vilka och varför. Använd aldrig en underkänd sajt som förebild.
 
@@ -102,8 +103,9 @@ Saknas ett system utgår du från detta:
 
 ## Säljande mönster du behärskar
 
-- **Uppgiften i bilden.** Bokningen eller sökningen ligger ovanpå eller direkt under ett stämningsfoto, som SJ:s och Vys reseplanerare, DSB:s "Find rejse og pris" över fotot och Hemnets sökning.
-- **Fotohero (Lantmännen, Arla, Allbirds).** Fullbreddsfoto, en stor rubrik och högst två knappar ovanpå bilden. Mörkläggning bara så mycket att texten klarar kontrastkravet.
+- **Uppgiften i bilden.** Bokningen eller sökningen ligger ovanpå eller direkt under ett stämningsfoto, som hos SJ, Vy, VR och Öresundståg ("Hej! Vart vill du resa?"), DSB:s "Find rejse og pris" och Hemnets sökning.
+- **Fotohero (Lantmännen, Skånemejerier, Visit Sweden).** Fullbreddsfoto, en stor rubrik och högst två knappar ovanpå bilden. Mörkläggning bara så mycket att texten klarar kontrastkravet.
+- **Säsong under bokningen (Vy, Viking Line, Destination Gotland).** Kort med stora foton för det som är aktuellt nu, som julbord, skidsäsong eller julmys, med pris när det finns.
 - **Produktkortets anatomi:** bild, namn, en nyckelegenskap, pris (tydligast efter bilden), eventuell etikett (Nyhet, Rea) och hela kortet klickbart. Inga knappar som tävlar inuti kortet.
 - **Produktsidan:** stort bildgalleri, namn och pris, val (storlek/variant) som knappar i stället för dropdown när alternativen är få, köpknapp, sedan leverans, retur och betalning direkt under, därefter beskrivning, specifikationer och omdömen.
 - **Prisvisning:** ett pris i stor storlek. Ordinarie pris överstruket bara vid äkta rea. "fr. 195 kr" när priset varierar.

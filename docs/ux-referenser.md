@@ -2,32 +2,44 @@
 
 Referensbank för agenten `ux-designer` (`.claude/agents/ux-designer.md`).
 
-**Urvalet är gjort av beställaren, inte av agenten.** 41 sajter bedömdes i november 2026: 11 godkändes och 30 underkändes. Facit är SJ.se och Lantmännen. Typsnitt, färger och radier är uppmätta i renderad DOM med Playwright. Där en sajt blockerar automatiska besök står det "ej uppmätt".
+**Urvalet är gjort av beställaren, inte av agenten.** 80 sajter bedömdes i två omgångar i november 2026: 29 godkändes och 47 underkändes. Facit är SJ.se och Lantmännen. Typsnitt, färger och radier är uppmätta i renderad DOM med Playwright. Där en sajt blockerar automatiska besök står det "ej uppmätt".
 
 ---
 
 ## Smaken i en mening
 
-**Varmt, naturnära och fotodrivet.** Riktiga människor, landskap och produkter i sitt sammanhang, jordnära färger och lugna ytor, med uppgiften (boka, söka, handla) inbyggd i bilden.
+**Varmt, mänskligt och fotodrivet, med uppgiften i bilden.** Ett stort foto av landskap eller människor i ett vardagsögonblick, och bokningen eller sökningen direkt på eller under fotot. Lugnt och utan kampanjbrus.
+
+## Det starkaste mönstret: resor och turism
+
+Alla 14 rese- och turismsajter som bedömdes på allvar godkändes, utom NS och Airbnb. Godkända: SJ, Vy, DSB, VR, Öresundståg, Norrtåg, Nightjet, Destination Gotland, Viking Line, Hurtigruten, Svenska Turistföreningen, SkiStar, Visit Sweden och Visit Norway. Formeln är densamma överallt:
+
+1. **Ett fullbreddsfoto** av landskap, stad eller resenärer.
+2. **En hälsning eller fråga som rubrik** ("Hej! Vart vill du resa?", "Hei, hvor vil du reise?", "Här börjar din resa i Norrtågland").
+3. **Bokningsrutan på eller direkt under fotot** med Från/Till, datum och resenärer.
+4. **Säsongsinnehåll med stora foton** under bokningen (julbord, skidsäsong, julmys).
+
+NS och Airbnb underkändes. NS är platt gult med UI-paneler, och Airbnb har sökning i app-stil utan foto.
 
 ## Vad de godkända har gemensamt
 
-1. **Fotot bär sidan.** Ett fullbreddsfoto med riktiga människor, landskap eller rum: SJ:s norrsken, Lantmännens åker, Arlas människor, Granits och Bolias interiörer, Allbirds vardagsrum och Houdinis friluftsliv.
-2. **Jordnära palett.** Grönt dominerar (SJ, Vy, Lantmännen, Arla, Systembolaget, Hemnet). Annars används varma neutrala toner som sand, beige och varm off-white (Bolia, Allbirds, Houdini, Granit). Aldrig kallt grått eller rent tech-vitt som hela upplevelsen.
-3. **Lugnt och självsäkert.** Få element per skärm och en stor rubrik. Varumärket får ta plats utan att skrika.
-4. **Uppgiften ligger i bilden.** Bokningen eller sökningen ligger ovanpå eller direkt under fotot (SJ, Vy, DSB, Hemnet), inte i en egen app-liknande panel.
-5. **Typografi med värme.** Serif för rubriker (Lantmännen, Bolia, Systembolaget) eller en mjuk, rund sans. Aldrig en kall, neutral tech-grotesk som enda röst.
+1. **Fotot bär sidan.** Landskap (Lantmännen, Visit Sweden, Öresundståg, Norrtåg) eller människor i ett varmt ögonblick: mormor och barn vid frukostbordet (Skånemejerier), kvinna med kaffekopp (Löfbergs), vänner i kyla (Woolpower), en familj i soffan (Allbirds).
+2. **Uppgiften ligger i bilden.** Bokning, sökning eller en tydlig knapp direkt på fotot.
+3. **Färgen får vara stark, men den ligger på ett foto.** Grönt (SJ, Vy, VR, Arla, Lantmännen), rött (DSB, Öresundståg, Viking Line, SkiStar), blått (Skånemejerier, Valio, Destination Gotland) och lila (Löfbergs) är alla godkända. Avgörande är att färgen används i knappar, logotyp och detaljer, inte som stora platta fält.
+4. **Varm grund.** Varm off-white eller sand bakom innehållet (Lantmännen `#F4EEE6`, Bolia `#F7F4EA`, Skånemejerier `#F1EFEA`, Valio `#F7F3ED`, SkiStar `#F1F0EE`).
+5. **Lugnt.** Få budskap per skärm, ingen procentcirkel och inget Black Week-block i hero.
 
 ## Vad de underkända har gemensamt
 
 | Mönster | Underkända exempel |
 |---|---|
-| **Platt app-UI.** Vit sida med ikonrutor, kort och flikar men inga bilder som bär | Kry, Länsförsäkringar, NS, Kivra, Nordic Nest, Clas Ohlson |
-| **Skrikiga platta färgfält** i lime, orange, rött eller mörkt med neon | Wise, Oda, Mathem, ICA, Oatly, Tibber |
-| **Kampanjrörigt.** Procent-cirklar, Black Week, många erbjudanden som tävlar | Apoteket, IKEA, Clas Ohlson, Nordic Nest |
-| **Kall lyx och tech-minimalism.** Produkt på grått eller svart, mörkt och sterilt | Apple, Polestar, Volvo Cars, Byredo, Estrid, Aesop, Arket, Muji, HAY |
-| **Mörka foton med tunn text**, eller bilder som är för konstnärliga för att sälja | Norrøna, Nudie Jeans, Svenskt Tenn, Marimekko |
-| **Sök i app-stil utan stämning** | Airbnb |
+| **Kampanj i hero.** Black Week, procent och rabattkoder tar över, även när fotot är bra | Mio, Svenssons, Jotex, Rum21, Ferm Living, IKEA, Apoteket, Clas Ohlson, Nordic Nest |
+| **Förpackningen som hjälte.** Produktbilder i reklamstil i stället för människor och mat i ett sammanhang | Pågen, Kungsörnen |
+| **Platt app-UI.** Ikonrutor, flikar och kort utan bärande bild | Kry, Länsförsäkringar, NS, Kivra |
+| **Skrikiga platta färgfält** | Wise, Oda, Mathem, ICA, Oatly, Tibber |
+| **Kall lyx och tech-minimalism.** Produkt på grått eller svart | Apple, Polestar, Volvo Cars, Byredo, Estrid, Aesop, Arket, Muji, HAY |
+| **Mörka eller konstnärliga foton**, tunn text och blogglayout | Norrøna, Nudie Jeans, Bjurfors, Röjk, Svenskt Tenn, Marimekko |
+| **Bostad och inredning** har överlag underkänts. Bara Hemnet, Granit och Bolia godkändes | Svensk Fastighetsförmedling, Booli, Klippan Yllefabrik |
 
 ---
 
@@ -35,65 +47,60 @@ Referensbank för agenten `ux-designer` (`.claude/agents/ux-designer.md`).
 
 ### SJ: sj.se
 - **System:** sj_sans. Svart `#000`, grön `#00AB3B` för handling, gul `#FFD700` för etiketter. Pill-knappar och 16 px kort. Rubriker 32 / 26 / 20 px.
-- **Det som gör det:** Ett stämningsfoto (norrsken) direkt under menyn och "Vart vill du resa?" med bokningen. Säsongsinnehåll som "Nu tar vi dig hela vägen till Sälen" med foto.
+- **Det som gör det:** Ett stämningsfoto (norrsken) och "Vart vill du resa?" med bokningen. Säsongsinnehåll med foto.
 
 ### Lantmännen: lantmannen.se
-- **System:** LMSerif (700) för rubriker och LMSans för text. Grön `#1E6E37`, off-white `#F4EEE6`, varm svart `#201E1A`. Skarpa hörn, 2 px.
-- **Det som gör det:** Ett fullbreddsfoto av en åker i motljus och en serifrubrik på 192 px, "Från jord till bord". Bara fotografier.
+- **System:** LMSerif (700) för rubriker och LMSans för text. Grön `#1E6E37`, off-white `#F4EEE6`, varm svart `#201E1A`. Skarpa 2 px.
+- **Det som gör det:** Ett fullbreddsfoto av en åker i motljus och en serifrubrik på 192 px, "Från jord till bord".
 
 ---
 
-## Godkända referenser
+## Godkända: resor och turism
 
-### Vy: vy.no
-- **System:** Vy Sans och Vy Display. Mörkgrön `#00685E`, mint `#CCEAE4`, text `#2B2B2C`. Radie 30 px på fält och 18 px på kort.
-- **Ta med:** Hälsningen "Hei, hvor vil du reise?" med Från/Till direkt under. Kampanjkort med stora foton (julmarknad, vinter). Grönt i två toner.
+| Sajt | System (uppmätt) | Ta med |
+|---|---|---|
+| **Vy** vy.no | Vy Sans och Vy Display. Grön `#00685E`, mint `#CCEAE4`. Radie 18–30 px | "Hei, hvor vil du reise?" med Från/Till direkt under. Kampanjkort med stora foton |
+| **VR** vr.fi | VR Sans och Suisse Intl. Grön `#00B451`, mint `#7AD6A3`. Pill | "Hej! Vart vill du resa?" med bokningen på fotot. Snabbval för vanliga sträckor under fälten |
+| **Öresundståg** oresundstag.se | Gotham. Röd `#D72B14`. Radie 8–20 px och pill | Fullbredds landskapsfoto (kanal och grönska) med sökfältet "Hej! Vart vill du resa?" ovanpå |
+| **Norrtåg** norrtag.se | Montserrat med ett skriptsnitt för ett ord. Marin `#002561`, orange `#FAA61A`. Radie 16 px | "Här börjar din resa i Norrtågland" på ett sjöfoto, med två knappar: Sök resa och Köp periodbiljett |
+| **DSB** dsb.dk | via_office. Röd `#B41730`. Radie 8–16 px | "Find rejse og pris" ovanpå fotot. Trafikmeddelanden som stängbara rader |
+| **Destination Gotland** destinationgotland.se | Archivo. Skifferblå `#375D75`, ljusblå `#EBF6FD`. Pill | Bokningspanel till vänster och ett vinterfoto av Visby med "Julmys på Gotland" och pris |
+| **Viking Line** vikingline.se | Sharp Sans och Open Sans. Röd `#D90A08`. Radie 8–24 px | Flikar för Kryssning, Reguljär och Hotellpaket ovanpå fotot "Kryssning med julbord" |
+| **Svenska Turistföreningen** svenskaturistforeningen.se | Ej uppmätt | "Friluftsliv för alla, sedan 1885" på ett fjällfoto, bokningsrad, sedan boendekort med eld, norrsken och skidåkare |
+| **SkiStar** skistar.com | Nohemi och Open Sans. Röd `#BA0C2F`, varm `#F1F0EE`. Radie 8 px | Bokningsrad överst och säsongsnyheter med foto |
+| **Visit Sweden** visitsweden.se | swedenSans. Gul `#FFDB00`, marin `#1A3050`. Pill | Fullbreddsfoto av en sjö i solnedgång med "Upplevelser i hela Sverige" och en enda knapp, "Välj en region" |
+| **ÖBB Nightjet, Hurtigruten, Visit Norway** | Ej uppmätta | Godkända efter granskning direkt på sajten |
 
-### DSB: dsb.dk
-- **System:** via_office. Röd `#B41730`. Radie 8 och 16 px.
-- **Ta med:** Bokningen ("Find rejse og pris") ligger ovanpå ett fullbreddsfoto. Trafikmeddelanden som stängbara rader överst.
+## Godkända: mat och dagligt liv
 
-### Hemnet: hemnet.se (ej uppmätt)
-- **Ta med:** Sökningen är hela startsidan, med bostadsfoton som drömmar. Grönt varumärke.
+| Sajt | System (uppmätt) | Ta med |
+|---|---|---|
+| **Arla** arla.se | Arla InterFace och Arla Life. Grön `#02462F`, skiffer `#384241` | Riktiga människor i fullbreddsfoto. Recept med frågan som rubrik |
+| **Skånemejerier** skanemejerier.se | Sofia Sans och Noto Sans. Blå `#003A80`, varm `#F1EFEA`. Radie 6–12 px | Mormor och barn vid frukostbordet med "Allt gott börjar nära". Mänskligt och nära |
+| **Löfbergs** lofbergs.se | Brown Pro. Lila `#3C1053`, gul `#FFE378`. Pill | En kvinna med kaffekopp vid bokhyllan och "Vi går upp för ett bättre morgonkaffe!" |
+| **Valio** valio.se | Valio Sans och Playfair Display. Marin `#002F6D`, varm `#F7F3ED`. Radie 16–24 px | Stora matfoton (lussebullar) och serifrubriker |
+| **Systembolaget** systembolaget.se | Inter Variable och eget displaysnitt. `#262626`, mjuk grön `#C7E5CE` | Lugnet och det vänliga tilltalet |
+| **Wasa** wasa.com | Ej uppmätt | Godkänd efter granskning direkt på sajten |
 
-### Klarna: klarna.com/se (delvis uppmätt)
-- **System:** Klarna Title. Nästan svart `#0B051D`, varm off-white `#F9F8F5`. Pill-knappar.
-- **Ta med:** Stora livsstilsfoton och en varm off-white i stället för kallt vitt.
+## Godkända: handel, friluftsliv och bostad
 
-### Arla: arla.se
-- **System:** Arla InterFace och Arla Life. Mörkgrön `#02462F`, skiffer `#384241`. Radie 4 px.
-- **Ta med:** Fullbreddsfoto med riktiga människor och stor rubrik. Recept med matfoto i fasta proportioner och användarens fråga som rubrik ("Vad ska vi äta idag?").
-
-### Systembolaget: systembolaget.se
-- **System:** Inter Variable för text och eget displaytypsnitt. Nästan svart `#262626`, mjuk grön `#C7E5CE`. Radie 4–8 px.
-- **Ta med:** Lugnet. Mjukt grönt och ett vänligt tilltal även i tvingande steg ("Hej, får vi be om legitimation?"). Säsongsstyrt innehåll.
-
-### Granit: granit.com
-- **System:** Euclid Circular B. Vitt och varmgrått `#E5E4E1`, skarpa 2 px.
-- **Ta med:** Fullbreddsfoto av ett rum med erbjudandet i stor text över bilden. Produktnamn med material och mått. Betyget "4,4 av 5" i toppraden.
-
-### Bolia: bolia.com/sv-se
-- **System:** Cormorant (serif) för rubriker och Montserrat för text. Varm beige `#F7F4EA`, sand `#EAE4D4`, vinröd `#57363B`. Skarpa 1–2 px.
-- **Ta med:** Den varma beige grunden och serifrubriker. Möblerna visas i riktiga rum. Närmast Lantmännen i känsla bland e-handlarna.
-
-### Houdini: houdinisportswear.com
-- **System:** Helvetica. Vitt, varmt `#F1EFEA` och svart. Skarpa 2 px.
-- **Ta med:** Fullbreddsfoto och en kort rubrik med tre små knappar (Reuse, Rent, Repair). Hållbarhet som tjänster.
-
-### Allbirds: allbirds.com
-- **System:** Geograph. Sand `#E0DACF` och `#ECE9E2`, mörk `#212121`. Pill-knappar och 16 px kort.
-- **Ta med:** Ett livsstilsfoto i vardagsmiljö med rubrik och två knappar ovanpå bilden. Sandtoner som grund.
-- **Ta inte med:** Rabattpopupen som täcker sidan.
-
-### Patagonia: patagonia.com (ej uppmätt)
-- **Ta med:** Landskap och människor i rörelse. Uppdraget (miljö) får lika stor plats som produkterna.
+| Sajt | System (uppmätt) | Ta med |
+|---|---|---|
+| **Granit** granit.com | Euclid Circular B. Varmgrått `#E5E4E1`, skarpa 2 px | Rumsfoto med budskapet stort ovanpå. Produktnamn med material och mått |
+| **Bolia** bolia.com | Cormorant och Montserrat. Beige `#F7F4EA`, vinröd `#57363B`. Skarpa 1–2 px | Varm beige grund, serifrubriker och möbler i riktiga rum |
+| **Houdini** houdinisportswear.com | Helvetica. Varmt `#F1EFEA`. Skarpa 2 px | Fullbreddsfoto med Reuse, Rent och Repair som tre små knappar |
+| **Allbirds** allbirds.com | Geograph. Sand `#E0DACF`. Pill | Livsstilsfoto i vardagsmiljö med rubrik och två knappar. Inte rabattpopupen |
+| **Woolpower** woolpower.se | Gotham. Marin `#10293E`, rost `#AF3F2F`. Radie 3 px | Människor i kyla och "Redo för kylan?", sedan "Hitta rätt plagg för varje lager" |
+| **Naturkompaniet** naturkompaniet.se | Egna typsnitt. Grön `#00421B`, mint `#E5ECE8`. Radie 4–8 px | Butiken som friluftsmiljö |
+| **Hemnet, Klarna, Patagonia, Tierra** | Ej uppmätta (Klarna delvis: `#0B051D`, `#F9F8F5`, pill) | Godkända efter granskning direkt på sajten |
 
 ---
 
 ## Regler för agenten som följer av urvalet
 
-- Börja varje startsida med **ett stort, varmt foto** av människor, landskap eller produkten i användning. Ingen startsida utan bild.
-- Välj **grönt eller en jordnära ton** som varumärkesfärg om kunden inte redan har en. Grunden är varm off-white eller beige, inte kall `#fff` med grå kort.
-- **Lägg uppgiften i bilden**: bokningsruta eller sök ovanpå eller direkt under fotot.
-- **Serif eller mjuk sans** för rubriker.
-- **Undvik** ikonrutnät som huvudinnehåll, platta färgfält i signalfärg, kampanjcirklar, mörk lyxminimalism och produkt på grått.
+- **Varje startsida börjar med ett stort foto** av landskap eller människor i ett varmt vardagsögonblick. Ingen startsida utan bild, och ingen produkt på grått.
+- **Lägg uppgiften i bilden:** bokningsruta, sökning eller en tydlig knapp på eller direkt under fotot. För resor gäller formeln foto, hälsning som rubrik, bokning och säsong.
+- **Varumärkesfärgen får vara stark** (grön, röd, blå eller annan), men bara i knappar, logotyp och detaljer. Grunden är varm off-white eller sand.
+- **Inga kampanjer i hero.** Erbjudanden ligger längre ner som kort med foto, aldrig som procent-block överst.
+- **Mat och produkter visas i användning**, med människor eller dukat bord, inte som förpackningsreklam.
+- **Undvik mörka foton med tunn text.** Om fotot är mörkt, lägg texten och bokningen på en ljus panel.
