@@ -1294,7 +1294,11 @@ h1, h2, h3, .hero__sub, .shead__sub, .feature__text, .tile__sub { text-wrap: bal
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(to top, rgba(12, 20, 36, 0.8) 0%, rgba(12, 20, 36, 0.58) 38%, rgba(12, 20, 36, 0.18) 72%, rgba(12, 20, 36, 0.06) 100%);
+  /* Uppmätt på sämsta pixel (1440 och 390 px): rubriken minst 3:1, brödtext minst 4,5:1 mot vitt */
+  background: linear-gradient(to top, rgba(12, 20, 36, 0.8) 0%, rgba(12, 20, 36, 0.66) 40%, rgba(12, 20, 36, 0.52) 78%, rgba(12, 20, 36, 0.46) 100%);
+}
+@media (min-width: 768px) {
+  .phead::after { background: linear-gradient(to top, rgba(12, 20, 36, 0.78) 0%, rgba(12, 20, 36, 0.64) 36%, rgba(12, 20, 36, 0.52) 74%, rgba(12, 20, 36, 0.3) 100%); }
 }
 .phead__inner {
   display: grid;
@@ -1744,3 +1748,5 @@ mark.hit { background: var(--c-promo); color: inherit; border-radius: 3px; paddi
 h1, .phead__sub, .intro p, .stop__lead, .next p, .card__text { text-wrap: balance; }
 .prose p, .tl__text, .faq__body { text-wrap: pretty; }
 .split__body .rows { justify-self: stretch; }
+.site-footer__contact a { min-height: 44px; }
+.site-header .wordmark { display: inline-flex; align-items: center; min-height: 44px; }
