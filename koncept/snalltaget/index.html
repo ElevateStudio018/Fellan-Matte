@@ -49,18 +49,15 @@
 
   <main id="innehall" tabindex="-1">
 
-    <!-- ===================== Hero med bokning ===================== -->
+    <!-- ===================== Hero: text på fotot, bokningen under rubriken ===================== -->
     <section class="hero" aria-labelledby="boka-rubrik">
-      <figure class="hero__media">
-        <img src="img/hero-utsikt.jpg" width="1600" height="1067"
-             alt="En resenär sitter i en tågkupé med röda säten och tittar ut genom fönstret på en grön bergssida.">
-      </figure>
-
+      <img class="hero__img" src="img/vinter-skidor.jpg" width="1600" height="1067"
+           alt="Skidåkare i färgglada jackor samlas vid en skidlift i kvällssol.">
       <div class="container hero__inner">
-        <div class="booking" id="boka">
-          <h1 id="boka-rubrik" class="booking__title">Vart vill du resa?</h1>
-          <p class="booking__lead">Dagtåg och nattåg till Stockholm, Berlin, Oslo, fjällen och Alperna.</p>
+        <h1 id="boka-rubrik" class="hero__title">Vart vill du resa?</h1>
+        <p class="hero__lead">Dagtåg och nattåg till Stockholm, Berlin, Oslo, fjällen och Alperna.</p>
 
+        <div class="booking" id="boka">
           <form class="booking__form" id="sokform" novalidate>
             <div class="route">
               <div class="field">
@@ -78,7 +75,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="dates">
               <div class="field">
                 <label for="utresa">Utresa</label>
                 <input id="utresa" name="utresa" type="date" required>
@@ -89,7 +86,7 @@
               </div>
             </div>
 
-            <div class="field">
+            <div class="field field--pax">
               <span class="field__label" aria-hidden="true">Resenärer</span>
               <details class="pax">
                 <summary><span class="sr-only">Resenärer: </span><span id="pax-summary">1 vuxen</span><span class="pax__change" aria-hidden="true">Ändra</span></summary>
@@ -115,7 +112,12 @@
               </details>
             </div>
 
-            <button class="btn btn--primary btn--block" type="submit">Sök resa</button>
+            <div class="booking__submit">
+              <button class="btn btn--primary" type="submit">
+                Sök resa
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
 
             <div class="notice" id="sok-meddelande" role="status" aria-live="polite" hidden></div>
           </form>
@@ -124,15 +126,15 @@
           <ul class="trust">
             <li>
               <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>
-              Ombokningsbar fram till 24 timmar före avresa, mot en avgift på 50 kr.
+              Ombokningsbar fram till 24 timmar före avresa, avgift 50 kr.
             </li>
             <li>
               <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>
-              Sms till dig om tåget blir mer än 30 minuter försenat.
+              Sms om tåget blir mer än 30 minuter försenat.
             </li>
             <li>
               <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>
-              Restaurangvagnen Krogen finns på de flesta avgångar.
+              Barn under 16 år reser med upp till 80 % rabatt.
             </li>
           </ul>
         </div>
@@ -202,6 +204,19 @@
             </div>
           </li>
           <li class="card">
+            <img class="card__img" src="img/kopenhamn.jpg" width="800" height="533" loading="lazy"
+                 alt="Tre personer cyklar längs kajen i Nyhavn i Köpenhamn, med färgglada hus i bakgrunden.">
+            <div class="card__body">
+              <p class="card__kicker">Dagtåg</p>
+              <h3 class="card__title">
+                <a class="card__link" href="https://www.snalltaget.se/kopenhamn-malmo-stockholm">Stockholm – Köpenhamn</a>
+              </h3>
+              <p class="card__meta">Dagliga avgångar via Malmö, året runt.</p>
+              <!-- Verifierat: "från 349 kr enkel resa Stockholm–Köpenhamn" (avgångar med lägre efterfrågan). -->
+              <p class="card__price">fr. 349 kr <span>enkel</span></p>
+            </div>
+          </li>
+          <li class="card">
             <img class="card__img" src="img/fjallen.jpg" width="800" height="580" loading="lazy"
                  alt="Snötäckt fjällsluttning under blå himmel.">
             <div class="card__body">
@@ -214,19 +229,7 @@
               <p class="card__price"><span>Se priser för din resa</span></p>
             </div>
           </li>
-          <li class="card">
-            <img class="card__img" src="img/oslo.jpg" width="800" height="599" loading="lazy"
-                 alt="Oslos vattenfront i Bjørvika med höga hus som speglar sig i skymningen.">
-            <div class="card__body">
-              <p class="card__kicker">Dagtåg</p>
-              <h3 class="card__title">
-                <a class="card__link" href="https://www.snalltaget.se/malmo-goteborg-oslo">Malmö – Oslo</a>
-              </h3>
-              <p class="card__meta">Dagligen via Göteborg. Avgång 07.05, framme 13.16.</p>
-              <!-- snalltaget.se visar inget från-pris för Oslo. Lägg in riktigt pris när det finns. -->
-              <p class="card__price"><span>Se priser för din resa</span></p>
-            </div>
-          </li>
+
         </ul>
       </div>
     </section>
@@ -295,8 +298,8 @@
 
     <!-- ===================== Säsong ===================== -->
     <section class="season" aria-labelledby="sasong-rubrik">
-      <img class="season__img" src="img/vinter-skidor.jpg" width="1600" height="1067" loading="lazy"
-           alt="Skidåkare i färgglada jackor samlas vid en skidlift i kvällssol.">
+      <img class="season__img" src="img/skidor-ovanifran.jpg" width="1200" height="800" loading="lazy"
+           alt="Två skidåkare i en spårig backe, fotograferade ovanifrån i solsken.">
       <div class="container season__inner">
         <div class="season__panel">
           <p class="eyebrow">Vinter 2026–2027</p>
