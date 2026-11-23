@@ -7,7 +7,7 @@ Hämtade 23 november 2026 via `images.unsplash.com`, nerskalade och omkomprimera
 | Fil | Används i | Motiv | Fotograf | Källa |
 |---|---|---|---|---|
 | `hero-landskap.jpg` (1600 px) | Heron, stillbild bakom filmen | Jordbrukslandskap med rapsfält ner mot en sjö | Damir Korotaj | https://unsplash.com/photos/z0hjDYG-nQE |
-| `restaurangvagn.jpg` (1000 px) | Restaurangvagnen | Restaurangvagn med vita dukar och läderstolar | Susan Q Yin | https://unsplash.com/photos/GXPshx7vLNg |
+| `restaurangvagn.jpg` (1600 × 1280 px, beskuren) | Restaurangvagnen, text på fotot | Restaurangvagn med vita dukar och läderstolar | Susan Q Yin | https://unsplash.com/photos/GXPshx7vLNg |
 | `pianobar.jpg` (800 px) | Historien | Ett glas på ett öppet piano | Ahtziri Lagarde | https://unsplash.com/photos/qDnLNBXF3cA |
 | `kupe-sate.jpg` (800 px) | Historien | Klassisk vagn med röda säten | Peter Herrmann | https://unsplash.com/photos/EdlIk4uKAz4 |
 | `bla-vagn.jpg` (800 px) | Historien | Äldre blått motorvagnståg i kvällssol | Supradoc | https://unsplash.com/photos/1VTSZAeM-Kk |

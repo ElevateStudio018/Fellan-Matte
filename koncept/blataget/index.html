@@ -214,7 +214,7 @@
           <a class="link-arrow" href="https://www.blataget.com/sv/history/">Läs hela historien</a>
         </div>
         <div class="hist">
-          <p class="hist__lead">Tåget började som ett privat initiativ när järnvägen öppnades för fler bolag. Restaurangvagnen är alltid med, och barvagnen med pianobar och skinnfåtöljer finns med på många avgångar.</p>
+          <p class="hist__lead">Tåget började som ett privat initiativ när järnvägen öppnades för fler bolag. Vagnarna är klassiska, från 60-talet, med restaurangvagn, separata kupéer och en barvagn med pianobar och skinnfåtöljer.</p>
           <ol class="hist__list">
             <li><span class="hist__when">Oktober 2010</span><span class="hist__what">Järnvägen i Sverige öppnas för fler bolag.</span></li>
             <li><span class="hist__when">11 december 2011</span><span class="hist__what">Tåget invigs mellan Göteborg och Stockholm.</span></li>
@@ -345,25 +345,27 @@
 
   </main>
 
-  <!-- ===================== Bokningsdialog: ett beslut i taget ===================== -->
-  <dialog class="bk" id="boka" aria-label="Sök resa">
+  <!-- ===================== Bokningspanel: ett beslut i taget =====================
+       Dator: panel som glider in från höger. Mobil: helskärm.
+       Steg 1 vart, 2 när, 3 hur, 4 avgångar (exempel), 5 bekräftelse. -->
+  <dialog class="bk" id="boka" aria-labelledby="bk-titel">
     <form class="bk__form" id="sokform" novalidate>
-      <div class="bk__top">
-        <button class="btn btn--secondary btn--small bk__back" type="button" data-back hidden>
-          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg>
-          Tillbaka
-        </button>
-        <p class="bk__progress" id="bk-progress">
-          <span id="bk-stegtext">Steg 1 av 3</span>
-          <span class="bk__bars" aria-hidden="true"><span></span><span></span><span></span></span>
-        </p>
-        <button class="btn btn--secondary btn--small bk__close" type="button" data-close-booking>
-          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
-          Stäng
-        </button>
+      <div class="bk__band">
+        <div class="bk__bandrow">
+          <button class="bandbtn" type="button" data-back hidden>
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg>
+            Tillbaka
+          </button>
+          <p class="bk__progress"><span class="sr-only" id="bk-titel">Sök resa</span><span id="bk-stegtext">Steg 1 av 3</span>
+            <span class="bk__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+          </p>
+          <button class="bandbtn" type="button" data-close-booking>
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+            Stäng
+          </button>
+        </div>
+        <nav class="bk__summary" id="bk-summary" aria-label="Din resa hittills"></nav>
       </div>
-
-      <nav class="bk__summary" id="bk-summary" aria-label="Din resa hittills" hidden></nav>
 
       <div class="bk__body">
         <!-- Steg 1: vart -->
@@ -397,18 +399,18 @@
             <p class="field__error" id="till-fel" hidden></p>
           </div>
 
-          <div class="quickpick">
-            <p class="quickpick__label" id="stationer-snabb">Stationer på sträckan</p>
-            <ul class="pills" id="dest-pills" aria-labelledby="stationer-snabb"></ul>
+          <div class="stations-pick">
+            <p class="stations-pick__label" id="stationer-rubrik">Eller välj på sträckan</p>
+            <ol class="stations" id="dest-list" aria-labelledby="stationer-rubrik"></ol>
           </div>
         </section>
 
         <!-- Steg 2: när -->
         <section class="bk__step" data-step="2" aria-labelledby="steg2-rubrik" hidden>
           <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="7" y="10" width="34" height="31" rx="5"/><path d="M7 18h34M16 6v7M32 6v7"/><circle class="d" cx="16" cy="26" r="1.9"/><circle class="d" cx="24" cy="26" r="1.9"/><circle class="d" cx="32" cy="26" r="1.9"/><circle class="d" cx="16" cy="33" r="1.9"/><circle class="d" cx="24" cy="33" r="1.9"/></svg><h2 class="bk__title" id="steg2-rubrik" tabindex="-1">När vill du åka?</h2></div>
-          <fieldset class="datepick">
-            <legend class="sr-only">Utresa</legend>
-            <div class="pills pills--dates" id="date-pills"></div>
+          <fieldset class="days">
+            <legend class="sr-only">Datum för utresa</legend>
+            <div class="days__grid" id="date-grid"></div>
           </fieldset>
           <div class="field" id="utresa-field" hidden>
             <label for="utresa">Datum för utresa</label>
@@ -416,8 +418,9 @@
             <p class="field__error" id="utresa-fel" hidden></p>
           </div>
 
-          <div class="switchrow">
-            <span class="switchrow__label" id="hem-etikett">Lägg till hemresa</span>
+          <div class="row">
+            <svg class="sym row__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="7" y="10" width="34" height="31" rx="5"/><path d="M7 18h34M16 6v7M32 6v7"/><circle class="d" cx="16" cy="26" r="1.9"/><circle class="d" cx="24" cy="26" r="1.9"/><circle class="d" cx="32" cy="26" r="1.9"/><circle class="d" cx="16" cy="33" r="1.9"/><circle class="d" cx="24" cy="33" r="1.9"/></svg>
+            <span class="row__label" id="hem-etikett">Lägg till hemresa</span>
             <button class="switch" type="button" role="switch" aria-checked="false" aria-labelledby="hem-etikett" id="hem-switch"><span class="switch__knob"></span></button>
           </div>
           <div class="field" id="hemresa-field" hidden>
@@ -429,42 +432,66 @@
 
         <!-- Steg 3: hur -->
         <section class="bk__step" data-step="3" aria-labelledby="steg3-rubrik" hidden>
-          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="32" cy="15" r="5"/><path d="M27 26.5a9 9 0 0 1 14 7.5v3"/><circle class="f" cx="18" cy="17" r="6.5"/><path class="f" d="M6 41v-3a12 12 0 0 1 24 0v3z"/></svg><h2 class="bk__title" id="steg3-rubrik" tabindex="-1">Hur reser ni?</h2></div>
-          <div class="travellers">
-            <div class="stepper">
-              <svg class="sym stepper__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="15" r="7"/><path class="f" d="M10 41v-3a14 14 0 0 1 28 0v3z"/></svg><span class="stepper__label" id="resenarer-etikett">Resenärer <span class="stepper__hint">Pris för barn ser du när du söker</span></span>
-              <div class="stepper__controls">
-                <button type="button" class="stepper__btn" data-step="-1" data-target="resenarer" aria-label="En resenär färre">−</button>
-                <output id="resenarer" class="stepper__value" aria-labelledby="resenarer-etikett" aria-live="polite" data-min="1" data-max="9">1</output>
-                <button type="button" class="stepper__btn" data-step="1" data-target="resenarer" aria-label="En resenär fler">+</button>
-              </div>
-            </div>
-          </div>
-
-          <fieldset class="classpick">
-            <legend class="classpick__legend">Klass</legend>
-            <div class="pills pills--two">
-              <label class="pill pill--radio"><input type="radio" name="klass" value="2:a klass" checked><span class="pill__text">2:a klass<small>Frukost att ta med</small></span></label>
-              <label class="pill pill--radio"><input type="radio" name="klass" value="1:a klass"><span class="pill__text">1:a klass<small>Trerätters kan förbetalas</small></span></label>
-            </div>
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="32" cy="15" r="5"/><path d="M27 26.5a9 9 0 0 1 14 7.5v3"/><circle class="f" cx="18" cy="17" r="6.5"/><path class="f" d="M6 41v-3a12 12 0 0 1 24 0v3z"/></svg><h2 class="bk__title" id="steg3-rubrik" tabindex="-1">Hur vill du resa?</h2></div>
+          <fieldset class="classes">
+            <legend class="sr-only">Klass</legend>
+            <label class="classcard">
+              <input type="radio" name="klass" value="2:a klass" checked>
+              <svg class="sym classcard__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M9 19h23v9a10 10 0 0 1-10 10h-3A10 10 0 0 1 9 28z"/><path d="M32 22h3a4.5 4.5 0 0 1 0 9h-3.6"/><path d="M6 43h29"/><path d="M15.5 8c-1.5 2 1.5 3.5 0 6M21.5 8c-1.5 2 1.5 3.5 0 6M27.5 8c-1.5 2 1.5 3.5 0 6" stroke-width="1.6"/></svg>
+              <span class="classcard__text"><span class="classcard__title">2:a klass</span><span class="classcard__line">Frukost att ta med kan köpas till.</span></span>
+              <span class="classcard__check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg></span>
+            </label>
+            <label class="classcard">
+              <input type="radio" name="klass" value="1:a klass">
+              <svg class="sym classcard__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="25" r="12"/><circle cx="24" cy="25" r="6.5"/><path d="M6 11v6a3 3 0 0 0 3 3v19M9 11v6M42 11c-3 2.5-4 6-4 12h4v16"/></svg>
+              <span class="classcard__text"><span class="classcard__title">1:a klass</span><span class="classcard__line">Trerätters meny kan förbetalas.</span></span>
+              <span class="classcard__check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg></span>
+            </label>
           </fieldset>
 
-          <div class="switchrow">
-            <span class="switchrow__label"><span id="djur-etikett">Jag reser med djur</span><span class="switchrow__hint" id="djur-hint">Du får plats i Djurtillåten klass.</span></span>
+          <div class="row">
+            <svg class="sym row__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="15" r="7"/><path class="f" d="M10 41v-3a14 14 0 0 1 28 0v3z"/></svg>
+            <span class="row__label" id="resenarer-etikett">Resenärer</span>
+            <div class="stepper__controls">
+              <button type="button" class="stepper__btn" data-step="-1" data-target="resenarer" aria-label="En resenär färre">−</button>
+              <output id="resenarer" class="stepper__value" aria-labelledby="resenarer-etikett" aria-live="polite" data-min="1" data-max="9">1</output>
+              <button type="button" class="stepper__btn" data-step="1" data-target="resenarer" aria-label="En resenär fler">+</button>
+            </div>
+          </div>
+          <div class="row">
+            <svg class="sym row__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse class="f" cx="24" cy="31.5" rx="9.5" ry="8"/><circle class="f" cx="11.5" cy="21" r="4"/><circle class="f" cx="19" cy="12.5" r="4"/><circle class="f" cx="29" cy="12.5" r="4"/><circle class="f" cx="36.5" cy="21" r="4"/></svg>
+            <span class="row__label"><span id="djur-etikett">Jag reser med djur</span><span class="row__hint" id="djur-hint">Plats i Djurtillåten klass.</span></span>
             <button class="switch" type="button" role="switch" aria-checked="false" aria-labelledby="djur-etikett" aria-describedby="djur-hint" id="djur-switch"><span class="switch__knob"></span></button>
           </div>
+        </section>
 
+        <!-- Steg 4: avgångar (exempel) -->
+        <section class="bk__step" data-step="4" aria-labelledby="steg4-rubrik" hidden>
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="10" y="6" width="28" height="30" rx="6"/><path d="M10 24h28"/><circle class="d" cx="17" cy="30" r="2"/><circle class="d" cx="31" cy="30" r="2"/><path d="M16 36l-4 6M32 36l4 6"/></svg><h2 class="bk__title" id="steg4-rubrik" tabindex="-1">Välj avgång</h2></div>
+          <div class="result-top">
+            <p class="result-top__query" id="result-query"></p>
+            <button class="textbtn" type="button" data-goto="1">Ändra<span class="sr-only"> sökningen</span></button>
+          </div>
+          <!-- EXEMPEL: tidtabell och priser är inte publicerade. Tider och priser räknas fram i main.js. -->
+          <p class="example-note" data-exempel><svg class="sym example-note__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M24 22v11"/><circle class="d" cx="24" cy="15.5" r="2.2"/></svg><span><strong>Exempel:</strong> tidtabell och priser är inte publicerade än.</span></p>
+          <ol class="trips" id="trips" data-exempel aria-label="Avgångar, exempel"></ol>
+        </section>
+
+        <!-- Steg 5: bekräftelse -->
+        <section class="bk__step" data-step="5" aria-labelledby="steg5-rubrik" hidden>
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg><h2 class="bk__title" id="steg5-rubrik" tabindex="-1">Din resa</h2></div>
+          <dl class="confirm" id="confirm" data-exempel></dl>
+          <p class="confirm__total" data-exempel><span>Att betala</span><strong id="confirm-total"></strong></p>
+          <p class="confirm__ex">Exempelpris. Riktiga priser publiceras när bokningen öppnar.</p>
           <div class="notice" id="sok-meddelande" role="status" aria-live="polite" hidden></div>
-
-          <!-- Tillit nära handlingen. Verifierat mot blataget.com/sv/customersupport/. -->
           <ul class="trust">
             <li><svg class="sym trust__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Avbokningsbar mot 100 kr extra, senast 1 timme före avgång.</li>
-            <li><svg class="sym trust__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Pengar tillbaka om tåget blir 60 minuter sent eller mer.</li>
+            <li><svg class="sym trust__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Biljetten kommer som sms eller e-biljett, direkt när du betalat.</li>
           </ul>
         </section>
       </div>
 
-      <div class="bk__bar">
+      <div class="bk__bar" id="bk-bar">
         <button class="btn btn--primary bk__next" type="button" id="bk-next">
           <span id="bk-next-text">Nästa</span>
           <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
