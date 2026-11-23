@@ -1,26 +1,28 @@
 # Mejlförslag till Blå Tåget
 
-Skicka till en namngiven person, till exempel marknads- eller kommersiell ansvarig. Kontrollera först namn, roll och bolag; bolaget ser ut att vara Skandinaviska Jernbanor. Byt ut allt inom [hakparentes].
+Uppdaterat 23 november 2026. Enligt blataget.com har trafiken **inte startat**. Starten var planerad till våren 2022 men är uppskjuten, och startdatumet meddelas innan bokningen öppnar. Därför handlar mejlet om att ha en ny sajt klar till trafikstarten, inte om att sälja mer biljetter i dag.
+
+Skicka till en namngiven person. Bolaget heter **Blå Tåget Jernbanor AB** enligt kontaktsidan, men sidfoten säger "Skandinaviska Jernbanor AB", så kontrollera vilket som gäller. Byt ut allt inom [hakparentes].
 
 ---
 
-**Ämne:** Ett förslag på hur fler kan boka Blå Tåget i mobilen
+**Ämne:** En sajt som är redo när Blå Tåget börjar rulla
 
 Hej [förnamn],
 
 Jag heter [ditt namn] och driver Elevate Studio. Vi bygger webbplatser för bolag som säljer direkt till kunder.
 
-Vi har gått igenom ett antal tågbolags sajter, och Blå Tåget sticker ut med en resa som verkligen har en egen känsla: de klassiska blå tågen och restaurangvagnen. Den känslan syns tyvärr inte riktigt på sajten i dag. Tre saker vi såg:
+Blå Tåget har något få tågbolag har: klassiska vagnar från 60-talet, separata kupéer, en restaurangvagn med vita dukar och en pianobar. Inför trafikstarten är sajten det första många kommer att möta, och i dag syns den känslan inte riktigt där:
 
-- Första skärmen visar inget av tåget innan videon har laddat. På mobilen blir den en tom, mörk yta.
-- Sökningen består av två rullgardinslistor utan förslag eller snabbval, och därifrån är det långt till ett köp.
-- Rubriken är svår att läsa mot bakgrunden.
+- Första skärmen är mörk tills videon har laddat, och på mobilen blir den en tom yta.
+- Sökningen består av två rullgardinslistor, utan förslag eller snabbval.
+- Restaurangvagnen och historien, som är det som gör er unika, ligger långt bort från startsidan.
 
-Vi har tagit fram ett förslag på hur startsidan och bokningen kan fungera: ett beslut i taget (vart, när, hur många), och era tåg och er restaurangvagn i fokus. Här kan du klicka runt i det:
+Vi har tagit fram ett förslag på hur startsidan och bokningen skulle kunna fungera, med sträckan Göteborg – Stockholm, restaurangvagnen och de klassiska vagnarna i fokus och en bokning som tar ett beslut i taget. Här kan du klicka runt i det:
 
 [förhandsvisningslänk]
 
-Förslaget har ett neutralt namn och exempelbilder. Vi visar gärna en version med er video och ert namn på ett kort möte, 20 minuter digitalt eller hos er.
+Förslaget har ett neutralt namn och exempelbilder. På ett kort möte visar vi gärna versionen med er film och ert namn. Vi tar 20 minuter, digitalt eller hos er i Alingsås.
 
 Passar det någon dag nästa vecka?
 
@@ -35,6 +37,6 @@ Elevate Studio
 
 ## Inför utskicket
 
-- **Dela länken först.** Förhandsvisningen är privat tills ni öppnar den via Dela-menyn på sidan.
-- **Kör Google PageSpeed** på blataget.com om ni vill nämna laddtid. Våra mätningar är bara riktmärken.
-- **Mötesversionen** med deras namn och video ligger i `koncept/blataget/`. Visa den genom att dela skärmen. Publicera den inte.
+- **Dela länken först.** Förhandsvisningen (https://claude.ai/artifact/Lw3p9QpZC1DqnKYKvs9sKH) är privat tills ni öppnar den via Dela-menyn på sidan.
+- **Kontrollera om trafiken fortfarande är uppskjuten.** Har den startat eller har bolaget lagts ner ändras läget. Deras nyhetssida gav serverfel när vi försökte läsa den.
+- **Mötesversionen** med deras namn och film ligger i `koncept/blataget/`. Visa den genom att dela skärmen och publicera den inte. Filmen spelas när sidan öppnas via en webbserver (till exempel `npx serve koncept/blataget`), inte alltid när filen öppnas direkt från disken.
