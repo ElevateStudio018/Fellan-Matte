@@ -1750,3 +1750,11 @@ h1, .phead__sub, .intro p, .stop__lead, .next p, .card__text { text-wrap: balanc
 .split__body .rows { justify-self: stretch; }
 .site-footer__contact a { min-height: 44px; }
 .site-header .wordmark { display: inline-flex; align-items: center; min-height: 44px; }
+.klass .btn, .term .btn { justify-self: start; margin-top: var(--s-8); }
+@media (min-width: 768px) { .phead__title { max-width: 22ch; } }
+/* Mobil: första raden behåller sin höjd när menyn fälls ut */
+@media (max-width: 959px) {
+  .site-header__inner { align-content: flex-start; }
+  .site-header__inner > .wordmark, .site-header__inner > .menu-toggle { margin-block: 10px; }
+}
+@media (max-width: 959px) { .main-nav a[aria-current="page"] { font-weight: 800; box-shadow: inset 4px 0 0 var(--c-action); padding-left: var(--s-16); } }
