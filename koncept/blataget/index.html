@@ -2,12 +2,15 @@
 <!--
   Designkoncept av Elevate Studio. Inte en officiell webbplats.
 
-  NEUTRAL VARIANT: varumärket står bara på dessa ställen.
+  Startsidan. Undersidorna (strackan, ombord, restaurang, biljetter, grupp, historien, kundtjanst, om)
+  delar header, trafikrad, bokningspanel och sidfot med den här filen.
+
+  NEUTRAL VARIANT: varumärket står bara på dessa ställen (på varje sida).
     1. data-brand och data-brand-url på <html> (används av main.js)
     2. <title> och meta description
     3. Ordmärket i headern och i sidfoten (.wordmark, 2 st)
     4. Sidfotens konceptrad (.site-footer__concept)
-    5. Kundtjänstblocket (#kundtjanst): bolagsnamn, org.nr, telefon och e-post
+    5. Kundtjänstblocket (#kundtjanst) och sidfotens kontaktrad: bolagsnamn, org.nr, telefon och e-post
     6. Länkar till blataget.com (sök på "blataget.com")
   Videon styrs av data-video-id på .hero. Ta bort attributet så visas bara stillbilden.
 -->
@@ -18,6 +21,7 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Blå Tåget – klassiska tåg mellan Göteborg och Stockholm (designkoncept)</title>
   <meta name="description" content="Designkoncept av Elevate Studio. Inte Blå Tågets officiella webbplats.">
+  <script>document.documentElement.classList.add("js");</script>
   <link rel="preconnect" href="https://www.youtube-nocookie.com">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -27,28 +31,30 @@
   <!-- ===================== Header ===================== -->
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="wordmark" href="#" aria-label="Blå Tåget, startsida">Blå Tåget</a>
+      <a class="wordmark" href="index.html" aria-current="page" aria-label="Blå Tåget, startsida">Blå Tåget</a>
 
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="huvudmeny">
-        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="icon icon--open" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="icon icon--close" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
         Meny
       </button>
 
       <nav id="huvudmeny" class="main-nav" aria-label="Huvudmeny">
         <ul>
-          <li><a href="#boka" data-open-booking>Boka resa</a></li>
-          <li><a href="#stracka">Sträckan</a></li>
-          <li><a href="#restaurang">Restaurang och bar</a></li>
-          <li><a href="#historien">Historien</a></li>
-          <li><a href="#kundtjanst">Kundtjänst</a></li>
+          <li><a href="#boka" data-open-booking aria-haspopup="dialog">Boka resa</a></li>
+          <li><a href="strackan.html">Sträckan</a></li>
+          <li><a href="ombord.html">Ombord</a></li>
+          <li><a href="restaurang.html">Restaurang och bar</a></li>
+          <li><a href="biljetter.html">Biljetter</a></li>
+          <li><a href="kundtjanst.html">Kundtjänst</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <!-- ===================== Trafikinfo-rad =====================
-       Verifierat mot blataget.com/sv/ 23 nov 2026: den planerade trafikstarten våren 2022 flyttas fram,
-       och startdatum meddelas innan bokningen öppnar. Egen formulering. -->
+       Verifierat mot blataget.com/sv/ 23 nov 2026: den planerade trafikstarten flyttas fram,
+       och startdatum meddelas innan bokningen öppnar. Egen formulering. Döljs för resten av besöket. -->
   <aside class="traffic" id="trafikinfo" aria-label="Trafikinformation">
     <div class="container traffic__inner">
       <svg class="sym traffic__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M24 22v11"/><circle class="d" cx="24" cy="15.5" r="2.2"/></svg>
@@ -94,28 +100,28 @@
         <h2 id="resa-rubrik" class="section__title">Inför resan</h2>
         <ul class="quick">
           <li>
-            <a class="quick__card" href="https://www.blataget.com/sv/customersupport/">
+            <a class="quick__card" href="biljetter.html#avbokning">
               <svg class="sym quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="7" y="10" width="34" height="31" rx="5"/><path d="M7 18h34M16 6v7M32 6v7M19.5 25l9 9M28.5 25l-9 9"/></svg>
               <span class="quick__text"><span class="quick__title">Avbokningsbar biljett</span><span class="quick__line">100 kr extra. Avboka senast 1 h före avgång.</span></span>
               <span class="quick__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </a>
           </li>
           <li>
-            <a class="quick__card" href="https://www.blataget.com/sv/customersupport/">
+            <a class="quick__card" href="biljetter.html#forsening">
               <svg class="sym quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M24 13v11l7.5 4.5"/><circle class="d" cx="24" cy="24" r="2"/></svg>
               <span class="quick__text"><span class="quick__title">Blev tåget sent?</span><span class="quick__line">25 % tillbaka vid 60 min, 50 % vid 120 min.</span></span>
               <span class="quick__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </a>
           </li>
           <li>
-            <a class="quick__card" href="https://www.blataget.com/sv/customersupport/">
+            <a class="quick__card" href="ombord.html#djur">
               <svg class="sym quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse class="f" cx="24" cy="31.5" rx="9.5" ry="8"/><circle class="f" cx="11.5" cy="21" r="4"/><circle class="f" cx="19" cy="12.5" r="4"/><circle class="f" cx="29" cy="12.5" r="4"/><circle class="f" cx="36.5" cy="21" r="4"/></svg>
               <span class="quick__text"><span class="quick__title">Resa med djur</span><span class="quick__line">Välj Djurtillåten klass när du bokar.</span></span>
               <span class="quick__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </a>
           </li>
           <li>
-            <a class="quick__card" href="https://www.blataget.com/sv/restaurant/">
+            <a class="quick__card" href="restaurang.html#forbestall">
               <svg class="sym quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M9 19h23v9a10 10 0 0 1-10 10h-3A10 10 0 0 1 9 28z"/><path d="M32 22h3a4.5 4.5 0 0 1 0 9h-3.6"/><path d="M6 43h29"/><path d="M15.5 8c-1.5 2 1.5 3.5 0 6M21.5 8c-1.5 2 1.5 3.5 0 6M27.5 8c-1.5 2 1.5 3.5 0 6" stroke-width="1.6"/></svg>
               <span class="quick__text"><span class="quick__title">Förbeställ maten</span><span class="quick__line">Trerätters i 1:a klass, frukost i 2:a.</span></span>
               <span class="quick__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -135,6 +141,7 @@
             <h2 id="stracka-rubrik">Sträckan</h2>
             <p class="shead__sub">Fem stationer mellan Göteborg och Stockholm. Välj var du kliver på.</p>
           </div>
+          <a class="link-arrow" href="strackan.html">Om stationerna</a>
         </div>
         <ol class="line" aria-label="Stationer från Göteborg till Stockholm">
             <li class="line__stop line__stop--end">
@@ -186,8 +193,8 @@
             <p class="feature__label">Restaurangvagnen</p>
             <h2 id="restaurang-rubrik" class="feature__title">Lagat ombord.</h2>
             <p class="feature__text">Mat från grunden på vita dukar. Restaurangvagnen är med på varje avgång.</p>
-            <a class="btn btn--hero" href="https://www.blataget.com/sv/restaurant/">
-              Se aktuell meny
+            <a class="btn btn--hero" href="restaurang.html">
+              Om restaurangvagnen
               <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
           </div>
@@ -212,7 +219,7 @@
             <h2 id="historien-rubrik">Historien</h2>
             <p class="shead__sub">Ett klassiskt tåg med vagnar från 60-talet.</p>
           </div>
-          <a class="link-arrow" href="https://www.blataget.com/sv/history/">Läs hela historien</a>
+          <a class="link-arrow" href="historien.html">Läs hela historien</a>
         </div>
         <div class="hist">
           <p class="hist__lead">Tåget började som ett privat initiativ när järnvägen öppnades för fler bolag. Vagnarna är klassiska, från 60-talet, med restaurangvagn, separata kupéer och en barvagn med pianobar och skinnfåtöljer.</p>
@@ -223,21 +230,21 @@
         </div>
         <ul class="tiles tiles--three">
           <li>
-            <a class="tile" href="https://www.blataget.com/sv/news/">
+            <a class="tile" href="restaurang.html#barvagnen">
               <img class="tile__img" src="img/pianobar.jpg" width="800" height="533" loading="lazy" alt="Ett glas står på ett öppet piano i varmt ljus.">
               <span class="tile__text"><span class="tile__title">Pianobaren</span><span class="tile__sub">Med på många avgångar</span></span>
               <span class="tile__btn" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
             </a>
           </li>
           <li>
-            <a class="tile" href="https://www.blataget.com/sv/customersupport/">
+            <a class="tile" href="grupp.html">
               <img class="tile__img" src="img/kupe-sate.jpg" width="800" height="532" loading="lazy" alt="Klassisk tågvagn inifrån med rader av röda stoppade säten.">
               <span class="tile__text"><span class="tile__title">Kupéerna</span><span class="tile__sub">Konferenskupé för sex i 1:a klass</span></span>
               <span class="tile__btn" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
             </a>
           </li>
           <li>
-            <a class="tile" href="https://www.blataget.com/sv/history/">
+            <a class="tile" href="historien.html">
               <img class="tile__img" src="img/bla-vagn.jpg" width="800" height="530" loading="lazy" alt="Ett äldre blått motorvagnståg står på ett spår i kvällssol.">
               <span class="tile__text"><span class="tile__title">Vagnarna</span><span class="tile__sub">Klassiska vagnar från 60-talet</span></span>
               <span class="tile__btn" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
@@ -256,6 +263,7 @@
             <h2 id="kundtjanst-rubrik">Kundtjänst</h2>
             <p class="shead__sub">Frågor om resan, platser eller gruppbokning. Öppnar strax före trafikstarten.</p>
           </div>
+          <a class="link-arrow" href="kundtjanst.html">Alla frågor och svar</a>
         </div>
         <div class="help">
           <div class="help__contact">
@@ -504,38 +512,45 @@
   <!-- ===================== Sidfot ===================== -->
   <footer class="site-footer">
     <div class="container">
-      <div class="site-footer__grid">
-        <div>
+      <div class="site-footer__grid site-footer__grid--four">
+        <div class="site-footer__brand">
           <p class="wordmark wordmark--light">Blå Tåget</p>
           <p class="site-footer__tag">Göteborg – Alingsås – Skövde – Hallsberg – Stockholm</p>
+          <address class="site-footer__contact">
+            <a href="tel:+46708904421">070-890 44 21</a>
+            <a href="mailto:info@blataget.com">info@blataget.com</a>
+          </address>
         </div>
         <nav aria-label="Resan">
           <h2 class="site-footer__title">Resan</h2>
           <ul>
-            <li><a href="#stracka">Sträckan</a></li>
-            <li><a href="#restaurang">Restaurang och bar</a></li>
-            <li><a href="https://www.blataget.com/sv/trains/">Tågtider</a></li>
+            <li><a href="strackan.html">Sträckan och stationerna</a></li>
+            <li><a href="ombord.html">Ombord</a></li>
+            <li><a href="restaurang.html">Restaurang och bar</a></li>
+            <li><a href="biljetter.html">Biljetter och villkor</a></li>
           </ul>
         </nav>
         <nav aria-label="Hjälp">
           <h2 class="site-footer__title">Hjälp</h2>
           <ul>
-            <li><a href="#kundtjanst">Kundtjänst</a></li>
-            <li><a href="https://www.blataget.com/sv/customersupport/">Vanliga frågor</a></li>
+            <li><a href="kundtjanst.html">Kundtjänst och frågor</a></li>
+            <li><a href="grupp.html">Grupp och konferens</a></li>
             <li><a href="https://www.blataget.com/sv/news/">Senaste nyheterna</a></li>
           </ul>
         </nav>
-        <nav aria-label="Om tåget">
-          <h2 class="site-footer__title">Om tåget</h2>
+        <nav aria-label="Företaget">
+          <h2 class="site-footer__title">Företaget</h2>
           <ul>
-            <li><a href="#historien">Historien</a></li>
+            <li><a href="historien.html">Historien</a></li>
+            <li><a href="om.html">Om företaget</a></li>
+            <li><a href="https://www.blataget.com/sv/">Officiella webbplatsen</a></li>
           </ul>
         </nav>
       </div>
 
       <div class="site-footer__legal">
         <p class="site-footer__concept">Designkoncept av Elevate Studio – inte Blå Tågets officiella webbplats</p>
-        <p>Foton från Unsplash, se <a href="img/KALLOR.md">bildkällor</a>. Filmen bäddas in från YouTube. Fakta från den officiella webbplatsen i november 2026.</p>
+        <p>Foton från Unsplash, se <a href="img/KALLOR.md">bildkällor</a>. Filmen på startsidan bäddas in från YouTube. Fakta från den officiella webbplatsen i november 2026.</p>
       </div>
     </div>
   </footer>
