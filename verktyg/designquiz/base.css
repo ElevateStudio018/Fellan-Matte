@@ -62,9 +62,9 @@
 .spec .ico { width: 20px; height: 20px; flex: 0 0 auto; }
 
 /* ---------- Hero-prover (del Hero) ---------- */
-.spec .hq { position: relative; display: flex; flex-direction: column; overflow: hidden; color: #fff; isolation: isolate; }
-.spec .hq > img.hq-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; max-width: none; }
-.spec .hq > .hq-ov { position: absolute; inset: 0; z-index: -1; }
+.spec .hq { position: relative; display: flex; flex-direction: column; overflow: hidden; color: #fff; }
+.spec .hq > img.hq-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; max-width: none; }
+.spec .hq > .hq-ov { position: absolute; inset: 0; z-index: 1; }
 .spec .hq-ct { position: relative; flex: 1; display: flex; flex-direction: column; gap: 14px; padding: 28px clamp(18px, 4%, 40px); min-width: 0; }
 .spec .hq-ttl { font-family: var(--fh); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; color: #fff; margin: 0; text-wrap: balance; }
 .spec .hq-sub { font-size: 17px; font-weight: 500; color: rgba(255, 255, 255, .94); max-width: 46ch; line-height: 1.4; }
@@ -100,17 +100,17 @@
 
 /* ---------- Hero-koncept v2 (del Hero) ---------- */
 .spec .hx { container-type: inline-size; position: relative; overflow: hidden; background: var(--ground); }
-.spec .hx-photo { position: relative; isolation: isolate; color: #fff; display: flex; flex-direction: column; }
+.spec .hx-photo { position: relative; color: #fff; display: flex; flex-direction: column; min-height: 400px; }
 .spec .hx-photo > .bg, .spec .hx-img > .bg, .spec .hx-frame .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; }
-.spec .hx-photo > .bg { z-index: -2; }
-.spec .hx-photo > .sh { position: absolute; inset: 0; z-index: -1; }
-.spec .hx-in { padding: clamp(22px, 5cqi, 60px); display: flex; flex-direction: column; gap: clamp(12px, 1.8cqi, 20px); position: relative; min-width: 0; }
+.spec .hx-photo > .bg { z-index: 0; }
+.spec .hx-photo > .sh { position: absolute; inset: 0; z-index: 1; }
+.spec .hx-in { padding: 40px; padding: clamp(22px, 5cqi, 60px); display: flex; flex-direction: column; gap: 16px; gap: clamp(12px, 1.8cqi, 20px); position: relative; z-index: 2; min-width: 0; }
 .spec .hx-t { font-family: var(--fh); font-weight: 800; letter-spacing: -0.025em; line-height: 1.02; margin: 0; text-wrap: balance; }
-.spec .hx-xl { font-size: clamp(38px, 8.6cqi, 108px); letter-spacing: -0.035em; line-height: .96; }
-.spec .hx-l { font-size: clamp(32px, 5.6cqi, 66px); }
-.spec .hx-m { font-size: clamp(27px, 3.9cqi, 46px); }
-.spec .hx-s { font-size: clamp(23px, 2.9cqi, 34px); }
-.spec .hx-p { font-size: clamp(15px, 1.55cqi, 18px); line-height: 1.45; max-width: 44ch; margin: 0; }
+.spec .hx-xl { font-size: 64px; font-size: clamp(38px, 8.6cqi, 108px); letter-spacing: -0.035em; line-height: .96; }
+.spec .hx-l { font-size: 48px; font-size: clamp(32px, 5.6cqi, 66px); }
+.spec .hx-m { font-size: 38px; font-size: clamp(27px, 3.9cqi, 46px); }
+.spec .hx-s { font-size: 28px; font-size: clamp(23px, 2.9cqi, 34px); }
+.spec .hx-p { font-size: 16px; font-size: clamp(15px, 1.55cqi, 18px); line-height: 1.45; max-width: 44ch; margin: 0; }
 .spec .hx-eye { font-size: 14px; font-weight: 700; letter-spacing: .01em; }
 .spec .hx-acts { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
 .spec .hx-two { display: grid; grid-template-columns: 1fr 1fr; }

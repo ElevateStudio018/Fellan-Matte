@@ -76,9 +76,9 @@
     const n = pos[partKey] + 1;
     const cur = answers[q.id];
     const stack = q.layout === 'stack';
-    const opts = q.opts.map((o, i) => `<button type="button" class="qz-opt${o.h ? '' : ' qz-textonly'}" data-i="${i}" aria-pressed="${cur === o.l}">
+    const opts = q.opts.map((o, i) => `<div role="button" tabindex="0" class="qz-opt${o.h ? '' : ' qz-textonly'}" data-i="${i}" aria-pressed="${cur === o.l}">
         <div class="qz-render">${o.h ? `<div class="spec">${o.h}</div>` : ''}</div>
-        <div class="qz-lab"><span class="qz-key">${LETTERS[i]}</span><span>${esc(o.l)}</span></div></button>`).join('');
+        <div class="qz-lab"><span class="qz-key">${LETTERS[i]}</span><span>${esc(o.l)}</span></div></div>`).join('');
     main.innerHTML = `<div class="qhead"><span>Fråga ${n} av ${p.qs.length}</span><span>${esc(q.group)}</span></div>
       <h1 class="qtext">${esc(q.q)}</h1>
       <div class="qz-opts${stack ? ' stack' : ''} n${q.opts.length}">${opts}</div>
@@ -163,6 +163,7 @@
     persist('anteckning-' + t.dataset.note, v ? { anteckning: v, del: t.dataset.note } : null);
   });
   document.addEventListener('keydown', e => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('qz-opt')) { e.preventDefault(); e.target.click(); return; }
     if (view !== 'quiz' || e.target.matches('textarea, input')) return;
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     const q = part().qs[pos[partKey]];
