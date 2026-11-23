@@ -97,3 +97,31 @@
 .spec .hq-phone .lbl { font-size: 11px; }
 .spec .hq-phone .sb { height: 40px; font-size: 14px; }
 @media (max-width: 560px) { .spec .hq-grid:not(.keep) { grid-template-columns: 1fr; } }
+
+/* ---------- Hero-koncept v2 (del Hero) ---------- */
+.spec .hx { container-type: inline-size; position: relative; overflow: hidden; background: var(--ground); }
+.spec .hx-photo { position: relative; isolation: isolate; color: #fff; display: flex; flex-direction: column; }
+.spec .hx-photo > .bg, .spec .hx-img > .bg, .spec .hx-frame .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; }
+.spec .hx-photo > .bg { z-index: -2; }
+.spec .hx-photo > .sh { position: absolute; inset: 0; z-index: -1; }
+.spec .hx-in { padding: clamp(22px, 5cqi, 60px); display: flex; flex-direction: column; gap: clamp(12px, 1.8cqi, 20px); position: relative; min-width: 0; }
+.spec .hx-t { font-family: var(--fh); font-weight: 800; letter-spacing: -0.025em; line-height: 1.02; margin: 0; text-wrap: balance; }
+.spec .hx-xl { font-size: clamp(38px, 8.6cqi, 108px); letter-spacing: -0.035em; line-height: .96; }
+.spec .hx-l { font-size: clamp(32px, 5.6cqi, 66px); }
+.spec .hx-m { font-size: clamp(27px, 3.9cqi, 46px); }
+.spec .hx-s { font-size: clamp(23px, 2.9cqi, 34px); }
+.spec .hx-p { font-size: clamp(15px, 1.55cqi, 18px); line-height: 1.45; max-width: 44ch; margin: 0; }
+.spec .hx-eye { font-size: 14px; font-weight: 700; letter-spacing: .01em; }
+.spec .hx-acts { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.spec .hx-two { display: grid; grid-template-columns: 1fr 1fr; }
+.spec .hx-img { position: relative; min-height: 260px; overflow: hidden; }
+.spec .hx-searchpill { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 54px; padding: 0 30px; border-radius: 999px; background: #fff; color: var(--sink); font-weight: 600; font-size: 16px; min-width: min(100%, 300px); }
+.spec .hx-field { display: flex; align-items: center; gap: 10px; background: #fff; color: var(--smuted); border-radius: 999px; padding: 6px 6px 6px 20px; width: 100%; max-width: 520px; font-size: 16px; }
+.spec .hx-field > span:first-child { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.spec .hx-round { display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--brand); color: #fff; flex: 0 0 auto; }
+.spec .hx-wchip { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 999px; background: #fff; color: var(--sink); font-weight: 600; font-size: 14px; }
+.spec .hx-phone { width: 100%; max-width: 260px; margin: 18px auto; border-radius: 32px; border: 8px solid #1F1C18; overflow: hidden; background: var(--ground); }
+@container (max-width: 700px) {
+  .spec .hx-two { grid-template-columns: 1fr; }
+  .spec .hx-hide-s { display: none !important; }
+}
