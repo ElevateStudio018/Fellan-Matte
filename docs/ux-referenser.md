@@ -117,8 +117,34 @@ NS och Airbnb underkändes. NS är platt gult med UI-paneler, och Airbnb har sö
 | **Färger** | Skog och havre `#1D5B3A`/`#F6F1E9`, klargrön `#00873A`, åkergrön och linne `#1E6E37`/`#F4EEE6`, tallgrön `#00421B`, signalröd `#C8250F`, marinblå och havre `#003A80`/`#F1EFEA`, plommon och smör `#3C1053`/`#FFE378`, natt och rost `#10293E`/`#AF3F2F` | Fjordgrön och mint, tegelröd och kalk, skifferblå och is, sand och vinrött (dova och pastelliga) | Skog och havre |
 | **Knappar** | Pill, rundad 8 px, stor rundad 12 px, med pil | Skarpa 0–2 px, versaler, tonad sekundär, sekundär som länk, skugga, full bredd | Pill, sekundär som konturknapp |
 | **Fält** | Fylld utan kant, understruken | Tunn kantlinje på vit ruta | Fylld utan kant |
-| **Hero** | Text på fotot med mörkläggning nertill, bokning som överlappar fotots kant | Ljus panel på fotot, delad layout, jätterubrik | Text på fotot |
+| **Hero** | Se hero-quizet nedan | Formulär i heron | Foto och sökknapp |
 | **Bokningsruta** | Panel i två kolumner, med flikar, ett sökfält med snabbval | Alla fält på en rad | Panel |
 | **Kort** | Bild och text under, text på bilden, bild bredvid | (inget) | Bild och text under |
 
 Beställarens egen kombination i "Testa ihop": Hanken Grotesk, skog och havre, pill, fylld utan kant, text på fotot, panel och bild med text under.
+
+---
+
+## Hero-quizet (beställarens val, november 2026)
+
+40 hero-koncept i beställarens stil testades, och 29 frågor besvarades. Flera val per fråga var tillåtna.
+
+| Koncept | Valt | Var |
+|---|---|---|
+| **Stor rubrik på foto** | 7 gånger | Semester, vinter, fjällen, Alperna, hållbarhet, specialpris, helg i Berlin |
+| **Sökfält på fotot** | 6 gånger | Vardag, storstad, Köpenhamn, kundservice, trafikinfo, sommar |
+| **Foto och vit sökknapp (som SJ)** | 5 gånger | Vardag, vart man kan åka, lugnast, boka tidigt, mobil |
+| Nyhetsrad under fotot | 2 gånger | Ny sträcka, ny tidtabell |
+| Smal sökrad, vykort, genvägar, rubrik på havre | 1 gång var | |
+| Biljett, ruttlinje, tågfönster, grön båge, tider eller pris som rubrik, kollage, fakta på foto | **0 gånger** | Frågor där bara sådana alternativ fanns lämnades obesvarade |
+
+Stilfrågorna:
+- **Fotots form:** kant till kant.
+- **Text:** på fotot.
+- **Grafiska element:** inga.
+- **Rubrikstorlek:** stor eller mycket stor.
+- **Ton:** fråga eller påstående.
+- **Placering:** centrerat eller vänsterställt.
+- **Nyheter:** ingen nyhet i heron. Huvudbudskap och nyhet blir två delade block efter varandra.
+- **Mobil:** foto med sökknapp, eller stor rubrik på foto.
+- **Bokning i heron:** alla fyra nivåerna (sökknapp, sökfält, smal sökrad eller bara rubrik och knapp) är godkända. Ett helt formulär är det inte.

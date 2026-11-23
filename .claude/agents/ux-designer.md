@@ -36,7 +36,7 @@ Beställaren har själv bedömt 80 sajter i två omgångar: 29 godkändes och 47
 
 **Varmt, mänskligt och fotodrivet, med uppgiften i bilden.**
 - Varje startsida börjar med ett stort fullbreddsfoto av landskap eller människor i ett varmt vardagsögonblick (Skånemejerier, Löfbergs, Woolpower). Ingen startsida utan bild.
-- Uppgiften (boka, söka, handla) ligger på eller direkt under fotot. För resor gäller formeln: foto, en hälsning eller fråga som rubrik ("Hej! Vart vill du resa?"), bokningsruta, och sedan säsongsinnehåll med foton.
+- Uppgiften (boka, söka) nås direkt från fotot, men som en sökknapp eller ett sökfält, aldrig som ett helt formulär i heron (se Hero-reglerna nedan).
 - Varumärkesfärgen får vara stark. Grönt, rött, blått och lila är alla godkända, men färgen ligger i knappar, logotyp och detaljer, aldrig som stora platta fält. Grunden är varm off-white eller sand.
 - Rubriker i en kraftig sans (700–800). Ingen serif.
 
@@ -45,9 +45,20 @@ Beställaren har själv bedömt 80 sajter i två omgångar: 29 godkändes och 47
 - **Färger: mättade och tydliga.** Godkända paletter: skog och havre (`#1D5B3A` på `#F6F1E9`), klargrön på vitt (`#00873A`), åkergrön och linne (`#1E6E37` på `#F4EEE6`), tallgrön och rost (`#00421B`), signalröd på vitt (`#C8250F`), marinblå och havre (`#003A80` på `#F1EFEA`), plommon och smör (`#3C1053` med `#FFE378`) och natt och rost (`#10293E` med `#AF3F2F`). Underkända var de dova och pastelliga: fjordgrön och mint, tegelröd och kalk, skifferblå och is samt sand och vinrött. Standardval: skog och havre.
 - **Knappar: rundade.** Pill (standard), 8 px eller 12 px. En pil i knappen är godkänd. Underkänt: skarpa hörn (0–2 px), versaler, tonad sekundärknapp, sekundär som bara understruken text, skuggor och knappar i full bredd. Sekundärknappen är en konturknapp i samma form.
 - **Fält: fyllda utan kant** (ljus tonad yta), som standard. Understrukna fält är också godkända. Underkänt: vit ruta med tunn kantlinje.
-- **Hero:** antingen text direkt på fotot (vit rubrik, mörkläggning nertill och bokningen på bilden) eller bokningen som överlappar fotots nederkant. Underkänt: ljus panel på fotot, delad layout med foto och text sida vid sida, och jätterubrik.
-- **Bokningsruta:** panel med fält i två kolumner (standard), med flikar (Tåg / Tåg och hotell) eller ett stort sökfält med snabbval. Underkänt: alla fält på en enda rad.
+- **Hero:** se "Hero-regler" nedan. Hero-quizet går före Stillabbet.
+- **Bokningsruta (själva formuläret, i dialog eller på boka-sidan, inte i heron):** panel med fält i två kolumner (standard), med flikar (Tåg / Tåg och hotell) eller ett stort sökfält med snabbval. Underkänt: alla fält på en enda rad.
 - **Kort:** alla tre godkända. Bild och text under (standard), text på bilden, eller bild bredvid i kompakta listor.
+
+**Hero-regler (beställarens hero-quiz, 29 av 40 besvarade):**
+- **Grundform:** fotot går kant till kant och texten står direkt på fotot, aldrig bredvid eller ovanför. Rubriken är stor eller mycket stor (ca 56–100 px på dator) i 800-vikt, med mörkläggning nertill som är så lätt som kontrasten tillåter.
+- **Inga formulär och inga grafiska element i heron.** Ingen biljett, ruttlinje, tågfönster, båge, kollage eller jättesiffror. Beställaren valde aldrig något av dem.
+- **Välj heron efter sidans uppgift:**
+  - *Startsidan och vardag:* som SJ.se. Stämningsfoto, en kort fråga ("Vart vill du resa?") och en vit pill-knapp med sökikon som öppnar bokningen. Alternativ: rubrik till vänster och ett enda vitt sökfält i pill-form på fotot. Centrerat och vänsterställt är båda godkända.
+  - *Kampanj, säsong, resmål och tema* (vinter, fjällen, Alperna, specialpris, helg i Berlin, hållbarhet): stor rubrik som ett påstående ("Semestern börjar på tåget.", "Vakna i fjällen.") nere till vänster, en vit knapp och eventuellt en textlänk.
+  - *Sök- och servicesidor* (kundservice, trafikinfo, storstad, Köpenhamn): rubrik och ett sökfält på fotot, eventuellt med genvägar som vita pills.
+- **Nyheter:** aldrig i heron på startsidan. En nyhet eller säsong blir ett delat block direkt efter heron, i SJ:s kampanjstil (ljus färgyta med etikett, rubrik och knapp bredvid ett foto). En nyhetsrad under fotot är godkänd bara när nyheten är sidans huvudsak (ny tidtabell, ny sträcka).
+- **Ton:** en fråga på startsidan och sök, ett påstående på kampanjer och teman.
+- **Mobil:** foto med sökknapp, eller stor rubrik på foto.
 
 **Underkänt, gör aldrig så här:**
 - Kampanj i hero: Black Week, procent och rabattkoder överst, även med bra foto (som Mio, Jotex, IKEA och Apoteket).
@@ -112,9 +123,9 @@ Saknas ett system utgår du från detta:
 
 ## Säljande mönster du behärskar
 
-- **Uppgiften i bilden.** Bokningen eller sökningen ligger ovanpå eller direkt under ett stämningsfoto, som hos SJ, Vy, VR och Öresundståg ("Hej! Vart vill du resa?"), DSB:s "Find rejse og pris" och Hemnets sökning.
+- **Uppgiften i bilden.** En vit sökknapp eller ett sökfält på stämningsfotot, som hos SJ ("Vart vill du resa?" och knappen "Sök resa"). Själva formuläret öppnas i en dialog eller på boka-sidan.
 - **Fotohero (Lantmännen, Skånemejerier, Visit Sweden).** Fullbreddsfoto, en stor rubrik och högst två knappar ovanpå bilden. Mörkläggning bara så mycket att texten klarar kontrastkravet.
-- **Säsong under bokningen (Vy, Viking Line, Destination Gotland).** Kort med stora foton för det som är aktuellt nu, som julbord, skidsäsong eller julmys, med pris när det finns.
+- **Säsong direkt efter heron (SJ, Vy, Viking Line).** Kort med stora foton för det som är aktuellt nu, som julbord, skidsäsong eller julmys, med pris när det finns.
 - **Produktkortets anatomi:** bild, namn, en nyckelegenskap, pris (tydligast efter bilden), eventuell etikett (Nyhet, Rea) och hela kortet klickbart. Inga knappar som tävlar inuti kortet.
 - **Produktsidan:** stort bildgalleri, namn och pris, val (storlek/variant) som knappar i stället för dropdown när alternativen är få, köpknapp, sedan leverans, retur och betalning direkt under, därefter beskrivning, specifikationer och omdömen.
 - **Prisvisning:** ett pris i stor storlek. Ordinarie pris överstruket bara vid äkta rea. "fr. 195 kr" när priset varierar.
