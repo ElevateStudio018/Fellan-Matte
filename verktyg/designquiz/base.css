@@ -60,3 +60,40 @@
 .spec .chip { display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 999px; background: var(--box); border: 1px solid var(--sline); font-size: 14px; font-weight: 500; }
 .spec .divider { height: 1px; background: var(--sline); border: 0; margin: 0; }
 .spec .ico { width: 20px; height: 20px; flex: 0 0 auto; }
+
+/* ---------- Hero-prover (del Hero) ---------- */
+.spec .hq { position: relative; display: flex; flex-direction: column; overflow: hidden; color: #fff; isolation: isolate; }
+.spec .hq > img.hq-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; max-width: none; }
+.spec .hq > .hq-ov { position: absolute; inset: 0; z-index: -1; }
+.spec .hq-ct { position: relative; flex: 1; display: flex; flex-direction: column; gap: 14px; padding: 28px clamp(18px, 4%, 40px); min-width: 0; }
+.spec .hq-ttl { font-family: var(--fh); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; color: #fff; margin: 0; text-wrap: balance; }
+.spec .hq-sub { font-size: 17px; font-weight: 500; color: rgba(255, 255, 255, .94); max-width: 46ch; line-height: 1.4; }
+.spec .hq-eye { font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, .9); }
+.spec .hq-hdr { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(18px, 4%, 40px); font-weight: 600; font-size: 14px; flex-wrap: wrap; }
+.spec .hq-hdr .wm { font-weight: 800; font-size: 19px; letter-spacing: -0.01em; }
+.spec .hq-hdr nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.spec .hq-panel { background: var(--box); color: var(--sink); border-radius: var(--rc); padding: 18px; display: flex; flex-direction: column; gap: 12px; width: 100%; min-width: 0; }
+.spec .hq-panel.green { background: var(--brand); color: #fff; }
+.spec .hq-panel.green .lbl { color: #fff; }
+.spec .hq-panel.green .inp { background: #F6F1E9; }
+.spec .hq-panel.dark { background: rgba(31, 28, 24, .88); color: #fff; }
+.spec .hq-panel.dark .lbl { color: #fff; }
+.spec .hq-panel.dark .inp { background: rgba(255, 255, 255, .14); color: #fff; }
+.spec .hq-grid { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; }
+.spec .hq-grid.one { grid-template-columns: 1fr; }
+.spec .hq-rowf { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+.spec .hq-rowf .fld { flex: 1 1 120px; }
+.spec .hq-trust { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; }
+.spec .hq-trust span { display: inline-flex; gap: 6px; align-items: center; }
+.spec .hq-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.spec .hq-tabs span { padding: 7px 14px; border-radius: 999px; font-weight: 600; font-size: 14px; color: var(--smuted); }
+.spec .hq-tabs span.on { background: var(--tint); color: var(--brand); }
+.spec .hq-panel.green .hq-tabs span { color: rgba(255,255,255,.8); } .spec .hq-panel.green .hq-tabs span.on { background: rgba(255,255,255,.16); color: #fff; }
+.spec .hq-phone { width: 100%; max-width: 250px; margin: 18px auto; border-radius: 30px; border: 8px solid #1F1C18; overflow: hidden; background: var(--ground); }
+.spec .hq-phone .hq-ct { padding: 18px 16px; }
+.spec .hq-phone .hq-hdr { padding: 10px 14px; }
+.spec .hq-phone .hq-panel { padding: 12px; gap: 8px; }
+.spec .hq-phone .inp { height: 38px; font-size: 13px; padding: 0 10px; }
+.spec .hq-phone .lbl { font-size: 11px; }
+.spec .hq-phone .sb { height: 40px; font-size: 14px; }
+@media (max-width: 560px) { .spec .hq-grid:not(.keep) { grid-template-columns: 1fr; } }

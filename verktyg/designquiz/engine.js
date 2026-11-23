@@ -3,6 +3,7 @@
     { key: 'detaljer', title: 'Detaljer' },
     { key: 'sektioner', title: 'Sektioner' },
     { key: 'generellt', title: 'Generellt' },
+    { key: 'hero', title: 'Hero' },
   ];
   const NONE = 'Spelar ingen roll';
   const LETTERS = 'ABCD';
@@ -26,7 +27,7 @@
   const answers = {}; // id -> label
   const notes = {};   // part -> text
   let partKey = 'detaljer';
-  const pos = { detaljer: 0, sektioner: 0, generellt: 0 };
+  const pos = { detaljer: 0, sektioner: 0, generellt: 0, hero: 0 };
   let view = 'quiz';
   let col = null;
   const LS = 'designquiz-v1';

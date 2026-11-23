@@ -2,7 +2,7 @@
 import os
 
 D = os.path.dirname(os.path.abspath(__file__))
-DATA = ['data-detaljer-a.js', 'data-detaljer-b.js', 'data-sektioner.js', 'data-generellt.js']
+DATA = ['data-detaljer-a.js', 'data-detaljer-b.js', 'data-sektioner.js', 'data-generellt.js', 'data-hero.js']
 
 
 def read(name):
