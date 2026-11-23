@@ -745,50 +745,59 @@ body:has(.bk[open]) { overflow: hidden; }
 @media (min-width: 768px) { .section__title { font-size: var(--fs-26); } }
 .section__sub { margin-top: var(--s-4); color: var(--c-muted); }
 
-/* ---------- För dig som ska resa: låga snabbåtgärdskort ---------- */
+/* ---------- Inför resan: snabbåtgärder med egna symboler ---------- */
 .quick {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  gap: var(--s-8);
-  grid-template-columns: 1fr;
+  gap: var(--s-12);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-@media (min-width: 600px) { .quick { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-12); } }
-@media (min-width: 1100px) { .quick { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .quick { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-16); } }
 .quick__card {
+  position: relative;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--s-12);
   height: 100%;
-  min-height: 76px;
-  padding: var(--s-12) var(--s-12) var(--s-12) var(--s-16);
+  min-height: 168px;
+  padding: var(--s-16) var(--s-16) var(--s-48);
   background: var(--c-surface);
   border: 1px solid var(--c-line);
   border-radius: var(--r-card);
   color: var(--c-text);
   text-decoration: none;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
-.quick__card:hover { border-color: var(--c-action); background: #fff; }
-.quick__card:hover .quick__title { text-decoration: underline; text-underline-offset: 0.18em; }
+@media (min-width: 600px) { .quick__card { padding: var(--s-24) var(--s-24) var(--s-64); min-height: 196px; } }
+.quick__card:hover { border-color: var(--c-action); transform: translateY(-2px); }
 .quick__card:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
-.quick__icon {
+.quick__icon { width: 48px; height: 48px; flex: none; stroke: var(--c-action); }
+@media (min-width: 600px) { .quick__icon { width: 56px; height: 56px; } }
+.quick__icon .qi-fill { fill: #F7E2A4; }
+.quick__icon .qi-dot { fill: var(--c-action); stroke: none; }
+.quick__icon .qi-thin { stroke-width: 1.6; }
+.quick__text { display: grid; gap: 2px; min-width: 0; }
+.quick__title { font-weight: 800; font-size: var(--fs-16); line-height: 1.25; letter-spacing: -0.005em; }
+@media (min-width: 600px) { .quick__title { font-size: var(--fs-18); } }
+.quick__line { font-size: var(--fs-14); color: var(--c-muted); line-height: 1.4; }
+.quick__chev {
+  position: absolute;
+  right: var(--s-12);
+  bottom: var(--s-12);
   display: grid;
   place-items: center;
-  flex: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--c-promo);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--c-action);
   color: var(--c-action);
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
-.quick__icon .icon { width: 22px; height: 22px; }
-.quick__text { display: grid; flex: 1; min-width: 0; }
-.quick__title { font-weight: 700; }
-.quick__line { font-size: var(--fs-14); color: var(--c-muted); }
-.quick__chev { flex: none; color: var(--c-action); display: grid; }
-.quick__card:hover .quick__chev { transform: translateX(2px); }
+@media (min-width: 600px) { .quick__chev { right: var(--s-16); bottom: var(--s-16); width: 40px; height: 40px; } }
+.quick__chev .icon { width: 18px; height: 18px; }
+.quick__card:hover .quick__chev { background: var(--c-action); color: #fff; }
 @media (prefers-reduced-motion: reduce) { .quick__card, .quick__chev { transition: none; transform: none !important; } }
 
 /* ---------- Kvällsavgångar: avgångstavla ---------- */
