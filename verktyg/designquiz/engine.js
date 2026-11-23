@@ -6,6 +6,8 @@
     { key: 'hero', title: 'Hero' },
   ];
   const NONE = 'Spelar ingen roll';
+  const IMGS = window.QUIZ_IMGS || {};
+  const fixImg = h => h.replace(/img\/([a-z0-9-]+\.jpg)/g, (m, f) => IMGS[f] || m);
   const LETTERS = 'ABCD';
 
   // ---------- Data ----------
@@ -77,7 +79,7 @@
     const cur = answers[q.id];
     const stack = q.layout === 'stack';
     const opts = q.opts.map((o, i) => `<div role="button" tabindex="0" class="qz-opt${o.h ? '' : ' qz-textonly'}" data-i="${i}" aria-pressed="${cur === o.l}">
-        <div class="qz-render">${o.h ? `<div class="spec">${o.h}</div>` : ''}</div>
+        <div class="qz-render">${o.h ? `<div class="spec">${fixImg(o.h)}</div>` : ''}</div>
         <div class="qz-lab"><span class="qz-key">${LETTERS[i]}</span><span>${esc(o.l)}</span></div></div>`).join('');
     main.innerHTML = `<div class="qhead"><span>Fråga ${n} av ${p.qs.length}</span><span>${esc(q.group)}</span></div>
       <h1 class="qtext">${esc(q.q)}</h1>
