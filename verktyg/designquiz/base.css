@@ -1,0 +1,62 @@
+/* ==========================================================================
+   Provstil för alla quizalternativ (.spec).
+   Utgångsläget är beställarens val i Stillabbet: Hanken Grotesk, skog och
+   havre, pill-knappar, fyllda fält utan kant, 16 px rundning på kort.
+   Ett alternativ ändrar bara det som frågan gäller, med inline-stil eller
+   en egen <style> med unikt klassprefix.
+   ========================================================================== */
+.spec {
+  --fh: 'Hanken Grotesk', system-ui, sans-serif; --fhw: 800;
+  --fb: 'Hanken Grotesk', system-ui, sans-serif;
+  --brand: #1D5B3A; --brand-d: #164a2f; --bink: #ffffff;
+  --ground: #F6F1E9; --box: #FFFDF9; --field: #EFE8DC;
+  --sink: #1F1C18; --smuted: #5E574D; --accent: #F0C75E;
+  --ok: #1E7A45; --warn: #9A5B00; --bad: #B3261E;
+  --rb: 999px; --rc: 16px; --rf: 12px;
+  --sline: rgba(31, 28, 24, .16);
+  --tint: #E3ECE6;
+  background: var(--ground); color: var(--sink);
+  font-family: var(--fb); font-size: 15px; line-height: 1.5;
+  position: relative; overflow: hidden;
+}
+.spec *, .spec *::before, .spec *::after { box-sizing: border-box; }
+.spec p { margin: 0; }
+.spec img { display: block; max-width: 100%; }
+
+/* Text */
+.spec .h { font-family: var(--fh); font-weight: var(--fhw); line-height: 1.12; letter-spacing: -0.01em; margin: 0; text-wrap: balance; color: var(--sink); }
+.spec .h1 { font-size: 34px; }
+.spec .h2 { font-size: 26px; }
+.spec .h3 { font-size: 19px; }
+.spec .eyebrow { font-size: 13px; font-weight: 600; color: var(--smuted); }
+.spec .muted { color: var(--smuted); }
+.spec .small { font-size: 13px; }
+.spec .price { font-weight: 700; font-variant-numeric: tabular-nums; }
+.spec .price small { font-weight: 400; color: var(--smuted); font-size: 13px; }
+.spec .link { color: var(--brand); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.spec .tag { display: inline-flex; align-items: center; gap: 4px; background: var(--accent); color: var(--sink); font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; line-height: 1.6; }
+
+/* Knappar */
+.spec .sb, .spec .sb2 {
+  font-family: var(--fb); font-weight: 600; font-size: 15px; height: 48px; padding: 0 24px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 2px solid var(--brand); background: var(--brand); color: var(--bink);
+  border-radius: var(--rb); cursor: pointer; text-decoration: none; white-space: nowrap; line-height: 1;
+}
+.spec .sb2 { background: transparent; color: var(--brand); }
+
+/* Fält (fyllda utan kant) */
+.spec .fld { display: flex; flex-direction: column; gap: 5px; min-width: 0; flex: 1 1 140px; }
+.spec .fld > .lbl { font-size: 13px; font-weight: 600; color: var(--sink); }
+.spec .inp { display: flex; align-items: center; height: 48px; padding: 0 14px; font-size: 15px; color: var(--sink); background: var(--field); border: 0; border-radius: var(--rf); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.spec .inp.ph { color: var(--smuted); }
+
+/* Byggstenar */
+.spec .pad { padding: 20px; }
+.spec .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.spec .stack { display: flex; flex-direction: column; gap: 10px; }
+.spec .panel { background: var(--box); border-radius: var(--rc); padding: 18px; }
+.spec .pic { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--rc); }
+.spec .chip { display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 999px; background: var(--box); border: 1px solid var(--sline); font-size: 14px; font-weight: 500; }
+.spec .divider { height: 1px; background: var(--sline); border: 0; margin: 0; }
+.spec .ico { width: 20px; height: 20px; flex: 0 0 auto; }
