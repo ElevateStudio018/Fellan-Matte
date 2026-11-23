@@ -6,13 +6,15 @@ Hämtade 23 november 2026 via `images.unsplash.com`, nerskalade och omkomprimera
 
 | Fil | Används i | Motiv | Fotograf | Källa |
 |---|---|---|---|---|
-| `hero-landskap.jpg` (1600 px) | Heron, stillbild bakom filmen | Jordbrukslandskap med rapsfält ner mot en sjö | Damir Korotaj | https://unsplash.com/photos/z0hjDYG-nQE |
+| `hero.jpg` (2000 px) | Heron, stillbild bakom filmen | Järnvägsspår mot skog och berg i gyllene kvällssol | Ales Krivec | https://unsplash.com/photos/UzHQOxVxqgw |
+| `hero-alt-1.jpg` (2000 px) | Alternativ herobild | Tåg på en fackverksbro över vatten i kvällsljus | Vizag Explore | https://unsplash.com/photos/kA4FErdsfcY |
+| `hero-alt-2.jpg` (2000 px) | Alternativ herobild | Tåg i solnedgång under en trädkrona | Ainur Iman | https://unsplash.com/photos/1ABTpivjOEE |
 | `restaurangvagn.jpg` (1600 × 1280 px, beskuren) | Restaurangvagnen, text på fotot | Restaurangvagn med vita dukar och läderstolar | Susan Q Yin | https://unsplash.com/photos/GXPshx7vLNg |
 | `pianobar.jpg` (800 px) | Historien | Ett glas på ett öppet piano | Ahtziri Lagarde | https://unsplash.com/photos/qDnLNBXF3cA |
 | `kupe-sate.jpg` (800 px) | Historien | Klassisk vagn med röda säten | Peter Herrmann | https://unsplash.com/photos/EdlIk4uKAz4 |
 | `bla-vagn.jpg` (800 px) | Historien | Äldre blått motorvagnståg i kvällssol | Supradoc | https://unsplash.com/photos/1VTSZAeM-Kk |
 
-Obs: inget av fotona visar tågbolagets egna vagnar, och landskapet är inte utmed sträckan. I skarp drift ska de ersättas med bolagets egna bilder.
+Obs: inget av fotona visar tågbolagets egna vagnar, och inga av landskapen ligger utmed sträckan. Herobilden och alternativen är inte tagna i Norden. I skarp drift ska de ersättas med bolagets egna bilder.
 
 ## Film
 

@@ -370,7 +370,7 @@
   function dateText() {
     if (!ut.value) return "";
     var t = fmt(ut.value);
-    if (hemSwitch.getAttribute("aria-checked") === "true" && hem.value) t += " – " + fmt(hem.value);
+    if (hemSwitch.getAttribute("aria-checked") === "true" && hem.value && hem.value >= ut.value) t += " – " + fmt(hem.value);
     return t;
   }
 
@@ -387,7 +387,15 @@
     });
   }
   function renderTrips() {
-    $("result-query").textContent = state.from + " → " + state.to + " · " + dateText() + " · " + paxText();
+    var q = $("result-query");
+    q.innerHTML = "";
+    [state.from + " → " + state.to, dateText(), paxText()].forEach(function (part, i) {
+      if (i) q.appendChild(document.createTextNode(" · "));
+      var span = document.createElement("span");
+      span.className = "nowrap";
+      span.textContent = part;
+      q.appendChild(span);
+    });
     var list = $("trips");
     list.innerHTML = "";
     exampleTrips().forEach(function (t) {
