@@ -1,6 +1,6 @@
-/* Snälltåget – designkoncept av Elevate Studio
-   Stillabbet: Hanken Grotesk, skog och havre, pill-knappar, fyllda fält,
-   text på fotot med bokningen under rubriken, kort med bild och text under. */
+/* Designkoncept av Elevate Studio
+   Stillabbet: Hanken Grotesk, marinblå och havre, pill-knappar, fyllda fält.
+   Ingen gul. Symboler med blå linje och ljusblå fyllning. */
 
 @font-face {
   font-family: "Hanken Grotesk";
@@ -10,24 +10,24 @@
 }
 
 :root {
-  /* Färg: skog och havre */
-  --c-bg: #f6f1e9;          /* havre */
-  --c-surface: #fffcf7;     /* panel */
-  --c-sand: #ece5d8;        /* sektionsyta */
-  --c-field: #efe8dc;       /* fyllt fält */
-  --c-field-hover: #e7dfd0;
-  --c-text: #1f1c18;
-  --c-muted: #5a544b;       /* 6.6:1 på havre */
-  --c-line: #ddd4c5;
-  --c-action: #1d5b3a;      /* skog, enda handlingsfärgen */
-  --c-action-hover: #144a2d;
-  --c-accent: #dfeadf;      /* etiketter: ljusgrön, ingen gul */
-  --c-promo: #dfeadf;       /* ljusgrön kampanjyta */
-  --c-warn-bg: #ece5d8;     /* trafikrad: sand, ingen gul */
+  /* Färg: marinblå och havre */
+  --c-bg: #f1efea;          /* havre */
+  --c-surface: #fdfcfa;     /* panel */
+  --c-sand: #e7e3da;        /* sektionsyta */
+  --c-field: #e8e5de;       /* fyllt fält */
+  --c-field-hover: #dfdbd2;
+  --c-text: #1a1e26;
+  --c-muted: #525761;
+  --c-line: #d8d4ca;
+  --c-action: #003a80;      /* marinblå, enda handlingsfärgen */
+  --c-action-hover: #002b61;
+  --c-accent: #dce5f2;      /* etiketter: ljusblå, ingen gul */
+  --c-promo: #dce5f2;       /* ljusblå yta och symbolfyllning */
+  --c-warn-bg: #e7e3da;     /* trafikrad: sand, ingen gul */
   --c-error: #a8201a;
-  --c-dark: #1f1c18;
-  --c-on-dark: #f6f1e9;
-  --c-on-dark-muted: #c9c1b4;
+  --c-dark: #0f1f38;        /* sidfot: djup marin */
+  --c-on-dark: #f1efea;
+  --c-on-dark-muted: #bcc5d3;
 
   /* Typografi: en familj */
   --f-sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -538,7 +538,7 @@ body:has(.bk[open]) { overflow: hidden; }
 .pill--radio:hover { background: var(--c-promo); color: var(--c-action); }
 .pill--radio:hover .pill__text small { color: var(--c-muted); }
 .pill--radio:has(input:checked) { background: var(--c-action); color: #fff; }
-.pill--radio:has(input:checked) small { color: #e4efe7; }
+.pill--radio:has(input:checked) small { color: #dbe5f3; }
 .pill--radio:has(input:focus-visible) { outline: var(--focus-ring); outline-offset: 3px; }
 
 /* Växel för hemresa */
@@ -623,68 +623,7 @@ body:has(.bk[open]) { overflow: hidden; }
 }
 .lead { font-size: var(--fs-18); margin-top: var(--s-16); max-width: 60ch; }
 
-/* ---------- Kort: bild och text under ---------- */
-.cards {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: var(--s-32) var(--s-24);
-  grid-template-columns: 1fr;
-}
-@media (min-width: 600px) { .cards { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1100px) { .cards { grid-template-columns: repeat(4, 1fr); } }
-
-.card { position: relative; display: flex; flex-direction: column; }
-.card__img {
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  border-radius: var(--r-card);
-}
-.card__body { display: flex; flex-direction: column; gap: var(--s-4); padding-top: var(--s-16); flex: 1; }
-.card__kicker {
-  display: flex;
-  align-items: center;
-  gap: var(--s-8);
-  font-size: var(--fs-14);
-  font-weight: 600;
-  color: var(--c-muted);
-}
-.tag {
-  padding: 2px var(--s-8);
-  background: var(--c-accent);
-  color: var(--c-action);
-  border-radius: var(--r-pill);
-  font-size: 0.8125rem;
-  font-weight: 700;
-}
-.card__title { font-size: var(--fs-20); }
-.card__link { color: var(--c-text); text-decoration: none; }
-.card__link::after { content: ""; position: absolute; inset: 0; border-radius: var(--r-card); }
-.card:hover .card__link { text-decoration: underline; }
-.card__link:focus-visible { outline: none; }
-.card:has(.card__link:focus-visible) { outline: var(--focus-ring); outline-offset: 4px; border-radius: var(--r-card); }
-.card__meta { color: var(--c-muted); }
-.card__price {
-  margin-top: auto;
-  padding-top: var(--s-8);
-  font-size: var(--fs-20);
-  font-weight: 800;
-}
-.card__price span { font-size: var(--fs-14); font-weight: 400; color: var(--c-muted); }
-.card__price--fact { font-size: var(--fs-18); }
-
-/* Kompakt lista på mobil: bild bredvid */
-@media (max-width: 599px) {
-  .cards { gap: var(--s-24); }
-  .card { display: grid; grid-template-columns: 112px 1fr; gap: var(--s-16); align-items: start; }
-  .card__img { aspect-ratio: 1 / 1; border-radius: var(--r-img); }
-  .card__body { padding-top: 0; }
-  .card__price { padding-top: var(--s-4); }
-}
-
-/* ---------- Säsong: delat block under heron ---------- */
+/* ---------- Delat block (restaurangvagnen) ---------- */
 .promo {
   display: grid;
   background: var(--c-promo);
@@ -801,120 +740,7 @@ body:has(.bk[open]) { overflow: hidden; }
 .quick__card:hover .quick__chev { background: var(--c-action); color: #fff; }
 @media (prefers-reduced-motion: reduce) { .quick__card, .quick__chev { transition: none; transform: none !important; } }
 
-/* ---------- Kvällsavgångar: avgångstavla ---------- */
-.board {
-  background: var(--c-surface);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-card);
-  overflow: hidden;
-}
-.board__table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-.board__table th {
-  padding: var(--s-12) var(--s-16);
-  text-align: left;
-  font-size: var(--fs-14);
-  font-weight: 600;
-  color: var(--c-muted);
-  background: var(--c-bg);
-  border-bottom: 1px solid var(--c-line);
-}
-.board__table td { padding: var(--s-16); border-bottom: 1px solid var(--c-line); vertical-align: middle; }
-.board__table tbody tr:last-child td { border-bottom: 0; }
-.board__table tbody tr:hover { background: #fffaf2; }
-.board__time { font-size: var(--fs-26); font-weight: 800; letter-spacing: -0.01em; width: 1%; white-space: nowrap; }
-.board__route { display: grid; }
-.board__to { font-weight: 700; font-size: var(--fs-18); }
-.board__from { font-size: var(--fs-14); color: var(--c-muted); }
-.board__badge {
-  display: inline-block;
-  padding: 2px var(--s-8);
-  border-radius: var(--r-pill);
-  background: var(--c-promo);
-  color: var(--c-action);
-  font-size: var(--fs-14);
-  font-weight: 700;
-  white-space: nowrap;
-}
-.board__days { font-weight: 600; }
-.board__note { display: block; font-size: var(--fs-14); font-weight: 400; color: var(--c-muted); }
-.board__action { text-align: right; width: 1%; }
-.board__book {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0 var(--s-16);
-  border: 2px solid var(--c-action);
-  border-radius: var(--r-pill);
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.board__book:hover { background: var(--c-action); color: #fff; }
-.board__foot { margin-top: var(--s-12); font-size: var(--fs-14); color: var(--c-muted); }
-
-/* Mobil: varje avgång blir en kompakt rad med tid, resmål och Boka */
-@media (max-width: 767px) {
-  .board__table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  .board__table tbody tr {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    grid-template-areas: "time route action" "time meta meta";
-    align-items: center;
-    gap: var(--s-4) var(--s-12);
-    padding: var(--s-16);
-    border-bottom: 1px solid var(--c-line);
-  }
-  .board__table tbody tr:last-child { border-bottom: 0; }
-  .board__table td { padding: 0; border: 0; }
-  .board__time { grid-area: time; align-self: start; font-size: var(--fs-20); width: auto; }
-  .board__route { grid-area: route; }
-  .board__type { display: none; }
-  .board__days { grid-area: meta; font-size: var(--fs-14); }
-  .board__action { grid-area: action; width: auto; }
-}
-
-/* ---------- Res billigare: fotokort med etikett ---------- */
-.deals {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: var(--s-24);
-  grid-template-columns: 1fr;
-}
-@media (min-width: 700px) { .deals { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.deal {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: var(--c-surface);
-  border-radius: var(--r-card);
-  overflow: hidden;
-}
-.deal__media { position: relative; }
-.deal__media img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
-.deal__label {
-  position: absolute;
-  top: var(--s-12);
-  left: var(--s-12);
-  padding: 4px var(--s-12);
-  background: var(--c-surface);
-  color: var(--c-action);
-  border-radius: var(--r-pill);
-  font-size: var(--fs-14);
-  font-weight: 800;
-}
-.deal__body { display: grid; gap: var(--s-4); padding: var(--s-16) var(--s-16) var(--s-24); align-content: start; flex: 1; }
-.deal__body p { color: var(--c-muted); }
-.deal__title { font-size: var(--fs-20); }
-.deal__link { color: var(--c-text); text-decoration: none; }
-.deal__link::after { content: ""; position: absolute; inset: 0; }
-.deal:hover .deal__link { text-decoration: underline; text-underline-offset: 0.18em; }
-.deal__link:focus-visible { outline: none; }
-.deal:has(.deal__link:focus-visible) { outline: var(--focus-ring); outline-offset: 3px; }
-.deal .deal__price { margin-top: var(--s-8); color: var(--c-text); font-size: var(--fs-20); font-weight: 800; }
-
-/* ---------- Upptäck ombord: höga fotokort ---------- */
+/* ---------- Höga fotokort (historien) ---------- */
 .tiles {
   list-style: none;
   margin: 0;
@@ -1006,7 +832,7 @@ body:has(.bk[open]) { overflow: hidden; }
 .site-footer__legal {
   margin-top: var(--s-48);
   padding-top: var(--s-24);
-  border-top: 1px solid #45403a;
+  border-top: 1px solid #2c3d5a;
   display: grid;
   gap: var(--s-8);
   font-size: var(--fs-14);
@@ -1021,7 +847,7 @@ body:has(.bk[open]) { overflow: hidden; }
 
 [hidden] { display: none !important; }
 
-/* ---------- Symboler: samma stil överallt (grön linje 2 px, ljusgrön fyllning) ---------- */
+/* ---------- Symboler: samma stil överallt (blå linje 2 px, ljusblå fyllning) ---------- */
 .sym { flex: none; stroke: var(--c-action); }
 .sym .f { fill: var(--c-promo); }
 .sym .d { fill: var(--c-action); stroke: none; }
@@ -1038,3 +864,242 @@ body:has(.bk[open]) { overflow: hidden; }
 .stepper__sym { width: 46px; height: 46px; }
 .trust__sym { width: 24px; height: 24px; flex: none; margin-top: -1px; }
 .stepper .stepper__label { flex: 1; min-width: 0; }
+
+/* =====================================================================
+   Komponenter för det här konceptet
+   ===================================================================== */
+
+/* ---------- Hero-film ---------- */
+.hero__video {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  container-type: size;
+  pointer-events: none;
+}
+.hero__video iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100cqw, 177.78cqh);
+  height: max(100cqh, 56.25cqw);
+  transform: translate(-50%, -50%);
+  border: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.hero.is-playing .hero__video iframe { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .hero__video { display: none; }
+}
+.hero__pause {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--s-16);
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-8);
+  min-height: 44px;
+  padding: var(--s-8) var(--s-16);
+  background: rgba(15, 31, 56, 0.72);
+  border: 2px solid #fff;
+  border-radius: var(--r-pill);
+  color: #fff;
+  font: 600 var(--fs-14) var(--f-sans);
+  cursor: pointer;
+}
+.hero__pause:hover { background: #fff; color: var(--c-action); }
+.hero__pause:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.hero__pause .icon--play { display: none; }
+.hero__pause.is-paused .icon--play { display: block; }
+.hero__pause.is-paused .icon--pause { display: none; }
+.hero__pause .icon--play path { fill: currentColor; }
+
+/* ---------- Sträckan ---------- */
+.route {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-card);
+  padding: var(--s-24) var(--s-16);
+}
+.route__line {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  position: relative;
+}
+/* Mobil: lodrät linje */
+.route__line::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 22px;
+  bottom: 22px;
+  width: 4px;
+  border-radius: var(--r-pill);
+  background: var(--c-action);
+}
+.route__stop {
+  position: relative;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-12);
+  min-height: 60px;
+}
+.route__dot {
+  justify-self: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--c-promo);
+  border: 3px solid var(--c-action);
+  position: relative;
+  z-index: 1;
+}
+.route__stop--end .route__dot { width: 26px; height: 26px; background: var(--c-action); box-shadow: inset 0 0 0 4px var(--c-promo); }
+.route__name { font-weight: 700; font-size: var(--fs-18); }
+.route__stop--end .route__name { font-weight: 800; font-size: var(--fs-20); }
+.route__go {
+  min-height: 44px;
+  padding: 0 var(--s-16);
+  background: none;
+  border: 2px solid var(--c-action);
+  border-radius: var(--r-pill);
+  font: 600 var(--fs-14) var(--f-sans);
+  color: var(--c-action);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.route__go:hover { background: var(--c-action); color: #fff; }
+.route__note { margin-top: var(--s-16); padding-top: var(--s-16); border-top: 1px solid var(--c-line); color: var(--c-muted); font-size: var(--fs-14); }
+
+/* Dator: vågrät linje */
+@media (min-width: 900px) {
+  .route { padding: var(--s-32); }
+  .route__line { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .route__line::before { left: 10%; right: 10%; top: 28px; bottom: auto; width: auto; height: 4px; }
+  .route__stop { grid-template-columns: 1fr; grid-template-rows: 56px auto auto; justify-items: center; text-align: center; gap: var(--s-8); }
+  .route__dot { align-self: center; }
+  .route__go { margin-top: var(--s-4); }
+  .route__note { text-align: center; }
+}
+
+.facts {
+  list-style: none;
+  margin: var(--s-24) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-16);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 700px) { .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.facts li { display: flex; align-items: center; gap: var(--s-12); }
+.facts strong { display: block; font-weight: 800; }
+.facts span { color: var(--c-muted); }
+.facts strong { color: var(--c-text); }
+.facts__sym { width: 48px; height: 48px; }
+
+/* ---------- Restaurangvagnen ---------- */
+.promo__list { list-style: none; margin: var(--s-4) 0 0; padding: 0; display: grid; gap: var(--s-8); }
+.promo__list li { display: flex; gap: var(--s-8); align-items: flex-start; }
+.promo__sym { width: 26px; height: 26px; flex: none; }
+.promo__sym .f { fill: #fff; }
+.promo__img { object-position: 50% 72%; }
+@media (min-width: 900px) {
+  .promo__img { min-height: 520px; }
+}
+
+/* ---------- Historien ---------- */
+.history { display: grid; gap: var(--s-24); margin-bottom: var(--s-32); }
+.history__intro h2 { max-width: 20ch; }
+@media (min-width: 900px) {
+  .history { grid-template-columns: 3fr 2fr; gap: var(--s-64); align-items: end; }
+}
+.milestones { list-style: none; margin: 0; padding: 0; display: grid; }
+.milestones li {
+  display: grid;
+  gap: 2px;
+  padding: var(--s-12) 0 var(--s-12) var(--s-24);
+  border-left: 4px solid var(--c-promo);
+  position: relative;
+}
+.milestones li::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 18px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--c-promo);
+  border: 3px solid var(--c-action);
+}
+.milestones__when { font-weight: 800; color: var(--c-action); }
+.milestones__what { color: var(--c-muted); }
+.tiles--three { grid-template-columns: 1fr; }
+@media (min-width: 600px) { .tiles--three { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 599px) {
+  .tiles--three .tile { aspect-ratio: 4 / 3; }
+}
+
+/* ---------- Kundtjänst ---------- */
+.support { display: grid; gap: var(--s-32); }
+@media (min-width: 900px) { .support { grid-template-columns: 2fr 3fr; gap: var(--s-64); align-items: start; } }
+.support__lead { margin-top: var(--s-8); color: var(--c-muted); max-width: 40ch; }
+.contact { list-style: none; margin: var(--s-24) 0 0; padding: 0; display: grid; gap: var(--s-8); }
+.contact__card {
+  display: flex;
+  align-items: center;
+  gap: var(--s-12);
+  min-height: 72px;
+  padding: var(--s-12) var(--s-16);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-card);
+  color: var(--c-text);
+  text-decoration: none;
+}
+.contact__card:hover { border-color: var(--c-action); }
+.contact__card:hover .contact__value { text-decoration: underline; text-underline-offset: 0.18em; }
+.contact__card:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+.contact__sym { width: 44px; height: 44px; }
+.contact__text { display: grid; }
+.contact__label { font-size: var(--fs-14); color: var(--c-muted); }
+.contact__value { font-weight: 800; font-size: var(--fs-18); color: var(--c-action); font-variant-numeric: tabular-nums; }
+.support__company { margin-top: var(--s-16); font-size: var(--fs-14); color: var(--c-muted); }
+
+.faq__title { font-size: var(--fs-20); margin-bottom: var(--s-12); }
+.faq__item { background: var(--c-surface); border-radius: var(--r-field); margin-bottom: var(--s-8); }
+.faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-16);
+  min-height: 56px;
+  padding: var(--s-12) var(--s-16);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+  border-radius: var(--r-field);
+}
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary:hover { color: var(--c-action); }
+.faq__item summary:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+.faq__chev { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--c-promo); color: var(--c-action); transition: transform 0.15s ease; }
+.faq__item[open] .faq__chev { transform: rotate(180deg); }
+.faq__body { padding: 0 var(--s-16) var(--s-16); color: var(--c-muted); max-width: 62ch; }
+@media (prefers-reduced-motion: reduce) { .faq__chev { transition: none; } }
+
+/* ---------- Bokningens steg 3: klass och djur ---------- */
+.classpick { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: var(--s-8); }
+.classpick__legend { padding: 0; margin-bottom: var(--s-8); font-weight: 700; font-size: var(--fs-18); }
+.pills--two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-8); }
+.switchrow__label { display: grid; }
+.switchrow__hint { font-size: var(--fs-14); font-weight: 400; color: var(--c-muted); }
+
+/* ---------- Sidfot ---------- */
+.site-footer__tag { color: var(--c-on-dark-muted); max-width: 30ch; }
