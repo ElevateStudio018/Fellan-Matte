@@ -120,6 +120,7 @@ Saknas ett system utgår du från detta:
 - **Skuggor:** nästan inga, och aldrig på knappar. Avgränsa med yta och luft, och använd 1 px linje där det behövs. Skugga bara på element som faktiskt svävar (menyer, dialoger).
 - **Bilder:** riktiga foton i fasta proportioner (1:1, 4:3, 3:2, 16:9), beskurna med avsikt. Text på foto kräver mörkläggning eller en lugn yta i bilden.
 - **Ikoner:** en enda linjeikonserie i samma tjocklek, alltid med etikett i navigering.
+- **Symboler (beställarens val):** egna symboler i 48-rutnät med grön linje (2 px, rundade ändar) och ljusgrön fyllning (`#DFEADF`), samma stil överallt: snabbåtgärder, avgångstavla, erbjudanden, bokningens steg, resenärsväljare och bockar. Små gränssnittsikoner (pilar, sök, stäng, meny) är rena linjer i 2 px. Gul fyllning i symboler är underkänt.
 
 ## Säljande mönster du behärskar
 

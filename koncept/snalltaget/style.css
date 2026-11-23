@@ -1019,3 +1019,21 @@ body:has(.bk[open]) { overflow: hidden; }
 }
 
 [hidden] { display: none !important; }
+
+/* ---------- Symboler: samma stil överallt (grön linje 2 px, ljusgrön fyllning) ---------- */
+.sym { flex: none; stroke: var(--c-action); }
+.sym .f { fill: var(--c-promo); }
+.sym .d { fill: var(--c-action); stroke: none; }
+.icon { stroke-width: 2; }
+.traffic__icon.sym { width: 30px; height: 30px; stroke: var(--c-text); }
+.traffic__icon.sym .f { fill: #fffaf0; }
+.traffic__icon.sym .d { fill: var(--c-text); }
+.board__badge { display: inline-flex; align-items: center; gap: 6px; }
+.board__sym { width: 24px; height: 24px; }
+.deal__sym { width: 52px; height: 52px; margin-bottom: var(--s-4); }
+.bk__head { display: flex; align-items: center; gap: var(--s-12); }
+.bk__head .bk__title { margin: 0; }
+.bk__sym { width: 50px; height: 50px; }
+.stepper__sym { width: 46px; height: 46px; }
+.trust__sym { width: 24px; height: 24px; flex: none; margin-top: -1px; }
+.stepper .stepper__label { flex: 1; min-width: 0; }
