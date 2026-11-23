@@ -13,6 +13,31 @@
     });
   }
 
+  // Bokningsdialog: öppnas med "Sök resa", stängs med Stäng, Esc eller klick utanför.
+  // Fokus går tillbaka till knappen som öppnade den.
+  var dialog = document.getElementById("boka");
+  var opener = null;
+  if (dialog && typeof dialog.showModal === "function") {
+    document.querySelectorAll("[data-open-booking]").forEach(function (el) {
+      el.addEventListener("click", function (e) {
+        e.preventDefault();
+        opener = el;
+        dialog.showModal();
+        var first = document.getElementById("till");
+        if (first) first.focus();
+      });
+    });
+    document.querySelectorAll("[data-close-booking]").forEach(function (el) {
+      el.addEventListener("click", function () { dialog.close(); });
+    });
+    dialog.addEventListener("click", function (e) {
+      if (e.target === dialog) dialog.close();
+    });
+    dialog.addEventListener("close", function () {
+      if (opener) opener.focus();
+    });
+  }
+
   // Dölj trafikinfo
   document.querySelectorAll("[data-dismiss]").forEach(function (btn) {
     btn.addEventListener("click", function () {

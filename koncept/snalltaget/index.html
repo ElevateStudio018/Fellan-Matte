@@ -23,7 +23,7 @@
 
       <nav id="huvudmeny" class="main-nav" aria-label="Huvudmeny">
         <ul>
-          <li><a href="#boka" aria-current="page">Boka resa</a></li>
+          <li><a href="#boka" data-open-booking>Boka resa</a></li>
           <li><a href="https://www.snalltaget.se/min-resa">Min resa</a></li>
           <li><a href="https://www.snalltaget.se/trafikinformation">Trafikinfo</a></li>
           <li><a href="https://www.snalltaget.se/krogen">Krogen</a></li>
@@ -49,94 +49,41 @@
 
   <main id="innehall" tabindex="-1">
 
-    <!-- ===================== Hero: text på fotot, bokningen under rubriken ===================== -->
-    <section class="hero" aria-labelledby="boka-rubrik">
+    <!-- ===================== Hero: foto, fråga och en knapp (som SJ.se) ===================== -->
+    <section class="hero" aria-labelledby="hero-rubrik">
       <img class="hero__img" src="img/vinter-skidor.jpg" width="1600" height="1067"
            alt="Skidåkare i färgglada jackor samlas vid en skidlift i kvällssol.">
       <div class="container hero__inner">
-        <h1 id="boka-rubrik" class="hero__title">Vart vill du resa?</h1>
-        <p class="hero__lead">Dagtåg och nattåg till Stockholm, Berlin, Oslo, fjällen och Alperna.</p>
+        <h1 id="hero-rubrik" class="hero__title">Vart vill du resa?</h1>
+        <button class="btn btn--hero" type="button" data-open-booking aria-haspopup="dialog" aria-controls="boka">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+          Sök resa
+        </button>
+      </div>
+    </section>
 
-        <div class="booking" id="boka">
-          <form class="booking__form" id="sokform" novalidate>
-            <div class="route">
-              <div class="field">
-                <label for="fran">Från</label>
-                <input id="fran" name="fran" list="stationer" autocomplete="off" value="Malmö C" required aria-describedby="fran-fel">
-                <p class="field__error" id="fran-fel" hidden></p>
-              </div>
-              <button class="swap" type="button" id="byt" aria-label="Byt plats på Från och Till" title="Byt plats på Från och Till">
-                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 4v16M7 4 3 8M7 4l4 4M17 20V4M17 20l-4-4M17 20l4-4"/></svg>
-              </button>
-              <div class="field">
-                <label for="till">Till</label>
-                <input id="till" name="till" list="stationer" autocomplete="off" placeholder="Välj station" required aria-describedby="till-fel">
-                <p class="field__error" id="till-fel" hidden></p>
-              </div>
-            </div>
-
-            <div class="dates">
-              <div class="field">
-                <label for="utresa">Utresa</label>
-                <input id="utresa" name="utresa" type="date" required>
-              </div>
-              <div class="field">
-                <label for="hemresa">Hemresa <span class="field__opt">(valfritt)</span></label>
-                <input id="hemresa" name="hemresa" type="date">
-              </div>
-            </div>
-
-            <div class="field field--pax">
-              <span class="field__label" aria-hidden="true">Resenärer</span>
-              <details class="pax">
-                <summary><span class="sr-only">Resenärer: </span><span id="pax-summary">1 vuxen</span><span class="pax__change" aria-hidden="true">Ändra</span></summary>
-                <fieldset class="travellers">
-                  <legend class="sr-only">Antal resenärer</legend>
-                  <div class="stepper">
-                    <span class="stepper__label" id="vuxna-etikett">Vuxna <span class="stepper__hint">16 år och äldre</span></span>
-                    <div class="stepper__controls">
-                      <button type="button" class="stepper__btn" data-step="-1" data-target="vuxna" aria-label="En vuxen färre">−</button>
-                      <output id="vuxna" class="stepper__value" aria-labelledby="vuxna-etikett" aria-live="polite" data-min="1" data-max="9">1</output>
-                      <button type="button" class="stepper__btn" data-step="1" data-target="vuxna" aria-label="En vuxen fler">+</button>
-                    </div>
-                  </div>
-                  <div class="stepper">
-                    <span class="stepper__label" id="barn-etikett">Barn <span class="stepper__hint">0–15 år, upp till 80 % rabatt</span></span>
-                    <div class="stepper__controls">
-                      <button type="button" class="stepper__btn" data-step="-1" data-target="barn" aria-label="Ett barn färre">−</button>
-                      <output id="barn" class="stepper__value" aria-labelledby="barn-etikett" aria-live="polite" data-min="0" data-max="8">0</output>
-                      <button type="button" class="stepper__btn" data-step="1" data-target="barn" aria-label="Ett barn fler">+</button>
-                    </div>
-                  </div>
-                </fieldset>
-              </details>
-            </div>
-
-            <div class="booking__submit">
-              <button class="btn btn--primary" type="submit">
-                Sök resa
-                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </button>
-            </div>
-
-            <div class="notice" id="sok-meddelande" role="status" aria-live="polite" hidden></div>
-          </form>
-
-          <!-- Tillit nära handlingen. Alla tre är verifierade mot snalltaget.se 23 nov 2026. -->
-          <ul class="trust">
-            <li>
-              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>
-              Ombokningsbar fram till 24 timmar före avresa, avgift 50 kr.
-            </li>
-            <li>
-              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>
-              Sms om tåget blir mer än 30 minuter försenat.
-            </li>
-            <li>
-              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>
-              Barn under 16 år reser med upp till 80 % rabatt.
-            </li>
-          </ul>
+    <!-- ===================== Säsong: delat block direkt under heron (SJ:s kampanjstil) =====================
+         Fakta verifierade mot snalltaget.se 23 nov 2026: Jämtland och Härjedalen 16 dec 2026 – 25 apr 2027,
+         stationer Östersund, Undersåker, Åre, Duved, Enafors, Storlien (vissa tåg Vemdalen-Röjan),
+         transfer bokas med tågbiljetten. Österrike 18 dec – 14 mars. Vasaloppet 2027: "Bokningen är öppen". -->
+    <section class="section section--tight" aria-labelledby="sasong-rubrik">
+      <div class="container">
+        <div class="promo">
+          <div class="promo__text">
+            <p class="promo__label">Fjälltågen är tillbaka</p>
+            <h2 id="sasong-rubrik" class="promo__title">Vakna i fjällen.</h2>
+            <p class="promo__body">Nattåg från Malmö och Stockholm till Östersund, Åre, Duved och Storlien, 16 dec – 25 apr. Transferbussen bokar du med tågbiljetten.</p>
+            <a class="btn btn--primary" href="https://www.snalltaget.se/tag-till-jamtland-harjedalen-vinter">
+              Se fjälltågen
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <ul class="promo__more" aria-label="Fler vintertåg">
+              <li><a href="https://www.snalltaget.se/tag-till-osterrike-vinter">Alperna i Österrike</a> <span>18 dec – 14 mars</span></li>
+              <li><a href="https://www.snalltaget.se/tag-till-vasaloppet">Vasaloppet 2027</a> <span>Bokningen är öppen</span></li>
+            </ul>
+          </div>
+          <img class="promo__img" src="img/skidor-ovanifran.jpg" width="1200" height="800" loading="lazy"
+               alt="Två skidåkare i en spårig backe, fotograferade ovanifrån i solsken.">
         </div>
       </div>
     </section>
@@ -296,40 +243,100 @@
       </div>
     </section>
 
-    <!-- ===================== Säsong ===================== -->
-    <section class="season" aria-labelledby="sasong-rubrik">
-      <img class="season__img" src="img/skidor-ovanifran.jpg" width="1200" height="800" loading="lazy"
-           alt="Två skidåkare i en spårig backe, fotograferade ovanifrån i solsken.">
-      <div class="container season__inner">
-        <div class="season__panel">
-          <p class="eyebrow">Vinter 2026–2027</p>
-          <h2 id="sasong-rubrik">Ta tåget till skidbacken</h2>
-          <p>Kliv på i Malmö eller Stockholm med skidorna och vakna nära liften. Transferbussen bokar du med tågbiljetten.</p>
-          <ul class="season__list">
-            <li>
-              <a href="https://www.snalltaget.se/tag-till-jamtland-harjedalen-vinter">
-                <span class="season__dest">Jämtland och Härjedalen</span>
-                <span class="season__when">16 dec – 25 apr</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://www.snalltaget.se/tag-till-osterrike-vinter">
-                <span class="season__dest">Alperna i Österrike</span>
-                <span class="season__when">18 dec – 14 mars</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://www.snalltaget.se/tag-till-vasaloppet">
-                <span class="season__dest">Vasaloppet 2027</span>
-                <span class="season__when">Bokningen är öppen</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
   </main>
+
+  <!-- ===================== Bokningsdialog ===================== -->
+  <dialog class="booking-dialog" id="boka" aria-labelledby="boka-rubrik">
+    <div class="booking-dialog__inner">
+      <div class="booking-dialog__head">
+        <h2 id="boka-rubrik">Sök resa</h2>
+        <button class="btn btn--secondary btn--small" type="button" data-close-booking>
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          Stäng
+        </button>
+      </div>
+
+      <form class="booking__form" id="sokform" novalidate>
+        <div class="route">
+          <div class="field">
+            <label for="fran">Från</label>
+            <input id="fran" name="fran" list="stationer" autocomplete="off" value="Malmö C" required aria-describedby="fran-fel">
+            <p class="field__error" id="fran-fel" hidden></p>
+          </div>
+          <button class="swap" type="button" id="byt" aria-label="Byt plats på Från och Till" title="Byt plats på Från och Till">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 4v16M7 4 3 8M7 4l4 4M17 20V4M17 20l-4-4M17 20l4-4"/></svg>
+          </button>
+          <div class="field">
+            <label for="till">Till</label>
+            <input id="till" name="till" list="stationer" autocomplete="off" placeholder="Välj station" required aria-describedby="till-fel">
+            <p class="field__error" id="till-fel" hidden></p>
+          </div>
+        </div>
+
+        <div class="dates">
+          <div class="field">
+            <label for="utresa">Utresa</label>
+            <input id="utresa" name="utresa" type="date" required>
+          </div>
+          <div class="field">
+            <label for="hemresa">Hemresa <span class="field__opt">(valfritt)</span></label>
+            <input id="hemresa" name="hemresa" type="date">
+          </div>
+        </div>
+
+        <div class="field field--pax">
+          <span class="field__label" aria-hidden="true">Resenärer</span>
+          <details class="pax">
+            <summary><span class="sr-only">Resenärer: </span><span id="pax-summary">1 vuxen</span><span class="pax__change" aria-hidden="true">Ändra</span></summary>
+            <fieldset class="travellers">
+              <legend class="sr-only">Antal resenärer</legend>
+              <div class="stepper">
+                <span class="stepper__label" id="vuxna-etikett">Vuxna <span class="stepper__hint">16 år och äldre</span></span>
+                <div class="stepper__controls">
+                  <button type="button" class="stepper__btn" data-step="-1" data-target="vuxna" aria-label="En vuxen färre">−</button>
+                  <output id="vuxna" class="stepper__value" aria-labelledby="vuxna-etikett" aria-live="polite" data-min="1" data-max="9">1</output>
+                  <button type="button" class="stepper__btn" data-step="1" data-target="vuxna" aria-label="En vuxen fler">+</button>
+                </div>
+              </div>
+              <div class="stepper">
+                <span class="stepper__label" id="barn-etikett">Barn <span class="stepper__hint">0–15 år, upp till 80 % rabatt</span></span>
+                <div class="stepper__controls">
+                  <button type="button" class="stepper__btn" data-step="-1" data-target="barn" aria-label="Ett barn färre">−</button>
+                  <output id="barn" class="stepper__value" aria-labelledby="barn-etikett" aria-live="polite" data-min="0" data-max="8">0</output>
+                  <button type="button" class="stepper__btn" data-step="1" data-target="barn" aria-label="Ett barn fler">+</button>
+                </div>
+              </div>
+            </fieldset>
+          </details>
+        </div>
+
+        <div class="booking__submit">
+          <button class="btn btn--primary" type="submit">
+            Sök resa
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+
+        <div class="notice" id="sok-meddelande" role="status" aria-live="polite" hidden></div>
+      </form>
+
+      <!-- Tillit nära handlingen. Alla tre är verifierade mot snalltaget.se 23 nov 2026. -->
+      <ul class="trust">
+        <li>
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>
+          Ombokningsbar fram till 24 timmar före avresa, avgift 50 kr.
+        </li>
+        <li>
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>
+          Sms om tåget blir mer än 30 minuter försenat.
+        </li>
+        <li>
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>
+          Barn under 16 år reser med upp till 80 % rabatt.
+        </li>
+      </ul>
+    </div>
+  </dialog>
 
   <!-- ===================== Sidfot ===================== -->
   <footer class="site-footer">
