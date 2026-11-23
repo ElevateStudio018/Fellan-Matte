@@ -77,6 +77,19 @@
     });
   })();
 
+  // ---------- Vanliga frågor: visa alla ----------
+  var faqToggle = document.querySelector(".faq__toggle");
+  if (faqToggle) {
+    faqToggle.addEventListener("click", function () {
+      var more = document.getElementById(faqToggle.getAttribute("aria-controls"));
+      var open = faqToggle.getAttribute("aria-expanded") === "true";
+      faqToggle.setAttribute("aria-expanded", String(!open));
+      more.hidden = open;
+      faqToggle.querySelector(".faq__toggle-text").textContent = open ? "Visa alla frågor" : "Visa färre frågor";
+      if (!open) { var first = more.querySelector("summary"); if (first) first.focus(); }
+    });
+  }
+
   // ---------- Bokning: ett beslut i taget ----------
   var dialog = document.getElementById("boka");
   if (!dialog || typeof dialog.showModal !== "function") return;

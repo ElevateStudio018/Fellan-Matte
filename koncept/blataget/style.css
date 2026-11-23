@@ -46,17 +46,18 @@
 
   /* Formspråk: mjukt */
   --r-pill: 999px;
-  --r-field: 12px;
-  --r-img: 12px;
+  --r-field: 16px;
+  --r-img: 16px;
   --r-card: 16px;
 
   --max: 1240px;
+  --gap: 64px;              /* luft mellan sektioner, mobil */
   --gutter: 16px;
   --focus-ring: 3px solid var(--c-action);
 }
 
 @media (min-width: 768px) {
-  :root { --gutter: 32px; }
+  :root { --gutter: 32px; --gap: 96px; }
 }
 
 /* ---------- Bas ---------- */
@@ -623,57 +624,6 @@ body:has(.bk[open]) { overflow: hidden; }
 }
 .lead { font-size: var(--fs-18); margin-top: var(--s-16); max-width: 60ch; }
 
-/* ---------- Delat block (restaurangvagnen) ---------- */
-.promo {
-  display: grid;
-  background: var(--c-promo);
-  border-radius: var(--r-card);
-  overflow: hidden;
-}
-.promo__img {
-  order: -1;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  object-position: 60% 50%;
-}
-.promo__text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--s-12);
-  padding: var(--s-24) var(--s-16) var(--s-32);
-}
-.promo__label {
-  padding: 4px var(--s-12);
-  background: var(--c-action);
-  color: #fff;
-  border-radius: var(--r-pill);
-  font-size: var(--fs-14);
-  font-weight: 700;
-}
-.promo__title { font-size: var(--fs-32); }
-.promo__body { max-width: 46ch; font-size: var(--fs-18); }
-.promo__text .btn { margin-top: var(--s-8); }
-.promo__more {
-  list-style: none;
-  margin: var(--s-8) 0 0;
-  padding: 0;
-  display: grid;
-  gap: 0;
-  font-size: var(--fs-14);
-}
-.promo__more li { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-8); min-height: 44px; }
-.promo__more a { font-weight: 600; color: var(--c-action); }
-.promo__more span { color: var(--c-muted); }
-@media (min-width: 900px) {
-  .promo { grid-template-columns: 1fr 1fr; align-items: stretch; }
-  .promo__img { order: 0; aspect-ratio: auto; min-height: 420px; }
-  .promo__text { justify-content: center; padding: var(--s-48); }
-  .promo__title { font-size: var(--fs-40); }
-}
-
 /* ---------- Sektionsvarianter ---------- */
 .section--quick { padding-block: var(--s-32) var(--s-24); }
 .section--flush { padding-block: var(--s-24) 0; }
@@ -807,7 +757,7 @@ body:has(.bk[open]) { overflow: hidden; }
 .site-footer {
   background: var(--c-dark);
   color: var(--c-on-dark);
-  padding-block: var(--s-48) var(--s-32);
+  padding-block: var(--gap) var(--s-48);
 }
 .site-footer a { color: var(--c-on-dark); }
 .site-footer a:hover { color: #fff; }
@@ -917,183 +867,6 @@ body:has(.bk[open]) { overflow: hidden; }
 .hero__pause.is-paused .icon--pause { display: none; }
 .hero__pause .icon--play path { fill: currentColor; }
 
-/* ---------- Sträckan ---------- */
-.route {
-  background: var(--c-surface);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-card);
-  padding: var(--s-24) var(--s-16);
-}
-.route__line {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  position: relative;
-}
-/* Mobil: lodrät linje */
-.route__line::before {
-  content: "";
-  position: absolute;
-  left: 13px;
-  top: 22px;
-  bottom: 22px;
-  width: 4px;
-  border-radius: var(--r-pill);
-  background: var(--c-action);
-}
-.route__stop {
-  position: relative;
-  display: grid;
-  grid-template-columns: 30px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: var(--s-12);
-  min-height: 60px;
-}
-.route__dot {
-  justify-self: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--c-promo);
-  border: 3px solid var(--c-action);
-  position: relative;
-  z-index: 1;
-}
-.route__stop--end .route__dot { width: 26px; height: 26px; background: var(--c-action); box-shadow: inset 0 0 0 4px var(--c-promo); }
-.route__name { font-weight: 700; font-size: var(--fs-18); }
-.route__stop--end .route__name { font-weight: 800; font-size: var(--fs-20); }
-.route__go {
-  min-height: 44px;
-  padding: 0 var(--s-16);
-  background: none;
-  border: 2px solid var(--c-action);
-  border-radius: var(--r-pill);
-  font: 600 var(--fs-14) var(--f-sans);
-  color: var(--c-action);
-  cursor: pointer;
-  white-space: nowrap;
-}
-.route__go:hover { background: var(--c-action); color: #fff; }
-.route__note { margin-top: var(--s-16); padding-top: var(--s-16); border-top: 1px solid var(--c-line); color: var(--c-muted); font-size: var(--fs-14); }
-
-/* Dator: vågrät linje */
-@media (min-width: 900px) {
-  .route { padding: var(--s-32); }
-  .route__line { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  .route__line::before { left: 10%; right: 10%; top: 28px; bottom: auto; width: auto; height: 4px; }
-  .route__stop { grid-template-columns: 1fr; grid-template-rows: 56px auto auto; justify-items: center; text-align: center; gap: var(--s-8); }
-  .route__dot { align-self: center; }
-  .route__go { margin-top: var(--s-4); }
-  .route__note { text-align: center; }
-}
-
-.facts {
-  list-style: none;
-  margin: var(--s-24) 0 0;
-  padding: 0;
-  display: grid;
-  gap: var(--s-16);
-  grid-template-columns: 1fr;
-}
-@media (min-width: 700px) { .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.facts li { display: flex; align-items: center; gap: var(--s-12); }
-.facts strong { display: block; font-weight: 800; }
-.facts span { color: var(--c-muted); }
-.facts strong { color: var(--c-text); }
-.facts__sym { width: 48px; height: 48px; }
-
-/* ---------- Restaurangvagnen ---------- */
-.promo__list { list-style: none; margin: var(--s-4) 0 0; padding: 0; display: grid; gap: var(--s-8); }
-.promo__list li { display: flex; gap: var(--s-8); align-items: flex-start; }
-.promo__sym { width: 26px; height: 26px; flex: none; }
-.promo__sym .f { fill: #fff; }
-.promo__img { object-position: 50% 72%; }
-@media (min-width: 900px) {
-  .promo__img { min-height: 520px; }
-}
-
-/* ---------- Historien ---------- */
-.history { display: grid; gap: var(--s-24); margin-bottom: var(--s-32); }
-.history__intro h2 { max-width: 20ch; }
-@media (min-width: 900px) {
-  .history { grid-template-columns: 3fr 2fr; gap: var(--s-64); align-items: end; }
-}
-.milestones { list-style: none; margin: 0; padding: 0; display: grid; }
-.milestones li {
-  display: grid;
-  gap: 2px;
-  padding: var(--s-12) 0 var(--s-12) var(--s-24);
-  border-left: 4px solid var(--c-promo);
-  position: relative;
-}
-.milestones li::before {
-  content: "";
-  position: absolute;
-  left: -10px;
-  top: 18px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--c-promo);
-  border: 3px solid var(--c-action);
-}
-.milestones__when { font-weight: 800; color: var(--c-action); }
-.milestones__what { color: var(--c-muted); }
-.tiles--three { grid-template-columns: 1fr; }
-@media (min-width: 600px) { .tiles--three { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 599px) {
-  .tiles--three .tile { aspect-ratio: 4 / 3; }
-}
-
-/* ---------- Kundtjänst ---------- */
-.support { display: grid; gap: var(--s-32); }
-@media (min-width: 900px) { .support { grid-template-columns: 2fr 3fr; gap: var(--s-64); align-items: start; } }
-.support__lead { margin-top: var(--s-8); color: var(--c-muted); max-width: 40ch; }
-.contact { list-style: none; margin: var(--s-24) 0 0; padding: 0; display: grid; gap: var(--s-8); }
-.contact__card {
-  display: flex;
-  align-items: center;
-  gap: var(--s-12);
-  min-height: 72px;
-  padding: var(--s-12) var(--s-16);
-  background: var(--c-surface);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-card);
-  color: var(--c-text);
-  text-decoration: none;
-}
-.contact__card:hover { border-color: var(--c-action); }
-.contact__card:hover .contact__value { text-decoration: underline; text-underline-offset: 0.18em; }
-.contact__card:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
-.contact__sym { width: 44px; height: 44px; }
-.contact__text { display: grid; }
-.contact__label { font-size: var(--fs-14); color: var(--c-muted); }
-.contact__value { font-weight: 800; font-size: var(--fs-18); color: var(--c-action); font-variant-numeric: tabular-nums; }
-.support__company { margin-top: var(--s-16); font-size: var(--fs-14); color: var(--c-muted); }
-
-.faq__title { font-size: var(--fs-20); margin-bottom: var(--s-12); }
-.faq__item { background: var(--c-surface); border-radius: var(--r-field); margin-bottom: var(--s-8); }
-.faq__item summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--s-16);
-  min-height: 56px;
-  padding: var(--s-12) var(--s-16);
-  font-weight: 700;
-  cursor: pointer;
-  list-style: none;
-  border-radius: var(--r-field);
-}
-.faq__item summary::-webkit-details-marker { display: none; }
-.faq__item summary:hover { color: var(--c-action); }
-.faq__item summary:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
-.faq__chev { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--c-promo); color: var(--c-action); transition: transform 0.15s ease; }
-.faq__item[open] .faq__chev { transform: rotate(180deg); }
-.faq__body { padding: 0 var(--s-16) var(--s-16); color: var(--c-muted); max-width: 62ch; }
-@media (prefers-reduced-motion: reduce) { .faq__chev { transition: none; } }
-
 /* ---------- Bokningens steg 3: klass och djur ---------- */
 .classpick { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: var(--s-8); }
 .classpick__legend { padding: 0; margin-bottom: var(--s-8); font-weight: 700; font-size: var(--fs-18); }
@@ -1108,3 +881,214 @@ body:has(.bk[open]) { overflow: hidden; }
 .hero__head { display: grid; gap: var(--s-12); justify-items: center; text-align: center; }
 .hero__sub { margin: 0; color: #fff; font-size: var(--fs-18); font-weight: 600; line-height: 1.4; max-width: 34ch; text-shadow: 0 1px 14px rgba(0, 0, 0, .4); }
 @media (min-width: 768px) { .hero__sub { font-size: var(--fs-20); } }
+
+/* =====================================================================
+   Sektioner efter "Inför resan": en spacingskala, ett sektionshuvud,
+   samma container, en rundning (16 px), få ramar
+   ===================================================================== */
+.blk { padding-top: var(--gap); }
+.section--quick + .blk { padding-top: calc(var(--gap) - var(--s-24)); }
+main > .blk:last-child { padding-bottom: var(--gap); }
+
+.shead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-8) var(--s-24);
+  margin-bottom: var(--s-32);
+}
+.shead h2 { font-size: var(--fs-26); }
+@media (min-width: 768px) { .shead h2 { font-size: var(--fs-32); } }
+.shead__sub { margin-top: var(--s-8); color: var(--c-muted); max-width: 60ch; }
+.shead .link-arrow { min-height: 44px; }
+
+/* ---------- Sträckan: tunn linje i full bredd ---------- */
+.line {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  position: relative;
+}
+.line::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  background: var(--c-action);
+}
+.line__stop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--s-16);
+  min-height: 52px;
+}
+.line__dot {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--c-bg);
+  border: 2px solid var(--c-action);
+  position: relative;
+  z-index: 1;
+}
+.line__stop--end .line__dot { background: var(--c-action); }
+.line__name {
+  min-height: 44px;
+  padding: 0 var(--s-8);
+  margin-left: calc(var(--s-8) * -1);
+  background: none;
+  border: 0;
+  border-radius: var(--r-pill);
+  font: 700 var(--fs-16) var(--f-sans);
+  color: var(--c-text);
+  text-decoration: underline;
+  text-decoration-color: var(--c-line);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.3em;
+  cursor: pointer;
+}
+.line__name:hover { color: var(--c-action); text-decoration-color: currentColor; }
+.line__name:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+
+@media (min-width: 768px) {
+  .line { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .line::before { left: 10%; right: 10%; top: 7px; bottom: auto; width: auto; height: 2px; }
+  .line__stop { flex-direction: column; gap: var(--s-12); min-height: 0; }
+  .line__name { margin-left: 0; }
+}
+
+.line__action {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-16) var(--s-24);
+  margin-top: var(--s-32);
+}
+.line__note { color: var(--c-muted); max-width: 52ch; font-size: var(--fs-14); }
+@media (min-width: 768px) {
+  .line__action { justify-content: center; text-align: left; }
+}
+
+.facts {
+  list-style: none;
+  margin: var(--s-48) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 var(--s-32);
+}
+@media (min-width: 768px) { .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.facts li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-16);
+  padding-block: var(--s-16);
+  border-top: 1px solid var(--c-line);
+}
+@media (min-width: 768px) { .facts li { padding-block: var(--s-24) 0; } }
+.facts__sym { width: 40px; height: 40px; }
+.facts__text { display: grid; }
+.facts__title { font-weight: 700; }
+.facts__line { font-size: var(--fs-14); color: var(--c-muted); }
+
+/* ---------- Restaurangvagnen: text och foto i balans ---------- */
+.dine {
+  display: grid;
+  background: var(--c-promo);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+.dine__img {
+  order: -1;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 50% 70%;
+}
+.dine__text {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: var(--s-24);
+  padding: var(--s-32) var(--s-24);
+}
+.dine__lead { font-size: var(--fs-18); max-width: 38ch; }
+.dine__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-12); }
+.dine__list li { display: flex; align-items: center; gap: var(--s-12); font-weight: 600; }
+.dine__sym { width: 28px; height: 28px; flex: none; }
+.dine__sym .f { fill: var(--c-surface); }
+@media (min-width: 900px) {
+  .dine { grid-template-columns: 1fr 1fr; align-items: stretch; }
+  .dine__img { order: 0; height: 100%; aspect-ratio: 4 / 3; }
+  .dine__text { padding: var(--s-48); }
+}
+
+/* ---------- Historien: en kolumn, luftig lista, tre fotokort ---------- */
+.hist { display: grid; gap: var(--s-32); max-width: 720px; margin-bottom: var(--s-48); }
+.hist__lead { font-size: var(--fs-18); }
+.hist__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-24); }
+.hist__list li { display: grid; gap: var(--s-4); padding-left: var(--s-24); border-left: 2px solid var(--c-action); }
+@media (min-width: 600px) {
+  .hist__list li { grid-template-columns: 180px 1fr; gap: var(--s-16); align-items: baseline; }
+}
+.hist__when { font-weight: 700; color: var(--c-action); }
+.hist__what { color: var(--c-muted); }
+
+.tiles--three { grid-template-columns: 1fr; gap: var(--s-16); }
+@media (min-width: 600px) { .tiles--three { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-24); } }
+@media (max-width: 599px) { .tiles--three .tile { aspect-ratio: 4 / 3; } }
+
+/* ---------- Kundtjänst: två rena kontaktrader, fyra frågor ---------- */
+.help { display: grid; gap: var(--s-48); }
+@media (min-width: 900px) { .help { grid-template-columns: 5fr 7fr; gap: var(--s-64); align-items: start; } }
+.contact { list-style: none; margin: 0; padding: 0; }
+.contact li { border-top: 1px solid var(--c-line); }
+.contact li:last-child { border-bottom: 1px solid var(--c-line); }
+.contact__row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-16);
+  min-height: 72px;
+  padding-block: var(--s-12);
+  color: var(--c-text);
+  text-decoration: none;
+}
+.contact__row:hover .contact__value { text-decoration: underline; text-underline-offset: 0.2em; }
+.contact__row:focus-visible { outline: var(--focus-ring); outline-offset: 2px; border-radius: var(--r-card); }
+.contact__sym { width: 40px; height: 40px; }
+.contact__text { display: grid; }
+.contact__label { font-size: var(--fs-14); color: var(--c-muted); }
+.contact__value { font-weight: 700; color: var(--c-action); font-variant-numeric: tabular-nums; }
+.help__company { margin-top: var(--s-16); font-size: var(--fs-14); color: var(--c-muted); }
+
+.faq__item { border-top: 1px solid var(--c-line); }
+.faq > .faq__item:first-of-type { border-top: 0; }
+.faq__more .faq__item:last-child, .faq > .faq__item:last-of-type { border-bottom: 0; }
+.faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-16);
+  min-height: 64px;
+  padding-block: var(--s-12);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+  border-radius: var(--r-card);
+}
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary:hover { color: var(--c-action); }
+.faq__item summary:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+.faq__chev { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--c-promo); color: var(--c-action); transition: transform 0.15s ease; }
+.faq__item[open] .faq__chev { transform: rotate(180deg); }
+.faq__body { padding-bottom: var(--s-16); color: var(--c-muted); max-width: 60ch; }
+.faq__more { border-top: 1px solid var(--c-line); }
+.faq__toggle { margin-top: var(--s-24); }
+.faq__toggle[aria-expanded="true"] .icon { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .faq__chev { transition: none; } }
