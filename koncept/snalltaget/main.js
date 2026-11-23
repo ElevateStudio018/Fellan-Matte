@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  // Meny på mobil
+  // ---------- Meny på mobil ----------
   var toggle = document.querySelector(".menu-toggle");
   var nav = document.getElementById("huvudmeny");
   if (toggle && nav) {
@@ -13,32 +13,7 @@
     });
   }
 
-  // Bokningsdialog: öppnas med "Sök resa", stängs med Stäng, Esc eller klick utanför.
-  // Fokus går tillbaka till knappen som öppnade den.
-  var dialog = document.getElementById("boka");
-  var opener = null;
-  if (dialog && typeof dialog.showModal === "function") {
-    document.querySelectorAll("[data-open-booking]").forEach(function (el) {
-      el.addEventListener("click", function (e) {
-        e.preventDefault();
-        opener = el;
-        dialog.showModal();
-        var first = document.getElementById("till");
-        if (first) first.focus();
-      });
-    });
-    document.querySelectorAll("[data-close-booking]").forEach(function (el) {
-      el.addEventListener("click", function () { dialog.close(); });
-    });
-    dialog.addEventListener("click", function (e) {
-      if (e.target === dialog) dialog.close();
-    });
-    dialog.addEventListener("close", function () {
-      if (opener) opener.focus();
-    });
-  }
-
-  // Dölj trafikinfo
+  // ---------- Dölj trafikinfo ----------
   document.querySelectorAll("[data-dismiss]").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var el = document.getElementById(btn.getAttribute("data-dismiss"));
@@ -48,70 +23,111 @@
     });
   });
 
-  // Datum: idag som förval och minsta värde
-  var ut = document.getElementById("utresa");
-  var hem = document.getElementById("hemresa");
-  var d = new Date();
-  var today = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-  if (ut) { ut.min = today; ut.value = today; }
-  if (hem) hem.min = today;
-  if (ut && hem) {
-    ut.addEventListener("change", function () {
-      hem.min = ut.value || today;
-      if (hem.value && hem.value < ut.value) hem.value = "";
-    });
+  // ---------- Bokning: ett beslut i taget ----------
+  var dialog = document.getElementById("boka");
+  if (!dialog || typeof dialog.showModal !== "function") return;
+
+  // Stationer från Snälltågets tidtabeller (snalltaget.se, november 2026)
+  var STATIONS = [
+    "Malmö C", "Lund C", "Helsingborg C", "Halmstad C", "Göteborg-Mölndal", "Göteborg-Gamlestaden",
+    "Trollhättan", "Hässleholm C", "Eslöv", "Alvesta", "Nässjö C", "Linköping C", "Norrköping C",
+    "Södertälje", "Stockholm C", "Uppsala C", "Östersund C", "Undersåker", "Åre", "Duved", "Enafors",
+    "Storlien", "Vemdalen-Röjan", "Köpenhamn", "Odense", "Kolding", "Hamburg Hbf", "Berlin Hbf",
+    "Oslo S", "Innsbruck Hbf", "Zell am See", "Kitzbühel"
+  ];
+  var DAYS = ["sön", "mån", "tis", "ons", "tors", "fre", "lör"];
+  var MONTHS = ["jan", "feb", "mars", "apr", "maj", "juni", "juli", "aug", "sep", "okt", "nov", "dec"];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $("sokform");
+  var fran = $("fran"), till = $("till");
+  var fromValue = $("from-value"), fromChange = $("from-change"), fromField = $("from-field");
+  var ut = $("utresa"), hem = $("hemresa");
+  var hemSwitch = $("hem-switch");
+  var nextBtn = $("bk-next"), nextText = $("bk-next-text");
+  var backBtn = dialog.querySelector("[data-back]");
+  var summary = $("bk-summary");
+  var msg = $("sok-meddelande");
+  var steps = dialog.querySelectorAll(".bk__step");
+
+  var state = { step: 1, maxStep: 1, from: "Malmö C", to: "", dateKey: "idag" };
+  var opener = null;
+
+  // ---- Datum ----
+  function pad(n) { return String(n).padStart(2, "0"); }
+  function iso(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+  function addDays(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+  function fromIso(s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function fmt(s) { var d = fromIso(s); return DAYS[d.getDay()] + " " + d.getDate() + " " + MONTHS[d.getMonth()]; }
+  function nextWeekday(from, wd, minAhead) {
+    var d = addDays(from, minAhead);
+    while (d.getDay() !== wd) d = addDays(d, 1);
+    return d;
   }
 
-  // Byt Från/Till
-  var fran = document.getElementById("fran");
-  var till = document.getElementById("till");
-  var byt = document.getElementById("byt");
-  if (byt && fran && till) {
-    byt.addEventListener("click", function () {
-      var tmp = fran.value;
-      fran.value = till.value;
-      till.value = tmp;
-    });
-  }
+  var now = new Date(); now.setHours(0, 0, 0, 0);
+  var today = iso(now);
+  var DATE_OPTIONS = [
+    { key: "idag", label: "Idag", date: today },
+    { key: "imorgon", label: "Imorgon", date: iso(addDays(now, 1)) },
+    { key: "fredag", label: "Fredag", date: iso(nextWeekday(now, 5, 2)) },
+    { key: "helg", label: "Nästa helg", date: iso(nextWeekday(now, 6, 2)) },
+    { key: "valj", label: "Välj datum", date: "" }
+  ];
+  ut.min = today; hem.min = today; ut.value = today;
 
-  // Resenärer
-  function updateStepper(id) {
-    var out = document.getElementById(id);
-    var v = parseInt(out.textContent, 10);
-    document.querySelectorAll('[data-target="' + id + '"]').forEach(function (b) {
-      var step = parseInt(b.getAttribute("data-step"), 10);
-      b.disabled = step < 0 ? v <= +out.dataset.min : v >= +out.dataset.max;
-    });
-  }
-  document.querySelectorAll(".stepper__btn").forEach(function (b) {
-    b.addEventListener("click", function () {
-      var id = b.getAttribute("data-target");
-      var out = document.getElementById(id);
-      var v = parseInt(out.textContent, 10) + parseInt(b.getAttribute("data-step"), 10);
-      v = Math.max(+out.dataset.min, Math.min(+out.dataset.max, v));
-      out.textContent = String(v);
-      updateStepper(id);
-      updatePaxSummary();
+  var pillBox = $("date-pills");
+  DATE_OPTIONS.forEach(function (o) {
+    var label = document.createElement("label");
+    label.className = "pill pill--radio";
+    var input = document.createElement("input");
+    input.type = "radio"; input.name = "datum"; input.value = o.key;
+    if (o.key === state.dateKey) input.checked = true;
+    var span = document.createElement("span");
+    span.className = "pill__text";
+    span.textContent = o.label;
+    if (o.date) {
+      var small = document.createElement("small");
+      small.textContent = fmt(o.date);
+      span.appendChild(small);
+    }
+    label.appendChild(input); label.appendChild(span);
+    pillBox.appendChild(label);
+    input.addEventListener("change", function () {
+      state.dateKey = o.key;
+      $("utresa-field").hidden = o.key !== "valj";
+      if (o.date) ut.value = o.date;
+      setError(ut, "");
+      if (o.key === "valj") {
+        ut.focus();
+        try { ut.showPicker(); } catch (e) { /* inte alla webbläsare */ }
+      }
+      syncReturnMin();
+      renderSummary();
     });
   });
-  ["vuxna", "barn"].forEach(function (id) { if (document.getElementById(id)) updateStepper(id); });
 
-  function updatePaxSummary() {
-    var sum = document.getElementById("pax-summary");
-    if (!sum) return;
-    var a = parseInt(document.getElementById("vuxna").textContent, 10);
-    var b = parseInt(document.getElementById("barn").textContent, 10);
-    var t = a + (a === 1 ? " vuxen" : " vuxna");
-    if (b > 0) t += ", " + b + " barn";
-    sum.textContent = t;
+  function syncReturnMin() {
+    hem.min = ut.value || today;
+    if (hemSwitch.getAttribute("aria-checked") === "true" && (!hem.value || hem.value < hem.min)) {
+      hem.value = iso(addDays(fromIso(ut.value || today), 2));
+    }
   }
+  ut.addEventListener("change", function () { setError(ut, ""); syncReturnMin(); renderSummary(); });
+  hem.addEventListener("change", function () { setError(hem, ""); renderSummary(); });
 
-  // Sök: validera och visa att det är ett koncept
-  var form = document.getElementById("sokform");
-  var msg = document.getElementById("sok-meddelande");
+  hemSwitch.addEventListener("click", function () {
+    var on = hemSwitch.getAttribute("aria-checked") !== "true";
+    hemSwitch.setAttribute("aria-checked", String(on));
+    $("hemresa-field").hidden = !on;
+    if (on) { syncReturnMin(); } else { setError(hem, ""); }
+    renderSummary();
+  });
 
+  // ---- Fel ----
   function setError(input, text) {
-    var err = document.getElementById(input.id + "-fel");
+    var err = $(input.id + "-fel");
+    if (!err) return;
     if (text) {
       input.setAttribute("aria-invalid", "true");
       err.textContent = text;
@@ -123,35 +139,300 @@
     }
   }
 
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var a = fran.value.trim();
-      var b = till.value.trim();
-      setError(fran, a ? "" : "Skriv var du reser från, till exempel Malmö C.");
-      setError(till, b ? "" : "Skriv vart du vill resa, till exempel Berlin Hbf.");
-      if (a && b && a.toLowerCase() === b.toLowerCase()) {
-        setError(till, "Från och Till är samma station. Välj en annan station under Till.");
+  // ---- Stationsförslag (combobox) ----
+  function norm(s) { return s.toLowerCase().trim(); }
+  function findStation(q) {
+    q = norm(q);
+    for (var i = 0; i < STATIONS.length; i++) if (norm(STATIONS[i]) === q) return STATIONS[i];
+    return null;
+  }
+  function matches(q, exclude) {
+    q = norm(q);
+    if (!q) return [];
+    return STATIONS.filter(function (s) {
+      if (s === exclude) return false;
+      var n = norm(s);
+      return n.indexOf(q) === 0 || n.split(/[\s-]/).some(function (w) { return w.indexOf(q) === 0; });
+    }).slice(0, 6);
+  }
+
+  var combos = [];
+  function makeCombo(input, list, getExclude, onPick) {
+    var active = -1, items = [];
+    function close() {
+      list.hidden = true; list.innerHTML = ""; active = -1; items = [];
+      input.setAttribute("aria-expanded", "false");
+      input.removeAttribute("aria-activedescendant");
+    }
+    function render() {
+      items = matches(input.value, getExclude());
+      list.innerHTML = "";
+      if (!items.length || findStation(input.value) === input.value) { close(); return; }
+      items.forEach(function (s, i) {
+        var li = document.createElement("li");
+        li.id = list.id + "-" + i;
+        li.setAttribute("role", "option");
+        li.setAttribute("aria-selected", i === active ? "true" : "false");
+        li.className = "combo__option" + (i === active ? " is-active" : "");
+        li.textContent = s;
+        li.addEventListener("mousedown", function (e) { e.preventDefault(); });
+        li.addEventListener("click", function () { close(); onPick(s); });
+        list.appendChild(li);
+      });
+      list.hidden = false;
+      input.setAttribute("aria-expanded", "true");
+      if (active >= 0) input.setAttribute("aria-activedescendant", list.id + "-" + active);
+      else input.removeAttribute("aria-activedescendant");
+    }
+    input.addEventListener("input", function () { active = -1; setError(input, ""); render(); });
+    input.addEventListener("keydown", function (e) {
+      var open = !list.hidden;
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        if (!open) render();
+        if (items.length) { active = (active + 1) % items.length; render(); }
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        if (items.length) { active = active <= 0 ? items.length - 1 : active - 1; render(); }
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (open && active >= 0) { var s = items[active]; close(); onPick(s); }
+        else { close(); onPick(null); }
+      } else if (e.key === "Escape" && open) {
+        e.preventDefault(); e.stopPropagation(); close();
       }
-      var firstInvalid = form.querySelector('[aria-invalid="true"]');
-      if (firstInvalid) {
-        msg.hidden = true;
-        firstInvalid.focus();
+    });
+    input.addEventListener("blur", function () { setTimeout(close, 120); });
+    var api = { close: close, isOpen: function () { return !list.hidden; } };
+    combos.push(api);
+    return api;
+  }
+
+  // Esc stänger först en öppen förslagslista, sedan dialogen
+  dialog.addEventListener("cancel", function (e) {
+    var openCombo = combos.filter(function (c) { return c.isOpen(); })[0];
+    if (openCombo) { e.preventDefault(); openCombo.close(); }
+  });
+
+  // ---- Steg 1: vart ----
+  function pickDestination(station) {
+    var typed = till.value.trim();
+    if (!station) {
+      if (!typed) { setError(till, "Skriv vart du vill åka eller välj ett resmål nedan."); till.focus(); return; }
+      station = findStation(typed);
+      if (!station) {
+        var m = matches(typed, state.from);
+        if (m.length === 1) station = m[0];
+      }
+      if (!station) {
+        setError(till, "Vi hittar ingen station som heter ”" + typed + "”. Välj en station i listan.");
+        till.focus();
         return;
       }
-      var n = parseInt(document.getElementById("vuxna").textContent, 10) + parseInt(document.getElementById("barn").textContent, 10);
-      msg.innerHTML = "";
-      var strong = document.createElement("strong");
-      strong.textContent = "Det här är ett designkoncept.";
-      var p = document.createElement("p");
-      p.textContent = "Sökningen " + a + " – " + b + " för " + n + (n === 1 ? " resenär" : " resenärer") + " görs inte på riktigt. ";
-      var link = document.createElement("a");
-      link.href = "https://www.snalltaget.se/";
-      link.textContent = "Boka på snalltaget.se";
-      p.appendChild(link);
-      msg.appendChild(strong);
-      msg.appendChild(p);
-      msg.hidden = false;
+    }
+    till.value = station;
+    if (station === state.from) {
+      setError(till, "Du reser redan från " + state.from + ". Välj ett annat resmål eller ändra Från.");
+      till.focus();
+      return;
+    }
+    setError(till, "");
+    state.to = station;
+    goTo(2);
+  }
+  makeCombo(till, $("till-lista"), function () { return state.from; }, pickDestination);
+
+  dialog.querySelectorAll("[data-dest]").forEach(function (b) {
+    b.addEventListener("click", function () { pickDestination(b.getAttribute("data-dest")); });
+  });
+
+  function setFrom(station) {
+    state.from = station;
+    fran.value = station;
+    fromValue.textContent = station;
+  }
+  function closeFromField(focusTill) {
+    fromField.hidden = true;
+    fromChange.setAttribute("aria-expanded", "false");
+    $("from-row").hidden = false;
+    if (focusTill) till.focus();
+  }
+  function pickFrom(station) {
+    var typed = fran.value.trim();
+    if (!station) station = findStation(typed) || (matches(typed, null).length === 1 ? matches(typed, null)[0] : null);
+    if (!station) { setError(fran, typed ? "Vi hittar ingen station som heter ”" + typed + "”. Välj en station i listan." : "Skriv var du reser från, till exempel Malmö C."); fran.focus(); return; }
+    setError(fran, "");
+    setFrom(station);
+    if (state.to === station) { state.to = ""; till.value = ""; }
+    closeFromField(true);
+    renderSummary();
+  }
+  makeCombo(fran, $("fran-lista"), function () { return null; }, pickFrom);
+
+  fromChange.addEventListener("click", function () {
+    $("from-row").hidden = true;
+    fromField.hidden = false;
+    fromChange.setAttribute("aria-expanded", "true");
+    fran.value = state.from;
+    fran.focus();
+    fran.select();
+  });
+
+  $("byt").addEventListener("click", function () {
+    var to = findStation(till.value) || state.to;
+    if (!to) { setError(till, "Välj ett resmål först, så kan du byta riktning."); till.focus(); return; }
+    var from = state.from;
+    setFrom(to);
+    till.value = from;
+    state.to = from;
+    setError(till, "");
+    renderSummary();
+    till.focus();
+  });
+
+  // ---- Steg 2: när ----
+  function validateDates() {
+    var ok = true;
+    if (!ut.value) { setError(ut, "Välj ett datum för utresan."); ok = false; }
+    else if (ut.value < today) { setError(ut, "Datumet har redan varit. Välj idag eller ett senare datum."); ok = false; }
+    if (hemSwitch.getAttribute("aria-checked") === "true") {
+      if (!hem.value) { setError(hem, "Välj ett datum för hemresan, eller stäng av hemresa."); ok = false; }
+      else if (ut.value && hem.value < ut.value) { setError(hem, "Hemresan kan inte vara före utresan. Välj " + fmt(ut.value) + " eller senare."); ok = false; }
+    }
+    if (!ok) {
+      if (!ut.value || ut.getAttribute("aria-invalid")) { $("utresa-field").hidden = false; ut.focus(); }
+      else hem.focus();
+    }
+    return ok;
+  }
+
+  // ---- Steg 3: resenärer ----
+  function updateStepper(id) {
+    var out = $(id);
+    var v = parseInt(out.textContent, 10);
+    dialog.querySelectorAll('[data-target="' + id + '"]').forEach(function (b) {
+      var step = parseInt(b.getAttribute("data-step"), 10);
+      b.disabled = step < 0 ? v <= +out.dataset.min : v >= +out.dataset.max;
     });
   }
+  dialog.querySelectorAll(".stepper__btn").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var id = b.getAttribute("data-target");
+      var out = $(id);
+      var v = parseInt(out.textContent, 10) + parseInt(b.getAttribute("data-step"), 10);
+      v = Math.max(+out.dataset.min, Math.min(+out.dataset.max, v));
+      out.textContent = String(v);
+      updateStepper(id);
+      msg.hidden = true;
+      renderSummary();
+    });
+  });
+  ["vuxna", "barn"].forEach(updateStepper);
+
+  function paxText() {
+    var a = parseInt($("vuxna").textContent, 10);
+    var b = parseInt($("barn").textContent, 10);
+    var t = a + (a === 1 ? " vuxen" : " vuxna");
+    if (b > 0) t += ", " + b + " barn";
+    return t;
+  }
+  function dateText() {
+    if (!ut.value) return "";
+    var t = fmt(ut.value);
+    if (hemSwitch.getAttribute("aria-checked") === "true" && hem.value) t += " – " + fmt(hem.value);
+    return t;
+  }
+
+  // ---- Sammanfattning överst ----
+  function renderSummary() {
+    summary.innerHTML = "";
+    var parts = [];
+    if (state.to) parts.push({ step: 1, text: state.from + " → " + state.to, label: "Ändra resa, " + state.from + " till " + state.to });
+    if (state.to && state.maxStep >= 2 && ut.value) parts.push({ step: 2, text: dateText(), label: "Ändra datum, " + dateText() });
+    if (state.to && state.maxStep >= 3) parts.push({ step: 3, text: paxText(), label: "Ändra resenärer, " + paxText() });
+    summary.hidden = !parts.length;
+    parts.forEach(function (p, i) {
+      if (i > 0) {
+        var sep = document.createElement("span");
+        sep.className = "bk__sep"; sep.setAttribute("aria-hidden", "true"); sep.textContent = "·";
+        summary.appendChild(sep);
+      }
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "bk__chip" + (p.step === state.step ? " is-current" : "");
+      b.textContent = p.text;
+      b.setAttribute("aria-label", p.label);
+      if (p.step === state.step) b.setAttribute("aria-current", "step");
+      b.addEventListener("click", function () { goTo(p.step); });
+      summary.appendChild(b);
+    });
+  }
+
+  // ---- Stegbyte ----
+  function goTo(n, opts) {
+    opts = opts || {};
+    state.step = n;
+    state.maxStep = Math.max(state.maxStep, n);
+    steps.forEach(function (s) { s.hidden = +s.getAttribute("data-step") !== n; });
+    dialog.setAttribute("data-step", String(n));
+    $("bk-stegtext").textContent = "Steg " + n + " av 3";
+    backBtn.hidden = n === 1;
+    nextText.textContent = n === 3 ? "Visa resor" : "Nästa";
+    if (n !== 3) msg.hidden = true;
+    renderSummary();
+    if (opts.noFocus) return;
+    if (n === 1) till.focus();
+    else $("steg" + n + "-rubrik").focus();
+  }
+
+  backBtn.addEventListener("click", function () { if (state.step > 1) goTo(state.step - 1); });
+
+  nextBtn.addEventListener("click", function () {
+    if (state.step === 1) pickDestination(findStation(till.value));
+    else if (state.step === 2) { if (validateDates()) goTo(3); }
+    else showResult();
+  });
+  form.addEventListener("submit", function (e) { e.preventDefault(); });
+
+  function showResult() {
+    msg.innerHTML = "";
+    var strong = document.createElement("strong");
+    strong.textContent = "Det här är ett designkoncept.";
+    var p = document.createElement("p");
+    p.textContent = "Sökningen " + state.from + " → " + state.to + ", " + dateText() + ", " + paxText() + " görs inte på riktigt. ";
+    var link = document.createElement("a");
+    link.href = "https://www.snalltaget.se/";
+    link.textContent = "Boka på snalltaget.se";
+    p.appendChild(link);
+    msg.appendChild(strong);
+    msg.appendChild(p);
+    msg.hidden = false;
+    msg.scrollIntoView({ block: "nearest" });
+  }
+
+  // ---- Öppna och stänga ----
+  document.querySelectorAll("[data-open-booking]").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      e.preventDefault();
+      opener = el;
+      var f = el.getAttribute("data-from"), t = el.getAttribute("data-to");
+      dialog.showModal();
+      if (f && t) {
+        setFrom(f); till.value = t; state.to = t; setError(till, "");
+        goTo(2);
+      } else {
+        goTo(1);
+      }
+    });
+  });
+  dialog.querySelectorAll("[data-close-booking]").forEach(function (el) {
+    el.addEventListener("click", function () { dialog.close(); });
+  });
+  dialog.addEventListener("click", function (e) { if (e.target === dialog) dialog.close(); });
+  dialog.addEventListener("close", function () {
+    combos.forEach(function (c) { c.close(); });
+    if (opener) opener.focus();
+  });
+
+  goTo(1, { noFocus: true });
 })();
