@@ -26,7 +26,9 @@
   for (const p of parts) for (const q of p.qs) BY_ID[q.id] = q;
 
   // ---------- State ----------
-  const answers = {}; // id -> label
+  const answers = {}; // id -> [label, ...]
+  const sel = id => { const v = answers[id]; return Array.isArray(v) ? v : (v ? [v] : []); };
+  const body = (q, arr) => ({ svar: arr.join(' + '), val: arr, fraga: q.q, del: q.part, grupp: q.group });
   const notes = {};   // part -> text
   let partKey = 'detaljer';
   const pos = { detaljer: 0, sektioner: 0, generellt: 0, hero: 0 };
@@ -56,7 +58,7 @@
   const $ = s => document.querySelector(s);
   function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
   const part = () => parts.find(p => p.key === partKey);
-  function answeredCount(p) { return p.qs.filter(q => answers[q.id]).length; }
+  function answeredCount(p) { return p.qs.filter(q => sel(q.id).length).length; }
 
   function renderParts() {
     $('#parts').innerHTML = parts.map(p => `<button type="button" data-p="${p.key}" aria-pressed="${p.key === partKey}">${p.title}<span>${answeredCount(p)}/${p.qs.length}</span></button>`).join('');
@@ -76,19 +78,20 @@
     }
     const q = p.qs[pos[partKey]];
     const n = pos[partKey] + 1;
-    const cur = answers[q.id];
+    const cur = sel(q.id);
     const stack = q.layout === 'stack';
-    const opts = q.opts.map((o, i) => `<div role="button" tabindex="0" class="qz-opt${o.h ? '' : ' qz-textonly'}" data-i="${i}" aria-pressed="${cur === o.l}">
+    const opts = q.opts.map((o, i) => `<div role="button" tabindex="0" class="qz-opt${o.h ? '' : ' qz-textonly'}" data-i="${i}" aria-pressed="${cur.includes(o.l)}">
         <div class="qz-render">${o.h ? `<div class="spec">${fixImg(o.h)}</div>` : ''}</div>
         <div class="qz-lab"><span class="qz-key">${LETTERS[i]}</span><span>${esc(o.l)}</span></div></div>`).join('');
     main.innerHTML = `<div class="qhead"><span>Fråga ${n} av ${p.qs.length}</span><span>${esc(q.group)}</span></div>
       <h1 class="qtext">${esc(q.q)}</h1>
+      <p class="multi">Välj ett eller flera alternativ.</p>
       <div class="qz-opts${stack ? ' stack' : ''} n${q.opts.length}">${opts}</div>
       <div class="after">
         <button type="button" class="btn" data-act="prev"${n === 1 ? ' disabled' : ''}>← Föregående</button>
-        <button type="button" class="btn" data-act="none" aria-pressed="${cur === NONE}">${NONE}</button>
-        <button type="button" class="btn" data-act="skip">Hoppa över →</button>
-        <span class="hint"><kbd>1</kbd>–<kbd>${q.opts.length}</kbd> välj · <kbd>0</kbd> spelar ingen roll · <kbd>←</kbd><kbd>→</kbd> bläddra</span>
+        <button type="button" class="btn" data-act="none" aria-pressed="${cur.includes(NONE)}">${NONE}</button>
+        <button type="button" class="btn primary" data-act="skip">Nästa →</button>
+        <span class="hint"><kbd>1</kbd>–<kbd>${q.opts.length}</kbd> välj en eller flera · <kbd>0</kbd> spelar ingen roll · <kbd>Enter</kbd> nästa</span>
       </div>`;
   }
 
@@ -97,7 +100,7 @@
     for (const p of parts) {
       html += `<h2>${p.title} · ${answeredCount(p)}/${p.qs.length}</h2><div class="olist">`;
       p.qs.forEach((q, i) => {
-        const a = answers[q.id];
+        const a = sel(q.id).join(' + ');
         html += `<button type="button" class="orow" data-jump="${p.key}:${i}"><span class="n">${i + 1}</span><span>${esc(q.q)}</span><span class="a${a ? '' : ' none'}">${a ? esc(a) : 'Inte besvarad'}</span></button>`;
       });
       html += '</div>';
@@ -113,19 +116,21 @@
 
   function nextPart() { const i = parts.findIndex(p => p.key === partKey); return parts.slice(i + 1).find(p => p.qs.length); }
 
-  let advancing = null;
   function choose(label) {
     const p = part(); const q = p.qs[pos[partKey]]; if (!q) return;
-    answers[q.id] = answers[q.id] === label ? undefined : label;
-    if (!answers[q.id]) delete answers[q.id];
-    persist(q.id, answers[q.id] ? { svar: answers[q.id], fraga: q.q, del: p.key, grupp: q.group } : null);
-    renderParts();
-    document.querySelectorAll('.qz-opt').forEach(b => b.setAttribute('aria-pressed', String(b.querySelector('.qz-lab span:last-child').textContent === answers[q.id])));
-    const nb = document.querySelector('[data-act="none"]'); if (nb) nb.setAttribute('aria-pressed', String(answers[q.id] === NONE));
-    if (answers[q.id]) {
-      clearTimeout(advancing);
-      advancing = setTimeout(() => go(1), 260);
+    let arr = sel(q.id).slice();
+    if (label === NONE) arr = arr.includes(NONE) ? [] : [NONE];
+    else {
+      arr = arr.filter(x => x !== NONE);
+      arr = arr.includes(label) ? arr.filter(x => x !== label) : [...arr, label];
+      const order = q.opts.map(o => o.l);
+      arr.sort((a, b) => order.indexOf(a) - order.indexOf(b));
     }
+    if (arr.length) answers[q.id] = arr; else delete answers[q.id];
+    persist(q.id, arr.length ? body(q, arr) : null);
+    renderParts();
+    document.querySelectorAll('.qz-opt').forEach(b => b.setAttribute('aria-pressed', String(arr.includes(b.querySelector('.qz-lab span:last-child').textContent))));
+    const nb = document.querySelector('[data-act="none"]'); if (nb) nb.setAttribute('aria-pressed', String(arr.includes(NONE)));
   }
   function go(d) {
     const p = part();
@@ -171,6 +176,7 @@
     const q = part().qs[pos[partKey]];
     if (e.key === 'ArrowRight') { go(1); e.preventDefault(); }
     else if (e.key === 'ArrowLeft') { go(-1); e.preventDefault(); }
+    else if (e.key === 'Enter' && !(e.target.closest && e.target.closest('button, a'))) { go(1); e.preventDefault(); }
     else if (q && e.key === '0') choose(NONE);
     else if (q && /^[1-4]$/.test(e.key) && q.opts[+e.key - 1]) choose(q.opts[+e.key - 1].l);
   });
@@ -178,7 +184,7 @@
   // ---------- Copy ----------
   function summary() {
     return parts.map(p => `## ${p.title} (${answeredCount(p)}/${p.qs.length})\n` +
-      p.groups.map(g => `### ${g.title}\n` + g.questions.map(q => `- ${q.q} → ${answers[q.id] || '(inte besvarad)'}`).join('\n')).join('\n') +
+      p.groups.map(g => `### ${g.title}\n` + g.questions.map(q => `- ${q.q} → ${sel(q.id).join(' + ') || '(inte besvarad)'}`).join('\n')).join('\n') +
       (notes[p.key] ? `\nAnteckning: ${notes[p.key]}` : '')).join('\n\n');
   }
   function toast(t) { const el = document.createElement('div'); el.className = 'toast'; el.setAttribute('role', 'status'); el.textContent = t; document.body.appendChild(el); setTimeout(() => el.remove(), 2200); }
@@ -208,12 +214,12 @@
       const remote = {};
       for (const d of snap.docs) {
         const v = d.data() || {};
-        if (BY_ID[d.id] && v.svar) remote[d.id] = v.svar;
+        if (BY_ID[d.id] && (Array.isArray(v.val) ? v.val.length : v.svar)) remote[d.id] = Array.isArray(v.val) ? v.val : [v.svar];
         if (d.id.startsWith('anteckning-') && v.anteckning) notes[d.id.slice(11)] = v.anteckning;
       }
       if (first) {
         first = false;
-        for (const id of Object.keys(answers)) if (answers[id] && !remote[id] && BY_ID[id]) persist(id, { svar: answers[id], fraga: BY_ID[id].q, del: BY_ID[id].part, grupp: BY_ID[id].group });
+        for (const id of Object.keys(answers)) if (sel(id).length && !remote[id] && BY_ID[id]) persist(id, body(BY_ID[id], sel(id)));
       }
       for (const id of Object.keys(BY_ID)) { if (remote[id]) answers[id] = remote[id]; else if (!chains[id]) delete answers[id]; }
       saveLocal();
