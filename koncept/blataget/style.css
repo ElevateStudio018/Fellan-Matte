@@ -282,7 +282,7 @@ main:focus { outline: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 18%; /* tåget hamnar under knappen på dator */
+  object-position: 50% 0%; /* tåget hamnar under knappen på dator */
 }
 /* Lätt mörkläggning, något tätare kring rubriken, så att fotot syns och texten klarar AA */
 .hero::after {
@@ -291,8 +291,16 @@ main:focus { outline: none; }
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(ellipse 70% 45% at 50% 50%, rgba(20, 18, 15, 0.42), rgba(20, 18, 15, 0) 100%),
+    radial-gradient(ellipse 70% 45% at 50% 50%, rgba(20, 18, 15, 0.5), rgba(20, 18, 15, 0) 100%),
     rgba(20, 18, 15, 0.22);
+}
+/* Surfplatta: rubriken är nästan lika bred som skärmen, så mörkläggningen breddas */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .hero::after {
+    background:
+      radial-gradient(ellipse 110% 45% at 50% 45%, rgba(20, 18, 15, 0.5), rgba(20, 18, 15, 0) 100%),
+      rgba(20, 18, 15, 0.22);
+  }
 }
 .hero__inner {
   display: grid;
@@ -1229,12 +1237,12 @@ body:has(.bk[open]) { overflow: hidden; }
 .confirm__total strong { font-size: var(--fs-26); font-weight: 800; font-variant-numeric: tabular-nums; }
 .confirm__ex { margin-top: calc(var(--s-12) * -1); font-size: var(--fs-14); color: var(--c-muted); }
 
-/* Herobilden på smala skärmar: loket i bild till vänster, rubriken över skogen */
+/* Herobilden på smala skärmar: tågets front i bild till vänster, rubriken över skog och himmel */
 @media (max-width: 767px) {
   .hero__img { object-position: 22% 40%; }
   .hero::after {
     background:
-      radial-gradient(ellipse 90% 40% at 50% 40%, rgba(20, 18, 15, 0.36), rgba(20, 18, 15, 0) 100%),
+      radial-gradient(ellipse 90% 40% at 50% 40%, rgba(20, 18, 15, 0.44), rgba(20, 18, 15, 0) 100%),
       rgba(20, 18, 15, 0.26);
   }
 }
