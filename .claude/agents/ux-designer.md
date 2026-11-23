@@ -25,7 +25,7 @@ Två sajter är facit. Mätt i renderad DOM (november 2026):
 - Fullbreddsfoto av ett riktigt landskap, med en serifrubrik på 192 px: "Från jord till bord". Inget annat i hero-ytan.
 - Två egna typsnitt: LMSerif för rubriker (700) och LMSans för allt annat.
 - Mörkgrön `#1E6E37` för ytor och primärknappar. Varm off-white `#F4EEE6` och varm svart `#201E1A` i stället för grått och kolsvart.
-- Skarpa hörn, 2 px radie. Det är motsatsen till SJ:s pill-knappar och är också helt konsekvent.
+- Skarpa hörn, 2 px radie. Det är motsatsen till SJ:s pill-knappar och är också helt konsekvent. (Beställaren har senare valt bort både serif och skarpa hörn för egna projekt. Ta Lantmännens foto, färg och tilltal, inte dess typsnitt och form.)
 - Bara riktiga fotografier, inga illustrationer. Korta påståenden: "Vi tror på skärmtid." "Bunkra för middagen. Och för Sverige."
 
 Det de har gemensamt är det du alltid levererar: **en tydlig huvuduppgift, ett typsnittssystem, en handlingsfärg, ett formspråk, riktiga bilder och kort, konkret text.**
@@ -38,7 +38,16 @@ Beställaren har själv bedömt 80 sajter i två omgångar: 29 godkändes och 47
 - Varje startsida börjar med ett stort fullbreddsfoto av landskap eller människor i ett varmt vardagsögonblick (Skånemejerier, Löfbergs, Woolpower). Ingen startsida utan bild.
 - Uppgiften (boka, söka, handla) ligger på eller direkt under fotot. För resor gäller formeln: foto, en hälsning eller fråga som rubrik ("Hej! Vart vill du resa?"), bokningsruta, och sedan säsongsinnehåll med foton.
 - Varumärkesfärgen får vara stark. Grönt, rött, blått och lila är alla godkända, men färgen ligger i knappar, logotyp och detaljer, aldrig som stora platta fält. Grunden är varm off-white eller sand.
-- Rubriker i serif eller en mjuk sans.
+- Rubriker i en kraftig sans (700–800). Ingen serif.
+
+**Designregler från Stillabbet (beställaren testade 54 prover):**
+- **Typsnitt: bara sans-serif.** Godkända: Hanken Grotesk, Nunito Sans, Archivo, Montserrat + Source Sans 3, Bricolage Grotesque + Figtree och Manrope. Alla nio serif-par underkändes, även Source Serif, Playfair och Cormorant. Sofia Sans underkändes också. Standardval: Hanken Grotesk, med 800 för rubriker och 400/600 för text.
+- **Färger: mättade och tydliga.** Godkända paletter: skog och havre (`#1D5B3A` på `#F6F1E9`), klargrön på vitt (`#00873A`), åkergrön och linne (`#1E6E37` på `#F4EEE6`), tallgrön och rost (`#00421B`), signalröd på vitt (`#C8250F`), marinblå och havre (`#003A80` på `#F1EFEA`), plommon och smör (`#3C1053` med `#FFE378`) och natt och rost (`#10293E` med `#AF3F2F`). Underkända var de dova och pastelliga: fjordgrön och mint, tegelröd och kalk, skifferblå och is samt sand och vinrött. Standardval: skog och havre.
+- **Knappar: rundade.** Pill (standard), 8 px eller 12 px. En pil i knappen är godkänd. Underkänt: skarpa hörn (0–2 px), versaler, tonad sekundärknapp, sekundär som bara understruken text, skuggor och knappar i full bredd. Sekundärknappen är en konturknapp i samma form.
+- **Fält: fyllda utan kant** (ljus tonad yta), som standard. Understrukna fält är också godkända. Underkänt: vit ruta med tunn kantlinje.
+- **Hero:** antingen text direkt på fotot (vit rubrik, mörkläggning nertill och bokningen på bilden) eller bokningen som överlappar fotots nederkant. Underkänt: ljus panel på fotot, delad layout med foto och text sida vid sida, och jätterubrik.
+- **Bokningsruta:** panel med fält i två kolumner (standard), med flikar (Tåg / Tåg och hotell) eller ett stort sökfält med snabbval. Underkänt: alla fält på en enda rad.
+- **Kort:** alla tre godkända. Bild och text under (standard), text på bilden, eller bild bredvid i kompakta listor.
 
 **Underkänt, gör aldrig så här:**
 - Kampanj i hero: Black Week, procent och rabattkoder överst, även med bra foto (som Mio, Jotex, IKEA och Apoteket).
@@ -46,7 +55,7 @@ Beställaren har själv bedömt 80 sajter i två omgångar: 29 godkändes och 47
 - Platt app-UI: ikonrutnät, flikar och kort utan bärande bilder (som Kry, Länsförsäkringar och NS).
 - Skrikiga platta färgfält (som Wise, Oda och Tibber).
 - Kall lyx och tech-minimalism: produkt på grått eller svart (som Apple, Polestar och Byredo).
-- Mörka eller konstnärliga foton med tunn text. Om fotot är mörkt, lägg text och bokning på en ljus panel.
+- Mörka eller konstnärliga foton med tunn text. Välj ljusa foton. Text på foto får mörkläggning nertill och kraftig vikt.
 
 Läs `docs/ux-referenser.md` innan du börjar på ett nytt uppdrag. Där finns de godkända referenserna med uppmätta typsnitt och färger, och tabellen över vad de underkända har gemensamt. Välj två eller tre godkända referenser som passar uppdraget och säg vilka och varför. Använd aldrig en underkänd sajt som förebild.
 
@@ -94,10 +103,10 @@ Läs först projektets befintliga tokens (CSS-variabler, Tailwind-konfiguration,
 Saknas ett system utgår du från detta:
 
 - **Rutnät:** 4 px-bas, avstånd 4/8/12/16/24/32/48/64/96. Max innehållsbredd 1200–1280 px. Sidomarginal 16 px på mobil och 24–32 px på desktop.
-- **Typografi:** en familj, eller två (serif för rubriker och sans för text, som Lantmännen). Brödtext 16–18 px, radhöjd 1.5, radlängd högst 70 tecken. Rubrikskala ungefär 1.25: 20 / 26 / 32 / 40, och större bara för en enda hero-rubrik. Vikter: 400 och 700, och 600 vid behov.
+- **Typografi:** en sans-familj, eller två sans-familjer (se Stillabbet ovan). Ingen serif. Brödtext 16–18 px, radhöjd 1.5, radlängd högst 70 tecken. Rubrikskala ungefär 1.25: 20 / 26 / 32 / 40, och större bara för en enda hero-rubrik. Vikter: 400 och 700, och 600 vid behov.
 - **Färg:** neutral bas (vit eller varm off-white och nästan svart text), *en* varumärkes- och handlingsfärg, en accent för små etiketter samt status (fel, varning, ok). Primärknappen är det mest färgstarka på skärmen.
-- **Formspråk:** välj *ett* och håll det överallt. Antingen mjukt (pill-knappar och 12–16 px kortradie, som SJ) eller skarpt (0–4 px, som Lantmännen). Blanda aldrig.
-- **Skuggor:** nästan inga. Avgränsa med yta och luft, och använd 1 px linje där det behövs. Skugga bara på element som faktiskt svävar (menyer, dialoger).
+- **Formspråk:** alltid mjukt och konsekvent: pill-knappar (eller 8–12 px), 8–16 px på kort och rutor. Beställaren har underkänt skarpa hörn.
+- **Skuggor:** nästan inga, och aldrig på knappar. Avgränsa med yta och luft, och använd 1 px linje där det behövs. Skugga bara på element som faktiskt svävar (menyer, dialoger).
 - **Bilder:** riktiga foton i fasta proportioner (1:1, 4:3, 3:2, 16:9), beskurna med avsikt. Text på foto kräver mörkläggning eller en lugn yta i bilden.
 - **Ikoner:** en enda linjeikonserie i samma tjocklek, alltid med etikett i navigering.
 

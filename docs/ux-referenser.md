@@ -103,4 +103,22 @@ NS och Airbnb underkändes. NS är platt gult med UI-paneler, och Airbnb har sö
 - **Varumärkesfärgen får vara stark** (grön, röd, blå eller annan), men bara i knappar, logotyp och detaljer. Grunden är varm off-white eller sand.
 - **Inga kampanjer i hero.** Erbjudanden ligger längre ner som kort med foto, aldrig som procent-block överst.
 - **Mat och produkter visas i användning**, med människor eller dukat bord, inte som förpackningsreklam.
-- **Undvik mörka foton med tunn text.** Om fotot är mörkt, lägg texten och bokningen på en ljus panel.
+- **Undvik mörka foton med tunn text.** Välj ljusa foton. Text på foto får mörkläggning nertill och kraftig vikt.
+
+---
+
+## Stillabbet: designregler (beställarens val, november 2026)
+
+54 prover testades med samma exempelinnehåll så att bara stilen skilde. De här reglerna går före referenssajternas egna typsnitt och former. Lantmännen, Bolia och Valio är godkända för foto, färg och tilltal, men deras serifer och skarpa hörn ska inte användas.
+
+| | Godkänt | Underkänt | Standardval |
+|---|---|---|---|
+| **Typsnitt** | Hanken Grotesk, Nunito Sans, Archivo, Montserrat + Source Sans 3, Bricolage Grotesque + Figtree, Manrope | Alla serif-par (Source Serif, Fraunces, Playfair, Cormorant, DM Serif, Libre Caslon, Newsreader, Lora) och Sofia Sans | Hanken Grotesk, 800 för rubriker |
+| **Färger** | Skog och havre `#1D5B3A`/`#F6F1E9`, klargrön `#00873A`, åkergrön och linne `#1E6E37`/`#F4EEE6`, tallgrön `#00421B`, signalröd `#C8250F`, marinblå och havre `#003A80`/`#F1EFEA`, plommon och smör `#3C1053`/`#FFE378`, natt och rost `#10293E`/`#AF3F2F` | Fjordgrön och mint, tegelröd och kalk, skifferblå och is, sand och vinrött (dova och pastelliga) | Skog och havre |
+| **Knappar** | Pill, rundad 8 px, stor rundad 12 px, med pil | Skarpa 0–2 px, versaler, tonad sekundär, sekundär som länk, skugga, full bredd | Pill, sekundär som konturknapp |
+| **Fält** | Fylld utan kant, understruken | Tunn kantlinje på vit ruta | Fylld utan kant |
+| **Hero** | Text på fotot med mörkläggning nertill, bokning som överlappar fotots kant | Ljus panel på fotot, delad layout, jätterubrik | Text på fotot |
+| **Bokningsruta** | Panel i två kolumner, med flikar, ett sökfält med snabbval | Alla fält på en rad | Panel |
+| **Kort** | Bild och text under, text på bilden, bild bredvid | (inget) | Bild och text under |
+
+Beställarens egen kombination i "Testa ihop": Hanken Grotesk, skog och havre, pill, fylld utan kant, text på fotot, panel och bild med text under.
