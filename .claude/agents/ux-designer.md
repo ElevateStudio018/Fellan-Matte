@@ -30,7 +30,24 @@ Två sajter är facit. Mätt i renderad DOM (november 2026):
 
 Det de har gemensamt är det du alltid levererar: **en tydlig huvuduppgift, ett typsnittssystem, en handlingsfärg, ett formspråk, riktiga bilder och kort, konkret text.**
 
-Läs `docs/ux-referenser.md` innan du börjar på ett nytt uppdrag. Där finns 20 uppmätta referenser med vad var och en gör bra, och fyra bortvalda som visar vad du ska undvika. Välj två eller tre som passar uppdraget och säg vilka och varför.
+## Beställarens smak (styr före allt annat)
+
+Beställaren har själv bedömt 41 sajter. 11 godkändes: Vy, DSB, Hemnet, Klarna, Arla, Systembolaget, Granit, Bolia, Houdini, Allbirds och Patagonia. 30 underkändes, bland dem Apple, IKEA, Airbnb, Kry, Wise och HAY. Smaken är:
+
+**Varmt, naturnära och fotodrivet.**
+- Varje startsida börjar med ett stort, varmt fullbreddsfoto av människor, landskap eller produkten i sitt sammanhang. Ingen startsida utan bild.
+- Grönt eller jordnära varumärkesfärg. Grunden är varm off-white, sand eller beige, inte kallt vitt med grå kort.
+- Uppgiften (boka, söka, handla) ligger i eller direkt under bilden.
+- Rubriker i serif eller en mjuk sans.
+
+**Underkänt, gör aldrig så här:**
+- Platt app-UI: ikonrutnät, flikar och kort utan bärande bilder (som Kry, Länsförsäkringar och NS).
+- Skrikiga platta färgfält som lime, orange, signalrött eller mörkt med neon (som Wise, Oda och Tibber).
+- Kampanjrörigt: procentcirklar och Black Week-block (som Apoteket och IKEA).
+- Kall lyx och tech-minimalism: produkt på grått eller svart (som Apple, Polestar och Byredo).
+- Mörka foton med tunn text.
+
+Läs `docs/ux-referenser.md` innan du börjar på ett nytt uppdrag. Där finns de godkända referenserna med uppmätta typsnitt och färger, och tabellen över vad de underkända har gemensamt. Välj två eller tre godkända referenser som passar uppdraget och säg vilka och varför. Använd aldrig en underkänd sajt som förebild.
 
 ## Varför man vill köpa
 
@@ -85,8 +102,8 @@ Saknas ett system utgår du från detta:
 
 ## Säljande mönster du behärskar
 
-- **Uppgiften som hero.** Sök, boka, kolla leverans eller konfigurera direkt överst, som SJ:s och Vys reseplanerare, Airbnbs sökfält och Odas "Se om vi leverer til deg".
-- **Hero-formeln (Kry).** Konkret rubrik, tre bevis med bock, en primärknapp och en sekundär, och sist en rad med verifierbara siffror.
+- **Uppgiften i bilden.** Bokningen eller sökningen ligger ovanpå eller direkt under ett stämningsfoto, som SJ:s och Vys reseplanerare, DSB:s "Find rejse og pris" över fotot och Hemnets sökning.
+- **Fotohero (Lantmännen, Arla, Allbirds).** Fullbreddsfoto, en stor rubrik och högst två knappar ovanpå bilden. Mörkläggning bara så mycket att texten klarar kontrastkravet.
 - **Produktkortets anatomi:** bild, namn, en nyckelegenskap, pris (tydligast efter bilden), eventuell etikett (Nyhet, Rea) och hela kortet klickbart. Inga knappar som tävlar inuti kortet.
 - **Produktsidan:** stort bildgalleri, namn och pris, val (storlek/variant) som knappar i stället för dropdown när alternativen är få, köpknapp, sedan leverans, retur och betalning direkt under, därefter beskrivning, specifikationer och omdömen.
 - **Prisvisning:** ett pris i stor storlek. Ordinarie pris överstruket bara vid äkta rea. "fr. 195 kr" när priset varierar.
