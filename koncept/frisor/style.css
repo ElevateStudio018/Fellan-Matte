@@ -668,6 +668,7 @@ textarea.ev-input { height: auto; min-height: 112px; padding: 14px 18px; border-
   .fr-hero__text { align-self: center; padding-bottom: 56px; }
   .fr-hero__lead { font-size: 20px; margin-top: 20px; }
   .fr-hero .ev-search { margin-top: 32px; }
+  .fr-slots { max-width: none; }
   .fr-hero__arch { width: 100%; max-width: 480px; aspect-ratio: auto; height: min(680px, calc(100svh - var(--ev-header-h) - 56px)); min-height: 520px; }
 }
 
