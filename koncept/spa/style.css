@@ -698,3 +698,6 @@ a.ev-value { color: var(--ev-ink); text-decoration: none; display: flex; flex-di
 a.ev-value .ev-link { margin-top: 12px; }
 a.ev-value:hover { border-color: var(--ev-ink); }
 a.ev-value:hover .ev-link__arrow { transform: translateX(4px); }
+.ev-wrap.ev-narrow { max-width: calc(var(--ev-max-w) + 2 * var(--ev-pad)); }
+.ev-narrow > * { max-width: 840px; }
+a.ev-value span.ev-link { display: inline-flex; color: var(--ev-brand); font-size: 15px; }

@@ -85,7 +85,7 @@
       rows: [
         { label: 'Bil', step: 0, value: s => s.regnr ? fmtReg(s.regnr) + (s.matare ? `, ${s.matare.replace(/\s*mil$/i, '')} mil` : '') : '' },
         { label: 'Tjänst', step: 1, value: s => s.tjanst ? `${svc(s.tjanst).name}, ${priceTxt(svc(s.tjanst))}` : '' },
-        { label: 'Lämna bilen', step: 2, value: s => s.tid ? `${fmtDate(s.dag)} klockan ${s.tid}` : '' },
+        { label: 'Inlämning', step: 2, value: s => s.tid ? `${fmtDate(s.dag)} klockan ${s.tid}` : '' },
         { label: 'Namn', step: 3, value: s => s.namn || '' },
         { label: 'Mobilnummer', step: 3, value: s => s.mobil || '' },
         { label: 'E-post', step: 3, value: s => s.epost || '' },

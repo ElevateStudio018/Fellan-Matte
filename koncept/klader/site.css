@@ -1,0 +1,156 @@
+/* Gränd: sajtens egen färg och layout ovanpå base.css.
+   Varumärket plommon #6B2D5C: 9,7:1 mot vit text, 9,0:1 mot ljusgrå sektion. */
+:root {
+  --ev-brand: #6B2D5C;
+  --gr-dark: #2E1428;            /* mörk yta för reservationsbandet och sidfoten, 16:1 mot vit text */
+  --gr-on-dark-accent: #E7B6D6;  /* rubrikprick på mörk yta och foto */
+}
+
+.ev-thumb { display: block; overflow: hidden; flex: none; }
+.ev-thumb img, .ev-thumb .ev-art { width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; }
+.ev-thumb .ev-art svg { width: 64%; }
+.ev-on-dark { background: var(--gr-dark); color: #fff; }
+.ev-on-dark .ev-dot::after, .ev-on-photo .ev-dot::after { color: var(--gr-on-dark-accent); }
+.ev-on-dark .ev-hint, .ev-on-dark .ev-section-head p { color: rgba(255,255,255,.82); }
+
+/* ---------- Hero: foto i hela höjden, text nere till vänster på bilden (ux-hero-*) ---------- */
+.gr-hero { position: relative; min-height: calc(100svh - var(--ev-header-h)); display: flex; align-items: flex-end; color: #fff; overflow: hidden; background: #3A2B22; }
+.gr-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 40%; }
+.gr-hero::after { content: ""; position: absolute; inset: 0; background: rgba(30, 16, 24, .5); }
+.gr-hero__in { position: relative; z-index: 1; padding-top: 48px; padding-bottom: 56px; }
+.gr-hero h1 { max-width: 13ch; font-size: clamp(40px, 5.2vw + 14px, 72px); line-height: 1.04; text-shadow: 0 1px 18px rgba(0,0,0,.3); }
+.gr-hero p { font-size: 19px; max-width: 36ch; margin-top: 16px; text-shadow: 0 1px 12px rgba(0,0,0,.35); }
+.gr-hero .ev-search { margin-top: 28px; border-color: #fff; }
+@media (min-width: 900px) { .gr-hero__in { padding-bottom: 88px; } .gr-hero p { font-size: 20px; } }
+
+/* ---------- Reservera i butik: mörkt band ---------- */
+.gr-reserve { display: grid; gap: 40px; align-items: start; }
+@media (min-width: 900px) { .gr-reserve { grid-template-columns: 5fr 6fr; gap: 96px; align-items: center; } }
+.gr-reserve h2 { font-size: clamp(32px, 2.8vw + 18px, 48px); }
+.gr-reserve .ev-lead { margin-top: 16px; color: rgba(255,255,255,.9); }
+.gr-reserve .ev-vsteps h3 { font-size: 19px; }
+.gr-reserve .ev-vsteps li { padding-bottom: 36px; }
+.gr-reserve .ev-vsteps li:last-child { padding-bottom: 0; }
+
+/* ---------- Butiker på startsidan ---------- */
+.gr-stores { display: grid; gap: 40px; align-items: start; }
+@media (min-width: 900px) { .gr-stores { grid-template-columns: 6fr 5fr; gap: 72px; align-items: center; } }
+.gr-stores__img { border-radius: var(--ev-r-card); overflow: hidden; }
+.gr-stores__img img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.gr-storelist { list-style: none; margin: 24px 0 0; padding: 0; border-top: 1px solid var(--ev-line); }
+.gr-storelist li { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--ev-line); }
+.gr-storelist a { color: var(--ev-ink); text-decoration: none; font-weight: 600; font-size: 17px; }
+.gr-storelist a::after { content: ""; position: absolute; inset: 0; }
+.gr-storelist li:hover a { text-decoration: underline; text-underline-offset: 3px; }
+.gr-storelist p { grid-column: 1; font-size: 14px; color: var(--ev-ink-2); }
+.gr-storelist .ev-icon { grid-column: 2; grid-row: 1 / span 2; width: 20px; height: 20px; --ev-stroke: 1.75px; transition: transform var(--ev-dur-arrow) var(--ev-ease); }
+.gr-storelist li:hover .ev-icon { transform: translateX(4px); }
+
+/* ---------- Fördelar: egen ikon per rad, ingen platta (sy-lista-olika) ---------- */
+.gr-perks { display: grid; gap: 24px; list-style: none; margin: 0; padding: 0; }
+@media (min-width: 700px) { .gr-perks { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .gr-perks { grid-template-columns: repeat(4, 1fr); gap: 32px; } }
+.gr-perks li { display: grid; grid-template-columns: 32px 1fr; gap: 4px 12px; }
+.gr-perks .ev-icon { width: 32px; height: 32px; --ev-stroke: 2.25px; grid-row: 1 / span 2; }
+.gr-perks h3 { font-size: 17px; align-self: center; }
+.gr-perks p { grid-column: 2; color: var(--ev-ink-2); font-size: 15px; }
+
+/* ---------- Omdömen: ett stort citat och två små ---------- */
+.gr-quotes { display: grid; gap: 40px; }
+@media (min-width: 900px) { .gr-quotes { grid-template-columns: 7fr 4fr; gap: 72px; align-items: start; } }
+.gr-quotes__big p { font-size: clamp(22px, 1.4vw + 16px, 30px); line-height: 1.35; letter-spacing: -.01em; font-weight: 500; }
+.gr-quotes__small { display: grid; gap: 32px; }
+
+/* ---------- Sidfot (mörk) ---------- */
+.gr-footer { background: var(--gr-dark); color: #fff; }
+.gr-footer .ev-logo, .gr-footer .ev-logo b { color: #fff; }
+.gr-footer .ev-logo b { color: var(--gr-on-dark-accent); }
+.gr-footer .ev-hint, .gr-footer .ev-concept { color: rgba(255,255,255,.8); }
+.gr-footer .ev-footer__bottom { border-top-color: rgba(255,255,255,.2); }
+.gr-footer a { text-decoration: underline; text-underline-offset: 3px; }
+.gr-footer .ev-footer__links a, .gr-footer .ev-logo { text-decoration: none; }
+.gr-footer :focus-visible { outline-color: #fff; }
+
+/* ---------- Undersidor ---------- */
+.gr-pagehead { padding: 24px 0 8px; }
+.gr-pagehead h1 { margin-top: 16px; font-size: clamp(32px, 3vw + 18px, 48px); }
+.gr-pagehead p { margin-top: 8px; color: var(--ev-ink-2); max-width: 60ch; }
+
+/* Produktsida */
+.gr-product { display: grid; gap: 32px; padding: 16px 0 64px; }
+@media (min-width: 960px) { .gr-product { grid-template-columns: 7fr 5fr; gap: 64px; align-items: start; } }
+.gr-gallery { min-width: 0; }
+.gr-gallery__track { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: var(--ev-r-card); }
+.gr-gallery__track::-webkit-scrollbar { display: none; }
+.gr-gallery__track > * { flex: 0 0 100%; margin: 0; scroll-snap-align: start; border-radius: var(--ev-r-card); overflow: hidden; background: var(--ev-surface-2); }
+.gr-gallery__track img, .gr-gallery__track .ev-art { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+@media (min-width: 960px) {
+  .gr-gallery__track { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; }
+}
+.gr-dots { display: flex; justify-content: center; gap: 6px; margin-top: 12px; }
+.gr-dots button { width: 24px; height: 24px; border: 0; background: none; padding: 8px; cursor: pointer; display: grid; place-items: center; }
+.gr-dots button i { display: block; width: 8px; height: 8px; border-radius: var(--ev-r-pill); background: var(--ev-line); transition: width .2s var(--ev-ease); }
+.gr-dots button[aria-current="true"] i { width: 20px; background: var(--ev-brand); }
+@media (min-width: 960px) { .gr-dots { display: none; } }
+.gr-buy { min-width: 0; }
+@media (min-width: 960px) { .gr-buy { position: sticky; top: 24px; } }
+.gr-buy h1 { font-size: clamp(30px, 2.2vw + 20px, 42px); margin-top: 16px; }
+.gr-buy__sub { color: var(--ev-ink-2); margin-top: 4px; }
+.gr-buy__rating { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 14px; }
+.gr-buy__rating a { color: var(--ev-ink); }
+.gr-buy__price { font-size: 24px; margin-top: 16px; }
+.gr-opt { margin-top: 28px; border: 0; padding: 0; min-width: 0; }
+.gr-opt__head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+.gr-opt legend { font-size: 15px; font-weight: 600; padding: 0; float: left; }
+.gr-opt legend span { font-weight: 400; color: var(--ev-ink-2); }
+.gr-opt .ev-sizes { clear: both; }
+.gr-color { display: flex; align-items: center; gap: 10px; margin-top: 20px; font-size: 15px; }
+.gr-color i { width: 24px; height: 24px; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 1px rgba(0,0,0,.15); }
+.gr-avail { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 6px; font-size: 15px; }
+.gr-avail li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--ev-line); }
+.gr-buy .ev-actions { margin-top: 24px; }
+.gr-buy .ev-actions .ev-btn--lg { flex: 1 1 auto; }
+.gr-buy__missing { font-size: 14px; color: var(--ev-ink-2); margin-top: 10px; }
+.gr-buy__facts { list-style: none; margin: 28px 0 0; padding: 20px 0 0; border-top: 1px solid var(--ev-line); display: grid; gap: 12px; font-size: 15px; }
+.gr-sizetable { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+.gr-sizetable th, .gr-sizetable td { text-align: left; padding: 10px 8px 10px 0; border-bottom: 1px solid var(--ev-line); }
+.gr-sizetable th { font-weight: 600; }
+
+/* Butikssidan */
+.gr-storecards { display: grid; gap: 16px; }
+@media (min-width: 900px) { .gr-storecards { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+.gr-storecard { border: 1px solid var(--ev-line); border-radius: var(--ev-r-card); padding: 24px; display: flex; flex-direction: column; gap: 12px; scroll-margin-top: 24px; }
+.gr-storecard h2 { font-size: 22px; }
+.gr-storecard dl { margin: 4px 0 0; font-size: 15px; }
+.gr-storecard dl div { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--ev-line); }
+.gr-storecard dt { color: var(--ev-ink-2); }
+.gr-storecard dd { margin: 0; font-variant-numeric: tabular-nums; }
+.gr-storecard dl div.is-today dt, .gr-storecard dl div.is-today dd { color: var(--ev-ink); font-weight: 600; }
+.gr-storecard .ev-actions { margin-top: auto; padding-top: 8px; }
+.gr-banner { border-radius: var(--ev-r-card); overflow: hidden; margin: 24px 0 40px; }
+.gr-banner img { width: 100%; aspect-ratio: 21/8; object-fit: cover; object-position: 50% 60%; }
+@media (max-width: 640px) { .gr-banner img { aspect-ratio: 4/3; } }
+
+/* Reservationsflöde */
+.gr-sizechoices { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 8px; }
+.gr-sizechoices .ev-choice { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 14px 8px; }
+.gr-sizechoices .ev-choice__desc { grid-column: 1; }
+.gr-sizechoices .ev-choice[aria-disabled="true"] .ev-choice__title { text-decoration: line-through; }
+.gr-done { max-width: 560px; }
+.gr-done h1 { font-size: clamp(28px, 2.4vw + 18px, 40px); }
+.gr-done .ev-summary { margin-top: 28px; }
+
+/* Varukorg (enkel) */
+.gr-cart { display: grid; gap: 40px; padding: 24px 0 72px; }
+@media (min-width: 960px) { .gr-cart { grid-template-columns: minmax(0, 1fr) 380px; gap: 64px; align-items: start; } }
+.gr-lines { list-style: none; margin: 24px 0 0; padding: 0; border-top: 1px solid var(--ev-line); }
+.gr-line { display: grid; grid-template-columns: 80px 1fr auto; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--ev-line); }
+.gr-line .ev-thumb { width: 80px; height: 100px; border-radius: 12px; }
+.gr-line h2 { font-size: 17px; letter-spacing: 0; }
+.gr-line .ev-hint { margin-top: 2px; }
+.gr-cartsum { background: var(--ev-surface-2); border-radius: var(--ev-r-card); padding: 24px; }
+.gr-cartsum dl { margin: 0 0 20px; }
+.gr-cartsum dl div { display: flex; justify-content: space-between; padding: 8px 0; }
+.gr-cartsum dd { margin: 0; font-variant-numeric: tabular-nums; }
+.gr-cartsum .ev-btn { width: 100%; }
+.gr-cartsum .ev-btn + .ev-btn { margin-top: 12px; }

@@ -26,6 +26,7 @@
 .ev-regform .ev-error .ev-icon { color: #FFB4A9; }
 @media (max-width: 640px) {
   .ev-regform__row { flex-direction: column; align-items: stretch; gap: 12px; }
+  .ev-regform .ev-input { flex: none; }
   .ev-regform .ev-btn { height: var(--ev-btn-h); width: 100%; }
 }
 

@@ -614,3 +614,5 @@ h1, h2, h3 { overflow-wrap: break-word; hyphens: auto; }
 .ev-split > * { min-width: 0; }
 a.ev-chip { text-decoration: none; }
 .bl-addons .ev-price { color: var(--ev-ink); font-size: 16px; }
+
+[hidden] { display: none !important; }

@@ -312,7 +312,7 @@ main:focus { outline: none; }
 @media (max-width: 640px) { .ev-tile img { width: calc(100% + 32px); margin: auto -16px 0; } .ev-grid--teaser .ev-card:nth-child(n+5) { display: none; } }
 .ev-tile h3 { font-size: 22px; }
 .ev-tile p { font-size: 14px; color: var(--ev-ink); margin-top: 4px; }
-.ev-tile .ev-link { color: var(--ev-ink); }
+.ev-tile .ev-link { color: #7E3A10; }   /* mörkare ton av varumärket: 5,5:1 eller mer på alla färgade ytor */
 .ev-tile:hover img { transform: scale(1.03); }
 .ev-tile:hover .ev-link__arrow { transform: translateX(4px); }
 .ev-tile:focus-visible { outline-offset: 3px; }

@@ -771,3 +771,8 @@ a.ev-chip { text-decoration: none; }
 .ps-app__week { white-space: nowrap; }
 .ps-laptop__screen .ps-app__stat, .ps-laptop__screen .ps-app__pill { display: none; }
 .ps-laptop__screen .ps-app__week { font-size: 2.8cqw; }
+.ps-legend i { box-shadow: inset 0 0 0 1px rgba(26,28,30,.12); }
+@media (max-width: 640px) { .ps-hero::after { background: rgba(20, 14, 50, .84); } .ps-hero__art .ps-board { transform: translateX(-30%); } }
+
+[hidden] { display: none !important; }
+.ps-period__save { white-space: nowrap; }

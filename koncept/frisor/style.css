@@ -648,3 +648,8 @@ textarea.ev-input { height: auto; min-height: 112px; padding: 14px 18px; border-
   .ev-profile:nth-of-type(even) { grid-template-columns: 7fr 4fr; }
   .ev-profile:nth-of-type(even) img { justify-self: end; }
 }
+/* Sök-knappen inne i fältet är fylld i varumärkesfärg även på foto, så att den syns mot det vita fältet */
+.ev-on-photo .ev-search .ev-search__go { background: var(--ev-brand); color: #fff; }
+.ev-on-photo .ev-search .ev-search__go:hover { background: var(--ev-brand-hover); }
+.ev-on-photo .ev-search .ev-search__go:active { background: var(--ev-brand-active); }
+.ev-on-photo .ev-search .ev-search__go:focus-visible { outline-color: #fff; }
