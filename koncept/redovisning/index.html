@@ -27,39 +27,19 @@
 
 <main id="innehall" tabindex="-1">
 
-<!-- 1. Hero (ny): mörk bläckblå yta, text till vänster och en levande minikalkylator till höger -->
-<section class="ev-hero bl-hero" aria-labelledby="hero-rubrik">
-  <div class="ev-wrap bl-hero__in">
-    <div class="bl-hero__text ev-on-dark">
-      <h1 id="hero-rubrik" class="ev-dot">Bokföringen klar i tid, varje månad</h1>
-      <p class="bl-hero__lead">Fast månadspris, en egen redovisningskonsult och svar inom en arbetsdag. För småföretag i Örebro och hela Sverige.</p>
-      <a class="ev-link" href="priser.html">Se hela prislistan<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
-    </div>
-    <form class="bl-calc" action="rakna.html" method="get" data-herocalc aria-labelledby="calc-rubrik">
-      <h2 id="calc-rubrik" class="bl-calc__title">Räkna ut ditt månadspris</h2>
-      <fieldset class="bl-calc__group">
-        <legend>Bolagsform</legend>
-        <div class="bl-seg">
-          <label class="bl-seg__opt"><input type="radio" name="bolag" value="ab" checked><span>Aktiebolag</span></label>
-          <label class="bl-seg__opt"><input type="radio" name="bolag" value="ef"><span>Enskild firma</span></label>
-          <label class="bl-seg__opt"><input type="radio" name="bolag" value="hb"><span>Handelsbolag</span></label>
-          <label class="bl-seg__opt"><input type="radio" name="bolag" value="fo"><span>Förening</span></label>
-        </div>
-      </fieldset>
-      <div class="bl-calc__group">
-        <div class="bl-calc__label"><label for="hero-ver">Verifikationer per månad</label><output class="ev-price" for="hero-ver" data-calc-ver>40</output></div>
-        <input class="bl-range" id="hero-ver" name="ver" type="range" min="5" max="150" step="5" value="40" aria-describedby="hero-ver-hint">
-        <p class="bl-calc__hint" id="hero-ver-hint">Ett kvitto, en faktura eller en lönekörning räknas som en.</p>
+<!-- 1. Hero: foto i full höjd, rubrik, en mening och ett fält (ux-hero-*) -->
+<section class="ev-hero ev-on-photo" aria-labelledby="hero-rubrik">
+  <img class="ev-hero__img" src="img/mote.jpg" alt="Fem företagare och en konsult samtalar i en soffgrupp med kaffe" fetchpriority="high" width="1400" height="788">
+  <div class="ev-wrap ev-hero__in">
+    <h1 id="hero-rubrik" class="ev-dot">Bokföringen klar i tid, varje månad</h1>
+    <p class="ev-hero__lead">Fast månadspris, en egen redovisningskonsult och svar inom en arbetsdag. För småföretag i Örebro och hela Sverige.</p>
+    <form class="ev-fieldbtn" action="rakna.html" method="get" novalidate data-herocalc>
+      <label for="hero-ver">Verifikationer per månad</label>
+      <div class="ev-fieldbtn__row">
+        <input class="ev-input" id="hero-ver" name="ver" type="number" inputmode="numeric" min="1" max="2000" placeholder="T.ex. 40 kvitton och fakturor" aria-describedby="hero-ver-fel">
+        <button class="ev-btn ev-btn--sm" type="submit"><span>Räkna ut pris</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
       </div>
-      <div class="bl-calc__result">
-        <p class="bl-calc__price"><span class="ev-price" data-calc-price aria-live="polite">1&nbsp;795&nbsp;kr</span><small>i månaden</small></p>
-        <p class="bl-calc__note" data-calc-note>Aktiebolag med 21–50 verifikationer. Bokföring och moms ingår. Priset är exklusive moms.</p>
-      </div>
-      <div class="bl-calc__who">
-        <img src="img/portratt-3.jpg" alt="" width="800" height="1000" data-calc-img>
-        <p><span data-calc-konsult>Anna Ekholm</span> blir din konsult och ringer upp inom en arbetsdag.</p>
-      </div>
-      <button class="ev-btn ev-btn--block" type="submit"><span>Boka gratis samtal</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+      <p class="ev-error" id="hero-ver-fel" hidden><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg><span>Skriv ett ungefärligt antal, till exempel 40.</span></p>
     </form>
   </div>
 </section>
