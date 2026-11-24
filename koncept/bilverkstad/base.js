@@ -231,6 +231,7 @@
       gateFn = auto ? () => [] : gate(fieldsOf(s), next, missing);
       if (auto) next.removeAttribute('aria-disabled');
       gateFn();
+      collect(s);   // förifyllda värden syns direkt i sammanfattningen
       cfg.onStep && cfg.onStep(i, state, s);
       render();
       if (focus) { const h = $('h1', s); h.focus({ preventScroll: true }); window.scrollTo({ top: 0 }); }
