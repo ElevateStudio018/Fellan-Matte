@@ -190,6 +190,37 @@
     input.addEventListener('blur', () => setTimeout(close, 100));
   });
 
+  /* ---------- Hero (ny): lediga tider som chips. Samma exempelmodell som bokningen (45 min) ---------- */
+  const slotBox = $('[data-hero-slots]');
+  if (slotBox) {
+    const isFree = (st, d, t) => {
+      let h = 7;
+      for (const c of isoDay(d) + st.id + t) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+      return h % 10 >= (d.getDay() === 6 || d.getDay() === 5 ? 6 : 4) - 1;
+    };
+    const now = new Date();
+    let found = [], day = null, offset = 0;
+    for (; offset < 7 && !found.length; offset++) {
+      day = new Date(now.getFullYear(), now.getMonth(), now.getDate() + offset);
+      const hrs = HOURS[day.getDay()];
+      if (!hrs) continue;
+      const nowM = offset === 0 ? now.getHours() * 60 + now.getMinutes() + 45 : -1;
+      const working = STAFF.filter(st => st.days.includes(day.getDay()));
+      for (let t = hrs[0]; t + 45 <= hrs[1] && found.length < 4; t += 30) {
+        if (t <= nowM) continue;
+        const st = working.find(x => isFree(x, day, t));
+        if (st) found.push({ t, st });
+      }
+    }
+    if (found.length) {
+      const o = offset - 1;
+      $('.fr-slots__label', slotBox).textContent = o === 0 ? 'Lediga tider i dag' : o === 1 ? 'Lediga tider i morgon' : `Lediga tider på ${DAYS[day.getDay()]}`;
+      $('[data-hero-slot-list]', slotBox).innerHTML = found.map(({ t, st }) =>
+        `<li><a class="ev-chip" href="boka.html?frisor=${st.id}"><b>${fmtTime(t)}</b> hos ${esc(st.name.split(' ')[0])}</a></li>`).join('');
+      slotBox.hidden = false;
+    }
+  }
+
   /* ---------- Fast list på desktop (ux-cta-folj-med) ---------- */
   const bar = $('.ev-stickybar');
   const anchor = $('[data-sticky-anchor]');

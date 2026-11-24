@@ -26,12 +26,12 @@
 </header>
 <main id="innehall" tabindex="-1">
 
-<section class="ev-hero ev-on-photo" aria-labelledby="hero-rubrik">
-  <img class="ev-hero__img" src="img/frisor.jpg" alt="Frisör föner och borstar en kunds axellånga hår i salongen" fetchpriority="high" width="1400" height="934">
-  <div class="ev-wrap ev-hero__in">
-    <h1 id="hero-rubrik">Klippning och färg mitt i Västerås</h1>
-    <p class="ev-hero__lead">Tre erfarna frisörer, lediga tider varje vecka och svar på bokningen direkt i mobilen.</p>
-    <form class="ev-search" action="boka.html" method="get" role="search" data-search data-sticky-anchor>
+<section class="fr-hero ev-on-dark" aria-labelledby="hero-rubrik">
+  <div class="ev-wrap fr-hero__in">
+    <div class="fr-hero__text">
+      <h1 id="hero-rubrik" class="ev-dot">Klippning och färg mitt i&nbsp;Västerås</h1>
+      <p class="fr-hero__lead">Tre erfarna frisörer, lediga tider varje vecka och svar på bokningen direkt i mobilen.</p>
+      <form class="ev-search" action="boka.html" method="get" role="search" data-search data-sticky-anchor>
       <label for="sok">Vad vill du boka?</label>
       <div class="ev-search__field">
         <svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>
@@ -41,6 +41,15 @@
       </div>
       <ul class="ev-search__list" id="sok-lista" role="listbox" aria-label="Förslag" hidden></ul>
     </form>
+      <div class="fr-slots" data-hero-slots hidden>
+        <p class="fr-slots__label" id="fr-slots-label">Lediga tider i dag</p>
+        <ul class="ev-chips ev-chips--scroll" aria-labelledby="fr-slots-label" data-hero-slot-list></ul>
+        <a class="ev-link" href="boka.html">Se alla lediga tider<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+    <div class="fr-hero__arch">
+      <img src="img/frisor.jpg" alt="Frisör föner och borstar en kunds axellånga hår i salongen" fetchpriority="high" width="1400" height="934">
+    </div>
   </div>
 </section>
 

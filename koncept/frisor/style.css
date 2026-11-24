@@ -517,20 +517,6 @@ textarea.ev-input { height: auto; min-height: 112px; padding: 14px 18px; border-
    Hårfin: sajtens egna komponenter
    ========================================================= */
 
-/* Hero: foto i full höjd, texten nere till vänster på bilden, sökfält (ux-hero-*) */
-.ev-hero { position: relative; min-height: calc(100svh - var(--ev-header-h)); display: flex; align-items: flex-end; color: #fff; background: #2A1A12; }
-.ev-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 40%; }
-.ev-hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(28, 16, 10, .55); }
-.ev-hero__in { position: relative; z-index: 2; padding-top: 48px; padding-bottom: 48px; }
-.ev-hero h1 { max-width: 14ch; text-shadow: 0 1px 16px rgba(0,0,0,.25); }
-.ev-hero__lead { font-size: 19px; line-height: 1.5; max-width: 38ch; margin-top: 16px; text-shadow: 0 1px 12px rgba(0,0,0,.3); }
-.ev-hero .ev-search { margin-top: 24px; }
-.ev-hero .ev-search label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
-@media (min-width: 900px) {
-  .ev-hero__in { padding-bottom: 88px; }
-  .ev-hero__lead { font-size: 20px; }
-}
-
 /* Behandlingsrader: hela raden klickbar, pil längst till höger (pi-lank-lista, ux-mobil-tryckyta) */
 .ev-rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ev-line); }
 .ev-rows li { border-bottom: 1px solid var(--ev-line); }
@@ -653,3 +639,35 @@ textarea.ev-input { height: auto; min-height: 112px; padding: 14px 18px; border-
 .ev-on-photo .ev-search .ev-search__go:hover { background: var(--ev-brand-hover); }
 .ev-on-photo .ev-search .ev-search__go:active { background: var(--ev-brand-active); }
 .ev-on-photo .ev-search .ev-search__go:focus-visible { outline-color: #fff; }
+
+/* Hero (ny) */
+/* Mörk rostyta med stor typografi till vänster och ett högt foto i en rundad båge till höger
+   (BRIEF-HERO: frisor). #4A1D0D ger 14:1 mot vit text, 11:1 mot ingressen och 8:1 mot pricken. */
+.fr-hero { background: #4A1D0D; color: #fff; overflow: hidden; }
+.fr-hero__in { display: grid; gap: 32px; padding-top: 32px; }
+.fr-hero__text { min-width: 0; }
+.fr-hero h1 { font-size: clamp(44px, 5.2vw + 8px, 88px); line-height: 1.02; letter-spacing: -.025em; max-width: 12ch; }
+.fr-hero__lead { margin-top: 16px; font-size: 18px; line-height: 1.5; max-width: 40ch; color: #F3E2D9; }
+.fr-hero .ev-search { margin-top: 24px; }
+.fr-hero .ev-search label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.fr-hero .ev-search .ev-search__go { background: var(--ev-brand); color: #fff; }
+.fr-hero .ev-search .ev-search__go:hover { background: var(--ev-brand-hover); }
+.fr-hero .ev-search .ev-search__go:active { background: var(--ev-brand-active); }
+.fr-slots { margin-top: 24px; max-width: 520px; }
+.fr-slots[hidden] { display: none; }
+.fr-slots__label { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.fr-slots .ev-chip b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.fr-slots .ev-chip { border-color: #fff; }
+.fr-slots .ev-chip:hover { background: #F6E9E2; }
+.fr-slots .ev-link { margin-top: 12px; }
+.fr-hero__arch { justify-self: end; width: min(320px, 86%); aspect-ratio: 4 / 5; border-radius: 999px 999px 0 0; overflow: hidden; background: #2A1A12; }
+.fr-hero__arch img { width: 100%; height: 100%; object-fit: cover; object-position: 57% 50%; }
+@media (min-width: 900px) {
+  .fr-hero__in { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px; align-items: end; padding-top: 56px;
+    min-height: calc(100svh - var(--ev-header-h)); }
+  .fr-hero__text { align-self: center; padding-bottom: 56px; }
+  .fr-hero__lead { font-size: 20px; margin-top: 20px; }
+  .fr-hero .ev-search { margin-top: 32px; }
+  .fr-hero__arch { width: 100%; max-width: 480px; aspect-ratio: auto; height: min(680px, calc(100svh - var(--ev-header-h) - 56px)); min-height: 520px; }
+}
+
