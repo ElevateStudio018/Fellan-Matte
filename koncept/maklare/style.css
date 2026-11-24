@@ -712,7 +712,7 @@ select.ev-input { appearance: none; padding-right: 48px;
 
 /* Verktygsrad över listan (ux-filter-*, ux-sort-*) */
 .ev-pagehead--tight { padding-bottom: 20px; }
-.ev-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid var(--ev-line); border-bottom: 1px solid var(--ev-line); }
+.ev-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid var(--ev-line); border-bottom: 1px solid var(--ev-line); }
 .ev-toolbar__desk { display: none; }
 .ev-toolbar__mob { display: flex; gap: 8px; }
 .ev-toolbar__mob .ev-btn { padding: 0 14px; min-width: 0; }
@@ -775,7 +775,7 @@ select.ev-input { appearance: none; padding-right: 48px;
   font: 500 14px/1 var(--ev-font); cursor: pointer; }
 .ev-view button:hover { background: var(--ev-surface-2); }
 .ev-view button[aria-pressed="true"] { background: var(--ev-brand); color: #fff; }
-@media (max-width: 400px) { .ev-view button { padding: 0 10px; font-size: 0; gap: 0; } .ev-view button .ev-icon { width: 20px; height: 20px; } .ev-view button::after { content: attr(data-short); font-size: 13px; } }
+@media (max-width: 420px) { .ev-view button { padding: 0 8px; gap: 4px; font-size: 13px; } .ev-toolbar__mob .ev-btn { padding: 0 10px; font-size: 14px; } }
 
 .ev-quick { margin: 16px 0 0; }
 .ev-chip[aria-pressed="true"] { background: var(--ev-brand); border-color: var(--ev-brand); color: #fff; }

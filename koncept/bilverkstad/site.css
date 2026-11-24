@@ -15,14 +15,15 @@
 
 /* Fält och knapp bredvid varandra: knappen lägre än fältet, 8 px glapp (kn-hojd-falt) */
 .ev-regform { margin-top: 28px; max-width: 520px; }
-.ev-regform label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.ev-regform label { display: block; font-size: 14px; font-weight: 600; color: #fff; }
+.ev-regform.ev-field { gap: 6px; }
 .ev-regform__row { display: flex; align-items: center; gap: 8px; }
 .ev-regform .ev-input { flex: 1; min-width: 0; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; font-size: 18px; }
 .ev-regform .ev-input::placeholder { text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 16px; }
 .ev-on-photo .ev-regform .ev-btn { background: var(--ev-brand); color: #fff; }   /* varumärkesfärg: en vit knapp skulle smälta ihop med det vita fältet */
 .ev-on-photo .ev-regform .ev-btn:hover { background: var(--ev-brand-hover); }
 .ev-on-photo .ev-regform .ev-btn:active { background: var(--ev-brand-active); }
-.ev-regform .ev-error { color: #fff; margin-top: 8px; }
+.ev-regform .ev-error { color: #fff; margin-top: 2px; }
 .ev-regform .ev-error .ev-icon { color: #FFB4A9; }
 @media (max-width: 640px) {
   .ev-regform__row { flex-direction: column; align-items: stretch; gap: 12px; }

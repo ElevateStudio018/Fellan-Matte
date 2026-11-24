@@ -444,6 +444,7 @@ input[type="date"].ev-input { min-width: 0; appearance: none; -webkit-appearance
 .ev-summary__total { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--ev-ink); font-weight: 600; }
 .ev-summary .ev-note { margin-top: 16px; }
 @media (min-width: 960px) { .ev-summary { position: sticky; top: 24px; } }
+@media (max-width: 959px) { .ev-summary dl div:has(dd.is-empty) { display: none; } }   /* kort sammanfattning längst ner på mobil */
 .ev-flowgrid.is-done .ev-summary, .ev-flowgrid.is-final .ev-summary { display: none; }
 
 /* Sista steget: rader med Ändra (ux-flode-andra-val) */
