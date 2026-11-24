@@ -262,7 +262,7 @@ main:focus { outline: none; }
   .ps-hero2__tilt { top: 60px; left: 0; width: 860px; transform: rotateX(12deg) rotateY(-20deg) rotateZ(3deg); }
   @keyframes ps-tilt-in { from { opacity: 0; transform: rotateX(20deg) rotateY(-28deg) rotateZ(5deg) translateY(40px); } }
   .ps-hero2 .ps-board > div { min-height: 60px; }
-  .ps-note--1 { top: 10px; right: auto; left: 46%; }
+  .ps-note--1 { top: 10px; right: var(--ev-pad); left: auto; }
   .ps-note--2 { left: 0; bottom: 70px; }
   .ps-note--3 { display: flex; right: 0; bottom: 8px; }
 }
