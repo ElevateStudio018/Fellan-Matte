@@ -919,7 +919,7 @@
   // =====================================================================
   const hl = (word, st, extra = '') => `<div class="pad"><div class="h h2">Allt du behöver på <span style="${st}">${word}</span>${extra}</div></div>`;
   const HL = {
-    halva: 'background:linear-gradient(transparent 58%,#F4D58D 58%);padding:0 2px',
+    halva: 'background:linear-gradient(transparent 58%,var(--accent) 58%);padding:0 2px',
     tjock: 'text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:6px;text-decoration-color:var(--brand)',
     farg: 'color:var(--brand)',
     ingen: ''
@@ -930,9 +930,9 @@
       ['Överstrykningsfärg bakom', HL.halva], ['Tjock understrykning', HL.tjock], ['Ordet i märkesfärg', HL.farg], ['Ingen markering', HL.ingen]
     ].map(([l, st]) => [l, hl('ett ställe', st)])),
     Q('pi-mk-hojd', 'Hur hög ska överstrykningsfärgen bakom ordet vara?', [
-      ['Nedre tredjedelen', 'background:linear-gradient(transparent 68%,#F4D58D 68%);padding:0 2px'],
+      ['Nedre tredjedelen', 'background:linear-gradient(transparent 68%,var(--accent) 68%);padding:0 2px'],
       ['Nedre halvan', HL.halva],
-      ['Hela ordet', 'background:#F4D58D;padding:0 4px;border-radius:3px']
+      ['Hela ordet', 'background:var(--accent);padding:0 4px;border-radius:3px']
     ].map(([l, st]) => [l, hl('ett ställe', st)])),
     Q('pi-mk-form', 'Vilken form ska understrykningen ha?', [
       ['Rak linje', 'position:relative;display:inline-block;box-shadow:inset 0 -3px 0 var(--brand)'], ['Handritad båge', 'position:relative;display:inline-block'], ['Rundad pill bakom', 'background:var(--tint);padding:0 10px;border-radius:999px']
@@ -1041,8 +1041,8 @@
   };
   groups.push(G('skelett', 'Skelett-platshållare', [
     Q('pi-sk-form', 'Vilken form ska skelettets textrader ha?', [
-      ['Lätt rundade', { r: 4 }], ['Pill, helt runda', { r: 999 }], ['Raka hörn', { r: 0, imgR: 0 }]
-    ].map(([l, o]) => [l, skel(o)])),
+      ['Lätt rundade', { r: 3 }], ['Pill, helt runda', { r: 999 }], ['Raka hörn', { r: 0, imgR: 0 }]
+    ].map(([l, o]) => [l, skel({ h: 18, h2: 14, ...o })])),
     Q('pi-sk-rorelse', 'Hur ska skelettet röra sig medan det laddar?', [
       ['Glans som sveper över', 'pi-sk-a'], ['Mjuk puls', 'pi-sk-b'], ['Stilla', '']
     ].map(([l, c]) => {
@@ -1146,7 +1146,7 @@
   // =====================================================================
   const pbar = (o = {}) => {
     const h = o.h || 6, r = o.r == null ? 999 : o.r, fr = o.fr == null ? r : o.fr, trk = o.trk == null ? 'rgba(26,28,30,.1)' : o.trk;
-    const bar = `<div style="position:relative;height:${h}px;border-radius:${r}px;background:${trk};${o.trkLine ? 'background:transparent;border-bottom:1px solid var(--sline);' : ''}overflow:hidden"><div style="width:62%;height:100%;border-radius:${fr}px;background:var(--brand);${o.inside ? 'display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:#fff;font-size:11px;font-weight:700' : ''}">${o.inside ? '62 %' : ''}</div></div>`;
+    const bar = `<div style="position:relative;height:${h}px;border-radius:${r}px;background:${trk};${o.trkLine ? 'background:linear-gradient(transparent calc(50% - 1px),rgba(26,28,30,.22) calc(50% - 1px),rgba(26,28,30,.22) calc(50% + 0px),transparent calc(50% + 0px));' : ''}overflow:hidden"><div style="width:62%;height:100%;border-radius:${fr}px;background:var(--brand);${o.inside ? 'display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:#fff;font-size:11px;font-weight:700' : ''}">${o.inside ? '62 %' : ''}</div></div>`;
     const lab = o.lab || 'top';
     if (lab === 'top') return `<div class="stack" style="gap:8px"><div style="display:flex;justify-content:space-between;font-size:13px"><span style="font-weight:600">Uppladdning</span><span class="muted">62 %</span></div>${bar}</div>`;
     if (lab === 'end') return `<div class="stack" style="gap:8px"><span style="font-size:13px;font-weight:600">Uppladdning</span><div style="display:flex;align-items:center;gap:10px"><div style="flex:1">${bar}</div><span class="small muted">62 %</span></div></div>`;
@@ -1159,7 +1159,7 @@
     ].map(([l, h]) => [l, pb({ h })])),
     Q('pi-pb-rundning', 'Hur ska progressbarens ändar se ut?', [
       ['Helt runda ändar', { r: 999 }], ['Lätt rundade', { r: 3 }], ['Raka ändar', { r: 0 }], ['Rundat spår, rak fyllning', { r: 999, fr: 0 }]
-    ].map(([l, o]) => [l, pb({ h: 8, ...o })])),
+    ].map(([l, o]) => [l, pb({ h: 10, ...o })])),
     Q('pi-pb-spar', 'Hur ska den tomma delen av stapeln se ut?', [
       ['Ljusgrått spår', {}], ['Tonat spår', { trk: 'var(--tint)' }], ['Bara en tunn linje', { trk: 'transparent', trkLine: true }]
     ].map(([l, o]) => [l, pb({ h: 6, ...o })])),
@@ -1202,6 +1202,48 @@
       ['Märkesfärg', 'var(--brand)'], ['Samma som rubriken', 'var(--sink)'], ['Ljus ton', '#C9D3DD']
     ].map(([l, c]) => [l, head('', '', bar2(40, 3, c))]))
   ]));
+
+  // =====================================================================
+  // KOMPLETTERINGAR I BEFINTLIGA GRUPPER
+  // =====================================================================
+  const addTo = (key, ...qs) => groups.find(g => g.key === key).questions.push(...qs);
+
+  addTo('pil-form', Q('pi-form-frantill', 'Vilket tecken ska stå mellan två platser eller tider, som "Malmö – Lund"?', [
+    ['Pil med skaft →', a('arrow', { s: '1em', c: 'var(--smuted)' })], ['Lång tunn pil', a('long', { s: '1em', w: 1.25, c: 'var(--smuted)' })], ['Tankstreck –', '<span class="muted">–</span>'], ['Chevron ›', a('chev', { s: '1em', c: 'var(--smuted)' })]
+  ].map(([l, s]) => [l, pad(`<div class="panel stack" style="gap:6px"><div style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;flex-wrap:wrap">Malmö${s}Lund</div><div class="small" style="display:flex;align-items:center;gap:6px">08.10${s}11.05</div></div>`)])));
+
+  addTo('avdelare', Q('pi-avd-rubriklinje', 'Ska en liten rubrik över en grupp ha en linje bredvid sig?', [
+    ['Linje efter rubriken', 'after'], ['Linje under rubriken', 'under'], ['Ingen linje', 'none']
+  ].map(([l, m]) => {
+    const t = '<span class="eyebrow" style="white-space:nowrap">Tillval</span>';
+    const h = m === 'after' ? `<div style="display:flex;align-items:center;gap:12px">${t}<span style="flex:1;height:1px;background:var(--sline)"></span></div>`
+      : m === 'under' ? `<div style="padding-bottom:8px;border-bottom:1px solid var(--sline)">${t}</div>` : `<div>${t}</div>`;
+    return [l, pad(`<div class="stack" style="gap:10px">${h}${['Frukost', 'Sen utcheckning'].map(x => `<div style="display:flex;justify-content:space-between"><span>${x}</span><span class="muted">195 kr</span></div>`).join('')}</div>`)];
+  })));
+
+  addTo('metadata', Q('pi-meta-placering', 'Var ska metadata stå i ett kort?', [
+    ['Ovanför rubriken', 'above'], ['Under rubriken', 'below']
+  ].map(([l, m]) => {
+    const md = '<div class="small muted" style="display:flex;gap:8px;flex-wrap:wrap"><span>12 maj</span><span>·</span><span>5 min läsning</span></div>';
+    return [l, pad(`<div class="panel stack" style="gap:6px">${m === 'above' ? md : ''}<div class="h h3">Rubrik som är två rader lång i ett kort</div>${m === 'below' ? md : ''}<p class="muted small">${txt}</p></div>`)];
+  })));
+
+  addTo('steg', Q('pi-sg-lodrat', 'Hur ska numrerade steg i en lodrät lista se ut, som "Så går det till"?', [
+    ['Siffror i cirklar med linje', 'line'], ['Siffror i cirklar utan linje', 'circ'], ['Stora siffror utan form', 'big'], ['Siffror i rundade fyrkanter', 'sq']
+  ].map(([l, m]) => {
+    const items = ['Välj tid', 'Fyll i uppgifter', 'Få bekräftelse'];
+    const num = i => m === 'big' ? `<span style="font-size:26px;font-weight:800;color:var(--brand);line-height:1;width:28px;flex:0 0 auto">${i + 1}</span>`
+      : `<span style="display:inline-grid;place-items:center;width:28px;height:28px;flex:0 0 auto;border-radius:${m === 'sq' ? '8px' : '50%'};background:var(--brand);color:#fff;font-size:13px;font-weight:700;position:relative;z-index:1">${i + 1}</span>`;
+    return [l, pad(`<div class="stack" style="gap:0">${items.map((t, i) => `<div style="display:flex;gap:14px;position:relative;padding-bottom:${i < 2 ? 18 : 0}px">${m === 'line' && i < 2 ? '<span style="position:absolute;left:13px;top:28px;bottom:0;width:2px;background:var(--sline)"></span>' : ''}${num(i)}<div><div style="font-weight:600">${t}</div><div class="small muted">Kort förklaring av steget.</div></div></div>`).join('')}</div>`)];
+  })));
+
+  addTo('stjarnor', Q('pi-sj-satta', 'Hur ska stjärnorna se ut när man själv sätter betyg?', [
+    ['Stora konturstjärnor', { s: 32, empty: 'outline', gap: 6 }], ['Stora grå stjärnor', { s: 32, empty: 'grey', gap: 6 }], ['Lika små som i visning', { s: 18, empty: 'grey' }]
+  ].map(([l, o]) => [l, cen(`<div class="stack" style="gap:8px;align-items:center"><span style="font-weight:600">Hur var ditt besök?</span>${stars({ score: 3, ...o })}</div>`)])));
+
+  addTo('progress', Q('pi-pb-farg', 'Vilken färg ska fyllnaden i en progressbar ha?', [
+    ['Märkesfärg', 'var(--brand)'], ['Grön', 'var(--ok)'], ['Mörk som texten', 'var(--sink)']
+  ].map(([l, c]) => [l, pb({ h: 6 }).replace('background:var(--brand);', `background:${c};`)])));
 
   window.QZ.part({ key: 'pilar', groups });
 })();
