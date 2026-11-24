@@ -547,7 +547,7 @@ textarea.ev-input { height: auto; min-height: 132px; padding: 14px 18px; border-
 .el-hero__in { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding-top: 16px; padding-bottom: 32px; }
 .el-hero__text { order: 2; }
 .el-hero h1 { color: #fff; font-family: 'Space Grotesk', var(--ev-font); font-weight: 600; font-size: clamp(42px, 4.4vw + 16px, 80px);
-  line-height: 1; letter-spacing: -.035em; max-width: 9.5em; }
+  line-height: 1; letter-spacing: -.035em; max-width: 7.6em; }
 .el-hero .ev-dot::after { color: #8FB0FF; }   /* ljus ton av varumärket, rubrikprick på mörk yta (pi-ac-rubrik) */
 .el-hero__text p { margin-top: 18px; font-size: 18px; line-height: 1.5; max-width: 40ch; color: #fff; }
 .el-hero .ev-actions { margin-top: 28px; }
@@ -582,7 +582,7 @@ textarea.ev-input { height: auto; min-height: 132px; padding: 14px 18px; border-
 }
 @media (min-width: 900px) {
   .el-hero::before { background: linear-gradient(to right, rgba(14, 26, 61, .94) 0%, rgba(14, 26, 61, .84) 36%, rgba(14, 26, 61, .3) 58%, rgba(14, 26, 61, 0) 74%); }
-  .el-hero__media img { width: 118%; object-position: 50% 42%; }
+  .el-hero__media img { width: 114%; object-position: 50% 30%; }
   .el-hero__in { justify-content: center; padding-top: 64px; padding-bottom: 96px; }
   .el-hero__text { order: 0; }
   .el-hero__text p { font-size: 20px; }
