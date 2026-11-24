@@ -250,6 +250,7 @@
         else a = `stroke="${C}"`;
       }
       if (a === null) continue;
+      if (o.kw && (k === 'k' || k === 'K')) a += ` stroke-width="${o.kw}"`;
       const g = (o.gap && (k === 'f' || k === 'L')) ? ` pathLength="100" stroke-dasharray="87 13" stroke-dashoffset="${o.gap}"` : '';
       out += `<${t} ${a}${g}${ve}/>`;
     }
@@ -559,8 +560,8 @@
       O('Detaljerade, fler linjer', W(grid({ s: 32 }, ['d-home', 'd-search', 'd-user', 'd-heart', 'd-bell', 'd-mail', 'd-calendar', 'd-settings'], 'gap:18px 22px')))
     ]),
     Q('sprak-geometrisk', 'Ska ikonerna vara geometriskt exakta eller handritade?', [
-      O('Geometriska', W(grid({ s: 32 }, SET8, 'gap:18px 22px'))),
-      O('Handritade', W(`<div class="syx-g" style="gap:18px 22px">${['h-home', 'h-search', 'h-user', 'h-heart', 'h-bell', 'h-mail', 'h-calendar', 'h-settings'].map(n => sketch(n)).join('')}</div>`))
+      O('Geometriska', W(grid({ s: 40 }, SET8, 'gap:18px 18px'))),
+      O('Handritade', W(`<div class="syx-g" style="gap:18px 18px">${['h-home', 'h-search', 'h-user', 'h-heart', 'h-bell', 'h-mail', 'h-calendar', 'h-settings'].map(n => sketch(n, 40)).join('')}</div>`))
     ]),
     Q('sprak-perspektiv', 'Ska ikonerna ritas platt eller i perspektiv?', [
       O('Platt, rakt framifrån', W(row({ s: 44, w: 2, ns: 1 }, ['package', 'layers', 'doc'], 'gap:24px'))),
@@ -929,6 +930,172 @@
       ['Siffran står kvar', (n, i) => num(n, { f: i < 2 ? 'solid' : 'line' })]
     ].map(([l, f]) => O(l, W(steps(f, { line: 1 }), 'align-items:flex-start'))))
   ]});
+
+  // =====================================================================
+  // 18. Fler symboler och kompletteringar till grupperna ovan
+  // =====================================================================
+  Object.assign(ICONS, {
+    'help-circle': ['f|' + C95, 'k*|path d="M9.3 9.3a2.8 2.8 0 0 1 5.4 1c0 1.9-2.7 2.4-2.7 4"', 'd*|circle cx="12" cy="17.3" r="DR"'],
+    'help-plain': ['n|path d="M8.5 8a3.6 3.6 0 0 1 7 1c0 2.6-3.5 3-3.5 5.8"', 'e*|circle cx="12" cy="19.2" r="DR"'],
+    'help-chat': ['f|path d="M6 4h13a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4V6a2 2 0 0 1 2-2z"', 'k*|path d="M10.3 8.3a2.2 2.2 0 0 1 4.2.8c0 1.4-2.2 1.8-2.2 3"', 'd*|circle cx="12.3" cy="14.4" r="DR"'],
+    logout: ['n|path d="M9 21H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4"', 'n*|path d="m16 17 5-5-5-5M21 12H9"'],
+    'logout-power': ['n*|path d="M12 3v8"', 'n|path d="M6.3 6.8a8 8 0 1 0 11.4 0"'],
+    'logout-door': ['f|path d="M4 3h9v18H4z"', 'n*|path d="m16.5 8 4 4-4 4M20.5 12H10"'],
+    'image-frame': ['f|rect x="3" y="4" width="18" height="16" rx="RX"', 'k*|path d="m4 18 6-7 4.5 5 2-2 3.5 3.5"'],
+    truck: ['f|path d="M2.5 6h11v10h-11z"', 'f|path d="M13.5 9.5h4.2l3 3.3V16h-7.2z"', 'f*|circle cx="6.5" cy="18" r="1.9"', 'f*|circle cx="17" cy="18" r="1.9"'],
+    card: ['f|rect x="2.5" y="5" width="19" height="14" rx="RX"', 'k*|path d="M3.5 9.5h17M6.5 15h3"'],
+    'card-chip': ['f|rect x="2.5" y="5" width="19" height="14" rx="RX"', 'k*|path d="M6 9h4v3.2H6zM6 15.5h6"'],
+    wallet: ['f|path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"', 'n|path d="M3 7.5V6a2 2 0 0 1 2-2h11"', 'd*|circle cx="16.5" cy="13.5" r="DL"'],
+    'refresh-one': ['n|path d="M20 12a8 8 0 1 1-2.6-5.9"', 'n*|path d="M20 3.5V8h-4.5"'],
+    clip: ['n|path d="M20 11.5 12.4 19a4.9 4.9 0 0 1-7-7l8-8a3.3 3.3 0 0 1 4.6 4.6l-8 8a1.6 1.6 0 0 1-2.3-2.3l7.3-7.3"'],
+    play: ['f|path d="M7 4.5v15l12-7.5z"'],
+    'play-circle': ['f|' + C95, 'K*|path d="M10 8.4v7.2l5.6-3.6z"'],
+    'so-f-solid': ['f|path d="M14 3h2.5v3.5h-1.8a1.2 1.2 0 0 0-1.2 1.2V10h3l-.5 3.5h-2.5V21H10v-7.5H7.5V10H10V7a4 4 0 0 1 4-4z"'],
+    'so-in-solid': ['f|path d="M3.5 9h3.5v11.5H3.5z"', 'f|circle cx="5.25" cy="5.2" r="1.9"', 'f|path d="M9.5 9h3.3v1.6a4 4 0 0 1 3.4-1.8c2.9 0 4.3 1.8 4.3 5.1v6.6H17v-6c0-1.5-.6-2.4-1.9-2.4s-2.1 1-2.1 2.4v6H9.5z"']
+  });
+  const add = (key, ...qs) => G.find(g => g.key === key).questions.push(...qs);
+  const hdr = (right) => `<div class="syx-w" style="display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--box);border-radius:12px;padding:12px 14px"><b>Logo</b>${right}</div>`;
+
+  G.push({ key: 'symboler-fler', title: 'Symboler: fler', questions: [
+    symQ('sym-notis', 'Hur ska notisklockan se ut?', [['Enkel klocka', 'bell'], ['Klocka med svängningslinjer', 'd-bell'], ['Fylld klocka', 'bell', { st: 'fill' }]], 'Notiser'),
+    symQ('sym-spara', 'Vilken symbol ska betyda ”spara till senare”?', [['Hjärta', 'heart'], ['Bokmärke', 'bookmark'], ['Stjärna', 'star']], 'Spara'),
+    symQ('sym-hjalp', 'Hur ska hjälpsymbolen se ut?', [['Frågetecken i cirkel', 'help-circle'], ['Bara frågetecken', 'help-plain'], ['Frågetecken i pratbubbla', 'help-chat']], 'Hjälp'),
+    Q('sym-sprak', 'Hur ska språkväljaren i sidhuvudet se ut?', [
+      ['Jordglob', I('globe', { s: 22 })], ['Jordglob och språkkod', `<span class="syx-l" style="gap:6px;font-weight:600;font-size:14px">${I('globe', { s: 20 })}SV</span>`], ['Bara språkkod', '<span style="font-weight:700;font-size:14px">SV</span>']
+    ].map(([l, r]) => O(l, W(hdr(r))))),
+    symQ('sym-logga-ut', 'Hur ska ikonen för att logga ut se ut?', [['Pil ut genom öppning', 'logout'], ['Strömknapp', 'logout-power'], ['Pil ut ur dörr', 'logout-door']], 'Logga ut'),
+    symQ('sym-bild', 'Hur ska bildikonen se ut?', [['Ram med berg och sol', 'image'], ['Ram med berg', 'image-frame'], ['Kamera', 'camera']], 'Lägg till bild'),
+    symQ('sym-leverans', 'Vilken symbol ska stå för leverans?', [['Paket framifrån', 'package'], ['Lastbil', 'truck'], ['Låda i perspektiv', 'iso-box']], 'Leverans 1–2 dagar'),
+    symQ('sym-betala', 'Vilken symbol ska stå för betalning?', [['Kort med magnetremsa', 'card'], ['Kort med chip', 'card-chip'], ['Plånbok', 'wallet']], 'Betala med kort'),
+    symQ('sym-uppdatera', 'Hur ska ikonen för att uppdatera se ut?', [['Två pilar i cirkel', 'refresh'], ['En pil i cirkel', 'refresh-one']], 'Uppdatera'),
+    symQ('sym-bifoga', 'Hur ska ikonen för att bifoga fil se ut?', [['Gem snett', 'clip'], ['Gem upprätt', 'clip', { style: 'transform:rotate(45deg)' }], ['Plus', 'plus']], 'Bifoga fil'),
+    symQ('sym-spela', 'Hur ska uppspelningsknappen för video se ut?', [['Spetsig triangel', 'play', { join: 'miter', cap: 'butt' }], ['Rundad triangel', 'play'], ['Triangel i cirkel', 'play-circle'], ['Fylld cirkel med triangel', 'play-circle', { st: 'fill' }]], 'Spela upp'),
+    Q('sym-inloggad', 'Hur ska en inloggad användare visas i sidhuvudet?', [
+      ['Initialer i cirkel', '<span style="display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;font-size:13px;font-weight:700">AB</span>'],
+      ['Initialer i ljus cirkel', '<span style="display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--tint);color:var(--brand);font-size:13px;font-weight:700">AB</span>'],
+      ['Personikon i cirkel', I('user-circle', { s: 30 })], ['Personikon', I('user', { s: 24 })]
+    ].map(([l, r]) => O(l, W(hdr(r))))),
+    Q('sym-stjarna-storlek', 'Hur stora ska betygsstjärnor bredvid liten text vara?', [14, 16, 20].map(s =>
+      O(s + ' px stjärnor', W(`<div class="syx-l" style="gap:6px"><span class="row" style="gap:2px;flex-wrap:nowrap">${[1, 2, 3, 4].map(() => full(s)).join('')}${starW('gray', s)}</span><span class="small muted">4,0 (128 omdömen)</span></div>`)))),
+    Q('sym-rensa', 'Hur ska knappen som tömmer ett sökfält se ut?', [
+      ['Grått kryss', I('x-small', { s: 22, w: 2.25, c: 'var(--smuted)' })], ['Kryss i grå cirkel', I('x-circle', { s: 20, st: 'fill', c: '#9AA0A6' })], ['Ordet Rensa', '<span class="small" style="font-weight:600;color:var(--brand)">Rensa</span>']
+    ].map(([l, r]) => O(l, W(`<div class="inp syx-w" style="gap:10px;justify-content:space-between">${I('search', { s: 20, c: 'var(--smuted)' })}<span style="flex:1;min-width:0">Vinterjacka</span>${r}</div>`)))),
+    Q('sym-info-etikett', 'Hur ska info-ikonen bredvid en fältetikett se ut?', [
+      ['i i grå cirkel', I('info', { s: 16, c: 'var(--smuted)' })], ['Frågetecken i grå cirkel', I('help-circle', { s: 16, c: 'var(--smuted)' })], ['Liten fylld cirkel med i', I('info', { s: 15, st: 'fill', c: 'var(--smuted)' })]
+    ].map(([l, ic]) => O(l, W(`<div class="fld syx-w" style="flex:none"><span class="lbl syx-l" style="gap:5px">Organisationsnummer${ic}</span><div class="inp ph">556677-8899</div></div>`)))),
+    Q('sym-falt-ikon', 'Ska fält för e-post och lösenord ha en ikon till vänster?', [
+      O('Utan ikon', W(`<div class="syx-w stack" style="gap:10px"><div class="inp ph">E-post</div><div class="inp ph">Lösenord</div></div>`)),
+      O('Med ikon till vänster', W(`<div class="syx-w stack" style="gap:10px"><div class="inp ph" style="gap:10px">${I('mail', { s: 20 })}E-post</div><div class="inp ph" style="gap:10px">${I('lock', { s: 20 })}Lösenord</div></div>`))
+    ])
+  ]});
+
+  add('stil-efter-lage',
+    Q('lage-utfall', 'Hur ska plus-ikonen ändras när en rad fälls ut?', [
+      ['Plus blir minus', I('plus', { s: 22 }), I('minus', { s: 22 })], ['Plus vrids till kryss', I('plus', { s: 22 }), I('plus', { s: 22, style: 'transform:rotate(45deg)' })], ['Ring med plus blir fylld minus', I('plus-circle', { s: 24 }), I('minus-circle', { s: 24, st: 'fill' })]
+    ].map(([l, a, b]) => O(l, W(`<div class="syx-w stack" style="gap:0">${[['Hur lång är leveranstiden?', a], ['Kan jag ångra mitt köp?', b]].map(([t, ic], i) => `<div class="syx-l" style="justify-content:space-between;gap:12px;padding:12px 0;${i ? '' : 'border-bottom:1px solid var(--sline)'}"><b style="font-size:14px">${t}</b>${ic}</div>`).join('')}<span class="small muted">Den andra raden är utfälld</span></div>`)))),
+    Q('lage-filter-aktiv', 'Hur ska filterknappen visa att filter är valda?', [
+      ['Siffra bredvid ikonen', `${I('filter', { s: 18 })}Filter<span style="display:grid;place-items:center;min-width:20px;height:20px;border-radius:999px;background:var(--brand);color:#fff;font-size:11px;font-weight:700">2</span>`],
+      ['Ikonen blir fylld', `${I('filter', { s: 18, st: 'fill' })}Filter`],
+      ['Antal i texten', `${I('filter', { s: 18 })}Filter (2)`]
+    ].map(([l, inner]) => O(l, W(`<span style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--sline);background:var(--box);font-weight:600;font-size:14px">${inner}</span>`)))),
+    Q('lage-kopierad', 'Vad ska hända med kopiera-ikonen när man har kopierat?', [
+      ['Bock ersätter ikonen', I('check', { s: 20, c: 'var(--ok)' })], ['Bock och ordet Kopierat', `<span class="syx-l small" style="gap:4px;color:var(--ok);font-weight:600">${I('check', { s: 18 })}Kopierat</span>`], ['Ikonen är oförändrad', I('copy', { s: 20 })]
+    ].map(([l, done]) => O(l, W(`<div class="syx-w stack" style="gap:8px">${[['Före', I('copy', { s: 20 })], ['Efter', done]].map(([t, ic]) => `<div class="inp" style="justify-content:space-between;gap:10px"><span style="min-width:0;overflow:hidden;text-overflow:ellipsis">exempel.se/abc123</span>${ic}</div>`).join('')}</div>`)))),
+    Q('lage-chip-vald', 'Ska ett valt filterchip få en bock?', [
+      ['Bock läggs till', true, 'background:var(--tint);border-color:var(--brand)'], ['Ingen bock, bara färg', false, 'background:var(--tint);border-color:var(--brand)'], ['Bock på mörk platta', true, 'background:var(--brand);border-color:var(--brand);color:#fff']
+    ].map(([l, ck, st]) => O(l, W(`<div class="row" style="gap:8px;justify-content:center">${['Vegetariskt', 'Glutenfritt', 'Laktosfritt'].map((t, i) => `<span class="chip" style="gap:6px;${i === 0 ? st : ''}">${i === 0 && ck ? I('check', { s: 16, w: 2.5 }) : ''}${t}</span>`).join('')}</div>`))))
+  );
+
+  add('platta',
+    Q('platta-avstand', 'Hur långt ska det vara mellan plattan och texten bredvid?', [12, 16, 20].map(g =>
+      O(g + ' px till texten', W(`<div class="stack syx-w" style="gap:14px">${[['clock', 'Snabb leverans', 'Skickas inom en dag.'], ['shield', 'Trygg betalning', 'Betala när varan kommit.']].map(([n, t, d]) => `<div class="syx-l" style="gap:${g}px;align-items:flex-start">${plate(n, { ps: 44, is: 22 })}<div class="stack" style="gap:2px;min-width:0"><b>${t}</b><span class="small muted">${d}</span></div></div>`).join('')}</div>`, 'align-items:flex-start')))),
+    Q('platta-kort', 'Var ska ikonplattan sitta i ett kort?', [
+      ['Inne i kortet, uppe till vänster', 'in'], ['Sticker upp över kortets kant', 'over'], ['Centrerad överst', 'center']
+    ].map(([l, m]) => O(l, W(`<div class="panel syx-w stack" style="gap:8px;max-width:220px;position:relative;${m === 'over' ? 'margin-top:22px;padding-top:34px' : ''}${m === 'center' ? 'align-items:center;text-align:center' : ''}">${m === 'over' ? `<span style="position:absolute;top:-22px;left:18px">${plate('shield', { ps: 44, is: 22, ex: 'box-shadow:0 0 0 4px var(--ground)' })}</span>` : plate('shield', { ps: 44, is: 22 })}<b>Trygg betalning</b><span class="small muted">Betala först när du fått varan.</span></div>`))))
+  );
+
+  add('storlek',
+    Q('storlek-status', 'Hur stor ska ikonen i en meddelanderuta vara?', [16, 20, 24].map(s =>
+      O(s + ' px i meddelandet', W(`<div class="syx-w" style="display:flex;gap:10px;align-items:flex-start;background:var(--tint);border-radius:10px;padding:12px 14px">${I('info', { s, w: 2, ns: 1, c: 'var(--brand)', style: 'margin-top:' + Math.max(0, (22 - s) / 2) + 'px' })}<span style="font-size:14px">Leveranser tar just nu 2–3 dagar.</span></div>`)))),
+    Q('storlek-mobil', 'Ska ikoner vara större i mobilen än på datorn?', [
+      ['Samma storlek', 20], ['Större i mobilen', 24]
+    ].map(([l, m]) => O(l, W(`<div class="row" style="gap:18px;align-items:flex-end;justify-content:center">${[['Dator', 20, 'width:130px'], ['Mobil', m, 'width:100px']].map(([t, s, w]) => `<div class="stack" style="gap:6px;align-items:center"><div style="${w};max-width:100%;background:var(--box);border:1px solid var(--sline);border-radius:10px;padding:12px;display:flex;justify-content:space-around">${I('search', { s })}${I('user', { s })}${I('cart', { s })}</div><span class="small muted">${t} ${s} px</span></div>`).join('')}</div>`))))
+  );
+
+  add('farg',
+    Q('farg-lank-ikon', 'Vilken färg ska ikonen i en textlänk ha?', [
+      ['Samma som länken', 'var(--brand)'], ['Textfärg', 'var(--sink)'], ['Grå', 'var(--smuted)']
+    ].map(([l, c]) => O(l, W(`<div class="stack" style="gap:10px">${[['download', 'Ladda ner prislista'], ['external', 'Läs mer på webbplatsen']].map(([n, t]) => `<span class="link" style="display:inline-flex;align-items:center;gap:6px">${I(n, { s: 18, c })}${t}</span>`).join('')}</div>`, 'align-items:flex-start'))))
+  );
+
+  add('siffermarkorer',
+    Q('siffra-farg', 'Vilken färg ska siffermarkören ha?', [
+      ['Varumärkesfärg', 'background:var(--brand);color:#fff'], ['Svart', 'background:var(--sink);color:#fff'], ['Grå kant, mörk siffra', 'border:1.5px solid var(--sline);color:var(--sink);background:var(--box)']
+    ].map(([l, st]) => O(l, W(steps(n => num(n).replace('background:var(--brand);color:#fff', st)), 'align-items:flex-start')))),
+    Q('siffra-vikt', 'Hur fet ska siffran i markören vara?', [500, 600, 800].map(wt =>
+      O('Siffra i vikt ' + wt, W(steps(n => num(n, { f: 'tint' }).replace('font-weight:700', 'font-weight:' + wt)), 'align-items:flex-start'))))
+  );
+
+  add('emoji',
+    Q('emoji-status', 'Får bekräftelser och meddelanden ha emoji?', [
+      O('Ritad ikon', W(`<div class="panel syx-w" style="display:flex;gap:10px;align-items:center">${I('check-circle', { s: 22, c: 'var(--ok)' })}<b>Bokningen är klar</b></div>`)),
+      O('Emoji', W(`<div class="panel syx-w" style="display:flex;gap:10px;align-items:center">${EM(20)}🎉</span><b>Bokningen är klar</b></div>`)),
+      O('Ingen symbol', W('<div class="panel syx-w"><b>Bokningen är klar</b></div>'))
+    ])
+  );
+
+  add('animerade-ikoner',
+    Q('anim-hastighet', 'Hur snabb ska en ikonanimation vara?', [['Snabb (0,3 s)', 0.3], ['Mellan (0,6 s)', 0.6], ['Långsam (1,2 s)', 1.2]].map(([l, d], i) => {
+      const c = 'syf' + i, tot = 2.6, p = Math.round(d / tot * 100);
+      return O(l, W(`<style>.${c} path{animation:${c}d ${tot}s ease-out infinite}@keyframes ${c}d{0%{stroke-dashoffset:1}${p}%,100%{stroke-dashoffset:0}}${RM(c)}</style>${CHK(c)}<b>Klart!</b>`));
+    }))
+  );
+
+  add('sociala',
+    Q('soc-stil', 'Ska sociala ikoner ritas som linje eller fyllda?', [
+      O('Linje', W(`<div class="syx-r" style="gap:18px">${I('so-cam', { s: 28 })}${I('so-f', { s: 28 })}${I('so-in', { s: 28 })}</div>`)),
+      O('Fyllda', W(`<div class="syx-r" style="gap:18px">${I('so-cam', { s: 28, st: 'fill', k: 'var(--ground)' })}${I('so-f-solid', { s: 28, st: 'fill', w: 0.5 })}${I('so-in-solid', { s: 28, st: 'fill', w: 0.5 })}</div>`))
+    ])
+  );
+
+  add('ikoner-i-knappar',
+    Q('knapp-ikonstil', 'Ska ikonen i en knapp vara linje eller fylld?', [
+      O('Linjeikon', W(`<div class="syx-r">${btn(I('calendar', { s: 20 }) + 'Boka tid')}${btn2(I('heart', { s: 20 }) + 'Spara')}</div>`)),
+      O('Fylld ikon', W(`<div class="syx-r">${btn(I('calendar', { s: 20, st: 'fill', k: 'var(--brand)' }) + 'Boka tid')}${btn2(I('heart', { s: 20, st: 'fill' }) + 'Spara')}</div>`))
+    ]),
+    Q('knapp-flytande', 'Hur ska en flytande knapp för ”Ny” se ut i mobilen?', [
+      ['Rund med plus', 'width:56px;border-radius:50%', ''], ['Rundad fyrkant med plus', 'width:56px;border-radius:16px', ''], ['Kapsel med plus och text', 'padding:0 20px 0 16px;border-radius:999px;gap:8px', 'Ny bokning']
+    ].map(([l, st, t]) => O(l, W(`<div class="syx-w" style="position:relative;height:150px;background:var(--box);border:1px solid var(--sline);border-radius:14px;overflow:hidden"><div class="stack" style="gap:8px;padding:14px"><span style="height:10px;width:70%;background:var(--accent);border-radius:4px"></span><span style="height:10px;width:50%;background:var(--accent);border-radius:4px"></span></div><span style="position:absolute;right:14px;bottom:14px;display:inline-flex;align-items:center;justify-content:center;height:56px;background:var(--brand);color:#fff;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.18);${st}">${I('plus', { s: 24, w: 2.25 })}${t}</span></div>`))))
+  );
+
+  add('ikoner-i-navigering',
+    Q('nav-sok', 'Hur ska sök visas i sidhuvudet på datorn?', [
+      ['Bara en sökikon', I('search', { s: 22 })], ['Fält med sökikon', `<span class="inp ph" style="height:38px;gap:8px;width:150px;max-width:100%;font-size:14px">${I('search', { s: 18 })}Sök</span>`], ['Sökikon och ordet Sök', `<span class="syx-l" style="gap:6px;font-weight:600;font-size:14px">${I('search', { s: 20 })}Sök</span>`]
+    ].map(([l, r]) => O(l, W(hdr(r))))),
+    Q('nav-brodsmula', 'Ska första steget i en brödsmula vara en hemikon?', [
+      ['Hemikon', I('home', { s: 16 })], ['Ordet Start', '<span>Start</span>']
+    ].map(([l, first]) => O(l, W(`<div class="row small" style="gap:8px;color:var(--smuted)">${first}<span>/</span><span>Tjänster</span><span>/</span><span style="color:var(--sink);font-weight:600">Boka tid</span></div>`))))
+  );
+
+  add('ikonsprak',
+    Q('sprak-luft', 'Hur mycket av sin ruta ska ikonen fylla?', [['Fyller 18 av 24 px', 0.82], ['Fyller 20 av 24 px', 0.92], ['Fyller hela rutan', 1.05]].map(([l, k]) =>
+      O(l, W(`<div class="syx-g" style="gap:10px 12px">${SET8.map(n => `<span style="display:grid;place-items:center;width:36px;height:36px;outline:1px dashed rgba(36,64,94,.3)">${I(n, { s: 36, style: 'transform:scale(' + k + ')' })}</span>`).join('')}</div><span class="small muted">Streckad ruta = ikonens yta</span>`)))),
+    Q('sprak-skugga', 'Får ikoner ha en mjuk skugga?', [
+      O('Ingen skugga', W(row({ s: 40, st: 'duo', c2: 'var(--brand)', op: 0.2, w: 2, ns: 1 }, ['clock', 'shield', 'chat'], 'gap:22px'))),
+      O('Mjuk skugga under', W(row({ s: 40, st: 'duo', c2: 'var(--brand)', op: 0.2, w: 2, ns: 1, style: 'filter:drop-shadow(0 3px 3px rgba(26,28,30,.25))' }, ['clock', 'shield', 'chat'], 'gap:22px')))
+    ])
+  );
+
+  add('stilar',
+    Q('stil-utskuren', 'Hur tjocka ska de utskurna detaljerna i fyllda ikoner vara?', [1.5, 2, 2.75].map(kw =>
+      O(fmt(kw) + ' px utskärning', W(grid({ st: 'fill', s: 32, kw }, ['home', 'user-circle', 'mail', 'calendar', 'lock', 'clock', 'info', 'check-circle'], 'gap:18px 22px')))))
+  );
+
+  add('listor',
+    Q('lista-fil', 'Hur ska filer i en nedladdningslista märkas?', [
+      ['Dokumentikon', n => I('doc', { s: 22, c: 'var(--smuted)' })], ['Filtyp som etikett', (n, t) => `<span style="display:grid;place-items:center;width:34px;height:22px;border-radius:5px;background:var(--tint);color:var(--brand);font-size:10px;font-weight:800">${t}</span>`], ['Ingen ikon', () => '']
+    ].map(([l, f]) => O(l, W(`<div class="stack syx-w" style="gap:6px">${[['Prislista 2026', 'PDF'], ['Villkor', 'PDF'], ['Bokningsmall', 'XLS']].map(([t, ty]) => `<div class="syx-l" style="gap:10px;background:var(--box);border-radius:8px;padding:9px 12px">${f(t, ty)}<span style="flex:1;min-width:0">${t}</span>${I('download', { s: 18, c: 'var(--brand)' })}</div>`).join('')}</div>`))))
+  );
 
   /* @@FLER@@ */
 
