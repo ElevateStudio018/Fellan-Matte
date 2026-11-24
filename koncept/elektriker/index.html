@@ -8,6 +8,7 @@
 <meta name="description" content="Auktoriserade elektriker i Västerås. Laddbox, elcentral, belysning och felsökning med fast pris i offerten. Svar inom två arbetsdagar.">
 <meta name="theme-color" content="#1F4FD1">
 <link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/space-grotesk-latin-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%231F4FD1'/%3E%3Cpath d='M17.5 7 10 18h6l-1.5 7L22 14h-6z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
 <script src="main.js" defer></script>
@@ -40,17 +41,15 @@
 </dialog>
 <main id="innehall" tabindex="-1">
 
-<section class="ev-hero el-hero" aria-labelledby="hero-rubrik">
-  <div class="el-hero__panel ev-on-dark">
+<section class="ev-hero el-hero ev-on-photo" aria-labelledby="hero-rubrik">
+  <div class="el-hero__media"><img src="img/elektriker.jpg" alt="Elektriker kopplar in ett nytt eluttag i en grå vägg" fetchpriority="high" width="1400" height="933"></div>
+  <div class="ev-wrap el-hero__in">
     <div class="el-hero__text">
-      <h1 id="hero-rubrik" class="ev-dot">Elektriker i Västerås med fast pris innan vi börjar</h1>
-      <p>Laddbox, elcentral, belysning och felsökning för villor och bostadsrätter. Du får offerten inom två arbetsdagar.</p>
+      <h1 id="hero-rubrik" class="ev-dot">Elektriker i Västerås med fast pris</h1>
+      <p>Laddbox, elcentral, belysning och felsökning för villor och bostadsrätter, med offert inom två arbetsdagar.</p>
       <div class="ev-actions" data-sticky-anchor><a class="ev-btn ev-btn--lg" href="offert.html"><span>Begär offert</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
     </div>
-  <p class="el-hero__badge"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Svar inom</span><b>24&nbsp;h</b><span>på vardagar</span></p>
-  </div>
-  <div class="el-hero__media">
-    <img src="img/elektriker.jpg" alt="Elektriker kopplar in ett nytt eluttag i en grå vägg" fetchpriority="high" width="1400" height="933">
+    <p class="el-next" data-hero-next hidden><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span><span class="el-next__label">Nästa lediga dag för nya jobb</span><b data-hero-next-day></b></span></p>
   </div>
 </section>
 

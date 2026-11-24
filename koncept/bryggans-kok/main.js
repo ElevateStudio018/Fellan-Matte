@@ -108,24 +108,6 @@
     el.innerHTML = marksHtml(m);
   });
 
-  /* ---------- Hero (ny): dagens lunch i den flytande rutan ---------- */
-  const heroLunch = $('.rb-lunchcard');
-  if (heroLunch) {
-    const d = new Date().getDay();
-    const set = (sel, html) => { const el = $(sel, heroLunch); if (el) el.innerHTML = html; };
-    if (LUNCH[d]) {
-      set('[data-hero-lunch-dish]', LUNCH[d][0][1]);
-    } else {
-      set('[data-hero-lunch-title]', 'Helgbrunch i dag');
-      set('[data-hero-lunch-time]', d === 6 ? '10.00–14.00' : '10.00–15.00');
-      set('[data-hero-lunch-dish]', 'Brunchbrickan med gravad lax och ägg från Tjörn');
-      set('[data-hero-lunch-more]', 'Och två rätter till');
-      set('[data-hero-lunch-price]', '245&nbsp;kr');
-      const link = $('.ev-link', heroLunch);
-      if (link) link.firstChild.textContent = 'Se brunchen';
-    }
-  }
-
   const lunchBox = $('[data-lunch]');
   if (lunchBox) {
     const now = new Date();
@@ -732,6 +714,34 @@
     openBooking(t.closest('.ev-menu') ? menuBtn : t);
   });
   if (location.hash === '#boka') setTimeout(() => openBooking(null), 50);
+
+  /* ---------- Hero (mellanläget): lediga bord i kväll ----------
+     Visar de tre första lediga middagstiderna från 18.00 i dag. Har köket ingen middag kvar i dag visas nästa
+     kväll med middag. Varje tid öppnar bokningen med datum och tid förvalda, och man börjar med antal gäster. */
+  const tonight = $('[data-hero-tonight]');
+  if (tonight) {
+    const day = new Date(); day.setHours(0, 0, 0, 0);
+    let free = [], offset = 0;
+    for (; offset < 7 && !free.length; offset++) {
+      const d = new Date(day); d.setDate(d.getDate() + offset);
+      const dinner = slotsFor(d).find(g => g.name === 'Middag');
+      if (dinner) free = dinner.slots.filter(x => !x.full && x.t >= 1080).slice(0, 3).map(x => ({ t: x.t, d }));
+    }
+    offset--;
+    if (free.length) {
+      const when = offset === 0 ? 'i kväll' : offset === 1 ? 'i morgon kväll' : 'på ' + DAYS[free[0].d.getDay()] + 'kväll';
+      $('[data-hero-tonight-title]', tonight).textContent = 'Lediga bord ' + when;
+      $('[data-hero-tonight-times]', tonight).innerHTML = free.map((x, i) =>
+        `<button type="button" class="ev-chip" data-hero-time="${i}" aria-label="Boka bord ${when} klockan ${fmtTime(x.t)}">${fmtTime(x.t)}</button>`).join('');
+      $$('[data-hero-time]', tonight).forEach(b => b.addEventListener('click', () => {
+        const x = free[Number(b.dataset.heroTime)];
+        if (state.step === 6) reset();
+        Object.assign(state, { date: new Date(x.d), time: x.t, step: 1, returnTo: 4 });
+        openBooking(b);
+      }));
+      tonight.hidden = false;
+    }
+  }
 
   /* ---------- Fast list på desktop (ux-cta-folj-med) ---------- */
   const bar = $('.ev-stickybar');

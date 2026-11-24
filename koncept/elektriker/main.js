@@ -35,6 +35,20 @@
   });
   $$('.ev-hours tr[data-day]').forEach(tr => { if (Number(tr.dataset.day) === new Date().getDay()) tr.classList.add('is-today'); });
 
+  /* ---------- Hero (mellanläget): nästa lediga dag för nya jobb ----------
+     Två arbetsdagar fram, samma löfte som offerten. Helger hoppas över. */
+  const heroNext = $('[data-hero-next]');
+  if (heroNext) {
+    const DAYS = ['söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'];
+    const MONTHS = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
+    const d = new Date();
+    let left = 2;
+    while (left > 0) { d.setDate(d.getDate() + 1); if (d.getDay() !== 0 && d.getDay() !== 6) left--; }
+    const name = DAYS[d.getDay()];
+    $('[data-hero-next-day]', heroNext).textContent = `${name[0].toUpperCase()}${name.slice(1)} ${d.getDate()} ${MONTHS[d.getMonth()]}`;
+    heroNext.hidden = false;
+  }
+
   /* ---------- Fast list på desktop (ux-cta-folj-med) ---------- */
   const bar = $('.ev-stickybar');
   const anchor = $('[data-sticky-anchor]');

@@ -527,40 +527,68 @@ textarea.ev-input { height: auto; min-height: 132px; padding: 14px 18px; border-
   --el-deep: #0E1A3D;               /* mörk yta för förtroende och rekommenderat paket */
 }
 
-/* Hero (ny): delad 50/50. Mättad blå varumärkesyta med stor text till vänster, foto till höger
-   och ett runt "Svar inom 24 h"-märke som korsar skarven (regel 19b). Mobil: fotot överst, skarven blir vågrät.
-   Reserv mot ux-hero-text-och-bild (text på bilden): beställarens hero-brief för sajten kräver delad layout. */
-.el-hero { position: relative; display: grid; grid-template-rows: minmax(200px, 1fr) auto; min-height: calc(100svh - var(--ev-header-h)); background: var(--ev-brand); color: #fff; }
-.el-hero__media { grid-row: 1; position: relative; min-height: 200px; overflow: hidden; }
-.el-hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
-.el-hero__panel { grid-row: 2; position: relative; display: flex; align-items: center; padding: 56px var(--ev-gutter) 40px; }
-.el-hero__text { max-width: 620px; }
-.el-hero h1 { color: #fff; font-size: clamp(38px, 5.2vw + 14px, 72px); line-height: 1.04; letter-spacing: -.02em; max-width: 13ch; }
-.el-hero .ev-dot::after { color: #B4C6FF; }   /* ljus ton av varumärket, prickaccent på blå yta (pi-ac-rubrik) */
-.el-hero__text p { margin-top: 16px; font-size: 18px; line-height: 1.5; max-width: 40ch; color: #fff; }
+/* Hero (ny): mellanläget (24 nov 2026). Foto i full höjd med texten i mitten till vänster, gradient från vänster
+   i varumärkets mörka ton (ingen jämn hinna), rubrik i Space Grotesk, långsam Ken Burns och förskjuten intoning en gång.
+   Fotot är spegelvänt och bredare än heron, så att händerna och uttagen hamnar till höger om texten.
+   Levande detalj: nästa lediga dag för nya jobb, i en mörk ruta nere till höger (regel 19, 19b, ux-hero-*). */
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('fonts/space-grotesk-latin-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+.el-hero { position: relative; isolation: isolate; display: flex; min-height: calc(100svh - var(--ev-header-h)); overflow: hidden; background: var(--el-deep); color: #fff; }
+.el-hero__media { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+.el-hero__media img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 40% 30%;
+  transform: scaleX(-1); transform-origin: 50% 40%; animation: el-kenburns 20s cubic-bezier(.3, .1, .3, 1) both; }
+.el-hero::before { content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, rgba(14, 26, 61, .95) 0%, rgba(14, 26, 61, .86) 40%, rgba(14, 26, 61, .35) 60%, rgba(14, 26, 61, 0) 76%); }
+.el-hero__in { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding-top: 16px; padding-bottom: 32px; }
+.el-hero__text { order: 2; }
+.el-hero h1 { color: #fff; font-family: 'Space Grotesk', var(--ev-font); font-weight: 600; font-size: clamp(42px, 4.4vw + 16px, 80px);
+  line-height: 1; letter-spacing: -.035em; max-width: 9.5em; }
+.el-hero .ev-dot::after { color: #8FB0FF; }   /* ljus ton av varumärket, rubrikprick på mörk yta (pi-ac-rubrik) */
+.el-hero__text p { margin-top: 18px; font-size: 18px; line-height: 1.5; max-width: 40ch; color: #fff; }
 .el-hero .ev-actions { margin-top: 28px; }
+/* Primärknappen är helfylld i varumärkesblått (kn-fyllning), inte vit som annars på foto: blått är elektrikerns färg */
+.el-hero .ev-btn:not(.ev-btn--secondary) { background: var(--ev-brand); color: #fff; }
+.el-hero .ev-btn:not(.ev-btn--secondary):hover { background: var(--ev-brand-hover); }
+.el-hero .ev-btn:not(.ev-btn--secondary):active { background: var(--ev-brand-active); }
 
-/* Märket: vit cirkel med blå text, ligger på skarven */
-.el-hero__badge { position: absolute; z-index: 2; right: var(--ev-gutter); top: 0; transform: translateY(-50%) rotate(-8deg);
-  width: 112px; height: 112px; margin: 0; border-radius: 50%; background: #fff; color: var(--ev-brand);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  font: 600 12px/1.2 var(--ev-font); box-shadow: 0 0 0 6px var(--ev-brand); animation: el-badge 600ms var(--ev-ease) 250ms both; }
-.el-hero__badge .ev-icon { width: 20px; height: 20px; --ev-stroke: 2px; margin-bottom: 2px; }
-.el-hero__badge b { font-size: 30px; line-height: 1; font-weight: 700; letter-spacing: -.02em; color: var(--ev-ink); }
-.el-hero__badge span:last-child { color: var(--ev-ink-2); font-weight: 500; }
-@keyframes el-badge { from { opacity: 0; transform: translateY(-50%) rotate(-30deg) scale(.85); } to { opacity: 1; transform: translateY(-50%) rotate(-8deg); } }
-@media (prefers-reduced-motion: reduce) { .el-hero__badge { animation: none; } }
+/* Nästa lediga dag: liten mörk ruta. Uppe till vänster på mobil, nere till höger på desktop. */
+.el-next { order: 1; align-self: flex-start; display: flex; align-items: center; gap: 12px; margin: 0; padding: 10px 16px 10px 12px;
+  border-radius: var(--ev-r-card); background: var(--el-deep); color: #fff; }
+.el-next[hidden] { display: none; }
+.el-next .ev-icon { width: 24px; height: 24px; --ev-stroke: 2px; }
+.el-next > span { display: grid; }
+.el-next__label { font: 500 13px/1.3 var(--ev-font); color: #D3DAEE; }   /* 12:1 mot den mörka rutan */
+.el-next b { font-weight: 600; font-size: 16px; line-height: 1.3; }
 
+/* Rörelse: fotot zoomar 1,00–1,06 under 20 s och stannar. Texten tonar in förskjutet en gång. */
+@keyframes el-kenburns { from { transform: scaleX(-1) scale(1); } to { transform: scaleX(-1) scale(1.06); } }
+@keyframes el-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.el-hero__text > * { animation: el-rise 700ms var(--ev-ease) both; }
+.el-hero__text > :nth-child(1) { animation-delay: 100ms; }
+.el-hero__text > :nth-child(2) { animation-delay: 240ms; }
+.el-hero__text > :nth-child(3) { animation-delay: 380ms; }
+.el-next { animation: el-rise 700ms var(--ev-ease) 650ms both; }
+@media (prefers-reduced-motion: reduce) {
+  .el-hero__media img, .el-hero__text > *, .el-next { animation: none; }
+}
+
+@media (max-width: 899px) {
+  .el-hero__media img { object-position: 52% 10%; }
+}
 @media (min-width: 900px) {
-  .el-hero { grid-template-columns: 1fr 1fr; grid-template-rows: none; }
-  .el-hero__media { grid-row: 1; grid-column: 2; }
-  .el-hero__media img { object-position: 56% 50%; }
-  .el-hero__panel { grid-row: 1; grid-column: 1; padding: 72px 96px 72px max(var(--ev-gutter), calc(100% - var(--ev-max-w) / 2)); }
+  .el-hero::before { background: linear-gradient(to right, rgba(14, 26, 61, .94) 0%, rgba(14, 26, 61, .84) 36%, rgba(14, 26, 61, .3) 58%, rgba(14, 26, 61, 0) 74%); }
+  .el-hero__media img { width: 118%; object-position: 50% 42%; }
+  .el-hero__in { justify-content: center; padding-top: 64px; padding-bottom: 96px; }
+  .el-hero__text { order: 0; }
   .el-hero__text p { font-size: 20px; }
-  .el-hero__badge { right: 0; top: auto; bottom: 14%; transform: translateX(50%) rotate(-8deg); width: 148px; height: 148px; font-size: 14px; box-shadow: none; }
-  .el-hero__badge .ev-icon { width: 24px; height: 24px; }
-  .el-hero__badge b { font-size: 40px; }
-  @keyframes el-badge { from { opacity: 0; transform: translateX(50%) rotate(-30deg) scale(.85); } to { opacity: 1; transform: translateX(50%) rotate(-8deg); } }
+  .el-next { position: absolute; right: var(--ev-gutter); bottom: 40px; padding: 14px 20px 14px 16px; gap: 14px; }
+  .el-next__label { font-size: 14px; }
+  .el-next b { font-size: 18px; }
 }
 
 /* Tjänster: sex kort, tre per rad (reserv i ux-lista-per-rad: sex tjänster delas jämnt) */
