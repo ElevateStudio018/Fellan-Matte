@@ -273,7 +273,7 @@
       handleGroupInput(e, pending, (k, v) => renderPop(key, k ? `[data-tile="${k}"][data-val="${v}"]` : '.ev-tile:last-child'));
     });
     desk.addEventListener('input', e => { if (openPop && pending) handleRange(e, pending, () => { $('[data-pop-apply] span', openPop.pop).textContent = popApplyLabel(); }); });
-    document.addEventListener('click', e => { if (openPop && !openPop.pop.contains(e.target) && !openPop.btn.contains(e.target)) closePop(false); });
+    document.addEventListener('click', e => { if (openPop && e.target.isConnected && !openPop.pop.contains(e.target) && !openPop.btn.contains(e.target)) closePop(false); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && openPop) { e.preventDefault(); closePop(); } });
     desk.addEventListener('keydown', e => {
       if (!openPop || openPop.key !== 'sort' || !['ArrowDown', 'ArrowUp'].includes(e.key)) return;

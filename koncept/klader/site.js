@@ -98,7 +98,7 @@
       return '<article class="gr-storecard" id="' + s.id + '" aria-labelledby="h-' + s.id + '"><h2 id="h-' + s.id + '">' + s.short + '</h2>' +
         '<p class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>' + s.addr + '<br><a class="ev-link" style="font-size:14px" href="https://www.openstreetmap.org/search?query=' + encodeURIComponent(s.addr) + '" target="_blank" rel="noopener">Visa på kartan' + EXT + '<span class="ev-sr">(öppnas i ny flik)</span></a></span></p>' +
         '<p>' + todayText(s) + '</p><dl>' + rows + '</dl>' +
-        '<div class="ev-actions"><a class="ev-btn' + (s.id === 'uppsala' ? '' : ' ev-btn--secondary') + '" href="reservera.html?butik=' + s.id + '"><span>Reservera i ' + s.short + '</span>' + (s.id === 'uppsala' ? ARROW : '') + '</a></div></article>';
+        '<div class="ev-actions"><a class="ev-link" href="reservera.html?butik=' + s.id + '">Reservera i ' + s.short + '<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div></article>';
     }).join('');
   }
 

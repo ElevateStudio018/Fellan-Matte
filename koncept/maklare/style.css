@@ -949,3 +949,7 @@ select.ev-input { appearance: none; padding-right: 48px;
 .ev-tag--warn { background: var(--ev-warn-tint); color: var(--ev-warn); }
 .ev-card__foot { margin-top: 0; }
 .ev-card > .ev-link { margin-top: auto; padding-top: 10px; }
+.ev-dialog .ev-summary { align-self: stretch; position: static; }
+@media (max-width: 640px) { .ev-hide-mobile { display: none !important; } }
+.ev-mobvisning { margin-top: 24px; }
+.ev-mobvisning b { font-weight: 600; }

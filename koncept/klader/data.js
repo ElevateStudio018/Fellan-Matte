@@ -10,8 +10,9 @@
   function art(name, bg, ink, label) {
     return '<div class="ev-art" style="--art:' + bg + ';--art-ink:' + (ink || '#1A1C1E') + '" role="img" aria-label="' + label + '"><svg viewBox="0 0 48 48" aria-hidden="true">' + ART[name] + '</svg></div>';
   }
-  function crop(at, scale, alt) {
-    return '<img src="img/kladstall.jpg" alt="' + alt + '" loading="lazy" width="1400" height="1050" style="object-position:' + at + ';transform:scale(' + scale + ');transform-origin:' + at + '">';
+  /* Utsnitt ur klädställningen: object-position väljer fönstret, transform-origin pekar på plagget */
+  function crop(at, origin, scale, alt) {
+    return '<img src="img/kladstall.jpg" alt="' + alt + '" loading="lazy" width="1400" height="1050" style="object-position:' + at + ';transform:scale(' + scale + ');transform-origin:' + origin + '">';
   }
   var STORES = [
     { id: 'uppsala', name: 'Gränd Uppsala', short: 'Uppsala', addr: 'Svartbäcksgatan 12, 753 20 Uppsala', hours: [[10, 19], [10, 19], [10, 19], [10, 19], [10, 19], [10, 17], [11, 16]], text: 'Mån–fre 10–19, lör 10–17, sön 11–16' },
@@ -21,13 +22,13 @@
   var SIZES = ['XS', 'S', 'M', 'L', 'XL'];
   var P = [
     { id: 'ida', name: 'Flätstickad kofta Ida', color: 'Natur', sub: 'Ull från Gotland, natur', price: 1295, rating: '4,8', reviews: 214, ribbon: 'Nyhet',
-      media: crop('64% 55%', 2.4, 'Naturvit flätstickad kofta på galge'), stock: { uppsala: [2, 3, 0, 1, 2], vasteras: [0, 1, 2, 0, 1], orebro: [1, 0, 1, 0, 0] } },
+      media: crop('90% 50%', '50% 62%', 2.2, 'Naturvit flätstickad kofta på galge'), stock: { uppsala: [2, 3, 0, 1, 2], vasteras: [0, 1, 2, 0, 1], orebro: [1, 0, 1, 0, 0] } },
     { id: 'sigrid', name: 'Mohairtröja Sigrid', color: 'Rost', sub: 'Mohair och ull, rost', price: 995, rating: '4,7', reviews: 132, ribbon: 'Populär',
-      media: crop('75% 50%', 2.8, 'Rostbrun mohairtröja på galge'), stock: { uppsala: [1, 2, 2, 1, 0], vasteras: [1, 1, 0, 2, 1], orebro: [0, 2, 1, 1, 0] } },
+      media: crop('100% 50%', '57% 35%', 3.6, 'Rostbrun mohairtröja på galge'), stock: { uppsala: [1, 2, 2, 1, 0], vasteras: [1, 1, 0, 2, 1], orebro: [0, 2, 1, 1, 0] } },
     { id: 'vide', name: 'Teddyjacka Vide', color: 'Benvit', sub: 'Återvunnen pile, benvit', price: 1695, rating: '4,6', reviews: 88,
-      media: crop('96% 55%', 2.6, 'Benvit teddyjacka på galge'), stock: { uppsala: [0, 1, 1, 1, 1], vasteras: [1, 0, 1, 0, 0], orebro: [0, 1, 0, 1, 1] } },
+      media: crop('100% 50%', '84% 50%', 2.4, 'Benvit teddyjacka på galge'), stock: { uppsala: [0, 1, 1, 1, 1], vasteras: [1, 0, 1, 0, 0], orebro: [0, 1, 0, 1, 1] } },
     { id: 'elin', name: 'Ribbstickad tröja Elin', color: 'Havre', sub: 'Merinoull, havre', price: 895, was: 1195, rating: '4,5', reviews: 61,
-      media: crop('50% 50%', 2.6, 'Havrefärgad ribbstickad tröja på galge'), stock: { uppsala: [1, 1, 2, 0, 0], vasteras: [0, 2, 1, 1, 0], orebro: [1, 1, 0, 0, 1] } },
+      media: crop('48% 50%', '50% 50%', 2.6, 'Havrefärgad ribbstickad tröja på galge'), stock: { uppsala: [1, 1, 2, 0, 0], vasteras: [0, 2, 1, 1, 0], orebro: [1, 1, 0, 0, 1] } },
     { id: 'hedda', name: 'Vida byxor Hedda', color: 'Mörkbrun', sub: 'Ull och lyocell, mörkbrun', price: 1095, rating: '4,6', reviews: 47,
       media: art('byxa', '#E6D9CB', '', 'Vida byxor Hedda, teckning'), stock: { uppsala: [1, 2, 1, 1, 0], vasteras: [1, 1, 1, 0, 0], orebro: [0, 1, 1, 1, 0] } },
     { id: 'maj', name: 'Linneskjorta Maj', color: 'Kalk', sub: 'Tvättat linne, kalkvit', price: 795, rating: '4,4', reviews: 39,

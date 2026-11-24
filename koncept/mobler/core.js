@@ -171,7 +171,7 @@
   }
   if (mini) {
     document.addEventListener('click', function (e) {
-      if (!mini.hidden && !mini.contains(e.target) && !e.target.closest('[data-add], [data-buy]')) mini.hidden = true;
+      if (!mini.hidden && !mini.contains(e.target) && !e.target.closest('[data-add], [data-buy], [data-addhome]')) mini.hidden = true;
       if (e.target.closest('[data-mini-close]')) { mini.hidden = true; var c = $('[data-cart-label]'); if (c) c.focus(); }
     });
     document.addEventListener('keydown', function (e) {

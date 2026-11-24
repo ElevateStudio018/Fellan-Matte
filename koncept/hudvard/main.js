@@ -36,7 +36,8 @@ function label(p, small = false) {
 const CART_KEY = 'ljungdal-varukorg';
 const getCart = () => { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch (e) { return []; } };
 const setCart = c => { try { localStorage.setItem(CART_KEY, JSON.stringify(c)); } catch (e) {} renderCartUI(); };
-const lineTotal = l => (byId(l.id).price + (l.big ? 220 : 0)) * l.qty;
+const bigPrice = p => Math.round(p.price * 1.6 / 5) * 5 - 5;
+const lineTotal = l => (l.big ? bigPrice(byId(l.id)) : byId(l.id).price) * l.qty;
 const cartTotal = () => getCart().reduce((n, l) => n + (byId(l.id) ? lineTotal(l) : 0), 0);
 function addToCart(id, qty = 1, big = false) {
   const c = getCart();
@@ -186,10 +187,10 @@ if (pdp) {
   $('[data-p-use]').textContent = p.use;
   const vols = $('[data-p-vols]');
   const bigVol = { '30 ml': '50 ml', '50 ml': '100 ml', '150 ml': '300 ml', '75 ml': '150 ml', '10 ml': '2 × 10 ml' }[p.vol];
-  vols.innerHTML = `<button type="button" class="ev-volume" aria-pressed="true" data-big="0">${p.vol}<small>${kr(p.price)}</small></button><button type="button" class="ev-volume" aria-pressed="false" data-big="1">${bigVol}<small>${kr(p.price + 220)}</small></button>`;
+  vols.innerHTML = `<button type="button" class="ev-volume" aria-pressed="true" data-big="0">${p.vol}<small>${kr(p.price)}</small></button><button type="button" class="ev-volume" aria-pressed="false" data-big="1">${bigVol}<small>${kr(bigPrice(p))}</small></button>`;
   let big = false;
   const priceEl = $('[data-p-price]');
-  const setPrice = () => priceEl.innerHTML = `<span class="ev-price">${kr(p.price + (big ? 220 : 0))}</span><small>${big ? bigVol : p.vol}</small>`;
+  const setPrice = () => priceEl.innerHTML = `<span class="ev-price">${kr(big ? bigPrice(p) : p.price)}</span><small>${big ? bigVol : p.vol}</small>`;
   setPrice();
   vols.addEventListener('click', e => { const b = e.target.closest('.ev-volume'); if (!b) return; big = b.dataset.big === '1'; $$('.ev-volume', vols).forEach(x => x.setAttribute('aria-pressed', String(x === b))); setPrice(); });
   const add = $('[data-p-add]');

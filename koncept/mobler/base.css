@@ -520,3 +520,4 @@ textarea.ev-input { height: auto; min-height: 120px; padding: 14px 18px; border-
 .ev-footer__links li + li::before { content: ""; width: 3px; height: 3px; border-radius: 50%; background: currentColor; margin: 0 8px; }  /* pi-avd-vertikal: prick */
 .ev-footer__links a { display: inline-flex; align-items: center; gap: 4px; min-height: 24px; }
 h1[tabindex="-1"]:focus, main:focus { outline: none; }
+.ev-search input::-webkit-search-cancel-button { appearance: none; }

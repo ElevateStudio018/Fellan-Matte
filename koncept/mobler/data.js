@@ -65,6 +65,6 @@
     key: 'ekbacka',
     products: P,
     popular: ['fåtölj', 'soffa', 'soffbord', 'golvlampa', 'matta'],
-    words: ['fåtöljer', 'soffor', 'sofflock', 'sidobord', 'skänk', 'spegel', 'bokhylla', 'bänk', 'taklampa', 'kuddfodral', 'pall']
+    words: ['fåtöljer', 'soffor', 'sidobord', 'skänk', 'spegel', 'bokhylla', 'bänk', 'taklampa', 'kuddfodral', 'pall']
   };
 })();
