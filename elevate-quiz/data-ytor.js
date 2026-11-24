@@ -566,8 +566,8 @@
         ['Gradient nedtill', {}],
         ['Mörk ruta bakom texten', { shade: 'none', pad: '14px', body: `<div style="background:rgba(0,0,0,.6);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:6px">${BODYW}</div>` }],
         ['Bara skugga på texten', { shade: 'none', body: `<div style="text-shadow:0 1px 3px rgba(0,0,0,.7),0 0 14px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:6px">${BODYW}</div>` }],
-        ['Frostad remsa', { shade: 'none', pad: '0', body: `<div style="width:100%;background:rgba(0,0,0,.22);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);padding:16px 20px;display:flex;flex-direction:column;gap:6px">${BODYW}</div>` }],
-      ].map(([l, o]) => [l, scene(overlay({ img: 'stockholm', ratio: '4/5', ...o }))])),
+        ['Frostad remsa', { shade: 'none', pad: '0', body: `<div style="width:100%;background:rgba(0,0,0,.22);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-radius:0 0 12px 12px;padding:16px 20px;display:flex;flex-direction:column;gap:6px">${BODYW}</div>` }],
+      ].map(([l, o]) => [l, scene(overlay({ img: 'kopenhamn', ratio: '4/5', ...o }))])),
 
     Q('yt-tpb-mork', 'Hur mycket ska en bild mörkläggas bakom vit text?',
       [['Lite (15 %)', .15], ['Måttligt (30 %)', .3], ['Tydligt (45 %)', .45], ['Kraftigt (60 %)', .6]].map(([l, a]) => [l, scene(overlay({ img: 'fjallen', ratio: '4/5', shade: `rgba(0,0,0,${a})`, pos: 'center', center: true }))])),

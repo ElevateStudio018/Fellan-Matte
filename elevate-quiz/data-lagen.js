@@ -79,6 +79,7 @@
 & .lx-note{font-size:12px;color:var(--smuted);line-height:1.35}
 & .lx-ib{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:10px;color:var(--sink);flex:0 0 auto}
 & .lx-btnsm{height:36px;padding:0 14px;font-size:14px}
+& .fld{flex:0 0 auto}
 `;
   const fake = (n = 3) => `<div class="lx-fake"><i class="lx-hb"></i><i style="width:62%"></i><i style="width:88%"></i>${n > 2 ? '<i style="width:74%"></i><div class="lx-bl"><i></i><i></i><i></i></div>' : ''}${n > 3 ? '<i style="width:80%"></i><i style="width:56%"></i>' : ''}</div>`;
   const scr = (inner, h = 170, st = '') => `<div class="lx-scr" style="height:${h}px${st ? ';' + st : ''}">${fake(4)}${inner}</div>`;
@@ -844,7 +845,7 @@
 
   const OK = { fg: '#1E7A45', bg: '#E7F4EC', bd: '#1E7A45' };
   const toastBox = (t, st = '') => `<div class="lx-tst" style="${st}">${t}</div>`;
-  const tstCss = '& .lx-tst{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;display:flex;align-items:center;gap:8px;background:#1F2225;color:#fff;font-size:13px;font-weight:500;padding:9px 12px;border-radius:8px;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.2)}';
+  const tstCss = '& .lx-tst{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;display:flex;align-items:center;gap:8px;background:#1F2225;color:#fff;font-size:13px;font-weight:500;padding:9px 12px;border-radius:8px;width:max-content;max-width:calc(100% - 20px);line-height:1.3;box-shadow:0 6px 18px rgba(0,0,0,.2)}';
   Q('lyc-typ', 'Hur ska man bekräfta att något har sparats?', [
     ['Text vid knappen', `<div class="stack" style="gap:10px"><div class="fld"><span class="lbl">Visningsnamn</span><span class="inp">Alex</span></div><div class="row" style="gap:10px"><span class="sb lx-btnsm">Spara</span><span class="okt">${ico('check', 16, 2.6)}Sparat</span></div></div>`, '& .okt{display:inline-flex;align-items:center;gap:5px;color:#1E7A45;font-size:14px;font-weight:600}'],
     ['Toast som försvinner', scr(toastBox(`${ico('check', 16, 2.6)}Ändringarna är sparade`)), tstCss],
@@ -1096,8 +1097,8 @@
 
   Q('var-rubrik', 'Ska en banner ha både rubrik och text?', [
     ['Rubrik och text', ban(), banCss(WN) + `& .bn{background:${WN.bg}}`],
-    ['En rad, fet början', ban('tri', '', '<b style="display:inline;font-size:13px">Sessionen går ut snart.</b> Spara ditt arbete.'), banCss(WN) + `& .bn{background:${WN.bg}}`],
-    ['En rad, bara text', ban('tri', '', 'Din session går ut snart. Spara ditt arbete.'), banCss(WN) + `& .bn{background:${WN.bg}}`]
+    ['Kort rad, fet början', ban('tri', '', '<b style="display:inline;font-size:13px">Sessionen går ut snart.</b> Spara ditt arbete.'), banCss(WN) + `& .bn{background:${WN.bg}}`],
+    ['Kort rad, bara text', ban('tri', '', 'Din session går ut snart. Spara ditt arbete.'), banCss(WN) + `& .bn{background:${WN.bg}}`]
   ]);
 
   Q('var-atgard', 'Hur ska en åtgärd i en banner se ut?', [

@@ -455,11 +455,11 @@
       ]),
       Q('sardrag-r', 'Vilket versalt R och vilka gemena a och g ser bäst ut?',
         ['Inter', 'Montserrat', 'Instrument Sans', 'Space Grotesk', 'Red Hat Display'].map(n => opt(`R, a och g i ${n}`, glyphs(n)))),
-      Q('sardrag-il1', 'Hur viktigt är det att I, l och 1 går att skilja åt?', [
-        opt('Raka I och l (Inter)', il1('Inter')),
-        opt('l med svans (Geist)', il1('Geist')),
-        opt('I med tvärslå (Lexend)', il1('Lexend')),
-        opt('l med svans, I med tvärslå (IBM Plex Sans)', il1('IBM Plex Sans')),
+      Q('sardrag-il1', 'Hur ska versalt I och gement l se ut i löptext?', [
+        opt('Inga särdrag på I och l (Inter)', il1('Inter')),
+        opt('Gement l med svans (Geist)', il1('Geist')),
+        opt('Versalt I med tvärslå (Lexend)', il1('Lexend')),
+        opt('Båda särdragen (IBM Plex Sans)', il1('IBM Plex Sans')),
       ]),
       Q('kontrast-serif', 'Hur stor kontrast mellan tjocka och tunna streck ska en serif-rubrik ha?', [
         opt('Hög kontrast (Playfair Display)', head('Playfair Display', HT[2], { body: true })),

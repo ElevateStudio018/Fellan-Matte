@@ -542,6 +542,139 @@
     ].map(([l, ic]) => O(l, W(`<div class="panel syx-w" style="display:flex;gap:12px;align-items:center">${ic}<div class="stack" style="gap:0"><b>Bokningen är klar</b><span class="small muted">Vi har skickat en bekräftelse.</span></div></div>`))))
   ]});
 
+  // =====================================================================
+  // 8. Ikonspråk
+  // =====================================================================
+  G.push({ key: 'ikonsprak', title: 'Ikonspråk', questions: [
+    Q('sprak-detalj', 'Hur detaljerade ska ikonerna vara?', [
+      O('Enkla, få linjer', W(grid({ s: 32 }, SET8, 'gap:18px 22px'))),
+      O('Detaljerade, fler linjer', W(grid({ s: 32 }, ['d-home', 'd-search', 'd-user', 'd-heart', 'd-bell', 'd-mail', 'd-calendar', 'd-settings'], 'gap:18px 22px')))
+    ]),
+    Q('sprak-geometrisk', 'Ska ikonerna vara geometriskt exakta eller handritade?', [
+      O('Geometriska', W(grid({ s: 32 }, SET8, 'gap:18px 22px'))),
+      O('Handritade', W(grid({ s: 32 }, ['h-home', 'h-search', 'h-user', 'h-heart', 'h-bell', 'h-mail', 'h-calendar', 'h-settings'], 'gap:18px 22px')))
+    ]),
+    Q('sprak-perspektiv', 'Ska ikonerna ritas platt eller i perspektiv?', [
+      O('Platt, rakt framifrån', W(row({ s: 44, w: 2, ns: 1 }, ['package', 'layers', 'doc'], 'gap:24px'))),
+      O('Isometriskt perspektiv', W(row({ s: 44, w: 2, ns: 1 }, ['iso-box', 'iso-layers', 'iso-doc'], 'gap:24px')))
+    ]),
+    Q('sprak-oppna', 'Ska formerna vara slutna eller ha ett litet glapp?', [
+      O('Slutna former', W(grid({ s: 32 }, ['home-plain', 'heart', 'bell', 'mail', 'calendar', 'chat-plain', 'bookmark', 'shield'], 'gap:18px 22px'))),
+      O('Öppna former med glapp', W(grid({ s: 32, gap: 30 }, ['home-plain', 'heart', 'bell', 'mail', 'calendar', 'chat-plain', 'bookmark', 'shield'], 'gap:18px 22px')))
+    ]),
+    Q('sprak-forenkla', 'Ska ikonerna förenklas när de visas små (16 px)?', [
+      O('Samma detaljer i 16 px', W(grid({ s: 16, w: 1.5, ns: 1 }, ['d-home', 'd-search', 'd-user', 'd-heart', 'd-bell', 'd-mail', 'd-calendar', 'd-settings'], 'gap:14px 20px'))),
+      O('Förenklade i 16 px', W(grid({ s: 16, w: 1.5, ns: 1 }, SET8, 'gap:14px 20px')))
+    ]),
+    Q('sprak-grundform', 'Vilken grundform ska symboler i en ram ha?', [
+      O('Runda ramar', W(grid({ s: 32 }, ['check-circle', 'x-circle', 'info', 'plus-circle', 'user-circle', 'download-circle', 'alert-circle', 'minus-circle'], 'gap:18px 22px'))),
+      O('Fyrkantiga ramar', W(grid({ s: 32 }, ['check-square', 'x-square', 'info-square', 'plus-square', 'user-square', 'external-square', 'image', 'minus-square'], 'gap:18px 22px')))
+    ])
+  ]});
+
+  // =====================================================================
+  // 9. Specifika symboler
+  // =====================================================================
+  ICONS['more-v'] = ['e|circle cx="12" cy="5" r="DL"', 'e|circle cx="12" cy="12" r="DL"', 'e|circle cx="12" cy="19" r="DL"'];
+  ICONS['more-circle'] = ['f|' + C95, 'd*|circle cx="7.8" cy="12" r="DR"', 'd*|circle cx="12" cy="12" r="DR"', 'd*|circle cx="16.2" cy="12" r="DR"'];
+  const FAT = []; for (let i = 0; i < 10; i++) FAT.push(pt(-90 + i * 36, i % 2 ? 5.4 : 9.8, 12, 12.6));
+  ICONS['star-fat'] = ['f|polygon points="' + FAT.join(' ') + '"'];
+  ICONS['star-half-l'] = ['f|polygon points="' + starHalf + '"'];
+  const symOpt = (name, o = {}, ctx = '') => W(`<div class="syx-r" style="gap:28px">${I(name, { s: 48, w: 2, ns: 1, ...o })}${I(name, { s: 24, ...o })}</div>` + (ctx ? `<div class="syx-l small" style="gap:6px">${I(name, { s: 18, ...o })}<span>${ctx}</span></div>` : ''), o.wrap || '');
+  const symQ = (id, q, vars, ctx = '') => Q(id, q, vars.map(([l, n, o]) => O(l, symOpt(n, o || {}, ctx))));
+  const RED = { c: 'var(--bad)' };
+
+  G.push({ key: 'symboler-status', title: 'Symboler: status och tecken', questions: [
+    symQ('sym-bock', 'Hur ska bocken se ut?', [['Ren bock', 'check'], ['Kort och bred bock', 'check-short'], ['Bock i cirkel', 'check-circle'], ['Bock i rundad fyrkant', 'check-square']], 'Sparat'),
+    symQ('sym-kryss', 'Hur ska krysset för att stänga se ut?', [['Stort kryss', 'x'], ['Litet kryss', 'x-small'], ['Kryss i cirkel', 'x-circle'], ['Kryss i rundad fyrkant', 'x-square']], 'Stäng'),
+    symQ('sym-info', 'Hur ska info-symbolen se ut?', [['i i cirkel', 'info'], ['Bara ett i', 'info-plain'], ['i i rundad fyrkant', 'info-square'], ['Fylld cirkel med i', 'info', { st: 'fill' }]], 'Mer information'),
+    symQ('sym-varning', 'Hur ska varningssymbolen se ut?', [['Utropstecken i triangel', 'alert'], ['Utropstecken i cirkel', 'alert-circle'], ['Utropstecken i romb', 'alert-diamond'], ['Fylld triangel', 'alert', { st: 'fill' }]].map(v => [v[0], v[1], { c: 'var(--warn)', ...(v[2] || {}) }]), 'Få platser kvar'),
+    symQ('sym-fel', 'Hur ska felsymbolen se ut?', [['Kryss i cirkel', 'x-circle', RED], ['Kryss i åttahörning', 'octagon', RED], ['Utropstecken i cirkel', 'alert-circle', RED], ['Utropstecken i åttahörning', 'octagon-alert', RED]], 'Något gick fel'),
+    Q('sym-status-fylld', 'Ska statusikonerna i meddelanden vara fyllda eller linje?', [['Linje', { st: 'line' }], ['Fyllda', { st: 'fill' }], ['Duotone', { st: 'duo', op: 0.18 }]].map(([l, o]) =>
+      O(l, W(`<div class="stack" style="gap:9px">${[['info', 'Leverans tar 2–3 dagar', 'var(--brand)'], ['alert', 'Få platser kvar', 'var(--warn)'], ['x-circle', 'Kortet nekades', 'var(--bad)'], ['check-circle', 'Bokningen är klar', 'var(--ok)']].map(([n, t, c]) => `<div class="syx-l" style="gap:10px">${I(n, { s: 22, c, ...o, c2: c })}<span>${t}</span></div>`).join('')}</div>`, 'align-items:flex-start')))),
+    Q('sym-plusminus', 'Hur ska plus och minus i en antalsväljare se ut?', [['Rena tecken', 'plus', 'minus'], ['Tecken i cirkel', 'plus-circle', 'minus-circle'], ['Tecken i rundad fyrkant', 'plus-square', 'minus-square']].map(([l, p, m]) =>
+      O(l, W(`<div class="row" style="gap:14px;flex-wrap:nowrap">${I(m, { s: 28 })}<b style="font-size:18px;min-width:18px;text-align:center">2</b>${I(p, { s: 28 })}</div>`)))),
+    Q('sym-plus-lagg-till', 'Hur ska plus-symbolen för ”Lägg till” se ut?', [['Rent plus', 'plus'], ['Plus i cirkel', 'plus-circle'], ['Plus i fylld cirkel', 'plus-circle', { st: 'fill' }], ['Plus i rundad fyrkant', 'plus-square']].map(([l, n, o]) =>
+      O(l, W(`<span class="link" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none">${I(n, { s: 22, ...(o || {}) })}Lägg till adress</span>`))))
+  ]});
+
+  G.push({ key: 'symboler-handling', title: 'Symboler: handlingar', questions: [
+    symQ('sym-sok', 'Hur ska förstoringsglaset för sök se ut?', [['Handtag nere till höger', 'search'], ['Handtag nere till vänster', 'search-left'], ['Litet glas, långt handtag', 'search-long'], ['Kraftigt handtag', 'search-thick']], 'Sök'),
+    symQ('sym-meny', 'Hur ska menyikonen se ut?', [['Tre lika streck', 'menu'], ['Två streck', 'menu-2'], ['Kortare nedersta streck', 'menu-short'], ['Förskjutna streck', 'menu-right'], ['Tre punkter', 'menu-dots']], 'Meny'),
+    symQ('sym-mer', 'Hur ska ikonen för ”fler val” se ut?', [['Tre punkter vågrätt', 'menu-dots'], ['Tre punkter lodrätt', 'more-v'], ['Tre punkter i cirkel', 'more-circle']], 'Fler val'),
+    symQ('sym-filter', 'Hur ska filterikonen se ut?', [['Tratt', 'filter'], ['Vågräta reglage', 'sliders'], ['Lodräta reglage', 'sliders-v'], ['Allt kortare streck', 'filter-lines']], 'Filtrera'),
+    symQ('sym-sortera', 'Hur ska sorteringsikonen se ut?', [['Pil upp och pil ner', 'sort'], ['Streck i fallande längd', 'sort-bars'], ['Två vinklar', 'sort-chev'], ['Pil med A–Z', 'sort-az']], 'Sortera'),
+    symQ('sym-dela', 'Hur ska dela-ikonen se ut?', [['Tre punkter med linjer', 'share'], ['Pil upp ur ruta', 'share-box'], ['Böjd pil framåt', 'share-arrow'], ['Pappersflygplan', 'share-plane']], 'Dela'),
+    symQ('sym-ladda-ner', 'Hur ska ikonen för att ladda ner se ut?', [['Pil ner i bricka', 'download'], ['Bara pil ner', 'download-plain'], ['Pil ner mot streck', 'download-line'], ['Pil i cirkel', 'download-circle'], ['Pil i moln', 'download-cloud']], 'Ladda ner'),
+    symQ('sym-ladda-upp', 'Hur ska ikonen för uppladdning se ut?', [['Pil upp ur bricka', 'upload'], ['Pil upp från streck', 'upload-line'], ['Pil i cirkel', 'upload-circle'], ['Pil i moln', 'upload-cloud']], 'Ladda upp fil'),
+    Q('sym-extern', 'Hur ska ikonen för extern länk se ut?', [['Pil ut ur ruta', 'external'], ['Diagonal pil', 'external-arrow'], ['Pil i ruta', 'external-square']].map(([l, n]) =>
+      O(l, W(`<div class="syx-r" style="gap:28px">${I(n, { s: 48, w: 2, ns: 1 })}${I(n, { s: 24 })}</div><span class="link" style="display:inline-flex;align-items:center;gap:5px">Läs mer på webbplatsen${I(n, { s: 16, w: 2.25 })}</span>`)))),
+    symQ('sym-redigera', 'Hur ska ikonen för att redigera se ut?', [['Penna', 'edit'], ['Penna med linje', 'edit-line'], ['Penna över ruta', 'edit-square'], ['Kantig penna', 'edit-pen']], 'Redigera'),
+    symQ('sym-kopiera', 'Hur ska ikonen för att kopiera se ut?', [['Två rutor, bakre bruten', 'copy'], ['Två dokument', 'copy-docs'], ['Två hela överlappande rutor', 'copy-stack']], 'Kopiera'),
+    symQ('sym-radera', 'Hur ska papperskorgen se ut?', [['Med lock och ränder', 'trash'], ['Med lock, utan ränder', 'trash-plain'], ['Rak hink med ränder', 'trash-bin'], ['Lock som lyfts', 'trash-lid']], 'Ta bort'),
+    symQ('sym-installningar', 'Hur ska ikonen för inställningar se ut?', [['Kugghjul med 8 kuggar', 'settings'], ['Kugghjul med 6 kuggar', 'settings-6'], ['Reglage', 'sliders']], 'Inställningar'),
+    symQ('sym-lank', 'Hur ska länkikonen se ut?', [['Kedja, diagonal', 'link'], ['Kedja, vågrät med streck', 'link-h'], ['Vågrät utan streck', 'link-h-open'], ['Två ringar', 'link-rings']], 'Kopiera länk'),
+    Q('sym-oga', 'Vilket par ska visa och dölja lösenordet?', [
+      ['Öga och överstruket öga', I('eye', { s: 20, c: 'var(--smuted)' }), I('eye-off', { s: 20, c: 'var(--smuted)' })],
+      ['Öga och stängt öga', I('eye', { s: 20, c: 'var(--smuted)' }), I('eye-closed', { s: 20, c: 'var(--smuted)' })],
+      ['Fyllt öga och överstruket', I('eye-round', { s: 20, c: 'var(--smuted)', st: 'fill' }), I('eye-off', { s: 20, c: 'var(--smuted)' })],
+      ['Texten Visa och Dölj', '<span class="small" style="font-weight:600;color:var(--brand)">Visa</span>', '<span class="small" style="font-weight:600;color:var(--brand)">Dölj</span>']
+    ].map(([l, a, b]) => O(l, W(`<div class="syx-w stack" style="gap:10px"><div class="inp" style="justify-content:space-between;gap:10px"><span>••••••••</span>${a}</div><div class="inp" style="justify-content:space-between;gap:10px"><span>hemligt123</span>${b}</div></div>`))))
+  ]});
+
+  const SC = '#D99A1E';
+  const starW = (empty, s = 24) => {
+    if (empty === 'outline') return I('star', { s, c: SC, w: 1.75 });
+    if (empty === 'gray') return I('star', { s, st: 'fill', c: '#D5D8DC' });
+    return I('star', { s, c: '#B0B5BA', w: 1.5 });
+  };
+  const halfStar = (empty, s = 24) => `<span style="position:relative;display:block;width:${s}px;height:${s}px">${starW(empty, s)}${I('star-half-l', { s, st: 'fill', c: SC, style: 'position:absolute;inset:0' })}</span>`;
+  const full = (s = 24, c = SC) => I('star', { s, st: 'fill', c });
+  G.push({ key: 'symboler-objekt', title: 'Symboler: objekt och personer', questions: [
+    symQ('sym-anvandare', 'Hur ska användarikonen se ut?', [['Huvud och axlar', 'user'], ['Person i cirkel', 'user-circle'], ['Byst med sluten form', 'user-bust'], ['Person i rundad fyrkant', 'user-square']], 'Logga in'),
+    symQ('sym-kundvagn', 'Vilken symbol ska användas för varukorgen?', [['Kundvagn', 'cart'], ['Kasse', 'bag'], ['Korg', 'basket']], 'Varukorg'),
+    symQ('sym-hjarta', 'Hur ska hjärtat se ut?', [['Klassiskt hjärta', 'heart'], ['Runt och mjukt hjärta', 'heart-round'], ['Spetsigt, geometriskt hjärta', 'heart-sharp']], 'Spara'),
+    Q('sym-stjarna-tom', 'Hur ska tomma stjärnor i ett betyg se ut?', [['Kontur i samma färg', 'outline'], ['Ljusgrå fylld', 'gray'], ['Ljusgrå kontur', 'light']].map(([l, e]) =>
+      O(l, W(`<div class="row" style="gap:3px;flex-wrap:nowrap">${full()}${full()}${full()}${full()}${starW(e)}</div><span class="small muted">4 av 5</span>`)))),
+    Q('sym-stjarna-halv', 'Hur ska ett halvt betyg (3,5) visas?', [
+      O('Halvfylld stjärna', W(`<div class="row" style="gap:3px;flex-wrap:nowrap">${full()}${full()}${full()}${halfStar('gray')}${starW('gray')}</div><span class="small muted">3,5 av 5</span>`)),
+      O('Halvfylld med kontur', W(`<div class="row" style="gap:3px;flex-wrap:nowrap">${full()}${full()}${full()}${halfStar('outline')}${starW('outline')}</div><span class="small muted">3,5 av 5</span>`)),
+      O('En stjärna och siffra', W(`<div class="row" style="gap:6px;flex-wrap:nowrap">${full()}<b style="font-size:17px">3,5</b><span class="muted">(128)</span></div>`)),
+      O('Avrundat till hela stjärnor', W(`<div class="row" style="gap:3px;flex-wrap:nowrap">${full()}${full()}${full()}${full()}${starW('gray')}</div><span class="small muted">3,5 av 5</span>`))
+    ]),
+    Q('sym-stjarna-form', 'Hur ska stjärnan vara formad?', [['Spetsiga uddar', 'star', { join: 'miter', cap: 'butt', w: 1 }], ['Rundade uddar', 'star', { w: 2.5 }], ['Bred och knubbig', 'star-fat', { w: 2 }]].map(([l, n, o]) =>
+      O(l, W(`<div class="syx-r" style="gap:24px">${I(n, { s: 48, st: 'fill', c: SC, ...o })}${I(n, { s: 48, c: SC, ...o, w: Math.max(o.w, 1.5) })}</div><div class="row" style="gap:3px;flex-wrap:nowrap">${[1, 2, 3, 4, 5].map(() => I(n, { s: 20, st: 'fill', c: SC, ...o })).join('')}</div>`)))),
+    Q('sym-stjarna-farg', 'Vilken färg ska betygsstjärnorna ha?', [['Gul', SC], ['Samma som texten', 'var(--sink)'], ['Varumärkesfärg', 'var(--brand)']].map(([l, c]) =>
+      O(l, W(`<div class="row" style="gap:3px;flex-wrap:nowrap">${[1, 2, 3, 4].map(() => full(24, c)).join('')}${I('star', { s: 24, st: 'fill', c: '#D5D8DC' })}</div><span class="small muted">4 av 5</span>`)))),
+    symQ('sym-plats', 'Hur ska platsmarkören se ut?', [['Nål med hål', 'pin'], ['Nål utan detalj', 'pin-plain'], ['Nål med fylld punkt', 'pin-dot'], ['Rund knappnål', 'pin-round']], 'Storgatan 12'),
+    symQ('sym-telefon', 'Hur ska telefonikonen se ut?', [['Telefonlur', 'phone'], ['Lur med ljudvågor', 'phone-waves'], ['Mobiltelefon', 'mobile'], ['Lur i cirkel', 'phone-circle']], '08-123 456 78'),
+    symQ('sym-mejl', 'Hur ska mejlikonen se ut?', [['Kuvert med flik', 'mail'], ['Kuvert med alla veck', 'mail-flap'], ['Öppet kuvert', 'mail-open'], ['Snabel-a', 'mail-at']], 'hej@exempel.se'),
+    symQ('sym-klocka', 'Hur ska klockikonen se ut?', [['Två visare', 'clock'], ['Med timmarkeringar', 'clock-ticks'], ['Visare i rät vinkel', 'clock-plain']], 'Öppet 9–17'),
+    symQ('sym-kalender', 'Hur ska kalenderikonen se ut?', [['Med ringar', 'calendar'], ['Med datumprickar', 'calendar-dots'], ['Med bock', 'calendar-check'], ['Utan ringar', 'calendar-plain']], 'Välj datum'),
+    symQ('sym-hem', 'Hur ska hemikonen se ut?', [['Hus med dörr', 'home'], ['Hus utan dörr', 'home-plain'], ['Hus med skorsten', 'home-chimney'], ['Fristående tak', 'home-roof']], 'Startsida'),
+    symQ('sym-las', 'Hur ska hänglåset se ut?', [['Rund bygel, streck', 'lock'], ['Kantig bygel', 'lock-square'], ['Rund bygel, nyckelhål', 'lock-keyhole']], 'Säker betalning'),
+    symQ('sym-chatt', 'Hur ska chattikonen se ut?', [['Rund bubbla med punkter', 'chat'], ['Rund bubbla, tom', 'chat-plain'], ['Fyrkantig bubbla', 'chat-square'], ['Fyrkantig med textrader', 'chat-lines'], ['Två bubblor', 'chat-two']], 'Chatta med oss')
+  ]});
+
+  const SOC = [['so-cam', '#D6336C'], ['so-f', '#1877F2'], ['so-in', '#0A66C2']];
+  const soc = (o) => `<div class="syx-r" style="gap:${o.gap || 14}px">${SOC.map(([n, col]) => {
+    const c = o.color ? col : 'var(--sink)';
+    if (!o.plate) return I(n, { s: o.s || 24, c, w: 2 });
+    const ps = o.ps || 40, br = o.plate === 'circle' ? '50%' : o.plate === 'rsq' ? '28%' : '0';
+    if (o.outline) return `<span style="display:grid;place-items:center;width:${ps}px;height:${ps}px;border-radius:${br};border:1.5px solid ${o.color ? col : 'var(--sline)'};color:${c}">${I(n, { s: Math.round(ps * 0.5), w: 2 })}</span>`;
+    return `<span style="display:grid;place-items:center;width:${ps}px;height:${ps}px;border-radius:${br};background:${c};color:#fff">${I(n, { s: Math.round(ps * 0.5), w: 2, k: c })}</span>`;
+  }).join('')}</div>`;
+  G.push({ key: 'sociala', title: 'Sociala ikoner', questions: [
+    Q('soc-farg', 'Ska sociala ikoner vara i en färg eller i nätverkens färger?', [
+      ['Monokroma', { plate: 'circle' }], ['I nätverkens färger', { plate: 'circle', color: 1 }], ['Monokroma utan platta', {}], ['Färg utan platta', { color: 1 }]
+    ].map(([l, o]) => O(l, W(soc(o))))),
+    Q('soc-form', 'Vilken form ska plattan bakom sociala ikoner ha?', [
+      ['Ingen platta', {}], ['Fylld cirkel', { plate: 'circle' }], ['Fylld rundad fyrkant', { plate: 'rsq' }], ['Cirkel med kant', { plate: 'circle', outline: 1 }]
+    ].map(([l, o]) => O(l, W(soc(o))))),
+    Q('soc-storlek', 'Hur stora ska sociala ikoner i sidfoten vara?', [20, 24, 32].map(s =>
+      O(s + ' px i sidfoten', W(`<div class="syx-w stack" style="gap:12px;background:#1A1C1E;color:#fff;border-radius:12px;padding:18px"><span class="small" style="opacity:.7">Följ oss</span><div class="row" style="gap:16px">${SOC.map(([n]) => I(n, { s, w: 2, ns: 1, c: '#fff', k: '#1A1C1E' })).join('')}</div></div>`))))
+  ]});
+
   /* @@FLER@@ */
 
   window.QZ.part({ key: 'symboler', groups: G });

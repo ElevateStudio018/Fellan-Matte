@@ -793,6 +793,283 @@
     ]);
   }
 
+  /* ===================== Inaktiv knapp ===================== */
+  group('inaktiv', 'Inaktiv knapp');
+  {
+    const two = (dis, en = B('Skicka')) => states([['Aktiv', en], ['Inaktiv', dis]]);
+    q('kn-inaktiv-typ', 'Hur ska en inaktiv primärknapp se ut?', [
+      ['Blekt (40 % synlig)', two(B('Skicka', 'opacity:.4;cursor:not-allowed'))],
+      ['Grå yta och grå text', two(B('Skicka', 'background:#E3E3E0;border-color:#E3E3E0;color:#8E9297;cursor:not-allowed'))],
+      ['Streckad kant, ingen fyllning', two(B('Skicka', 'background:transparent;border:1.5px dashed #A3A6AA;color:#8E9297;cursor:not-allowed'))]
+    ]);
+    q('kn-inaktiv-opacitet', 'Om den inaktiva knappen är blekt: hur blek?', [
+      ['30 % synlig', two(B('Skicka', 'opacity:.3'))],
+      ['45 % synlig', two(B('Skicka', 'opacity:.45'))],
+      ['60 % synlig', two(B('Skicka', 'opacity:.6'))]
+    ]);
+    q('kn-inaktiv-gra', 'Om den inaktiva knappen är grå: vilken grå?', [
+      ['Ljusgrå yta, grå text', two(B('Skicka', 'background:#E6E6E3;border-color:#E6E6E3;color:#93979C'))],
+      ['Mellangrå yta, vit text', two(B('Skicka', 'background:#B4B7BB;border-color:#B4B7BB;color:#fff'))]
+    ]);
+    const SK = st => B('Läs mer', 'border-width:1.5px;' + st, 'sb2');
+    q('kn-inaktiv-sek', 'Hur ska en inaktiv konturknapp se ut?', [
+      ['Blekt', two(SK('opacity:.4'), SK(''))],
+      ['Grå kant och grå text', two(SK('border-color:#CFD1D3;color:#9A9DA1'), SK(''))],
+      ['Streckad grå kant', two(SK('border:1.5px dashed #B4B7BB;color:#9A9DA1'), SK(''))]
+    ]);
+    const dis = 'background:#E3E3E0;border-color:#E3E3E0;color:#8E9297';
+    q('kn-inaktiv-forklaring', 'Ska det framgå varför knappen är inaktiv?', [
+      ['Ingen förklaring', S(B('Skicka', dis))],
+      ['Hjälptext under knappen', S(`<div class="stack" style="align-items:center;gap:8px">${B('Skicka', dis)}<span class="small muted">Fyll i e-post för att skicka</span></div>`)],
+      ['Låsikon i knappen', S(B(svg('lock', 16) + T('Skicka'), dis))]
+    ]);
+    const form = (fieldExtra, btn) => `<div class="pad"><div class="panel stack" style="gap:12px"><div class="fld" style="flex:none"><span class="lbl">E-post</span><span class="inp ph" style="${fieldExtra}">namn@exempel.se</span>${fieldExtra ? '<span class="small" style="color:var(--bad)">Fyll i din e-post</span>' : ''}</div>${btn}</div></div>`;
+    q('kn-inaktiv-princip', 'Ska knappen vara inaktiv tills formuläret är ifyllt?', [
+      ['Inaktiv tills allt är ifyllt', form('', B('Skicka', dis + ';width:100%'))],
+      ['Alltid aktiv, fel visas vid klick', form('border-color:var(--bad)', B('Skicka', 'width:100%'))]
+    ]);
+    q('kn-inaktiv-ikon', 'Vad händer med pilen när knappen är inaktiv?', [
+      ['Pilen blir lika blek som texten', two(B(T('Fortsätt') + svg('arrow', 18), dis), B(T('Fortsätt') + svg('arrow', 18)))],
+      ['Pilen döljs', two(B('Fortsätt', dis), B(T('Fortsätt') + svg('arrow', 18)))]
+    ]);
+  }
+
+  /* ===================== Laddar ===================== */
+  group('laddar', 'Laddar');
+  {
+    // Spinner: ring med lucka, ring med spår, punkter.
+    const ringGap = (cls, s = 16) => `<i class="${cls}-sp" style="display:inline-block;width:${s}px;height:${s}px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;flex:0 0 auto"></i>`;
+    const ringTrack = (cls, s = 16) => `<i class="${cls}-sp" style="display:inline-block;width:${s}px;height:${s}px;border-radius:50%;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;flex:0 0 auto"></i>`;
+    const thin = (cls, s = 16) => `<i class="${cls}-sp" style="display:inline-block;width:${s}px;height:${s}px;border-radius:50%;border:1.5px solid transparent;border-top-color:currentColor;flex:0 0 auto"></i>`;
+    const dots = cls => `<span style="display:inline-flex;gap:4px;align-items:center">${[0, 1, 2].map(i => `<i class="${cls}-d" style="display:block;width:6px;height:6px;border-radius:50%;background:currentColor;animation-delay:${i * 0.16}s"></i>`).join('')}</span>`;
+    const dotCss = cls => `.${cls}-d{animation:${cls}-b 1s ease-in-out infinite}@keyframes ${cls}-b{0%,80%,100%{opacity:.3;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}`;
+    const ld = (cls, inner, st = '') => css(cls, spinCss(cls) + dotCss(cls)) + S(B(inner, 'min-width:150px;' + st));
+    q('kn-laddar-typ', 'Hur ska knappen visa att något laddar?', [
+      ['Spinner och text "Skickar…"', ld('kn-ld1a', ringGap('kn-ld1a') + T('Skickar…'))],
+      ['Bara spinner', ld('kn-ld1b', ringGap('kn-ld1b', 18))],
+      ['Bara text "Skickar…"', ld('kn-ld1c', T('Skickar…'))],
+      ['Tre punkter', ld('kn-ld1d', dots('kn-ld1d'))]
+    ]);
+    q('kn-laddar-plats', 'Var ska spinnern sitta?', [
+      ['Före texten', ld('kn-ld2a', ringGap('kn-ld2a') + T('Skickar…'))],
+      ['Efter texten', ld('kn-ld2b', T('Skickar…') + ringGap('kn-ld2b'))]
+    ]);
+    q('kn-laddar-spinner', 'Hur ska spinnern se ut?', [
+      ['Ring med lucka', ld('kn-ld3a', ringGap('kn-ld3a') + T('Skickar…'))],
+      ['Ring med svagt spår', ld('kn-ld3b', ringTrack('kn-ld3b') + T('Skickar…'))],
+      ['Tunn båge', ld('kn-ld3c', thin('kn-ld3c') + T('Skickar…'))],
+      ['Pulserande punkter', ld('kn-ld3d', dots('kn-ld3d') + T('Skickar…'), 'gap:10px')]
+    ]);
+    q('kn-laddar-bredd', 'Ska knappen behålla sin bredd när den laddar?', [
+      ['Behåller bredden', css('kn-ld4a', spinCss('kn-ld4a')) + states([['Normal', B('Skicka förfrågan', 'width:190px')], ['Laddar', B(ringGap('kn-ld4a'), 'width:190px')]])],
+      ['Bredden följer innehållet', css('kn-ld4b', spinCss('kn-ld4b')) + states([['Normal', B('Skicka förfrågan')], ['Laddar', B(ringGap('kn-ld4b'))]])]
+    ]);
+    q('kn-laddar-ton', 'Ska knappen tonas ner medan den laddar?', [
+      ['Full färg', ld('kn-ld5a', ringGap('kn-ld5a') + T('Skickar…'))],
+      ['Lätt nedtonad', ld('kn-ld5b', ringGap('kn-ld5b') + T('Skickar…'), 'opacity:.7')]
+    ]);
+    q('kn-laddar-progress', 'Ska knappen visa hur långt det har kommit?', [
+      ['Nej, bara spinner', ld('kn-ld6a', ringGap('kn-ld6a') + T('Laddar upp…'))],
+      ['Fyllnad i knappen', css('kn-ld6b', '.kn-ld6b-f{animation:kn-ld6b-k 3s ease-in-out infinite}@keyframes kn-ld6b-k{0%{width:5%}90%,100%{width:100%}}') + S(B(`<i class="kn-ld6b-f" style="position:absolute;left:0;top:0;bottom:0;width:60%;background:rgba(255,255,255,.18)"></i>` + T('Laddar upp… 60 %'), 'position:relative;overflow:hidden;min-width:190px'))],
+      ['Tunn stapel under knappen', css('kn-ld6c', '.kn-ld6c-f{animation:kn-ld6c-k 3s ease-in-out infinite}@keyframes kn-ld6c-k{0%{width:5%}90%,100%{width:100%}}') + S(`<div class="stack" style="gap:8px;width:190px">${B(T('Laddar upp…'), 'width:100%')}<span style="display:block;height:4px;border-radius:2px;background:var(--accent);overflow:hidden"><i class="kn-ld6c-f" style="display:block;height:100%;width:60%;background:var(--brand)"></i></span></div>`)]
+    ]);
+    q('kn-laddar-text', 'Vilken text ska knappen ha medan den laddar?', [
+      ['Skickar…', ld('kn-ld7a', ringGap('kn-ld7a') + T('Skickar…'))],
+      ['Vänta…', ld('kn-ld7b', ringGap('kn-ld7b') + T('Vänta…'))],
+      ['Samma text: Skicka', ld('kn-ld7c', ringGap('kn-ld7c') + T('Skicka'))]
+    ]);
+    q('kn-laddar-storlek', 'Hur stor ska spinnern vara?', [
+      ['14 px', ld('kn-ld8a', ringGap('kn-ld8a', 14) + T('Skickar…'))],
+      ['16 px', ld('kn-ld8b', ringGap('kn-ld8b', 16) + T('Skickar…'))],
+      ['20 px', ld('kn-ld8c', ringGap('kn-ld8c', 20) + T('Skickar…'))]
+    ]);
+  }
+
+  /* ===================== Klart ===================== */
+  group('klart', 'Klart-läge');
+  {
+    const two = done => states([['Före', B('Skicka', 'min-width:150px')], ['Klart', done]]);
+    const OK = 'background:var(--ok);border-color:var(--ok);min-width:150px';
+    q('kn-klart-typ', 'Hur ska knappen visa att det gick bra?', [
+      ['Bock och grön yta', two(B(svg('check', 18) + T('Skickat'), OK))],
+      ['Bock, samma färg', two(B(svg('check', 18) + T('Skickat'), 'min-width:150px'))],
+      ['Bara texten byts', two(B('Skickat', 'min-width:150px'))],
+      ['Knappen byts mot en textrad', two(`<span style="display:inline-flex;align-items:center;gap:8px;height:48px;color:var(--ok);font-weight:600">${svg('check', 18)}${T('Tack, vi har fått det')}</span>`)]
+    ]);
+    q('kn-klart-gron', 'Hur grön ska klart-knappen vara?', [
+      ['Helgrön yta', two(B(svg('check', 18) + T('Skickat'), OK))],
+      ['Ljusgrön yta, grön text', two(B(svg('check', 18) + T('Skickat'), 'background:#DDF0E4;border-color:#DDF0E4;color:var(--ok);min-width:150px'))],
+      ['Grön kontur', two(B(svg('check', 18) + T('Skickat'), 'background:transparent;border:1.5px solid var(--ok);color:var(--ok);min-width:150px'))]
+    ]);
+    q('kn-klart-text', 'Vilken text ska klart-knappen ha?', [
+      ['Klart', S(B(svg('check', 18) + T('Klart'), OK))],
+      ['Skickat', S(B(svg('check', 18) + T('Skickat'), OK))],
+      ['Tack!', S(B(svg('check', 18) + T('Tack!'), OK))]
+    ]);
+    const chk = (cls, kind) => {
+      let k;
+      if (kind === 'draw') k = `.${cls}-c path{stroke-dasharray:22;animation:${cls}-k 2.4s ease infinite}@keyframes ${cls}-k{0%,15%{stroke-dashoffset:22}40%,100%{stroke-dashoffset:0}}`;
+      else if (kind === 'fade') k = `.${cls}-c{animation:${cls}-k 2.4s ease infinite}@keyframes ${cls}-k{0%,15%{opacity:0;transform:scale(.6)}40%,100%{opacity:1;transform:scale(1)}}`;
+      else k = `.${cls}-c{animation:${cls}-k 2.4s steps(1) infinite}@keyframes ${cls}-k{0%{opacity:0}15%,100%{opacity:1}}`;
+      return css(cls, k) + S(fig(B(`<svg class="ico ${cls}-c" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I.check}</svg>` + T('Skickat'), OK), 'Spelas upp i loop'));
+    };
+    q('kn-klart-anim', 'Hur ska bocken dyka upp?', [
+      ['Bocken ritas fram', chk('kn-ok4a', 'draw')],
+      ['Bocken tonar och växer in', chk('kn-ok4b', 'fade')],
+      ['Bocken syns direkt', chk('kn-ok4c', 'snap')]
+    ]);
+    q('kn-klart-tid', 'Hur länge ska klart-läget stå kvar?', [
+      ['Står kvar tills sidan byts'],
+      ['Återgår efter cirka 2 sekunder'],
+      ['Ersätts av ett meddelande ovanför']
+    ]);
+  }
+
+  /* ===================== Storlekar ===================== */
+  group('storlekar', 'Storlekar');
+  {
+    const set = (hs, fs = [13, 15, 17], pads = [14, 20, 28], lab = ['Liten', 'Mellan', 'Stor']) =>
+      S(hs.map((h, i) => B(lab[i], `height:${h}px;font-size:${fs[i]}px;padding:0 ${pads[i]}px`)).join(''), 'gap:10px');
+    q('kn-storl-steg', 'Vilka höjder ska liten, mellan och stor knapp ha?', [
+      ['32, 40 och 48 px', set([32, 40, 48])],
+      ['36, 44 och 52 px', set([36, 44, 52])],
+      ['40, 48 och 56 px', set([40, 48, 56])]
+    ]);
+    q('kn-storl-antal', 'Hur många knappstorlekar ska finnas?', [
+      ['Två (mellan och stor)', set([40, 48], [14, 15], [16, 24], ['Mellan', 'Stor'])],
+      ['Tre (liten, mellan, stor)', set([36, 44, 52])],
+      ['Fyra (extra liten till stor)', set([30, 36, 44, 52], [12, 13, 15, 17], [10, 14, 20, 28], ['XS', 'Liten', 'Mellan', 'Stor'])]
+    ]);
+    q('kn-storl-text', 'Ska textstorleken ändras med knappstorleken?', [
+      ['Samma text (15 px) i alla', set([36, 44, 52], [15, 15, 15])],
+      ['Texten växer (13, 15, 17 px)', set([36, 44, 52], [13, 15, 17])]
+    ]);
+    q('kn-storl-utfyllnad', 'Ska sidoutfyllnaden ändras med storleken?', [
+      ['Utfyllnaden växer (14, 20, 28)', set([36, 44, 52], [13, 15, 17], [14, 20, 28])],
+      ['Samma utfyllnad (20 px)', set([36, 44, 52], [13, 15, 17], [20, 20, 20])]
+    ]);
+    const rowItem = btn => `<div class="pad"><div class="panel" style="display:flex;align-items:center;gap:12px;padding:14px 16px"><div style="flex:1;min-width:0"><p style="font-weight:600">Rad i en lista</p><p class="small muted">Kort beskrivning</p></div>${btn}</div></div>`;
+    q('kn-storl-liten-stil', 'Hur ska en liten knapp i en listrad se ut?', [
+      ['Liten fylld', rowItem(B('Välj', 'height:34px;padding:0 14px;font-size:14px;border-radius:8px'))],
+      ['Liten tonad', rowItem(B('Välj', 'height:34px;padding:0 14px;font-size:14px;border-radius:8px;background:var(--tint);border-color:var(--tint)', 'sb2'))],
+      ['Liten kontur', rowItem(B('Välj', 'height:34px;padding:0 14px;font-size:14px;border-radius:8px;border-width:1.5px', 'sb2'))],
+      ['Textlänk', rowItem('<span style="color:var(--brand);font-weight:600;font-size:14px">Välj</span>')]
+    ]);
+    const iset = sizes => S([['Liten', 36, 13, 14], ['Mellan', 44, 15, 20], ['Stor', 52, 17, 28]].map(([t, h, f, p], i) => B(T(t) + svg('arrow', sizes[i]), `height:${h}px;font-size:${f}px;padding:0 ${p}px`)).join(''), 'gap:10px');
+    q('kn-storl-ikon', 'Ska ikonen växa med knappstorleken?', [
+      ['Ikonen växer (16, 18, 22 px)', iset([16, 18, 22])],
+      ['Samma ikon (18 px) i alla', iset([18, 18, 18])]
+    ]);
+  }
+
+  /* ===================== Ikonknappar ===================== */
+  group('ikonknappar', 'Ikonknappar');
+  {
+    const IB = (icon, st = '', is = 20) => `<span style="display:inline-grid;place-items:center;width:44px;height:44px;flex:0 0 auto;color:var(--sink);${st}">${svg(icon, is)}</span>`;
+    const trio = st => S(IB('heart', st) + IB('share', st) + IB('more', st), 'gap:10px');
+    const GR = 'background:rgba(26,28,30,.07);';
+    q('kn-ik-form', 'Vilken form ska ikonknappar ha?', [
+      ['Rund', trio(GR + 'border-radius:50%')],
+      ['Rundad fyrkant', trio(GR + 'border-radius:10px')],
+      ['Bara ikonen, ingen yta', trio('')]
+    ]);
+    q('kn-ik-storlek', 'Hur stor ska en ikonknapp vara?', [
+      ['32 px', S([32, 32, 32].map((s, i) => IB(['heart', 'share', 'more'][i], GR + `border-radius:50%;width:${s}px;height:${s}px`, 18)).join(''), 'gap:10px')],
+      ['40 px', S(['heart', 'share', 'more'].map(n => IB(n, GR + 'border-radius:50%;width:40px;height:40px')).join(''), 'gap:10px')],
+      ['44 px', S(['heart', 'share', 'more'].map(n => IB(n, GR + 'border-radius:50%;width:44px;height:44px')).join(''), 'gap:10px')],
+      ['48 px', S(['heart', 'share', 'more'].map(n => IB(n, GR + 'border-radius:50%;width:48px;height:48px')).join(''), 'gap:10px')]
+    ]);
+    q('kn-ik-bakgrund', 'Vilken yta ska en ikonknapp ha?', [
+      ['Ingen yta', trio('border-radius:50%')],
+      ['Ljusgrå yta', trio(GR + 'border-radius:50%')],
+      ['Tonad yta i knappfärg', trio('background:var(--tint);color:var(--brand);border-radius:50%')],
+      ['Vit yta med kant', trio('background:#fff;border:1px solid rgba(26,28,30,.14);border-radius:50%')],
+      ['Fylld i knappfärg', trio('background:var(--brand);color:#fff;border-radius:50%')]
+    ]);
+    q('kn-ik-kant', 'Om ikonknappen är vit: vilken kant?', [
+      ['Ingen kant', trio('background:#fff;border-radius:50%')],
+      ['Hårfin grå kant', trio('background:#fff;border:1px solid rgba(26,28,30,.14);border-radius:50%')],
+      ['1,5 px mörk kant', trio('background:#fff;border:1.5px solid var(--sink);border-radius:50%')]
+    ]);
+    const dlg = (x, head = true, outside = false) => `<div class="pad" style="padding-top:${outside ? 30 : 20}px"><div class="panel stack" style="gap:8px;position:relative;box-shadow:0 10px 30px -10px rgba(16,24,40,.3);padding-right:${head ? 60 : 18}px">${x}<p class="h h3">Rubrik i dialogen</p><p class="muted small">En kort rad text i dialogrutan.</p></div></div>`;
+    const X = st => `<span style="position:absolute;top:10px;right:10px;display:inline-grid;place-items:center;width:36px;height:36px;color:var(--sink);${st}">${svg('x', 20)}</span>`;
+    q('kn-ik-stang', 'Hur ska stäng-krysset i en dialog se ut?', [
+      ['Bara krysset', dlg(X(''))],
+      ['Kryss i grå cirkel', dlg(X(GR + 'border-radius:50%'))],
+      ['Kryss i rundad fyrkant', dlg(X(GR + 'border-radius:8px'))],
+      ['Text "Stäng" och kryss', dlg(`<span style="position:absolute;top:14px;right:12px;display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600">Stäng${svg('x', 16)}</span>`, true)]
+    ]);
+    q('kn-ik-stang-plats', 'Var ska stäng-krysset sitta?', [
+      ['Inne i övre hörnet', dlg(X(GR + 'border-radius:50%'))],
+      ['På rubrikraden', `<div class="pad"><div class="panel stack" style="gap:8px;box-shadow:0 10px 30px -10px rgba(16,24,40,.3)"><div style="display:flex;align-items:center;gap:10px;justify-content:space-between"><p class="h h3">Rubrik i dialogen</p><span style="display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;flex:0 0 auto;${GR}">${svg('x', 20)}</span></div><p class="muted small">En kort rad text i dialogrutan.</p></div></div>`],
+      ['Utanför, över hörnet', dlg(`<span style="position:absolute;top:-14px;right:-10px;display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(16,24,40,.25)">${svg('x', 18)}</span>`, false, true)]
+    ]);
+    q('kn-ik-stang-storlek', 'Hur stort ska krysset vara?', [
+      ['16 px', dlg(`<span style="position:absolute;top:10px;right:10px;display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;${GR}">${svg('x', 16)}</span>`)],
+      ['20 px', dlg(`<span style="position:absolute;top:10px;right:10px;display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;${GR}">${svg('x', 20)}</span>`)],
+      ['24 px', dlg(`<span style="position:absolute;top:10px;right:10px;display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;${GR}">${svg('x', 24)}</span>`)]
+    ]);
+    const field = btn => S(`<div style="display:flex;align-items:center;gap:8px;width:100%;max-width:240px;height:48px;padding:0 6px 0 14px;background:#fff;border:1px solid var(--sline);border-radius:8px"><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">exempel.se/abc123</span>${btn}</div>`);
+    q('kn-ik-kopiera', 'Hur ska kopiera-knappen i ett fält se ut?', [
+      ['Bara ikon', field(IB('copy', GR + 'border-radius:6px;width:36px;height:36px', 18))],
+      ['Ikon och text', field(`<span style="display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 10px;border-radius:6px;font-size:14px;font-weight:600;flex:0 0 auto;${GR}">${svg('copy', 16)}Kopiera</span>`)],
+      ['Bara text', field(`<span style="display:inline-flex;align-items:center;height:36px;padding:0 10px;border-radius:6px;font-size:14px;font-weight:600;flex:0 0 auto;${GR}">Kopiera</span>`)]
+    ]);
+    q('kn-ik-kopierad', 'Hur ska det synas att något har kopierats?', [
+      ['Ikonen byts mot en bock', field(IB('check', 'background:#DDF0E4;color:var(--ok);border-radius:6px;width:36px;height:36px', 18))],
+      ['Texten blir "Kopierad"', field(`<span style="display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 10px;border-radius:6px;font-size:14px;font-weight:600;flex:0 0 auto;background:#DDF0E4;color:var(--ok)">${svg('check', 16)}Kopierad</span>`)],
+      ['Liten bubbla "Kopierad"', `<div style="padding-top:18px">${field(`<span style="position:relative;display:inline-grid">${IB('copy', GR + 'border-radius:6px;width:36px;height:36px', 18)}<span style="position:absolute;bottom:44px;right:-6px;background:var(--sink);color:#fff;font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px;white-space:nowrap">Kopierad</span></span>`)}</div>`]
+    ]);
+    q('kn-ik-dela', 'Vilken ikon ska dela-knappen ha?', [
+      ['Pil upp ur en låda', S(IB('share', GR + 'border-radius:50%') + '<span class="small muted">Dela</span>')],
+      ['Tre noder', S(IB('shareNodes', GR + 'border-radius:50%') + '<span class="small muted">Dela</span>')],
+      ['Böjd pil', S(IB('shareArrow', GR + 'border-radius:50%') + '<span class="small muted">Dela</span>')]
+    ]);
+    const pc = h => `<div class="pad"><div style="position:relative;max-width:230px;margin:0 auto"><img class="pic" src="img/produkt-stol.jpg" alt="Produktbild" style="aspect-ratio:1/1">${h}</div></div>`;
+    q('kn-ik-favorit-bild', 'Hur ska favoritknappen på en bild se ut?', [
+      ['Hjärta i vit cirkel', pc(`<span style="position:absolute;top:10px;right:10px;display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#fff;color:var(--sink)">${svg('heart', 20)}</span>`)],
+      ['Bara hjärta med skugga', pc(`<span style="position:absolute;top:10px;right:10px;display:inline-grid;place-items:center;width:38px;height:38px;color:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))">${svg('heart', 24)}</span>`)],
+      ['Hjärta i vit rundad fyrkant', pc(`<span style="position:absolute;top:10px;right:10px;display:inline-grid;place-items:center;width:38px;height:38px;border-radius:9px;background:#fff;color:var(--sink)">${svg('heart', 20)}</span>`)],
+      ['Hjärta på frostat glas', pc(`<span style="position:absolute;top:10px;right:10px;display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.3);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff">${svg('heart', 20)}</span>`)]
+    ]);
+    const fav = col => states([['Inte vald', IB('heart', 'background:#fff;border:1px solid rgba(26,28,30,.14);border-radius:50%', 22)], ['Vald', IB('heart', `background:#fff;border:1px solid rgba(26,28,30,.14);border-radius:50%;color:${col}`, 22).replace('fill="none"', `fill="${col}"`)]]);
+    q('kn-ik-favorit-vald', 'Hur ska ett valt favorithjärta se ut?', [
+      ['Fyllt rött', fav('#D92D3A')],
+      ['Fyllt i knappfärg', fav('#24405E')],
+      ['Fyllt svart', fav('#1A1C1E')]
+    ]);
+    const hdr = btn => `<div class="pad"><div class="panel" style="display:flex;align-items:center;justify-content:space-between;padding:10px 10px 10px 16px"><span style="font-weight:800">Logotyp</span>${btn}</div></div>`;
+    const bars = (paths, w = 22) => `<svg class="ico" style="width:${w}px;height:${w}px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">${paths}</svg>`;
+    const MB = inner => `<span style="display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 11px;color:var(--sink);font-weight:600">${inner}</span>`;
+    q('kn-ik-meny', 'Hur ska menyknappen se ut?', [
+      ['Tre lika långa streck', hdr(MB(bars(I.menu)))],
+      ['Två streck', hdr(MB(bars(I.menu2)))],
+      ['Tre streck, olika långa', hdr(MB(bars('<path d="M4 7h16M4 12h11M4 17h16"/>')))],
+      ['Ordet Meny och streck', hdr(MB(T('Meny') + bars(I.menu, 20)))]
+    ]);
+    q('kn-ik-mer', 'Hur ska knappen för fler val (…) se ut?', [
+      ['Tre punkter vågrätt', S(IB('more', GR + 'border-radius:50%'))],
+      ['Tre punkter lodrätt', S(IB('moreV', GR + 'border-radius:50%'))]
+    ]);
+    q('kn-ik-tooltip', 'Ska en ikonknapp visa en förklaring vid hover?', [
+      ['Ja, liten bubbla med text', S(`<span style="position:relative;display:inline-grid;margin-top:34px">${IB('share', GR + 'border-radius:50%')}<span style="position:absolute;bottom:52px;left:50%;transform:translateX(-50%);background:var(--sink);color:#fff;font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px;white-space:nowrap">Dela</span></span>`)],
+      ['Nej, bara ikonen', S(`<span style="display:inline-grid;margin-top:34px">${IB('share', GR + 'border-radius:50%')}</span>`)],
+      ['Text bredvid ikonen i stället', S(`<span style="display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 14px 0 10px;border-radius:999px;font-weight:600;margin-top:34px;${GR}">${svg('share', 20)}Dela</span>`)]
+    ]);
+    q('kn-ik-ikonstorlek', 'Hur stor ska ikonen vara i en 44 px ikonknapp?', [
+      ['16 px ikon', S(['heart', 'share', 'more'].map(n => IB(n, GR + 'border-radius:50%', 16)).join(''), 'gap:10px')],
+      ['20 px ikon', S(['heart', 'share', 'more'].map(n => IB(n, GR + 'border-radius:50%', 20)).join(''), 'gap:10px')],
+      ['24 px ikon', S(['heart', 'share', 'more'].map(n => IB(n, GR + 'border-radius:50%', 24)).join(''), 'gap:10px')]
+    ]);
+    const tb = ['edit', 'copy', 'share', 'trash'];
+    q('kn-ik-verktygsrad', 'Hur ska flera ikonknappar i en rad grupperas?', [
+      ['Sammanfogade med delare', S(`<span style="display:inline-flex;background:#fff;border:1px solid rgba(26,28,30,.14);border-radius:10px;overflow:hidden">${tb.map((n, i) => IB(n, i ? 'border-left:1px solid rgba(26,28,30,.12)' : '')).join('')}</span>`)],
+      ['Separata, 4 px mellanrum', S(tb.map(n => IB(n, 'background:#fff;border:1px solid rgba(26,28,30,.14);border-radius:10px')).join(''), 'gap:4px')],
+      ['Separata, 10 px mellanrum', S(tb.map(n => IB(n, 'background:#fff;border:1px solid rgba(26,28,30,.14);border-radius:10px')).join(''), 'gap:10px')],
+      ['Bara ikoner utan ytor', S(tb.map(n => IB(n, '')).join(''), 'gap:4px')]
+    ]);
+  }
+
   // --- FLER GRUPPER ---
 
   window.QZ.part({ key: 'knappar', groups: G });

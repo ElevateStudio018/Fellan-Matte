@@ -1,6 +1,6 @@
 window.QZ_MANIFEST = {
- "v": 1795507882,
- "total": 1327,
+ "v": 1795507959,
+ "total": 1417,
  "parts": [
   {
    "key": "typsnitt",
@@ -27,7 +27,7 @@ window.QZ_MANIFEST = {
    "files": [
     "data-knappar.js"
    ],
-   "count": 116
+   "count": 159
   },
   {
    "key": "symboler",
@@ -36,7 +36,7 @@ window.QZ_MANIFEST = {
    "files": [
     "data-symboler.js"
    ],
-   "count": 70
+   "count": 117
   },
   {
    "key": "pilar",

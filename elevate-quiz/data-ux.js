@@ -40,7 +40,8 @@ const S = `<style>
 .uxk-i.v{color:var(--sink)}
 .uxk-i>span{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
 .uxk-ta{height:54px;align-items:flex-start;padding-top:8px}
-.uxk-f{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 100px}
+.uxk-f{display:flex;flex-direction:column;gap:4px;min-width:0;flex:0 0 auto}
+.uxk-row>.uxk-f{flex:1 1 100px}
 .uxk-f>b{font-size:12px;font-weight:600}
 .uxk-c{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 10px;border-radius:999px;border:1px solid var(--sline);background:var(--box);font-size:12px;font-weight:500;white-space:nowrap;flex:0 0 auto;color:var(--sink)}
 .uxk-c.on{background:var(--tint);border-color:var(--brand);color:var(--brand)}
@@ -518,14 +519,14 @@ const LINE = (opts = {}) => {
   const { qty = STEPPER(1), rm = T('Ta bort', 'uxk-xs uxk-m" style="text-decoration:underline'), price = '495 kr', x = false } = opts;
   return `<div class="uxk-row uxk-nw" style="align-items:flex-start;position:relative"><span style="width:46px;flex:0 0 46px">${IMG('1/1', 12)}</span><div class="uxk-col uxk-g4 uxk-sp">${ML(70)}${L(45)}<div class="uxk-row" style="gap:10px">${qty}${rm}</div></div><span class="uxk-pr">${price}</span>${x ? `<span style="position:absolute;top:-2px;right:-2px" class="uxk-m">${ic('x', 13)}</span>` : ''}</div>`;
 };
-const TOTALS = (rows = [['Delsumma', '1 245 kr'], ['Frakt', '49 kr']]) => `<div class="uxk-col uxk-g4">${rows.map(([k, v]) => ROW(T(k, 'uxk-s uxk-m') + SP + T(v, 'uxk-s'), 'uxk-nw')).join('')}${ROW(T('Totalt', 'uxk-b6') + SP + T('1 295 kr', 'uxk-pr" style="font-size:14px'), 'uxk-nw')}</div>`;
+const TOTALS = (rows = [['Delsumma', '1 245 kr'], ['Frakt', '49 kr']], tot = '1 295 kr') => `<div class="uxk-col uxk-g4">${rows.map(([k, v]) => ROW(T(k, 'uxk-s uxk-m') + SP + T(v, 'uxk-s'), 'uxk-nw')).join('')}${ROW(T('Totalt', 'uxk-b6') + SP + T(tot, 'uxk-pr" style="font-size:14px'), 'uxk-nw')}</div>`;
 
 /* ======================= SORTERING ======================= */
 grp('sortering', 'Sortering');
 
 const listTop = (ctrl, left = T('24 produkter', 'uxk-xs uxk-m')) => SCR(`${ROW(left + SP + ctrl)}${grid(3, 3, '1/1', 70)}`);
 Q('ux-sort-kontroll', 'Hur ska man välja sortering?', 'grid', [
-  ['Rullgardin', W(listTop(`<span style="width:150px">${SEL('Sortera: Populärast')}</span>`))],
+  ['Rullgardin', W(listTop(SEL('Sortera: Populärast', true, 'uxk-bs" style="height:28px;flex:0 0 auto;font-size:12px')))],
   ['Knappar i rad', W(SCR(`${ROW(C('Populärast', true) + C('Nyast') + C('Pris'))}${grid(3, 3, '1/1', 70)}`))],
   ['Ikon som öppnar en meny', W(listTop(`<span class="uxk-b uxk-b2 uxk-bs" style="width:30px;padding:0">${ic('sort', 14)}</span>`))],
   ['Textlänk med pil', W(listTop(`<span class="uxk-row uxk-s uxk-nw" style="gap:3px"><span class="uxk-m">Sortera:</span><b>Populärast</b>${ic('chevD', 12)}</span>`))]
@@ -599,9 +600,9 @@ Q('ux-lista-kop-pa-kort', 'Ska korten i en lista ha en köpknapp?', 'grid', [
 
 const artCard = (hot) => `<div class="uxk-card${hot === 'all' ? ' uxk-hot' : ''}" style="gap:6px">${hot === 'img' ? `<div class="uxk-hot">${IMG('16/10')}</div>` : IMG('16/10')}<span class="${hot === 'img' ? 'uxk-hot' : ''}" style="display:block">${T('Rubrik som är två rader lång', 'uxk-s uxk-b6')}</span>${para(2, 60)}${hot === 'link' ? `<span class="uxk-hot" style="align-self:flex-start">${T('Läs mer', 'uxk-s uxk-b6 uxk-br" style="text-decoration:underline')}</span>` : ''}</div>`;
 Q('ux-lista-klickyta', 'Vad ska gå att klicka på i ett kort?', 'grid', [
-  ['Hela kortet', W(SCR(`<div class="uxk-g2" style="align-items:start">${artCard('all')}${artCard('all')}</div>${ANN('Streckat = klickbart')}`))],
-  ['Bild och rubrik', W(SCR(`<div class="uxk-g2" style="align-items:start">${artCard('img')}${artCard('img')}</div>${ANN('Streckat = klickbart')}`))],
-  ['Bara en Läs mer-länk', W(SCR(`<div class="uxk-g2" style="align-items:start">${artCard('link')}${artCard('link')}</div>${ANN('Streckat = klickbart')}`))]
+  ['Hela kortet', W(SCR(`<div class="uxk-g2" style="align-items:start;gap:16px;padding:3px">${artCard('all')}${artCard('all')}</div>${ANN('Streckat = klickbart')}`))],
+  ['Bild och rubrik', W(SCR(`<div class="uxk-g2" style="align-items:start;gap:16px;padding:3px">${artCard('img')}${artCard('img')}</div>${ANN('Streckat = klickbart')}`))],
+  ['Bara en Läs mer-länk', W(SCR(`<div class="uxk-g2" style="align-items:start;gap:16px;padding:3px">${artCard('link')}${artCard('link')}</div>${ANN('Streckat = klickbart')}`))]
 ]);
 
 Q('ux-lista-antal', 'Ska antal objekt visas ovanför listan?', 'grid', [
@@ -824,7 +825,7 @@ Q('ux-vagn-lagg-till', 'Vad ska hända när man lägger något i varukorgen?', '
 
 Q('ux-vagn-typ', 'Var ska man se sin varukorg?', 'grid', [
   ['Utdragslåda från höger', W(`<div class="uxk-scr" style="min-height:230px">${HD(CARTICON(2), 2)}<div class="uxk-body">${grid(3, 3, '1/1', 70)}</div><div class="uxk-dim"></div><div class="uxk-ov" style="top:0;bottom:0;right:0;width:66%">${ROW(T('Varukorg (2)', 'uxk-s uxk-b6') + SP + ic('x', 13), 'uxk-nw')}${LINE({ rm: '' })}${LINE({ rm: '', price: '249 kr' })}<span class="uxk-sp"></span>${ROW(T('Totalt', 'uxk-s uxk-b6') + SP + T('744 kr', 'uxk-pr'), 'uxk-nw')}${B('Till kassan', '', 'uxk-bw uxk-bs')}</div></div>`)],
-  ['Egen sida', W(SCR(`<p class="uxk-h">Varukorg</p><div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;align-items:start">${COL(LINE({ rm: '' }) + HR + LINE({ rm: '', price: '249 kr' }))}<div class="uxk-box uxk-gr uxk-col">${TOTALS([['Delsumma', '744 kr']])}${B('Till kassan', '', 'uxk-bw uxk-bs')}</div></div>`, HD(CARTICON(2), 2)))],
+  ['Egen sida', W(SCR(`<p class="uxk-h">Varukorg</p><div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;align-items:start">${COL(LINE({ rm: '' }) + HR + LINE({ rm: '', price: '249 kr' }))}<div class="uxk-box uxk-gr uxk-col">${TOTALS([['Delsumma', '744 kr']], '744 kr')}${B('Till kassan', '', 'uxk-bw uxk-bs')}</div></div>`, HD(CARTICON(2), 2)))],
   ['Ruta under ikonen', W(`<div class="uxk-scr" style="min-height:230px">${HD(CARTICON(2), 2)}<div class="uxk-body">${grid(3, 3, '1/1', 70)}</div><div class="uxk-ov uxk-pop" style="top:34px;right:8px;width:70%;border:1px solid var(--sline);border-radius:8px">${LINE({ qty: T('1 st', 'uxk-xs uxk-m'), rm: '' })}${LINE({ qty: T('1 st', 'uxk-xs uxk-m'), rm: '', price: '249 kr' })}${HR}${ROW(T('Totalt', 'uxk-s uxk-b6') + SP + T('744 kr', 'uxk-pr'), 'uxk-nw')}${B('Till kassan', '', 'uxk-bw uxk-bs')}</div></div>`)]
 ]);
 
