@@ -1087,8 +1087,8 @@
   );
 
   add('stilar',
-    Q('stil-utskuren', 'Hur tjocka ska de utskurna detaljerna i fyllda ikoner vara?', [1.5, 2, 2.75].map(kw =>
-      O(fmt(kw) + ' px utskärning', W(grid({ st: 'fill', s: 32, kw }, ['home', 'user-circle', 'mail', 'calendar', 'lock', 'clock', 'info', 'check-circle'], 'gap:18px 22px')))))
+    Q('stil-utskuren', 'Hur tjocka ska de utskurna detaljerna i fyllda ikoner vara?', [1.25, 2, 3].map(kw =>
+      O(fmt(kw) + ' px utskärning', W(grid({ st: 'fill', s: 44, kw }, ['home', 'user-circle', 'mail', 'calendar', 'lock', 'clock', 'info', 'check-circle'], 'gap:16px 14px')))))
   );
 
   add('listor',
