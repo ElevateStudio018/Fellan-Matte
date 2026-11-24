@@ -935,7 +935,7 @@
   const grain = a => `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ${a} 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")`;
   const PAT = {
     none: '',
-    grain: `background-image:${grain(.22)}`,
+    grain: `background-image:${grain(.1)}`,
     dots: 'background-image:radial-gradient(rgba(36,64,94,.22) 1.2px,transparent 1.5px);background-size:16px 16px',
     grid: 'background-image:linear-gradient(rgba(36,64,94,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(36,64,94,.08) 1px,transparent 1px);background-size:24px 24px',
     diag: 'background-image:repeating-linear-gradient(135deg,rgba(36,64,94,.07) 0 1px,transparent 1px 10px)',
@@ -946,7 +946,7 @@
       [['Ingen textur', 'none'], ['Korn', 'grain'], ['Prickar', 'dots'], ['Rutnät', 'grid'], ['Diagonala linjer', 'diag']].map(([l, k]) => [l, patPanel(PAT[k])])),
 
     Q('yt-tex-korn', 'Om ytor får korn: hur tydligt?',
-      [['Knappt synligt', .12], ['Tydligt', .25], ['Kraftigt', .45]].map(([l, a]) => [l, patPanel(`background-image:${grain(a)}`)])),
+      [['Knappt synligt', .06], ['Tydligt', .12], ['Kraftigt', .22]].map(([l, a]) => [l, patPanel(`background-image:${grain(a)}`)])),
 
     Q('yt-tex-prickar', 'Om ytor får prickar: hur tätt?',
       [12, 20, 32].map(n => ['Prickar var ' + n + ':e px', patPanel(`background-image:radial-gradient(rgba(36,64,94,.24) 1.2px,transparent 1.5px);background-size:${n}px ${n}px`)])),
