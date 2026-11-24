@@ -1,6 +1,6 @@
 window.QZ_MANIFEST = {
- "v": 1795507959,
- "total": 1417,
+ "v": 1795507978,
+ "total": 1289,
  "parts": [
   {
    "key": "typsnitt",
@@ -37,15 +37,6 @@ window.QZ_MANIFEST = {
     "data-symboler.js"
    ],
    "count": 117
-  },
-  {
-   "key": "pilar",
-   "title": "Pilar och småbitar",
-   "desc": "Pilar, chevrons, etiketter, chips, avdelare, punkter och märken",
-   "files": [
-    "data-pilar.js"
-   ],
-   "count": 128
   },
   {
    "key": "falt",

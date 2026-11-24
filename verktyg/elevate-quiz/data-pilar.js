@@ -789,5 +789,419 @@
     ].map(([l, h]) => [l, `<div style="max-width:340px;margin:0 auto;width:100%">${h}</div>`]))
   ]));
 
+  // =====================================================================
+  // SIDINDIKATORER FÖR KARUSELL
+  // =====================================================================
+  // ind(o): rad med indikator för 5 bilder där bild 2 visas.
+  function ind(o = {}) {
+    const n = 5, cur = 1, s = o.s || 8, on = o.on || 'var(--sink)', off = o.off || 'rgba(26,28,30,.22)';
+    const k = o.kind || 'dots';
+    if (k === 'num') return `<span style="font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;color:${o.numC || 'var(--sink)'};${o.numSt || ''}">${o.fmt || '2 / 5'}</span>`;
+    if (k === 'bar') return `<span style="display:block;width:120px;max-width:100%;height:3px;border-radius:3px;background:${off}"><span style="display:block;width:40%;height:100%;border-radius:3px;background:${on};margin-left:20%"></span></span>`;
+    return `<span style="display:inline-flex;align-items:center;gap:${o.gap || 6}px">${Array.from({ length: n }, (_, i) => {
+      const act = i === cur;
+      if (k === 'lines') return `<span style="width:${act ? 28 : 18}px;height:3px;border-radius:2px;background:${act ? on : off}"></span>`;
+      const act2 = o.act || 'dark';
+      let st = `width:${s}px;height:${s}px;border-radius:999px;background:${off};`;
+      if (act) st = act2 === 'big' ? `width:${s + 4}px;height:${s + 4}px;border-radius:999px;background:${on};`
+        : act2 === 'pill' ? `width:${s * 3}px;height:${s}px;border-radius:999px;background:${on};`
+        : act2 === 'ring' ? `width:${s + 4}px;height:${s + 4}px;border-radius:999px;background:transparent;box-shadow:inset 0 0 0 1.5px ${on};`
+        : `width:${s}px;height:${s}px;border-radius:999px;background:${on};`;
+      return `<span style="${st}${o.shadow || ''}"></span>`;
+    }).join('')}</span>`;
+  }
+  const slide = (indicator, just = 'center') => pad(`<div class="stack" style="gap:12px;max-width:300px;margin:0 auto;width:100%">${box()}<div style="display:flex;justify-content:${just}">${indicator}</div></div>`);
+  groups.push(G('sidindikator', 'Sidindikatorer för karusell', [
+    Q('pi-si-typ', 'Hur ska en karusell visa vilken bild man är på?', [
+      ['Prickar', ind()], ['Streck', ind({ kind: 'lines' })], ['Siffror "2 / 5"', ind({ kind: 'num' })], ['Löpande stapel', ind({ kind: 'bar' })]
+    ].map(([l, h]) => [l, slide(h)])),
+    Q('pi-si-aktiv', 'Hur ska den aktiva pricken markeras?', [
+      ['Mörkare, samma storlek', 'dark'], ['Större prick', 'big'], ['Utdragen till en pill', 'pill'], ['Ring runt', 'ring']
+    ].map(([l, act]) => [l, slide(ind({ act }))])),
+    Q('pi-si-storlek', 'Hur stora ska prickarna vara?', [
+      ['Små, 6 px', 6], ['Mellan, 8 px', 8], ['Stora, 10 px', 10]
+    ].map(([l, s]) => [l, slide(ind({ s, act: 'pill', gap: s * .75 }))])),
+    Q('pi-si-placering', 'Var ska prickarna sitta?', [
+      ['På bilden, nere i mitten', 'on'], ['Under bilden, i mitten', 'center'], ['Under bilden, till vänster', 'flex-start']
+    ].map(([l, m]) => [l, pad(`<div class="stack" style="gap:12px;max-width:300px;margin:0 auto;width:100%"><div style="position:relative"><img class="pic" src="img/tradgard.jpg" alt="Trädgård">${m === 'on' ? `<div style="position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center">${ind({ act: 'pill', on: '#fff', off: 'rgba(255,255,255,.55)' })}</div>` : ''}</div>${m === 'on' ? '' : `<div style="display:flex;justify-content:${m}">${ind({ act: 'pill' })}</div>`}</div>`)])),
+    Q('pi-si-pabild', 'Hur ska prickarna synas ovanpå ett foto?', [
+      ['Vita prickar', { on: '#fff', off: 'rgba(255,255,255,.55)' }, ''],
+      ['Vita prickar med skugga', { on: '#fff', off: 'rgba(255,255,255,.6)', shadow: 'box-shadow:0 0 3px rgba(0,0,0,.45);' }, ''],
+      ['Prickar i en mörk pill', { on: '#fff', off: 'rgba(255,255,255,.45)' }, 'background:rgba(0,0,0,.4);padding:6px 9px;border-radius:999px']
+    ].map(([l, o, wrap]) => [l, pad(`<div style="position:relative;max-width:300px;margin:0 auto"><img class="pic" src="img/tradgard.jpg" alt="Trädgård"><div style="position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center"><span style="display:inline-flex;${wrap}">${ind({ act: 'pill', ...o })}</span></div></div>`)])),
+    Q('pi-si-siffror', 'Hur ska bildräknaren skrivas?', [
+      ['2 / 5', '2 / 5'], ['2 av 5', '2 av 5'], ['02 — 05', '02 — 05'], ['2/5 i en mörk pill', 'pill']
+    ].map(([l, f]) => [l, pad(`<div style="position:relative;max-width:300px;margin:0 auto">${box()}<div style="position:absolute;right:10px;bottom:10px">${f === 'pill' ? ind({ kind: 'num', fmt: '2/5', numC: '#fff', numSt: 'background:rgba(26,28,30,.6);padding:4px 9px;border-radius:999px;font-size:12px' }) : ind({ kind: 'num', fmt: f })}</div></div>`)]))
+  ]));
+
+  // =====================================================================
+  // RULLNINGSLIST
+  // =====================================================================
+  const scrollRow = (bar, extra = '') => pad(`<div style="position:relative;max-width:340px;margin:0 auto"><div style="display:flex;gap:10px;overflow:hidden">${box('flex:0 0 42%')}${box('flex:0 0 42%')}${box('flex:0 0 42%')}</div>${extra}${bar}</div>`);
+  const track = (h, thumb, trk, r) => `<div style="margin-top:10px;height:${h}px;border-radius:${r}px;background:${trk}"><div style="width:38%;height:100%;border-radius:${r}px;background:${thumb}"></div></div>`;
+  groups.push(G('rullning', 'Rullningslist', [
+    Q('pi-rl-synlig', 'Ska en vågrät rad med kort visa en rullningslist?', [
+      ['Dold', ''], ['Tunn och diskret', track(4, 'rgba(26,28,30,.3)', 'transparent', 4)], ['Tydlig med spår', track(8, 'rgba(26,28,30,.4)', 'rgba(26,28,30,.08)', 8)]
+    ].map(([l, b]) => [l, scrollRow(b)])),
+    Q('pi-rl-ledtrad', 'Hur ska det synas att en rad går att rulla i sidled?', [
+      ['Sista kortet sticker ut', ''],
+      ['Kanten tonas ut', '<div style="position:absolute;top:0;right:0;width:60px;height:calc(100% - 0px);background:linear-gradient(90deg,transparent,var(--ground))"></div>'],
+      ['Pilknapp på kanten', `<div style="position:absolute;top:0;bottom:0;right:6px;display:flex;align-items:center">${rb('chev', KB.rundfylld, 36, '16px')}</div>`],
+      ['Synlig rullningslist', '']
+    ].map(([l, ex]) => [l, scrollRow(l === 'Synlig rullningslist' ? track(4, 'rgba(26,28,30,.3)', 'rgba(26,28,30,.06)', 4) : '', ex)])),
+    Q('pi-rl-lodrat', 'Hur ska rullningslisten i en lång lista eller meny se ut?', [
+      ['Dold', ''], ['Tunn och rundad', 'width:4px;right:3px;border-radius:4px;background:rgba(26,28,30,.3)'], ['Bred med spår', 'width:8px;right:0;border-radius:0;background:rgba(26,28,30,.4);box-shadow:0 0 0 0']
+    ].map(([l, st]) => [l, pad(`<div class="panel" style="position:relative;padding:4px 18px 4px 14px;height:150px;overflow:hidden">${l === 'Bred med spår' ? '<div style="position:absolute;top:0;bottom:0;right:0;width:8px;background:rgba(26,28,30,.06)"></div>' : ''}${st ? `<div style="position:absolute;top:10px;height:46px;${st}"></div>` : ''}${['Rad ett', 'Rad två', 'Rad tre', 'Rad fyra', 'Rad fem'].map((t, i) => `<div style="padding:8px 0;${i ? 'border-top:1px solid var(--sline)' : ''}">${t}</div>`).join('')}</div>`)]))
+  ]));
+
+  // =====================================================================
+  // TOOLTIP-PILAR
+  // =====================================================================
+  // tip(o): bubbla ovanför en info-ikon. o.arrow = 0 | storlek, o.bg, o.r
+  const tip = (o = {}) => {
+    const bg = o.bg || 'var(--sink)', col = o.col || '#fff', ar = o.arrow == null ? 6 : o.arrow, r = o.r == null ? 6 : o.r;
+    const side = o.side || 'top';
+    const arrow = ar ? `<span style="position:absolute;${side === 'top' ? `left:50%;bottom:-${ar}px;transform:translateX(-50%);border-left:${ar}px solid transparent;border-right:${ar}px solid transparent;border-top:${ar}px solid ${bg}` : `top:50%;left:-${ar}px;transform:translateY(-50%);border-top:${ar}px solid transparent;border-bottom:${ar}px solid transparent;border-right:${ar}px solid ${bg}`}"></span>` : '';
+    const bubble = `<span style="position:relative;display:inline-block;background:${bg};color:${col};font-size:13px;line-height:1.35;padding:7px 11px;border-radius:${r}px;max-width:200px;${o.shadow || ''}">Avgiften dras vid bokning${arrow}</span>`;
+    const icon = `<span style="color:var(--smuted);display:inline-flex">${a('info', { s: '18px', w: 1.75 })}</span>`;
+    const gap = (ar || 0) + (o.gap == null ? 4 : o.gap);
+    if (side === 'right') return cen(`<span style="display:inline-flex;align-items:center;gap:${gap}px">${icon}${bubble}</span>`);
+    return cen(`<span style="display:inline-flex;flex-direction:column;align-items:center;gap:${gap}px">${bubble}${icon}</span>`);
+  };
+  groups.push(G('tooltip', 'Tooltip-pilar', [
+    Q('pi-tt-pil', 'Ska en tooltip ha en liten pil mot det den förklarar?', [
+      ['Liten pil, 5 px', { arrow: 5 }], ['Större pil, 8 px', { arrow: 8 }], ['Ingen pil', { arrow: 0, gap: 6 }]
+    ].map(([l, o]) => [l, tip(o)])),
+    Q('pi-tt-rundning', 'Hur rund ska tooltipen vara?', [
+      ['Skarp, 2 px', 2], ['Rundad, 6 px', 6], ['Mycket rund, 12 px', 12]
+    ].map(([l, r]) => [l, tip({ r })])),
+    Q('pi-tt-farg', 'Vilken färg ska tooltipen ha?', [
+      ['Mörk med vit text', {}], ['Vit med skugga', { bg: '#fff', col: 'var(--sink)', shadow: 'box-shadow:0 2px 10px rgba(0,0,0,.14);' }], ['Märkesfärg', { bg: 'var(--brand)' }]
+    ].map(([l, o]) => [l, tip(o)])),
+    Q('pi-tt-sida', 'Var ska tooltipen helst visas?', [
+      ['Ovanför', { side: 'top' }], ['Till höger', { side: 'right' }]
+    ].map(([l, o]) => [l, tip(o)])),
+    Q('pi-tt-utlosare', 'Vad ska visa att det finns en förklaring att hämta?', [
+      ['i i en cirkel', `Avgift <span style="color:var(--smuted);display:inline-flex">${a('info', { s: '16px', w: 1.75 })}</span>`],
+      ['? i en cirkel', `Avgift <span style="color:var(--smuted);display:inline-flex">${a('help', { s: '16px', w: 1.75 })}</span>`],
+      ['Prickad understrykning', '<span style="text-decoration:underline dotted;text-underline-offset:4px;text-decoration-color:var(--smuted)">Avgift</span>']
+    ].map(([l, h]) => [l, cen(`<div style="display:flex;justify-content:space-between;align-items:center;gap:20px;width:100%;max-width:240px"><span style="display:inline-flex;align-items:center;gap:6px">${h}</span><span class="price">49 kr</span></div>`)]))
+  ]));
+
+  // =====================================================================
+  // CITATTECKEN SOM GRAFISK DETALJ
+  // =====================================================================
+  const qt = 'Det gick snabbt och smidigt, och allt var precis som utlovat.';
+  const quoteBlock = (mark, o = {}) => pad(`<figure style="margin:0;position:relative;${o.wrap || ''}">${o.pos === 'bg' ? `<span aria-hidden="true" style="position:absolute;top:-34px;left:-6px;font-size:130px;line-height:1;font-weight:800;color:var(--tint);z-index:0">${mark}</span>` : o.pos === 'hang' ? `<span aria-hidden="true" style="position:absolute;left:0;top:-4px;font-size:40px;line-height:1;font-weight:800;color:var(--brand)">${mark}</span>` : (mark ? `<div aria-hidden="true" style="font-size:${o.size || 56}px;line-height:.8;height:${(o.size || 56) * .45}px;font-weight:800;color:${o.c || 'var(--brand)'}">${mark}</div>` : '')}<blockquote style="margin:0;position:relative;z-index:1;font-size:17px;font-weight:500;line-height:1.4;${o.qst || ''}">${o.inline ? o.inline[0] : ''}${qt}${o.inline ? o.inline[1] : ''}</blockquote><figcaption class="small muted" style="margin-top:10px;position:relative;z-index:1;${o.pos === 'hang' ? 'padding-left:28px' : ''}">Anna L.</figcaption></figure>`);
+  groups.push(G('citat', 'Citattecken som grafisk detalj', [
+    Q('pi-ct-stil', 'Hur ska ett citat markeras grafiskt?', [
+      ['Stort citattecken ovanför', quoteBlock('”')],
+      ['Vanliga citattecken i texten', quoteBlock('', { inline: ['”', '”'] })],
+      ['Lodrät linje till vänster', quoteBlock('', { wrap: 'border-left:3px solid var(--brand);padding-left:16px' })],
+      ['Ingen markering', quoteBlock('')]
+    ]),
+    Q('pi-ct-storlek', 'Hur stort ska det dekorativa citattecknet vara?', [
+      ['Litet, 36 px', 36], ['Mellan, 56 px', 56], ['Stort, 88 px', 88]
+    ].map(([l, s]) => [l, quoteBlock('”', { size: s })])),
+    Q('pi-ct-farg', 'Vilken färg ska det stora citattecknet ha?', [
+      ['Märkesfärg', 'var(--brand)'], ['Ljus ton', '#C9D3DD'], ['Samma som texten', 'var(--sink)']
+    ].map(([l, c]) => [l, quoteBlock('”', { c })])),
+    Q('pi-ct-tecken', 'Vilka citattecken ska användas?', [
+      ['Svenska ”…”', ['”', '”']], ['Engelska “…”', ['“', '”']], ['Gåsögon »…«', ['»', '«']]
+    ].map(([l, m]) => [l, quoteBlock('', { inline: m })])),
+    Q('pi-ct-placering', 'Var ska det stora citattecknet sitta?', [
+      ['Ovanför texten', quoteBlock('”')], ['Hängande i vänsterkanten', quoteBlock('”', { pos: 'hang', qst: 'padding-left:28px' })], ['Stort och ljust bakom texten', quoteBlock('”', { pos: 'bg', wrap: 'padding-top:16px' })]
+    ])
+  ]));
+
+  // =====================================================================
+  // UNDERSTRYKNINGAR OCH MARKERINGAR SOM DETALJ
+  // =====================================================================
+  const hl = (word, st, extra = '') => `<div class="pad"><div class="h h2">Allt du behöver på <span style="${st}">${word}</span>${extra}</div></div>`;
+  const HL = {
+    halva: 'background:linear-gradient(transparent 58%,#F4D58D 58%);padding:0 2px',
+    tjock: 'text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:6px;text-decoration-color:var(--brand)',
+    farg: 'color:var(--brand)',
+    ingen: ''
+  };
+  const squig = '<svg viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:0;bottom:-8px;width:100%;height:10px"><path d="M2 8 C 30 2, 60 2, 118 6" fill="none" stroke="var(--brand)" stroke-width="3" stroke-linecap="round"/></svg>';
+  groups.push(G('markering', 'Understrykningar och markeringar', [
+    Q('pi-mk-stil', 'Hur ska ett nyckelord i en rubrik framhävas?', [
+      ['Överstrykningsfärg bakom', HL.halva], ['Tjock understrykning', HL.tjock], ['Ordet i märkesfärg', HL.farg], ['Ingen markering', HL.ingen]
+    ].map(([l, st]) => [l, hl('ett ställe', st)])),
+    Q('pi-mk-hojd', 'Hur hög ska överstrykningsfärgen bakom ordet vara?', [
+      ['Nedre tredjedelen', 'background:linear-gradient(transparent 68%,#F4D58D 68%);padding:0 2px'],
+      ['Nedre halvan', HL.halva],
+      ['Hela ordet', 'background:#F4D58D;padding:0 4px;border-radius:3px']
+    ].map(([l, st]) => [l, hl('ett ställe', st)])),
+    Q('pi-mk-form', 'Vilken form ska understrykningen ha?', [
+      ['Rak linje', 'position:relative;display:inline-block;box-shadow:inset 0 -3px 0 var(--brand)'], ['Handritad båge', 'position:relative;display:inline-block'], ['Rundad pill bakom', 'background:var(--tint);padding:0 10px;border-radius:999px']
+    ].map(([l, st]) => [l, l === 'Handritad båge' ? `<div class="pad"><div class="h h2">Allt du behöver på <span style="${st}">ett ställe${squig}</span></div></div>` : hl('ett ställe', st)])),
+    Q('pi-mk-tjocklek', 'Hur tjock ska en dekorativ understrykning vara?', [
+      ['Tunn, 2 px', 2], ['Mellan, 4 px', 4], ['Kraftig, 7 px', 7]
+    ].map(([l, t]) => [l, hl('ett ställe', `text-decoration:underline;text-decoration-thickness:${t}px;text-underline-offset:${t + 3}px;text-decoration-color:var(--brand)`)])),
+    Q('pi-mk-mangd', 'Hur många ord får markeras i en rubrik?', [
+      ['Ett eller två ord', 'one'], ['Hela rubriken', 'all']
+    ].map(([l, m]) => [l, m === 'one' ? hl('ett ställe', HL.halva) : `<div class="pad"><div class="h h2"><span style="${HL.halva};-webkit-box-decoration-break:clone;box-decoration-break:clone">Allt du behöver på ett ställe</span></div></div>`]))
+  ]));
+
+  // =====================================================================
+  // HÖRN OCH DETALJER PÅ KORT
+  // =====================================================================
+  const corner = (inner, pos = 'top:16px;right:16px') => card(inner ? `<div style="position:absolute;${pos};color:var(--brand)">${inner}</div>` : '', 'padding-right:56px');
+  const plate = (k, st) => `<span style="display:inline-grid;place-items:center;width:32px;height:32px;${st}">${a(k, { s: '17px' })}</span>`;
+  groups.push(G('korthorn', 'Hörn och detaljer på kort', [
+    Q('pi-kh-detalj', 'Ska klickbara kort ha en detalj i hörnet?', [
+      ['Diagonal pil ↗', plate('diag', '')], ['Pil →', plate('arrow', '')], ['Plus +', plate('plus', '')], ['Ingen detalj', '']
+    ].map(([l, i]) => [l, corner(i)])),
+    Q('pi-kh-platta', 'Hur ska pilen i kortets hörn se ut?', [
+      ['Bara pilen', ''], ['I tunn ring', 'border-radius:50%;border:1.5px solid var(--sline)'], ['I tonad cirkel', 'border-radius:50%;background:var(--tint)'], ['I fylld cirkel', 'border-radius:50%;background:var(--brand);color:#fff'], ['I rundad fyrkant', 'border-radius:8px;background:var(--tint)']
+    ].map(([l, st]) => [l, corner(plate('diag', st))])),
+    Q('pi-kh-position', 'Var på kortet ska pilen sitta?', [
+      ['Uppe till höger', 'top:16px;right:16px'], ['Nere till höger', 'bottom:16px;right:16px']
+    ].map(([l, p]) => [l, corner(plate('diag', 'border-radius:50%;border:1.5px solid var(--sline)'), p)])),
+    Q('pi-kh-signal', 'Hur ska ett kort visa att det går att klicka på?', [
+      ['Pil i hörnet', corner(plate('arrow', 'border-radius:50%;border:1.5px solid var(--sline)'))],
+      ['Länk "Läs mer →" längst ner', card(`<div style="margin-top:6px">${lk('Läs mer', a('arrow', { s: '1.05em' }))}</div>`)],
+      ['Ingen synlig markering', card()]
+    ])
+  ]));
+
+  // =====================================================================
+  // "VISA MER"-LÄNKAR
+  // =====================================================================
+  const listItems = (n = 3) => Array.from({ length: n }, (_, i) => `<div style="display:flex;gap:12px;align-items:center">${box('width:44px;aspect-ratio:1;border-radius:8px;flex:0 0 auto')}<div style="flex:1;min-width:0" class="stack">${line('70%', 9)}${line('45%', 8)}</div></div>`).join('');
+  groups.push(G('visamer', '"Visa mer"-länkar', [
+    Q('pi-vm-form', 'Hur ska "Visa fler" under en lista se ut?', [
+      ['Länk med chevron ner', `<div style="text-align:center">${lk('Visa fler', a('chevD', { s: '1.05em' }), '', 'gap:4px')}</div>`],
+      ['Konturknapp i full bredd', sb('Visa fler', '', 'width:100%', 'sb2')],
+      ['Konturknapp i mitten', `<div style="text-align:center">${sb('Visa fler', '', '', 'sb2')}</div>`],
+      ['Länk med plus', `<div style="text-align:center">${lk('Visa fler', '', a('plus', { s: '1.05em' }), 'gap:4px')}</div>`]
+    ].map(([l, h]) => [l, pad(`<div class="stack" style="gap:14px">${listItems()}<div style="margin-top:4px">${h}</div></div>`)])),
+    Q('pi-vm-sealla', 'Var ska länken "Se alla" sitta för en rad med kort?', [
+      ['Uppe till höger vid rubriken', 'top'], ['Under raden, i mitten', 'bottom'], ['Under raden, till vänster', 'left']
+    ].map(([l, m]) => {
+      const link = lk('Se alla', a('arrow', { s: '1.05em' }));
+      const tiles = `<div style="display:flex;gap:10px">${box('flex:1')}${box('flex:1')}</div>`;
+      return [l, pad(`<div class="stack" style="gap:12px">${m === 'top' ? `<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="h h3">Rubrik</span>${link}</div>` : '<span class="h h3">Rubrik</span>'}${tiles}${m === 'bottom' ? `<div style="text-align:center">${link}</div>` : m === 'left' ? `<div>${link}</div>` : ''}</div>`)];
+    })),
+    Q('pi-vm-text', 'Vilken text ska knappen för fler resultat ha?', [
+      ['Visa fler', 'Visa fler'], ['Visa mer', 'Visa mer'], ['Ladda fler', 'Ladda fler'], ['Se alla', 'Se alla']
+    ].map(([l, t]) => [l, pad(`<div class="stack" style="gap:14px">${listItems(2)}<div style="text-align:center">${sb(t, '', '', 'sb2')}</div></div>`)])),
+    Q('pi-vm-antal', 'Ska knappen visa hur många som är kvar?', [
+      ['Utan antal', sb('Visa fler', '', '', 'sb2')],
+      ['Antal i knappen', sb('Visa fler (24)', '', '', 'sb2')],
+      ['"Visar 12 av 36" ovanför', `<div class="small muted" style="margin-bottom:8px">Visar 12 av 36</div>${sb('Visa fler', '', '', 'sb2')}`]
+    ].map(([l, h]) => [l, pad(`<div class="stack" style="gap:14px">${listItems(2)}<div style="text-align:center">${h}</div></div>`)])),
+    Q('pi-vm-langtext', 'Hur ska en avkortad text med "Läs mer" se ut?', [
+      ['Tonas ut och länk under', 'fade'], ['Tre punkter och länk direkt efter', 'inline'], ['Klipps efter rader och knapp under', 'btn']
+    ].map(([l, m]) => {
+      const long = 'Här är en längre beskrivning som fortsätter över flera rader. Den berättar mer om innehållet och vad som ingår, och den blir för lång för att visas i sin helhet direkt.';
+      const body = m === 'fade' ? `<div style="position:relative;max-height:68px;overflow:hidden"><p>${long}</p><div style="position:absolute;left:0;right:0;bottom:0;height:34px;background:linear-gradient(transparent,var(--ground))"></div></div><div style="margin-top:6px">${lk('Läs mer', a('chevD', { s: '1.05em' }), '', 'gap:4px')}</div>`
+        : m === 'inline' ? `<p>Här är en längre beskrivning som fortsätter över flera rader. Den berättar mer om… <span style="color:var(--brand);font-weight:600">Läs mer</span></p>`
+        : `<p style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">${long}</p><div style="margin-top:10px">${sb('Läs mer', '', 'height:38px;font-size:14px;padding:0 16px', 'sb2')}</div>`;
+      return [l, pad(body)];
+    }))
+  ]));
+
+  // =====================================================================
+  // ELLIPSIS OCH TRUNKERING
+  // =====================================================================
+  const longTitle = 'En rubrik som är för lång för att få plats på en eller två rader i ett smalt kort';
+  const clamp = n => `display:-webkit-box;-webkit-line-clamp:${n};-webkit-box-orient:vertical;overflow:hidden`;
+  const tcard = (titleSt, descSt = clamp(2)) => pad(`<div class="panel stack" style="gap:6px;max-width:240px;margin:0 auto"><div class="h h3" style="${titleSt}">${longTitle}</div><p class="muted small" style="${descSt}">${txt} Mer text om innehållet som fortsätter ytterligare en bit.</p></div>`);
+  groups.push(G('trunkering', 'Ellipsis och trunkering', [
+    Q('pi-tr-rubrik', 'Hur ska en för lång rubrik i ett kort kortas?', [
+      ['En rad med …', 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis'], ['Två rader med …', clamp(2)], ['Visa hela rubriken', '']
+    ].map(([l, st]) => [l, tcard(st)])),
+    Q('pi-tr-text', 'Hur många rader beskrivning ska ett kort visa?', [
+      ['En rad', clamp(1)], ['Två rader', clamp(2)], ['Tre rader', clamp(3)]
+    ].map(([l, st]) => [l, tcard(clamp(2), st)])),
+    Q('pi-tr-slut', 'Hur ska avkortad text sluta?', [
+      ['Tre punkter …', 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis'],
+      ['Tonas ut', 'white-space:nowrap;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,#000 75%,transparent);mask-image:linear-gradient(90deg,#000 75%,transparent)'],
+      ['Klipps rakt av', 'white-space:nowrap;overflow:hidden']
+    ].map(([l, st]) => [l, pad(`<div class="panel" style="max-width:240px;margin:0 auto;padding:4px 16px">${['Storgatan 12, 111 22 Stockholm, ingång från gården', 'Lillvägen 4, 222 33 Göteborg, andra våningen'].map((t, i) => `<div style="padding:10px 0;${i ? 'border-top:1px solid var(--sline);' : ''}${st}">${t}</div>`).join('')}</div>`)])),
+    Q('pi-tr-mitten', 'Var ska ett långt filnamn kortas?', [
+      ['I slutet', 'Bokningsbekräftelse_mars_…'], ['I mitten', 'Bokningsbekr…_mars_2026.pdf'], ['Radbryts i stället', 'Bokningsbekräftelse_mars_ 2026.pdf']
+    ].map(([l, t]) => [l, pad(`<div class="panel" style="display:flex;align-items:center;gap:12px;max-width:260px;margin:0 auto;padding:12px 14px"><span style="width:32px;height:38px;border-radius:5px;background:var(--accent);flex:0 0 auto"></span><div style="min-width:0"><div style="font-weight:600;font-size:14px;${l === 'Radbryts i stället' ? 'word-break:break-all' : 'white-space:nowrap'}">${t.replace('_ ', '_')}</div><div class="small muted">240 kB</div></div></div>`)])),
+    Q('pi-tr-tabell', 'Hur ska långa namn i en smal lista visas?', [
+      ['Kortas med …', 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis'], ['Radbryts', '']
+    ].map(([l, st]) => [l, pad(`<div class="panel" style="padding:4px 16px;max-width:260px;margin:0 auto">${['Anna Lindqvist Bergström', 'Erik Johansson', 'Maria Andersson-Karlsson'].map((t, i) => `<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;${i ? 'border-top:1px solid var(--sline)' : ''}"><span style="min-width:0;${st}">${t}</span><span class="muted small" style="flex:0 0 auto">14.00</span></div>`).join('')}</div>`)]))
+  ]));
+
+  // =====================================================================
+  // SKELETT-PLATSHÅLLARE
+  // =====================================================================
+  // skel(o): kort med bild och tre rader. o.r = rundning på rader, o.anim, o.c = färg
+  const skel = (o = {}) => {
+    const c = o.c || '#E4E6E8', r = o.r == null ? 6 : o.r, cls = o.cls || '';
+    const bar = (w, h) => `<div class="${cls}" style="height:${h}px;width:${w};border-radius:${r}px;background:${c}"></div>`;
+    return pad(`<div class="panel stack" style="gap:10px;max-width:240px;margin:0 auto"><div class="${cls}" style="aspect-ratio:16/9;border-radius:${o.imgR == null ? 8 : o.imgR}px;background:${c}"></div>${bar('80%', o.h || 14)}${bar('100%', o.h2 || 10)}${bar(o.last || '60%', o.h2 || 10)}</div>`);
+  };
+  groups.push(G('skelett', 'Skelett-platshållare', [
+    Q('pi-sk-form', 'Vilken form ska skelettets textrader ha?', [
+      ['Lätt rundade', { r: 4 }], ['Pill, helt runda', { r: 999 }], ['Raka hörn', { r: 0, imgR: 0 }]
+    ].map(([l, o]) => [l, skel(o)])),
+    Q('pi-sk-rorelse', 'Hur ska skelettet röra sig medan det laddar?', [
+      ['Glans som sveper över', 'pi-sk-a'], ['Mjuk puls', 'pi-sk-b'], ['Stilla', '']
+    ].map(([l, c]) => {
+      const css = c === 'pi-sk-a' ? `<style>@keyframes pi-sk-a-k{0%{background-position:150% 0}100%{background-position:-50% 0}}.pi-sk-a{background:linear-gradient(90deg,#E4E6E8 30%,#F1F2F3 50%,#E4E6E8 70%)!important;background-size:250% 100%!important;animation:pi-sk-a-k 1.6s linear infinite}${reduce('.pi-sk-a')}</style>`
+        : c === 'pi-sk-b' ? `<style>@keyframes pi-sk-b-k{0%,100%{opacity:1}50%{opacity:.45}}.pi-sk-b{animation:pi-sk-b-k 1.6s ease-in-out infinite}${reduce('.pi-sk-b')}</style>` : '';
+      return [l, css + skel({ cls: c })];
+    })),
+    Q('pi-sk-farg', 'Hur mörkt ska skelettet vara?', [
+      ['Mycket ljust', '#EEEFF0'], ['Ljusgrått', '#E4E6E8'], ['Tydligt grått', '#D3D6D9'], ['Tonat i märkesfärg', '#DCE3EA']
+    ].map(([l, c]) => [l, skel({ c })])),
+    Q('pi-sk-detalj', 'Hur detaljerat ska skelettet vara?', [
+      ['Som innehållet, rad för rad', skel()],
+      ['Bara ett grått block', pad('<div class="panel" style="max-width:240px;margin:0 auto;padding:0;overflow:hidden"><div style="height:200px;background:#E4E6E8"></div></div>')],
+      ['Snurra i stället', `<style>@keyframes pi-sk-sp{to{transform:rotate(360deg)}}.pi-sk-sp{animation:pi-sk-sp .9s linear infinite}${reduce('.pi-sk-sp')}</style>` + pad('<div class="panel" style="max-width:240px;margin:0 auto;height:200px;display:grid;place-items:center"><span class="pi-sk-sp" style="width:28px;height:28px;border-radius:50%;border:3px solid #E4E6E8;border-top-color:var(--brand);display:block"></span></div>')]
+    ]),
+    Q('pi-sk-sistarad', 'Ska skelettets sista textrad vara kortare?', [
+      ['Kortare sista rad', { last: '60%' }], ['Alla rader lika långa', { last: '100%' }]
+    ].map(([l, o]) => [l, skel(o)]))
+  ]));
+
+  // =====================================================================
+  // KVANTITETSVÄLJARE
+  // =====================================================================
+  // qty(o): − 1 + i olika utföranden.
+  const qty = (o = {}) => {
+    const h = o.h || 40, m = o.mode || 'box';
+    const btn = (k, dis) => `<span style="display:inline-grid;place-items:center;width:${h}px;height:${h}px;flex:0 0 auto;${o.btnSt || ''}${m === 'sep' ? 'border-radius:50%;border:1px solid var(--sline);background:var(--box);' : ''}${m === 'filled' ? 'border-radius:50%;background:var(--tint);color:var(--brand);' : ''}${dis ? 'opacity:.35;' : ''}">${a(k, { s: Math.round(h * .42) + 'px' })}</span>`;
+    const num = `<span style="min-width:${Math.round(h * .9)}px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums;${o.lines ? `align-self:stretch;display:grid;place-items:center;border-left:1px solid var(--sline);border-right:1px solid var(--sline);` : ''}">1</span>`;
+    const minus = o.minusIcon === 'trash' ? `<span style="display:inline-grid;place-items:center;width:${h}px;height:${h}px;flex:0 0 auto;${m === 'sep' ? 'border-radius:50%;border:1px solid var(--sline);background:var(--box);' : ''}">${a('trash', { s: Math.round(h * .42) + 'px', w: 1.75 })}</span>` : btn('minus', o.dim);
+    const wrapSt = m === 'box' ? `border:1px solid var(--sline);border-radius:${o.r || 'var(--rf)'};background:var(--field);` : m === 'pill' ? 'border:1px solid var(--sline);border-radius:999px;background:var(--field);' : m === 'grey' ? `border-radius:${o.r || 'var(--rf)'};background:#ECEDEE;` : '';
+    return `<span style="display:inline-flex;align-items:center;${m === 'sep' || m === 'filled' ? 'gap:6px;' : ''}${wrapSt}overflow:hidden">${minus}${num}${btn('plus')}</span>`;
+  };
+  const qrow = q => pad(`<div class="panel" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><div style="font-weight:600">Produktnamn</div><div class="price small">495 kr</div></div>${q}</div>`);
+  groups.push(G('kvantitet', 'Kvantitetsväljare', [
+    Q('pi-kv-form', 'Hur ska väljaren för antal se ut?', [
+      ['Ruta med kant runt allt', { mode: 'box' }], ['Pill med kant', { mode: 'pill' }], ['Separata runda knappar', { mode: 'sep' }], ['Grå yta utan kant', { mode: 'grey' }], ['Bara − och + utan ram', { mode: 'bare' }]
+    ].map(([l, o]) => [l, qrow(qty(o))])),
+    Q('pi-kv-storlek', 'Hur stor ska väljaren för antal vara?', [
+      ['Liten, 32 px', 32], ['Mellan, 40 px', 40], ['Stor, 48 px', 48]
+    ].map(([l, h]) => [l, qrow(qty({ h }))])),
+    Q('pi-kv-avdelare', 'Ska siffran skiljas från knapparna med linjer?', [
+      ['Utan linjer', {}], ['Med lodräta linjer', { lines: true }]
+    ].map(([l, o]) => [l, qrow(qty(o))])),
+    Q('pi-kv-minst', 'Hur ska minusknappen se ut när antalet är 1?', [
+      ['Nedtonad', { dim: true }], ['Byts mot papperskorg', { minusIcon: 'trash' }], ['Som vanligt', {}]
+    ].map(([l, o]) => [l, qrow(qty(o))])),
+    Q('pi-kv-knappar', 'Hur ska plus- och minusknapparna se ut när de står fritt?', [
+      ['Runda med kant', { mode: 'sep' }], ['Runda och tonade', { mode: 'filled' }], ['Bara tecknen', { mode: 'bare' }]
+    ].map(([l, o]) => [l, qrow(qty(o))])),
+    Q('pi-kv-tecken', 'Vilka tecken ska väljaren använda?', [
+      ['Minus och plus', 'pm'], ['Pilar upp och ner', 'ud']
+    ].map(([l, m]) => [l, qrow(m === 'pm' ? qty() : `<span style="display:inline-flex;align-items:stretch;border:1px solid var(--sline);border-radius:var(--rf);background:var(--field);overflow:hidden;height:40px"><span style="min-width:44px;display:grid;place-items:center;font-weight:600">1</span><span style="display:flex;flex-direction:column;border-left:1px solid var(--sline)"><span style="flex:1;display:grid;place-items:center;width:28px;border-bottom:1px solid var(--sline)">${a('chevU', { s: '13px' })}</span><span style="flex:1;display:grid;place-items:center;width:28px">${a('chevD', { s: '13px' })}</span></span></span>`)]))
+  ]));
+
+  // =====================================================================
+  // STJÄRNOR
+  // =====================================================================
+  const STAR = {
+    spetsig: 'M12 2.5l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.7l7.1-.6z',
+    rundad: 'M11.1 3.4a1 1 0 0 1 1.8 0l2.2 4.6 5 .7a1 1 0 0 1 .6 1.7l-3.7 3.5.9 5a1 1 0 0 1-1.5 1.1L12 17.6 7.6 20a1 1 0 0 1-1.5-1.1l.9-5-3.7-3.5a1 1 0 0 1 .6-1.7l5-.7z',
+    smal: 'M12 1.5l2.2 7.6H22l-6.3 4.6 2.4 7.8L12 16.7l-6.1 4.8 2.4-7.8L2 9.1h7.8z'
+  };
+  const starSvg = (d, s, fill, stroke = 'none', half = false, key = '') => half
+    ? `<svg viewBox="0 0 24 24" aria-hidden="true" style="width:${s}px;height:${s}px;flex:0 0 auto"><path d="${d}" fill="${stroke === 'none' ? '#D9DBDE' : 'none'}" stroke="${stroke === 'none' ? 'none' : fill}" stroke-width="1.5"/><path d="${d}" fill="${fill}" style="clip-path:inset(0 50% 0 0)"/></svg>`
+    : `<svg viewBox="0 0 24 24" aria-hidden="true" style="width:${s}px;height:${s}px;flex:0 0 auto"><path d="${d}" fill="${fill}" stroke="${stroke}" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+  const stars = (o = {}) => {
+    const d = STAR[o.form || 'rundad'], s = o.s || 18, c = o.c || '#E3A008', score = o.score == null ? 4 : o.score;
+    const empty = o.empty || 'grey';
+    return `<span style="display:inline-flex;align-items:center;gap:${o.gap == null ? 2 : o.gap}px">${[0, 1, 2, 3, 4].map(i => {
+      if (i < Math.floor(score)) return starSvg(d, s, c);
+      if (i < score) return starSvg(d, s, c, empty === 'outline' ? c : 'none', true);
+      return empty === 'none' ? '' : empty === 'outline' ? starSvg(d, s, 'none', c) : starSvg(d, s, '#D9DBDE');
+    }).join('')}</span>`;
+  };
+  const rate = (st, after = '<span class="small muted">4,0 (120)</span>') => cen(`<span style="display:inline-flex;align-items:center;gap:8px">${st}${after}</span>`);
+  groups.push(G('stjarnor', 'Stjärnor', [
+    Q('pi-sj-form', 'Vilken form ska betygsstjärnorna ha?', [
+      ['Klassisk spetsig', 'spetsig'], ['Rundade spetsar', 'rundad'], ['Smala långa uddar', 'smal']
+    ].map(([l, f]) => [l, rate(stars({ form: f, s: 22 }))])),
+    Q('pi-sj-storlek', 'Hur stora ska stjärnorna vara i ett kort?', [
+      ['Små, 14 px', 14], ['Mellan, 18 px', 18], ['Stora, 24 px', 24]
+    ].map(([l, s]) => [l, rate(stars({ s }))])),
+    Q('pi-sj-farg', 'Vilken färg ska fyllda stjärnor ha?', [
+      ['Gul', '#E3A008'], ['Mörk som texten', 'var(--sink)'], ['Märkesfärg', 'var(--brand)']
+    ].map(([l, c]) => [l, rate(stars({ c }))])),
+    Q('pi-sj-tom', 'Hur ska tomma stjärnor se ut?', [
+      ['Grå fyllda', 'grey'], ['Bara kontur', 'outline'], ['Visas inte', 'none']
+    ].map(([l, e]) => [l, rate(stars({ empty: e, s: 20 }))])),
+    Q('pi-sj-halv', 'Hur ska ett betyg som 4,5 visas?', [
+      ['Halvfylld femte stjärna', rate(stars({ score: 4.5, s: 20 }), '<span class="small muted">4,5</span>')],
+      ['Avrundat till hela stjärnor', rate(stars({ score: 5, s: 20 }), '<span class="small muted">4,5</span>')],
+      ['En stjärna och siffran', rate(starSvg(STAR.rundad, 20, '#E3A008'), '<span style="font-weight:600">4,5</span><span class="small muted">(120)</span>')]
+    ]),
+    Q('pi-sj-avstand', 'Hur tätt ska stjärnorna sitta?', [
+      ['Tätt, 0 px', 0], ['Normalt, 2 px', 2], ['Luftigt, 5 px', 5]
+    ].map(([l, g]) => [l, rate(stars({ gap: g, s: 20 }))]))
+  ]));
+
+  // =====================================================================
+  // PROGRESSBAR
+  // =====================================================================
+  const pbar = (o = {}) => {
+    const h = o.h || 6, r = o.r == null ? 999 : o.r, fr = o.fr == null ? r : o.fr, trk = o.trk == null ? 'rgba(26,28,30,.1)' : o.trk;
+    const bar = `<div style="position:relative;height:${h}px;border-radius:${r}px;background:${trk};${o.trkLine ? 'background:transparent;border-bottom:1px solid var(--sline);' : ''}overflow:hidden"><div style="width:62%;height:100%;border-radius:${fr}px;background:var(--brand);${o.inside ? 'display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:#fff;font-size:11px;font-weight:700' : ''}">${o.inside ? '62 %' : ''}</div></div>`;
+    const lab = o.lab || 'top';
+    if (lab === 'top') return `<div class="stack" style="gap:8px"><div style="display:flex;justify-content:space-between;font-size:13px"><span style="font-weight:600">Uppladdning</span><span class="muted">62 %</span></div>${bar}</div>`;
+    if (lab === 'end') return `<div class="stack" style="gap:8px"><span style="font-size:13px;font-weight:600">Uppladdning</span><div style="display:flex;align-items:center;gap:10px"><div style="flex:1">${bar}</div><span class="small muted">62 %</span></div></div>`;
+    return `<div class="stack" style="gap:8px"><span style="font-size:13px;font-weight:600">Uppladdning</span>${bar}</div>`;
+  };
+  const pb = o => pad(`<div class="panel">${pbar(o)}</div>`);
+  groups.push(G('progress', 'Progressbar', [
+    Q('pi-pb-tjocklek', 'Hur tjock ska en progressbar vara?', [
+      ['Hårfin, 2 px', 2], ['Tunn, 4 px', 4], ['Mellan, 8 px', 8], ['Tjock, 12 px', 12]
+    ].map(([l, h]) => [l, pb({ h })])),
+    Q('pi-pb-rundning', 'Hur ska progressbarens ändar se ut?', [
+      ['Helt runda ändar', { r: 999 }], ['Lätt rundade', { r: 3 }], ['Raka ändar', { r: 0 }], ['Rundat spår, rak fyllning', { r: 999, fr: 0 }]
+    ].map(([l, o]) => [l, pb({ h: 8, ...o })])),
+    Q('pi-pb-spar', 'Hur ska den tomma delen av stapeln se ut?', [
+      ['Ljusgrått spår', {}], ['Tonat spår', { trk: 'var(--tint)' }], ['Bara en tunn linje', { trk: 'transparent', trkLine: true }]
+    ].map(([l, o]) => [l, pb({ h: 6, ...o })])),
+    Q('pi-pb-etikett', 'Var ska procenten stå?', [
+      ['Ovanför till höger', { lab: 'top' }], ['Efter stapeln', { lab: 'end' }], ['Inuti stapeln', { lab: 'none', inside: true, h: 18 }], ['Ingen procent', { lab: 'none' }]
+    ].map(([l, o]) => [l, pb({ h: 6, ...o })])),
+    Q('pi-pb-segment', 'Ska framsteg i ett flöde visas som en hel stapel eller i delar?', [
+      ['Hel stapel', 'hel'], ['En del per steg', 'seg']
+    ].map(([l, m]) => [l, pad(`<div class="panel stack" style="gap:8px"><div style="display:flex;justify-content:space-between;font-size:13px"><span style="font-weight:600">Uppgifter</span><span class="muted">Steg 2 av 4</span></div>${m === 'hel' ? '<div style="height:6px;border-radius:6px;background:rgba(26,28,30,.1)"><div style="width:50%;height:100%;border-radius:6px;background:var(--brand)"></div></div>' : `<div style="display:flex;gap:4px">${[1, 1, 0, 0].map(f => `<span style="flex:1;height:6px;border-radius:6px;background:${f ? 'var(--brand)' : 'rgba(26,28,30,.1)'}"></span>`).join('')}</div>`}</div>`)])),
+    Q('pi-pb-cirkel', 'Ska framsteg visas som stapel eller ring?', [
+      ['Rak stapel', 'bar'], ['Ring med procent', 'ring']
+    ].map(([l, m]) => [l, m === 'bar' ? pb({ h: 6 }) : pad(`<div class="panel" style="display:flex;align-items:center;gap:14px"><svg viewBox="0 0 36 36" aria-hidden="true" style="width:52px;height:52px;flex:0 0 auto;transform:rotate(-90deg)"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(26,28,30,.1)" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="var(--brand)" stroke-width="4" stroke-linecap="round" stroke-dasharray="58.4 94.2"/></svg><div><div style="font-size:13px;font-weight:600">Uppladdning</div><div class="small muted">62 %</div></div></div>`)]))
+  ]));
+
+  // =====================================================================
+  // SMÅ GRAFISKA ACCENTER VID RUBRIKER
+  // =====================================================================
+  const head = (before = '', after = '', below = '', st = '') => pad(`<div class="stack" style="gap:10px;${st}">${before}<div class="h h2">Rubrik på avsnittet${after}</div>${below}<p class="muted">${txt}</p></div>`);
+  const bar2 = (w, h, c = 'var(--brand)') => `<span style="display:block;width:${w}px;height:${h}px;border-radius:${h}px;background:${c}"></span>`;
+  groups.push(G('accenter', 'Små grafiska accenter', [
+    Q('pi-ac-rubrik', 'Ska rubriker ha en liten grafisk accent?', [
+      ['Kort streck under rubriken', head('', '', bar2(40, 3))],
+      ['Prick efter rubriken', head('', '<span style="color:var(--brand)">.</span>')],
+      ['Kort streck ovanför', head(bar2(40, 3))],
+      ['Ingen accent', head()]
+    ]),
+    Q('pi-ac-streck', 'Hur stort ska strecket under rubriken vara?', [
+      ['Kort och tunt, 24 × 2 px', [24, 2]], ['Mellan, 40 × 3 px', [40, 3]], ['Långt och kraftigt, 64 × 4 px', [64, 4]]
+    ].map(([l, [w, h]]) => [l, head('', '', bar2(w, h))])),
+    Q('pi-ac-overrubrik', 'Ska överrubriken ha en liten detalj före?', [
+      ['Kort streck före', `<span class="eyebrow" style="display:inline-flex;align-items:center;gap:8px">${bar2(20, 2, 'currentColor')}Om oss</span>`],
+      ['Prick före', `<span class="eyebrow" style="display:inline-flex;align-items:center;gap:8px"><span style="width:6px;height:6px;border-radius:50%;background:var(--brand)"></span>Om oss</span>`],
+      ['Nummer före', '<span class="eyebrow" style="display:inline-flex;align-items:center;gap:8px"><span style="color:var(--brand)">01</span>Om oss</span>'],
+      ['Ingen detalj', '<span class="eyebrow">Om oss</span>']
+    ].map(([l, e]) => [l, head(e)])),
+    Q('pi-ac-lodrat', 'Ska en rubrik ha ett lodrätt streck till vänster?', [
+      ['Med lodrätt streck', 'border-left:3px solid var(--brand);padding-left:14px'], ['Utan streck', '']
+    ].map(([l, st]) => [l, head('', '', '', st)])),
+    Q('pi-ac-farg', 'Vilken färg ska accenten vid rubriken ha?', [
+      ['Märkesfärg', 'var(--brand)'], ['Samma som rubriken', 'var(--sink)'], ['Ljus ton', '#C9D3DD']
+    ].map(([l, c]) => [l, head('', '', bar2(40, 3, c))]))
+  ]));
+
   window.QZ.part({ key: 'pilar', groups });
 })();

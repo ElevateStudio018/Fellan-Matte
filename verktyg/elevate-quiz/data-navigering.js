@@ -840,6 +840,277 @@
     ['Upphöjd rund knapp i mitten', BN({ mid: true })]
   ]);
 
+  /* ===== Brödsmulor ===== */
+  group('brodsmulor', 'Brödsmulor');
+  const crumbs = (o = {}) => {
+    const it = o.items || ['Hem', 'Tjänster', 'Undersida'];
+    const sep = o.sep !== undefined ? o.sep : '›';
+    const last = it.length - 1;
+    const parts = it.map((t, i) => {
+      if (i === last && o.cur === 'hide') return '';
+      const home = i === 0 && o.home === 'icon' ? `<span class="nvb-btn" aria-label="Hem">${ic('home', (o.fs || 13) + 3)}</span>` : t;
+      return `<span class="${i === last ? 'nvb-bc-c' : 'nvb-bc-l'}">${home}</span>`;
+    }).filter(Boolean);
+    return `<nav class="nvb-bc" style="font-size:${o.fs || 13}px">${parts.join(`<span class="nvb-bc-s" aria-hidden="true">${sep}</span>`)}</nav>`;
+  };
+  const BCCSS = '& .nvb-bc{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;color:var(--smuted);line-height:1.4}& .nvb-bc-c{color:var(--sink);font-weight:500}& .nvb-bc-s{color:var(--smuted);opacity:.8}';
+  const SUB = (cr, css = '', below = false) => opt(`<div class="pad" style="background:var(--box)"><div class="stack" style="gap:8px">${below ? '' : cr}<p class="h h2">Undersida</p>${below ? cr : ''}<p class="muted">Kort text om vad sidan handlar om.</p></div></div>`, BCCSS + css);
+  q('bs-finns', 'Ska undersidor ha brödsmulor?', S, [
+    ['Utan brödsmulor', H({ on: 0, page: '<div class="nvb-pg" style="background:#fff"><p class="h">Undersida</p><p class="muted">Kort text om vad sidan handlar om.</p></div>' })],
+    ['Brödsmulor över rubriken', H({ on: 0, css: BCCSS, page: `<div class="nvb-pg" style="background:#fff">${crumbs()}<p class="h">Undersida</p><p class="muted">Kort text om vad sidan handlar om.</p></div>` })]
+  ]);
+  q('bs-avgransare', 'Vilket tecken ska skilja stegen i brödsmulorna?', GR, [['›', 'Vinkel ›'], ['/', 'Snedstreck /'], ['→', 'Pil →'], ['·', 'Punkt ·']].map(([s, l]) => [l, SUB(crumbs({ sep: s }))]));
+  q('bs-storlek', 'Hur stor ska texten i brödsmulorna vara?', GR, [12, 13, 14, 15].map(f => [`${f} px`, SUB(crumbs({ fs: f }))]));
+  q('bs-plats', 'Var ska brödsmulorna ligga?', S, [
+    ['Precis över rubriken', H({ on: 0, css: BCCSS, page: `<div class="nvb-pg" style="background:#fff">${crumbs()}<p class="h">Undersida</p><p class="muted">Kort text om vad sidan handlar om.</p></div>` })],
+    ['I ett eget fält under headern', H({ on: 0, css: BCCSS, page: `<div style="padding:10px var(--hp,32px);border-bottom:1px solid var(--sline);background:var(--ground)">${crumbs()}</div><div class="nvb-pg" style="background:#fff"><p class="h">Undersida</p><p class="muted">Kort text om vad sidan handlar om.</p></div>` })],
+    ['Under rubriken', H({ on: 0, css: BCCSS, page: `<div class="nvb-pg" style="background:#fff"><p class="h">Undersida</p>${crumbs()}<p class="muted">Kort text om vad sidan handlar om.</p></div>` })]
+  ]);
+  q('bs-hem', 'Hur ska startsidan visas i brödsmulorna?', GR, [
+    ['Ordet "Hem"', SUB(crumbs())],
+    ['Liten husikon', SUB(crumbs({ home: 'icon' }))],
+    ['Utan startsidan', SUB(crumbs({ items: ['Tjänster', 'Undersida'] }))]
+  ]);
+  q('bs-aktuell', 'Hur ska den aktuella sidan visas i brödsmulorna?', GR, [
+    ['Mörkare än stegen före', SUB(crumbs())],
+    ['Fetstil', SUB(crumbs(), '& .nvb-bc-c{font-weight:700}')],
+    ['Utelämnad', SUB(crumbs({ cur: 'hide' }) .replace('</nav>', '<span class="nvb-bc-s">›</span></nav>'))]
+  ]);
+  q('bs-lankar', 'Hur ska de klickbara stegen i brödsmulorna se ut?', GR, [
+    ['Grå text', SUB(crumbs())],
+    ['Huvudfärgen', SUB(crumbs(), '& .nvb-bc-l{color:var(--brand);font-weight:500}')],
+    ['Understrukna', SUB(crumbs(), '& .nvb-bc-l{text-decoration:underline;text-underline-offset:3px}')]
+  ]);
+  const PB = (cr) => phone(mhead({}) + `<div class="nvb-mb" style="background:#fff">${cr}<p class="h">Undersida</p><i style="width:92%"></i><i style="width:80%"></i><i style="width:86%"></i></div>`, BCCSS);
+  q('bs-mobil', 'Hur ska brödsmulorna visas i mobilen?', GR, [
+    ['Hela kedjan', PB(crumbs())],
+    ['Bara ett steg tillbaka', PB(`<nav class="nvb-bc" style="font-size:13px"><span class="nvb-btn" style="gap:2px">${ic('chevL', 15)}Tjänster</span></nav>`)],
+    ['Inga brödsmulor', PB('')]
+  ]);
+  q('bs-lang', 'Hur ska en lång kedja av brödsmulor visas?', GR, [
+    ['Alla steg syns', SUB(crumbs({ items: ['Hem', 'Tjänster', 'Grupp ett', 'Undersida ett', 'Detaljer'] }))],
+    ['Mitten kortas till …', SUB(crumbs({ items: ['Hem', '…', 'Undersida ett', 'Detaljer'] }))]
+  ]);
+
+  /* ===== Flikar ===== */
+  group('flikar', 'Flikar');
+  const TABS = ['Översikt', 'Detaljer', 'Priser', 'Frågor'];
+  const TAB = (css, o = {}) => opt(`<div class="pad" style="background:var(--box)"><div class="nvb-tabs">${(o.items || TABS).map((t, i) => `<span class="nvb-tab${i === 0 ? ' on' : ''}">${o.pre ? o.pre(i) : ''}${t}${o.post ? o.post(i) : ''}</span>`).join('')}</div><div class="nvb-tp"><p class="h h3">Översikt</p><p class="muted">Innehållet för den valda fliken visas här.</p></div></div>`, '& .nvb-tabs{display:flex;flex-wrap:wrap;gap:4px 24px;font-size:var(--tfs,15px);font-weight:500;color:var(--smuted)}& .nvb-tab{position:relative;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}& .nvb-tab.on{color:var(--sink)}& .nvb-tp{padding-top:20px;display:flex;flex-direction:column;gap:4px}' + css, o.vars || '');
+  const T_UL = (t = 2) => `& .nvb-tabs{border-bottom:1px solid var(--sline)}& .nvb-tab{padding:10px 0}& .nvb-tab.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:${t}px;background:var(--brand)}`;
+  const T_PILL = '& .nvb-tabs{gap:6px}& .nvb-tab{padding:8px 16px;border-radius:999px}& .nvb-tab.on{background:var(--brand);color:#fff}';
+  const T_SEG = (r = '10px') => `& .nvb-tabs{gap:2px;background:#ECEDEE;padding:4px;border-radius:${r};display:inline-flex}& .nvb-tab{padding:8px 16px;border-radius:calc(${r} - 3px)}& .nvb-tab.on{background:#fff;box-shadow:0 1px 3px rgba(20,22,24,.12)}`;
+  const T_CARD = '& .nvb-tabs{gap:4px;border-bottom:1px solid var(--sline)}& .nvb-tab{padding:10px 16px;border:1px solid transparent;border-bottom:0;border-radius:8px 8px 0 0;margin-bottom:-1px}& .nvb-tab.on{border-color:var(--sline);background:var(--box);box-shadow:0 1px 0 var(--box)}& .nvb-tabs .nvb-tab:not(.on){background:var(--ground)}';
+  q('fl-stil', 'Hur ska flikar se ut?', S, [
+    ['Understrukna', TAB(T_UL())],
+    ['Pill-knappar', TAB(T_PILL)],
+    ['Segment i en grå list', TAB(T_SEG())],
+    ['Kortflikar mot ytan', TAB(T_CARD)]
+  ]);
+  q('fl-tjocklek', 'Hur tjock ska linjen under den aktiva fliken vara?', S, [2, 3, 4].map(t => [`${t} px`, TAB(T_UL(t))]));
+  q('fl-baslinje', 'Ska understrukna flikar ha en grå linje under alla flikar?', S, [
+    ['Med grå linje under alla', TAB(T_UL())],
+    ['Bara linjen under den aktiva', TAB(T_UL() + '& .nvb-tabs{border-bottom-color:transparent}')]
+  ]);
+  q('fl-justering', 'Hur ska flikraden ställas?', S, [
+    ['Vänsterställd', TAB(T_UL())],
+    ['Centrerad', TAB(T_UL() + '& .nvb-tabs{justify-content:center}& .nvb-tp{align-items:center;text-align:center}')],
+    ['Fyller hela bredden', TAB(T_UL() + '& .nvb-tabs{gap:0}& .nvb-tab{flex:1;justify-content:center}')]
+  ]);
+  q('fl-storlek', 'Hur stor ska texten i flikarna vara?', S, [14, 15, 16].map(f => [`${f} px`, TAB(T_UL(), { vars: `--tfs:${f}px` })]));
+  q('fl-vikt', 'Hur ska textvikten skilja aktiv flik från övriga?', S, [
+    ['Alla medium, aktiv mörkare', TAB(T_UL())],
+    ['Aktiv halvfet, övriga normala', TAB(T_UL() + '& .nvb-tabs{font-weight:400}& .nvb-tab.on{font-weight:600}')],
+    ['Alla halvfeta', TAB(T_UL() + '& .nvb-tabs{font-weight:600}')]
+  ]);
+  q('fl-pill', 'Hur ska den aktiva pill-fliken se ut?', S, [
+    ['Fylld i huvudfärgen', TAB(T_PILL)],
+    ['Ljust tonad', TAB(T_PILL + '& .nvb-tab.on{background:var(--tint);color:var(--brand)}')],
+    ['Mörk', TAB(T_PILL + '& .nvb-tab.on{background:var(--sink);color:#fff}')],
+    ['Kontur', TAB(T_PILL + '& .nvb-tab{border:1px solid transparent}& .nvb-tab.on{background:transparent;color:var(--sink);border-color:var(--sink)}')]
+  ]);
+  q('fl-segment', 'Hur rund ska en segmentkontroll vara?', S, [['6 px rundning', '6px'], ['10 px rundning', '10px'], ['Helt rund', '999px']].map(([l, r]) => [l, TAB(T_SEG(r))]));
+  q('fl-ikoner', 'Ska flikarna ha ikoner?', S, [
+    ['Bara text', TAB(T_UL())],
+    ['Ikon före texten', TAB(T_UL(), { pre: (i) => ic(['grid', 'doc', 'tag', 'chat'][i], 17) })]
+  ]);
+  q('fl-antal', 'Ska flikarna visa antal?', S, [
+    ['Utan antal', TAB(T_UL(), { items: ['Alla', 'Aktuella', 'Avslutade', 'Utkast'] })],
+    ['Antal i en liten bricka', TAB(T_UL(), { items: ['Alla', 'Aktuella', 'Avslutade', 'Utkast'], post: (i) => `<span style="font-size:12px;font-weight:600;background:${i === 0 ? 'var(--tint)' : '#ECEDEE'};color:${i === 0 ? 'var(--brand)' : 'var(--smuted)'};border-radius:999px;padding:0 7px;line-height:1.6">${[24, 8, 14, 2][i]}</span>` })]
+  ]);
+  const PT = (inner, css) => phone(mhead({}) + `<div class="nvb-mb" style="background:#fff;gap:12px;padding-inline:0"><p class="h" style="padding:0 14px">Rubrik</p>${inner}<div style="padding:0 14px;display:flex;flex-direction:column;gap:9px"><i style="width:92%"></i><i style="width:80%"></i><i style="width:86%"></i></div></div>`, css);
+  const PTCSS = '& .nvb-tr{display:flex;gap:18px;overflow:hidden;white-space:nowrap;border-bottom:1px solid var(--sline);padding:0 14px;font-size:14px;font-weight:500;color:var(--smuted)}& .nvb-tr span{padding:9px 0;position:relative}& .nvb-tr .on{color:var(--sink)}& .nvb-tr .on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--brand)}';
+  q('fl-mobil', 'Hur ska många flikar visas i mobilen?', GR, [
+    ['Raden går att svepa i sidled', PT(`<div class="nvb-tr"><span class="on">Översikt</span><span>Detaljer</span><span>Priser</span><span>Frågor</span></div>`, PTCSS + '& .nvb-tr{-webkit-mask-image:linear-gradient(90deg,#000 80%,transparent);mask-image:linear-gradient(90deg,#000 80%,transparent)}')],
+    ['Väljs i en rullgardin', PT(`<div style="padding:0 14px"><span class="inp" style="height:42px;justify-content:space-between;font-size:14px;font-weight:500">Översikt${ic('chevD', 18)}</span></div>`, PTCSS)],
+    ['Bryts på flera rader', PT(`<div class="nvb-tr" style="flex-wrap:wrap;row-gap:0;column-gap:16px"><span class="on">Översikt</span><span>Detaljer</span><span>Priser</span><span>Frågor</span></div>`, PTCSS)]
+  ]);
+
+  /* ===== Sidnumrering ===== */
+  group('sidnumrering', 'Sidnumrering och fler resultat');
+  const CARDS = '<div class="nvb-cards">' + '<span></span>'.repeat(3) + '</div>';
+  const PGCSS = '& .nvb-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}& .nvb-cards span{height:56px;border-radius:10px;background:#fff;border:1px solid var(--sline)}& .nvb-pgr{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px;font-size:14px;font-weight:500}& .nvb-pn{min-width:var(--pgs,40px);height:var(--pgs,40px);display:inline-flex;align-items:center;justify-content:center;border-radius:var(--pgr,8px);padding:0 6px;border:1px solid var(--sline);background:#fff}& .nvb-pn.on{background:var(--brand);border-color:var(--brand);color:#fff}& .nvb-pn.e{border:0;background:transparent;min-width:20px}& .nvb-pa{display:inline-flex;align-items:center;gap:6px;height:var(--pgs,40px);padding:0 12px;font-weight:600}';
+  const nums = (list, cur = 4) => list.map(n => n === '…' ? '<span class="nvb-pn e">…</span>' : `<span class="nvb-pn${n === cur ? ' on' : ''}">${n}</span>`).join('');
+  const PG = (inner, css = '', vars = '', cards = true) => opt(`<div class="pad">${cards ? CARDS : ''}<div class="nvb-pgr">${inner}</div></div>`, PGCSS + css, vars);
+  const PREV = (k = 'both') => `<span class="nvb-pa">${k !== 'text' ? ic('chevL', 16) : ''}${k !== 'icon' ? 'Föregående' : ''}</span>`;
+  const NEXT = (k = 'both') => `<span class="nvb-pa">${k !== 'icon' ? 'Nästa' : ''}${k !== 'text' ? ic('chevR', 16) : ''}</span>`;
+  const STD = [1, '…', 3, 4, 5, '…', 10];
+  q('sn-typ', 'Hur ska man komma till fler resultat i en lista?', S, [
+    ['Sidnummer', PG(PREV('icon') + nums(STD) + NEXT('icon'))],
+    ['Bara föregående och nästa', PG(PREV() + '<span class="muted" style="font-weight:400;padding:0 10px">Sida 4 av 10</span>' + NEXT())],
+    ['Knappen "Visa fler"', PG('<span class="sb2" style="height:44px">Visa fler</span>')],
+    ['Laddar fler automatiskt vid scroll', PG(`<span class="nvb-btn muted" style="gap:10px;font-weight:400"><span class="nvb-spin"></span>Laddar fler …</span>`, '& .nvb-spin{width:18px;height:18px;border-radius:50%;border:2px solid var(--sline);border-top-color:var(--brand);animation:nvspin 1s linear infinite}@keyframes nvspin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){& .nvb-spin{animation:none}}')]
+  ]);
+  q('sn-aktiv', 'Hur ska den aktuella sidan markeras i sidnumreringen?', S, [
+    ['Fylld ruta', PG(nums(STD))],
+    ['Mörk kontur', PG(nums(STD), '& .nvb-pn.on{background:#fff;color:var(--sink);border:2px solid var(--sink)}')],
+    ['Understruken siffra', PG(nums(STD), '& .nvb-pn{border-color:transparent;background:transparent}& .nvb-pn.on{background:transparent;color:var(--sink);border-color:transparent;box-shadow:inset 0 -2px 0 var(--brand);border-radius:0}')],
+    ['Ljust tonad', PG(nums(STD), '& .nvb-pn.on{background:var(--tint);border-color:var(--tint);color:var(--brand);font-weight:700}')]
+  ]);
+  q('sn-form', 'Vilken form ska sidnumren ha?', S, [
+    ['Rutor med 8 px rundning', PG(nums(STD))],
+    ['Runda', PG(nums(STD), '', '--pgr:999px')],
+    ['Utan ram', PG(nums(STD), '& .nvb-pn:not(.on){border-color:transparent;background:transparent}')]
+  ]);
+  q('sn-pilar', 'Hur ska föregående och nästa visas bredvid sidnumren?', S, [
+    ['Bara pilar', PG(PREV('icon') + nums(STD) + NEXT('icon'))],
+    ['Pil och text', PG(PREV() + nums(STD) + NEXT())],
+    ['Bara text', PG(PREV('text') + nums(STD) + NEXT('text'))]
+  ]);
+  q('sn-urval', 'Vilka sidnummer ska visas?', S, [
+    ['Början, runt aktuell och slutet', PG(PREV('icon') + nums(STD) + NEXT('icon'))],
+    ['De första sidorna och sista', PG(PREV('icon') + nums([1, 2, 3, 4, 5, '…', 10]) + NEXT('icon'))],
+    ['Bara "Sida 4 av 10"', PG(PREV('icon') + '<span style="padding:0 12px">Sida 4 av 10</span>' + NEXT('icon'), '& .nvb-pa{border:1px solid var(--sline);border-radius:8px;width:40px;justify-content:center;padding:0;background:#fff}')]
+  ]);
+  q('sn-visafler', 'Hur ska knappen "Visa fler" se ut?', S, [
+    ['Konturknapp', PG('<span class="sb2" style="height:44px">Visa fler</span>')],
+    ['Textlänk med pil ner', PG(`<span class="nvb-btn" style="color:var(--brand);font-weight:600">Visa fler ${ic('chevD', 18)}</span>`)],
+    ['Knapp med "Visar 12 av 48"', PG('<span style="display:flex;flex-direction:column;align-items:center;gap:10px"><span class="muted small" style="font-weight:400">Visar 12 av 48</span><span class="sb2" style="height:44px">Visa fler</span></span>')],
+    ['Knapp med förloppslinje', PG('<span style="display:flex;flex-direction:column;align-items:center;gap:10px"><span class="muted small" style="font-weight:400">Visar 12 av 48</span><span style="width:160px;height:3px;border-radius:2px;background:var(--sline);position:relative;overflow:hidden"><span style="position:absolute;left:0;top:0;bottom:0;width:25%;background:var(--brand)"></span></span><span class="sb2" style="height:44px">Visa fler</span></span>')]
+  ]);
+  q('sn-justering', 'Var ska sidnumreringen stå?', S, [
+    ['Centrerad', PG(PREV() + nums(STD) + NEXT())],
+    ['Vänsterställd', PG(PREV() + nums(STD) + NEXT(), '& .nvb-pgr{justify-content:flex-start}')],
+    ['Föregående och nästa i kanterna', PG(PREV() + `<span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">${nums(STD)}</span>` + NEXT(), '& .nvb-pgr{justify-content:space-between}')]
+  ]);
+  q('sn-storlek', 'Hur stora ska sidnumren vara?', S, [32, 40, 48].map(s => [`${s} px`, PG(PREV('icon') + nums(STD) + NEXT('icon'), '', `--pgs:${s}px`)]));
+
+  /* ===== Innehåll och ankarlänkar ===== */
+  group('ankarlankar', 'Innehållsförteckning och sidomeny');
+  const SEC = ['Inledning', 'Så går det till', 'Vad det kostar', 'Vanliga frågor'];
+  const ARTCSS = '& .nvb-art{display:flex;flex-direction:column;gap:9px;min-width:0;flex:1}& .nvb-art i{display:block;height:8px;border-radius:4px;background:#DCDEE1}& .nvb-art .h{font-size:20px}& .nvb-art .h3{font-size:16px;margin-top:8px}& .nvb-toc{display:flex;flex-direction:column;gap:2px;font-size:14px;color:var(--smuted);min-width:0}& .nvb-toc>span{padding:6px 0 6px 14px;border-left:2px solid var(--sline);line-height:1.3}& .nvb-toc>span.on{color:var(--sink);border-left-color:var(--brand);font-weight:600}& .nvb-toc .sub{padding-left:28px;font-size:13px}& .nvb-tt{font-size:12px;font-weight:600;color:var(--sink);margin-bottom:6px}& .nvb-lay{display:flex;gap:36px;padding:24px var(--hp,32px);background:#fff;align-items:flex-start}& .nvb-side{flex:0 0 200px;position:relative}@container (max-width:680px){& .nvb-lay{flex-direction:column;gap:18px}& .nvb-side{flex:none;width:100%}}';
+  const ART = (pre = '') => `<div class="nvb-art"><p class="h">Rubrik på sidan</p>${pre}<i style="width:94%"></i><i style="width:88%"></i><i style="width:60%"></i><p class="h h3">Så går det till</p><i style="width:92%"></i><i style="width:84%"></i><i style="width:70%"></i></div>`;
+  const TOC = (o = {}) => `<nav class="nvb-toc${o.cls ? ' ' + o.cls : ''}">${o.title === false ? '' : '<p class="nvb-tt">På den här sidan</p>'}${(o.items || SEC).map((t, i) => `<span class="${i === (o.on !== undefined ? o.on : 1) ? 'on' : ''}${o.subs && (i === 2) ? ' sub' : ''}">${o.num ? `${i + 1}. ` : ''}${t}</span>`).join('')}</nav>`;
+  const LAY = (side, right = false, css = '') => opt(`<div class="nvb-lay">${right ? '' : `<div class="nvb-side">${side}</div>`}${ART()}${right ? `<div class="nvb-side">${side}</div>` : ''}</div>`, ARTCSS + css);
+  q('al-toc', 'Ska långa sidor ha en innehållsförteckning?', S, [
+    ['Ingen innehållsförteckning', opt(`<div class="nvb-lay">${ART()}</div>`, ARTCSS)],
+    ['Lista överst på sidan', opt(`<div class="nvb-lay">${ART(`<div style="background:var(--ground);border-radius:10px;padding:12px 16px;margin:4px 0 8px">${TOC({ on: -1 })}</div>`)}</div>`, ARTCSS + '& .nvb-toc>span{border-left:0;padding:3px 0;color:var(--brand)}')],
+    ['Sticky sidomeny bredvid texten', LAY(TOC())]
+  ]);
+  q('al-stil', 'Hur ska innehållsförteckningen se ut?', S, [
+    ['Lista med linje till vänster', LAY(TOC())],
+    ['Numrerad lista utan linje', LAY(TOC({ num: true }), false, '& .nvb-toc>span{border-left:0;padding-left:0}& .nvb-toc>span.on{color:var(--brand)}')],
+    ['Rad med chips över texten', opt(`<div class="nvb-lay" style="flex-direction:column;gap:18px"><div style="display:flex;gap:8px;flex-wrap:wrap">${SEC.map((t, i) => `<span class="chip"${i === 1 ? ' style="background:var(--brand);color:#fff;border-color:var(--brand)"' : ''}>${t}</span>`).join('')}</div>${ART()}</div>`, ARTCSS)]
+  ]);
+  q('al-aktiv', 'Hur ska avsnittet man läser markeras i sidomenyn?', S, [
+    ['Streck till vänster', LAY(TOC())],
+    ['Fetstil', LAY(TOC(), false, '& .nvb-toc>span.on{border-left-color:var(--sline)}')],
+    ['Huvudfärgen', LAY(TOC(), false, '& .nvb-toc>span.on{border-left-color:var(--sline);color:var(--brand)}')],
+    ['Ljus platta', LAY(TOC(), false, '& .nvb-toc>span{border-left:0;padding:6px 10px;border-radius:6px}& .nvb-toc>span.on{background:var(--tint);color:var(--brand)}')]
+  ]);
+  q('al-plats', 'Var ska sidomenyn med innehållet stå?', S, [
+    ['Till vänster om texten', LAY(TOC())],
+    ['Till höger om texten', LAY(TOC(), true)]
+  ]);
+  q('al-rubrik', 'Ska sidomenyn ha en rubrik?', S, [
+    ['Med rubriken "På den här sidan"', LAY(TOC())],
+    ['Utan rubrik', LAY(TOC({ title: false }))]
+  ]);
+  q('al-indrag', 'Hur ska underrubriker visas i innehållsförteckningen?', S, [
+    ['Indragna under huvudrubriken', LAY(TOC({ items: ['Inledning', 'Så går det till', 'Steg för steg', 'Vanliga frågor'], subs: true }))],
+    ['Alla på samma nivå', LAY(TOC({ items: ['Inledning', 'Så går det till', 'Steg för steg', 'Vanliga frågor'] }))]
+  ]);
+  const SN = (css) => opt(`<div class="pad" style="background:#fff"><nav class="nvb-sn"><span>Översikt</span><span class="on">Undersida ett</span><span>Undersida två</span><span>Undersida tre</span></nav></div>`, '& .nvb-sn{display:flex;flex-direction:column;gap:2px;font-size:15px;max-width:240px}& .nvb-sn span{padding:9px 12px;border-radius:8px}' + css);
+  q('al-sidomeny', 'Hur ska en sidomeny mellan undersidor se ut?', GR, [
+    ['Lista, aktiv i ljus platta', SN('& .nvb-sn .on{background:var(--tint);color:var(--brand);font-weight:600}')],
+    ['Lista, aktiv med streck', SN('& .nvb-sn span{border-radius:0;border-left:2px solid var(--sline)}& .nvb-sn .on{border-left-color:var(--brand);font-weight:600}')],
+    ['Lista i en ruta med linjer', SN('& .nvb-sn{gap:0;border:1px solid var(--sline);border-radius:10px;overflow:hidden}& .nvb-sn span{border-radius:0}& .nvb-sn span+span{border-top:1px solid var(--sline)}& .nvb-sn .on{font-weight:700;background:var(--ground)}')]
+  ]);
+  q('al-toppen', 'Ska långa sidor ha en knapp för att komma till toppen?', S, [
+    ['Ingen knapp', opt(`<div class="nvb-lay">${ART()}</div>`, ARTCSS)],
+    ['Rund flytande knapp', opt(`<div class="nvb-lay" style="position:relative">${ART()}<span class="nvb-btn" style="position:absolute;right:20px;bottom:20px;width:44px;height:44px;border-radius:999px;background:#fff;border:1px solid var(--sline);box-shadow:0 4px 14px rgba(20,22,24,.12)">${ic('arrowU', 20)}</span></div>`, ARTCSS)],
+    ['Textlänk i slutet', opt(`<div class="nvb-lay" style="flex-direction:column">${ART()}<span class="nvb-btn" style="color:var(--brand);font-weight:600;font-size:14px">Till toppen ${ic('arrowU', 16)}</span></div>`, ARTCSS)]
+  ]);
+  q('al-mobil', 'Hur ska innehållsförteckningen visas i mobilen?', GR, [
+    ['Svepbar rad med chips', phone(mhead({}) + `<div style="display:flex;gap:6px;overflow:hidden;padding:8px 12px;background:#fff;border-bottom:1px solid var(--sline);white-space:nowrap">${SEC.map((t, i) => `<span class="chip" style="height:28px;font-size:12px;padding:0 10px;flex:0 0 auto${i === 1 ? ';background:var(--brand);color:#fff;border-color:var(--brand)' : ''}">${t}</span>`).join('')}</div>` + MBODY)],
+    ['Rullgardin "På den här sidan"', phone(mhead({}) + `<div style="padding:8px 12px;background:#fff;border-bottom:1px solid var(--sline)"><span class="inp" style="height:36px;font-size:13px;justify-content:space-between;font-weight:500">På den här sidan${ic('chevD', 16)}</span></div>` + MBODY)],
+    ['Lista överst i texten', phone(mhead({}) + `<div class="nvb-mb" style="background:#fff"><p class="h">Rubrik</p><div style="background:var(--ground);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--brand);font-weight:500">${SEC.map(t => `<span>${t}</span>`).join('')}</div><i style="width:92%"></i><i style="width:80%"></i></div>`)]
+  ]);
+
+  /* ===== Tillbaka-länk ===== */
+  group('tillbaka', 'Tillbaka-länk');
+  const BK = (inner, css = '') => opt(`<div class="pad" style="background:var(--box)"><div class="stack" style="gap:10px;align-items:flex-start">${inner}<p class="h h2">Undersida</p><p class="muted">Kort text om vad sidan handlar om.</p></div></div>`, '& .nvb-bk2{display:inline-flex;align-items:center;gap:6px;font-size:var(--bks,14px);font-weight:600;color:var(--bkc,var(--brand))}' + css);
+  const bk = (t = 'Tillbaka', k = 'arrowL') => `<span class="nvb-bk2">${ic(k, 16)}${t}</span>`;
+  q('tb-stil', 'Hur ska en tillbaka-länk se ut?', GR, [
+    ['Pil och "Tillbaka"', BK(bk())],
+    ['Chevron och "Tillbaka"', BK(bk('Tillbaka', 'chevL'))],
+    ['Pil och föräldersidans namn', BK(bk('Tillbaka till Tjänster'))],
+    ['Rund ikonknapp', BK(`<span class="nvb-btn" style="width:40px;height:40px;border-radius:999px;border:1px solid var(--sline);background:#fff">${ic('arrowL', 18)}</span>`)]
+  ]);
+  q('tb-farg', 'Vilken färg ska tillbaka-länken ha?', GR, [
+    ['Huvudfärgen', BK(bk())],
+    ['Svart', BK(bk(), '', '').replace('class="nvb ', 'style="--bkc:var(--sink)" class="nvb ')],
+    ['Grå', BK(bk()).replace('class="nvb ', 'style="--bkc:var(--smuted)" class="nvb ')]
+  ]);
+  q('tb-storlek', 'Hur stor ska tillbaka-länken vara?', GR, [13, 14, 15, 16].map(s => [`${s} px`, BK(bk()).replace('class="nvb ', `style="--bks:${s}px" class="nvb `)]));
+  q('tb-understruken', 'Ska tillbaka-länken vara understruken?', GR, [
+    ['Utan understrykning', BK(bk())],
+    ['Understruken text', BK('<span class="nvb-bk2">' + ic('arrowL', 16) + '<u style="text-underline-offset:3px">Tillbaka</u></span>')]
+  ]);
+  q('tb-mobil', 'Var ska tillbaka-länken sitta i mobilen?', GR, [
+    ['Över rubriken på sidan', phone(mhead({}) + `<div class="nvb-mb" style="background:#fff"><span class="nvb-btn" style="justify-content:flex-start;font-size:13px;font-weight:600;color:var(--brand);gap:4px">${ic('arrowL', 15)}Tillbaka</span><p class="h">Undersida</p><i style="width:92%"></i><i style="width:80%"></i><i style="width:86%"></i></div>`)],
+    ['I headern till vänster', phone(mhead({ leftBtn: true, btn: `<span class="nvb-btn">${ic('chevL', 24)}</span>`, right: burger() }) + `<div class="nvb-mb" style="background:#fff"><p class="h">Undersida</p><i style="width:92%"></i><i style="width:80%"></i><i style="width:86%"></i></div>`)]
+  ]);
+
+  /* ===== Sök ===== */
+  group('sok', 'Sök i headern');
+  const SICON = `<span class="nvb-btn">${ic('search', 20)}</span>`;
+  const SFLD = (st = 'border-radius:999px', w = 220) => `<span class="inp ph nvb-sf" style="height:40px;gap:8px;font-size:14px;width:${w}px;max-width:100%;${st}">${ic('search', 16)}Sök</span>`;
+  const SUGG = (k) => `<div class="nvb-sg">${k === 'pop' ? '<p class="nvb-tt" style="font-size:12px;color:var(--smuted)">Populära sökningar</p><span>Priser</span><span>Öppettider</span><span>Boka tid</span>' : `<p class="nvb-tt" style="font-size:12px;color:var(--smuted)">Senaste sökningar</p><span>${ic('clock', 15)}Öppettider</span><span>${ic('clock', 15)}Kontakt</span>`}</div>`;
+  const SGCSS = '& .nvb-sg{position:absolute;left:0;right:0;top:calc(100% + 6px);background:#fff;border:1px solid var(--sline);border-radius:10px;box-shadow:0 8px 24px rgba(20,22,24,.1);padding:10px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px;z-index:6;color:var(--sink)}& .nvb-sg span{display:flex;align-items:center;gap:8px;padding:5px 0}& .nvb-sw{position:relative;display:inline-flex}';
+  q('so-typ', 'Hur ska sökningen fungera i headern?', S, [
+    ['Ikon som öppnar ett fält i headern', H({ nav: '', extra: `<span class="inp nvb-sf" style="height:40px;gap:8px;font-size:14px;width:min(420px,100%);border-radius:999px;border-color:var(--brand)">${ic('search', 16)}<span class="muted" style="flex:1">Sök</span>${ic('x', 16)}</span>` })],
+    ['Fält som alltid syns', H({ extra: SFLD() })],
+    ['Ikon som öppnar helskärmssök', opt(`<div style="background:#fff;padding:28px var(--hp,32px) 40px;display:flex;flex-direction:column;gap:16px;min-height:200px"><div style="display:flex;align-items:center;gap:12px"><span class="nvb-logo">Företaget</span><span class="nvb-sp"></span>${XB()}</div><div style="display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--sink);padding:10px 0;font-size:24px;color:var(--smuted)">${ic('search', 26)}Vad letar du efter?</div></div>`)]
+  ]);
+  q('so-ikontext', 'Ska sökikonen i headern ha text?', S, [
+    ['Bara ikon', H({ extra: SICON })],
+    ['Ikon och ordet "Sök"', H({ extra: `<span class="nvb-btn" style="font-size:15px;font-weight:500">${ic('search', 18)}Sök</span>` })]
+  ]);
+  q('so-falt', 'Hur ska sökfältet i headern se ut?', S, [
+    ['Helt runt', H({ extra: SFLD() })],
+    ['8 px rundning', H({ extra: SFLD('border-radius:8px') })],
+    ['Grått fält utan kant', H({ extra: SFLD('border-radius:8px;border-color:transparent;background:#EEEFF0') })],
+    ['Bara linje under', H({ extra: SFLD('border-radius:0;border-width:0 0 1px;padding-left:2px') })]
+  ]);
+  q('so-oppnad', 'Var ska sökfältet visas när man klickar på sökikonen?', S, [
+    ['Fältet ersätter menyn', H({ nav: '', extra: `<span class="inp nvb-sf" style="height:40px;gap:8px;font-size:14px;width:min(420px,100%);border-radius:999px;border-color:var(--brand)">${ic('search', 16)}<span class="muted" style="flex:1">Sök</span>${ic('x', 16)}</span>` })],
+    ['Fältet fälls ner under headern', H({ extra: `<span class="nvb-btn">${ic('x', 20)}</span>`, page: `<div style="background:#fff;border-bottom:1px solid var(--sline);padding:14px var(--hp,32px)"><span class="inp" style="height:46px;gap:10px;border-color:var(--brand)">${ic('search', 18)}<span class="muted">Sök</span></span></div>` + PAGE })]
+  ]);
+  q('so-helskarm', 'Hur ska helskärmssöket se ut?', S, [
+    ['Vit yta över hela sidan', opt(`<div style="background:#fff;padding:24px var(--hp,32px) 40px;display:flex;flex-direction:column;gap:16px;min-height:220px"><div style="display:flex;align-items:center"><span class="nvb-sp"></span>${XB()}</div><div style="display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--sink);padding:10px 0;font-size:24px;color:var(--smuted)">${ic('search', 26)}Vad letar du efter?</div></div>`)],
+    ['Mörkt tonad sida, fält överst', opt(`<div style="position:relative;min-height:260px">${head({})}${PAGE}<div style="position:absolute;inset:0;background:rgba(20,22,24,.5);z-index:4"></div><div style="position:absolute;left:0;right:0;top:0;z-index:5;background:#fff;padding:18px var(--hp,32px);display:flex;align-items:center;gap:12px;box-shadow:0 8px 24px rgba(20,22,24,.15)"><span class="inp" style="flex:1;height:48px;gap:10px;border-color:var(--brand)">${ic('search', 18)}<span class="muted">Vad letar du efter?</span></span>${XB()}</div></div>`)]
+  ]);
+  q('so-forslag', 'Vad ska visas under sökfältet innan man har skrivit något?', S, [
+    ['Ingenting', H({ extra: SFLD('border-radius:999px;border-color:var(--brand);color:var(--sink)'), page: '<div class="nvb-pg" style="min-height:190px"><p class="h">Rubrik på sidan</p></div>' })],
+    ['Populära sökningar', H({ css: SGCSS, extra: `<span class="nvb-sw">${SFLD('border-radius:999px;border-color:var(--brand)')}${SUGG('pop')}</span>`, page: '<div class="nvb-pg" style="min-height:190px"><p class="h">Rubrik på sidan</p></div>' })],
+    ['Senaste sökningar', H({ css: SGCSS, extra: `<span class="nvb-sw">${SFLD('border-radius:999px;border-color:var(--brand)')}${SUGG('rec')}</span>`, page: '<div class="nvb-pg" style="min-height:190px"><p class="h">Rubrik på sidan</p></div>' })]
+  ]);
+  q('so-mobil', 'Hur ska sök visas i mobilen?', GR, [
+    ['Ikon i headern', M({ right: `<span class="nvb-btn" style="margin-right:6px">${ic('search', 22)}</span>` })],
+    ['Fält under headern', M({ body: `<div style="padding:10px 12px;background:#fff;border-bottom:1px solid var(--sline)"><span class="inp ph" style="height:38px;gap:8px;font-size:13px;border-radius:999px">${ic('search', 15)}Sök</span></div>` + MBODY })],
+    ['Bara inne i menyn', M({})]
+  ]);
+
   /*SLUT*/
   window.QZ.part({ key: 'navigering', groups: G });
 })();
