@@ -1,12 +1,12 @@
 [
- {"key":"typografi","title":"Typografi","desc":"Typsnitt, storlekar, vikter, radavstånd, rubriker och siffror"},
- {"key":"farg","title":"Färg och ytor","desc":"Paletter, bakgrunder, kontrast, accenter, skuggor, kanter och rundning"},
- {"key":"knappar","title":"Knappar och interaktion","desc":"Knappar, länkar, lägen, fokus, växlar och laddning"},
- {"key":"ikoner","title":"Ikoner, pilar och bilder","desc":"Ikonstilar, pilar, symboler, foto, beskärning och illustration"},
- {"key":"formular","title":"Formulär och bokning","desc":"Fält, val, validering, datum, sök, kassa och bokningsflöden"},
- {"key":"navigering","title":"Navigering och struktur","desc":"Header, meny, mobilmeny, sidfot, flikar och brödsmulor"},
- {"key":"hero","title":"Hero och första skärmen","desc":"Första intrycket för olika branscher"},
- {"key":"sektioner","title":"Sektioner och layout","desc":"Tjänster, omdömen, priser, FAQ, kontakt, galleri och team"},
- {"key":"komponenter","title":"Komponenter","desc":"Kort, listor, tabeller, etiketter, notiser, dialoger och tomma lägen"},
- {"key":"generellt","title":"Ton, känsla och helhet","desc":"Texter, täthet, rörelse, förtroende, konvertering och e-handel"}
+ {"key":"typsnitt","title":"Typsnitt","desc":"Vilka typsnitt som ska användas och vilka som aldrig ska användas"},
+ {"key":"text","title":"Textdetaljer","desc":"Storlek, vikt, radavstånd, spärrning, versaler, länkar, priser och siffror"},
+ {"key":"knappar","title":"Knappar","desc":"Form, storlek, vikt, ikoner, sekundärknappar och lägen"},
+ {"key":"symboler","title":"Ikoner och symboler","desc":"Ikonstil, linjetjocklek, fyllning, plattor och symboler"},
+ {"key":"pilar","title":"Pilar och småbitar","desc":"Pilar, chevrons, etiketter, chips, avdelare, punkter och märken"},
+ {"key":"falt","title":"Fält och kontroller","desc":"Inmatningsfält, val, kryssrutor, reglage, datum och sök"},
+ {"key":"ytor","title":"Ytor, kort och former","desc":"Rundning, skuggor, kanter, kort och bildbehandling"},
+ {"key":"navigering","title":"Navigering och menyer","desc":"Header, menyer, mobilmeny, flikar, brödsmulor och sidfot"},
+ {"key":"lagen","title":"Lägen och återkoppling","desc":"Hover, fokus, laddning, fel, klart, tomt, notiser och dialoger"},
+ {"key":"ux","title":"UX-mönster","desc":"Flöden, steg, sök, filter, sidnumrering, val och mobilmönster"}
 ]

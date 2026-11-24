@@ -1,8 +1,21 @@
 # Elevate designquiz: format för frågor
 
-Quizet tar fram designreglerna för **Elevates UX-agent**. Elevate Studio bygger hemsidor åt småföretag och organisationer i många branscher, till exempel restaurang, kafé, hantverkare, bygg, frisör, skönhet, klinik, tandläkare, konsult, byrå, e-handel, hotell, resor, gym, bilverkstad, fastighet och förening.
+Quizet tar fram designreglerna för **Elevates UX-agent**. Frågorna gäller **designdetaljer och UX**, alltså hur gränssnittets byggstenar ska se ut och bete sig: typsnitt (vilka som ska och aldrig ska användas), knappar, ikoner och symboler, pilar, fält, kort, rundning, skuggor, menyer, lägen och mönster. Precis som i ett designsystem.
 
-Beställaren svarar på en fråga i taget. Hen väljer ett eller två alternativ, och det första valet väger tyngst. Därför ska varje fråga ha alternativ som är **tydligt olika och alla rimliga**. Halmgubbar och uppenbart dåliga varianter ska inte finnas, utom när frågan uttryckligen gäller just den skillnaden. Svaren ska kunna bli konkreta regler, till exempel "knappar har 8 px rundning" eller "rubriker i hero är 56–72 px".
+**Det här ska frågorna INTE vara:**
+- Branschfrågor som "hur ska ett bageri se ut" eller "vilken hero passar en frisör".
+- Färgpalettfrågor som "vilka färger passar ihop".
+- Stämnings- eller personlighetsfrågor.
+
+Beställaren svarar på en fråga i taget. Hen väljer ett eller två alternativ, och det första valet väger tyngst. Varje fråga visar **samma byggsten i 2–6 varianter**, där bara den egenskap som frågan gäller skiljer sig. Allt annat är identiskt. Alternativen ska vara tydligt olika och alla rimliga, och halmgubbar ska inte finnas. Svaren ska bli konkreta regler, till exempel "primärknapp: 8 px rundning, 600 i vikt, 48 px hög", "ikoner: 2 px linje, rundade ändar" eller "Montserrat ska aldrig användas".
+
+Ställ hellre många små, precisa frågor än få breda. Exempel:
+- "Hur rund ska primärknappen vara?"
+- "Ska knapptexten ha versaler?"
+- "Var ska pilen sitta i en länk?"
+- "Hur tjock ska ikonlinjen vara?"
+- "Vilken av de här är bäst för rubriker?"
+- "Hur ska ett fält se ut när det har fokus?"
 
 Det här är en **ny, neutral omgång**: utgå inte från tidigare smak. Utgångsläget i `base.css` är medvetet neutralt.
 
@@ -12,7 +25,7 @@ En fil per del: `data-<del>.js`. Blir den större än cirka 600 kB delar du upp 
 
 ```js
 window.QZ.part({
-  key: 'typografi',                 // delens nyckel (given i ditt uppdrag)
+  key: 'typsnitt',                  // delens nyckel (given i ditt uppdrag)
   fonts: ['Fraunces:opsz,wght@9..144,400;9..144,700', 'DM Sans:wght@400;500;700'], // Google Fonts som delen använder (valfritt), i css2-format utan "family="
   groups: [
     {
@@ -20,7 +33,7 @@ window.QZ.part({
       title: 'Rubriker',            // visas ovanför frågan
       questions: [
         {
-          id: 'ty-rubrik-vikt',     // unikt i HELA quizet: delprefix + beskrivande namn
+          id: 'ts-rubrik-vikt',     // unikt i HELA quizet: delprefix + beskrivande namn
           q: 'Hur tunga ska stora rubriker vara?',  // kort, konkret fråga på svenska
           layout: 'grid',           // 'grid' (rutor bredvid varandra, minst ca 260 px breda) eller 'stack' (full bredd, för hela sektioner eller sidor)
           opts: [
@@ -37,7 +50,7 @@ window.QZ.part({
 
 Fler fält än dessa används inte.
 
-- **Delprefix för id:** typografi `ty-`, farg `fa-`, knappar `kn-`, ikoner `ik-`, formular `fo-`, navigering `na-`, hero `he-`, sektioner `se-`, komponenter `ko-`, generellt `ge-`.
+- **Delprefix för id:** typsnitt `ts-`, text `tx-`, knappar `kn-`, symboler `sy-`, pilar `pi-`, falt `fa-`, ytor `yt-`, navigering `na-`, lagen `la-`, ux `ux-`.
 - **Alternativ:** 2–6 per fråga, oftast 3–4.
 - **`l`** är en kort etikett på 1–6 ord. Den är det som sparas som svaret, så den måste gå att förstå utan bilden, till exempel "8 px rundning", "Pil →", "Fotot fyller hela bredden" eller "Mörk text på ljus yta". Max 48 tecken.
 - **`h`** är HTML som renderas i en `<div class="spec">`. Utan `h` visas bara etiketten som en textruta. Det passar för frågor om ord, ton och principer, men använd det sparsamt: de flesta frågor ska visa något.
@@ -54,9 +67,10 @@ Fler fält än dessa används inte.
 - **Bredd:** alternativen visas i rutor som kan vara så smala som 260 px (`grid`), eller i full bredd ner till 340 px (`stack`). Allt måste få plats utan att flöda ut: använd flex-wrap, `min-width: 0`, procent och `max-width: 100%`. Sätt inga fasta bredder över 240 px i `grid`. För sektioner och hela sidor: `layout: 'stack'` och container queries (`.hx` har `container-type: inline-size`).
 - **Bilder:** bara relativa sökvägar `img/<namn>.jpg` från listan nedan. Ge varje `<img>` en `alt`-text, och använd `object-fit: cover`.
   - Resor och Sverige: `berlin stockholm kopenhamn fjallen fjallen-vandring vinter-skidor skidor-ovanifran kupe krogen-frukost barn-tag berlin-domen nattag-sovvagn sovvagn-korridor tag-rapsfalt tag-hostskog stugor-sjo station-vinter dukat-bord gardar-kvall perrong-fjall langbord`.
-  - Branscher (läggs in parallellt av en bildagent och kan saknas en kort stund): `restaurang-interior restaurang-ratt kafe-kaffe bageri snickare renovering badrum elektriker frisor spa klinik tandlakare kontor-team mote laptop produkt-sko produkt-hudvard produkt-stol kladstall hotellrum villa vardagsrum tradgard gym bilverkstad stadsgata skog-sjo portratt-1 portratt-2 portratt-3`.
-- **Innehåll:** realistiskt svenskt innehåll för påhittade företag, till exempel "Bryggans kök", "Lindqvist Bygg", "Salong Nova", "Kliniken Vasa", "Nordtrail" eller "Hemma Interiör". Inga riktiga varumärken. Priser och siffror får vara påhittade men ska vara rimliga.
-- **Variation:** sprid branscherna så att inte allt är resor.
+  - Övriga motiv: `restaurang-interior restaurang-ratt kafe-kaffe bageri snickare renovering badrum elektriker frisor spa klinik tandlakare kontor-team mote laptop produkt-sko produkt-hudvard produkt-stol kladstall hotellrum villa vardagsrum tradgard gym bilverkstad stadsgata skog-sjo portratt-1 portratt-2 portratt-3`.
+- **Innehåll:** neutralt och generiskt. Byggstenen ska stå i fokus, inte sammanhanget. Använd korta allmänna texter, till exempel "Boka tid", "Läs mer", "Skicka", "Fortsätt", "Rubrik som är två rader lång", "Från 495 kr", "E-post" eller "Sök". Använd inga påhittade företag eller branscher som tema. Visa byggstenen på en neutral yta, eller i ett minimalt sammanhang när sammanhanget behövs för att bedöma den, till exempel en knapp under en kort text eller en ikon bredvid en rad. Inga riktiga varumärken.
+- **Bilder:** bara när frågan gäller något med bild, till exempel kort med bild, bildrundning eller text på foto. Annars ingen bild.
+- **Färg:** håll grundfärgerna från `base.css`. Färgfrågor bara när färgen är själva detaljen, till exempel fokusringens färg, felröd eller länkfärg. Aldrig paletter.
 
 ## Kontroll
 
