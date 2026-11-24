@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hotell Lapporten · Parallax</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #0b1520;
+    --ridge1: #4b6a86;
+    --ridge2: #1d3247;
+    --ridge3: #0b1520;
+    --snow: #f3f1ea;
+    --dim: #c3ccd3;
+    --gold: #f2c879;
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "Commissioner", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--night); color: var(--snow); font-family: var(--sans); overflow-x: hidden; }
+  a { color: inherit; }
+  a:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+
+  .hero { position: relative; height: 100vh; min-height: 560px; overflow: hidden; isolation: isolate; }
+  .layer { position: absolute; will-change: transform; }
+
+  /* bakgrund: fjällfotot */
+  .sky { inset: -6% -6% 18% -6%; z-index: -5; }
+  .sky img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; filter: brightness(.82) saturate(.9); }
+  .sky::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,21,32,.8) 0%, rgba(11,21,32,.25) 18%, rgba(11,21,32,.05) 34%, rgba(11,21,32,.1) 100%); }
+
+  /* mellangrund: åsar och rumsbilden */
+  .r1 { left: -8%; right: -8%; bottom: 14%; height: 44%; z-index: -4; }
+  .r2 { left: -8%; right: -8%; bottom: 0; height: 52%; z-index: -3; }
+  .r3 { left: -6%; right: -6%; bottom: -4%; height: 62%; z-index: -1; }
+  .layer svg { width: 100%; height: 100%; display: block; }
+
+  .room { right: 7%; bottom: 23%; width: min(34vw, 500px); aspect-ratio: 4 / 3; z-index: -2; }
+  .room img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; box-shadow: 0 30px 60px rgba(0,0,0,.45); }
+  .room figcaption { position: absolute; left: 0; top: calc(100% + 12px); font-size: 12px; letter-spacing: .06em; color: var(--dim); }
+
+  .walk { right: 33%; bottom: 10%; width: min(12vw, 170px); aspect-ratio: 2 / 3; z-index: 1; }
+  .walk img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; box-shadow: 0 24px 50px rgba(0,0,0,.5); }
+
+  header { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 26px clamp(18px, 4vw, 64px); z-index: 3; font-size: 14px; }
+  .logo { font-family: var(--serif); font-size: 24px; text-decoration: none; font-weight: 500; letter-spacing: -.01em; }
+  .logo small { font-family: var(--sans); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; margin-left: 10px; opacity: .85; }
+  header nav { display: flex; gap: 28px; align-items: center; }
+  header nav a { text-decoration: none; }
+  .book-top { border: 1px solid rgba(243,241,234,.6); border-radius: 999px; padding: 9px 18px; }
+
+  .copy { position: absolute; left: clamp(18px, 6vw, 96px); bottom: clamp(34px, 8vh, 90px); max-width: 600px; z-index: 2; }
+  .eyebrow { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin: 0 0 18px; font-weight: 600; }
+  h1 { font-family: var(--serif); font-weight: 300; font-size: clamp(46px, 5.6vw, 92px); line-height: .98; letter-spacing: -.025em; margin: 0; font-variation-settings: "opsz" 144; }
+  h1 em { font-style: italic; color: var(--gold); }
+  .lead { font-size: 17px; line-height: 1.55; color: var(--dim); max-width: 30em; margin: 22px 0 30px; }
+  .actions { display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
+  .cta { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 28px; background: var(--snow); color: var(--night); border-radius: 999px; text-decoration: none; font-weight: 600; font-size: 16px; transition: background .15s; }
+  .cta:hover { background: #fff; }
+  .cta span { transition: transform .15s; }
+  .cta:hover span { transform: translateX(4px); }
+  .price { font-size: 14px; color: var(--dim); line-height: 1.4; }
+  .price b { color: var(--snow); font-weight: 600; display: block; font-size: 16px; }
+
+  @media (max-width: 860px) {
+    header nav a:not(.book-top) { display: none; }
+    .logo small { display: none; }
+    .room { right: 5%; top: 92px; bottom: auto; width: 54vw; }
+    .room figcaption { display: none; }
+    .walk { right: auto; left: 8%; top: 160px; bottom: auto; width: 26vw; }
+    .r3 { height: 70%; }
+    .copy { left: 18px; right: 18px; bottom: 26px; }
+    h1 { font-size: clamp(40px, 11vw, 58px); }
+    .lead { font-size: 16px; margin: 16px 0 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .layer { transform: none !important; }
+    .cta, .cta span { transition: none; }
+  }
+</style>
+</head>
+<body>
+<section class="hero" aria-label="Hotell Lapporten">
+  <div class="layer sky" data-depth="0.15" aria-hidden="true"><img src="../img/fjallen.jpg" alt=""></div>
+  <div class="layer r1" data-depth="0.35" aria-hidden="true">
+    <svg viewBox="0 0 1600 400" preserveAspectRatio="none"><path fill="#7590a8" fill-opacity=".9" d="M0 250 C 120 200, 200 150, 320 170 S 520 90, 640 120 S 860 60, 980 110 S 1200 150, 1320 100 S 1520 140, 1600 130 L1600 400 L0 400Z"/></svg>
+  </div>
+  <figure class="layer room" data-depth="0.55" style="margin:0"><img src="../img/hotellrum.jpg" alt="Hotellrum i ljust trä med panoramafönster mot vatten"><figcaption>Rum 214 · Panorama mot Torneträsk</figcaption></figure>
+  <div class="layer r2" data-depth="0.7" aria-hidden="true">
+    <svg viewBox="0 0 1600 400" preserveAspectRatio="none"><path fill="#28425a" d="M0 200 C 150 170, 260 230, 420 200 S 700 250, 880 220 S 1160 170, 1320 210 S 1520 190, 1600 180 L1600 400 L0 400Z"/></svg>
+  </div>
+  <figure class="layer walk" data-depth="1.1" style="margin:0" aria-hidden="true"><img src="../img/fjallen-vandring.jpg" alt=""></figure>
+  <div class="layer r3" data-depth="1" aria-hidden="true">
+    <svg viewBox="0 0 1600 500" preserveAspectRatio="none">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1520" stop-opacity=".0"/><stop offset=".22" stop-color="#0b1520" stop-opacity=".92"/><stop offset=".4" stop-color="#0b1520"/></linearGradient></defs>
+      <path fill="url(#g)" d="M0 60 C 200 60, 380 110, 600 140 S 1000 190, 1240 175 S 1500 150, 1600 160 L1600 500 L0 500Z"/>
+    </svg>
+  </div>
+
+  <header>
+    <a class="logo" href="#">Lapporten<small>Hotell · Abisko</small></a>
+    <nav aria-label="Huvudmeny"><a href="#">Rum</a><a href="#">Norrsken</a><a href="#">Restaurang</a><a class="book-top" href="#">Boka</a></nav>
+  </header>
+
+  <div class="copy">
+    <p class="eyebrow">Norrskenssäsong september–mars</p>
+    <h1>Vakna med <em>Lapporten</em> i fönstret</h1>
+    <p class="lead">32 rum ovanför Torneträsk, tre minuter från Abisko Östra station. Vi väcker er när norrskenet syns.</p>
+    <div class="actions">
+      <a class="cta" href="#">Se lediga rum <span aria-hidden="true">→</span></a>
+      <p class="price"><b>Från 1 890 kr</b>dubbelrum inklusive frukost</p>
+    </div>
+  </div>
+</section>
+<script>
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const layers = [...document.querySelectorAll('.layer')].map((el) => ({ el, d: parseFloat(el.dataset.depth) }));
+  let tx = 0, ty = 0, cx = 0, cy = 0, sy = 0, t0 = performance.now();
+  const fine = matchMedia('(pointer: fine)').matches;
+  if (fine) addEventListener('pointermove', (e) => { tx = (e.clientX / innerWidth - .5) * 2; ty = (e.clientY / innerHeight - .5) * 2; });
+  // Pekskärm: åsarna andas långsamt i stället, och lutning av telefonen styr om den finns.
+  addEventListener('deviceorientation', (e) => { if (e.gamma == null) return; tx = Math.max(-1, Math.min(1, e.gamma / 25)); ty = Math.max(-1, Math.min(1, (e.beta - 40) / 25)); });
+  addEventListener('scroll', () => { sy = scrollY; }, { passive: true });
+  (function tick(now) {
+    if (!fine) { const t = (now - t0) / 1000; tx = Math.sin(t * .35) * .6; ty = Math.cos(t * .27) * .3; }
+    cx += (tx - cx) * .06; cy += (ty - cy) * .06;
+    for (const { el, d } of layers) el.style.transform = `translate3d(${(-cx * d * 22).toFixed(2)}px, ${(-cy * d * 12 + sy * d * -.3).toFixed(2)}px, 0)`;
+    requestAnimationFrame(tick);
+  })(t0);
+})();
+</script>
+</body>
+</html>

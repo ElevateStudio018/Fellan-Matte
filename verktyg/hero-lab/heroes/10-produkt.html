@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ullmark Skor · Svävande produkt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1b3a2d;
+    --deep: #12281f;
+    --ochre: #e3a63f;
+    --cream: #f6efe2;
+    --dim: #c9d3cc;
+    --display: "Bricolage Grotesque", system-ui, sans-serif;
+    --sans: "Instrument Sans", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--forest); color: var(--cream); font-family: var(--sans); overflow-x: hidden; }
+  a, button { color: inherit; font: inherit; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--ochre); outline-offset: 3px; }
+
+  .hero { min-height: 100vh; display: grid; grid-template-rows: auto 1fr; overflow: hidden; position: relative; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 22px clamp(18px, 4vw, 64px); font-size: 15px; z-index: 3; }
+  .logo { font-family: var(--display); font-weight: 800; font-size: 24px; letter-spacing: -.03em; text-decoration: none; }
+  header nav { display: flex; gap: 28px; }
+  header nav a { text-decoration: none; }
+  header nav a:hover { color: var(--ochre); }
+  .bag { display: inline-flex; gap: 8px; align-items: center; text-decoration: none; }
+  .bag i { font-style: normal; background: var(--cream); color: var(--forest); border-radius: 999px; font-size: 12px; font-weight: 600; padding: 1px 7px; }
+
+  main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: center; padding: 0 clamp(18px, 4vw, 64px) 4vh; gap: 2vw; }
+  .eyebrow { font-weight: 600; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--ochre); margin: 0 0 18px; }
+  h1 { font-family: var(--display); font-weight: 800; font-size: clamp(54px, 6.8vw, 116px); line-height: .88; letter-spacing: -.05em; margin: 0; }
+  h1 span { display: block; font-weight: 500; font-size: .42em; letter-spacing: -.03em; line-height: 1.05; margin-top: 14px; color: var(--dim); }
+  .row { display: flex; align-items: center; gap: 26px; margin: 34px 0 22px; flex-wrap: wrap; }
+  .price { font-family: var(--display); font-weight: 700; font-size: 34px; letter-spacing: -.03em; }
+  .sizes { display: flex; gap: 6px; flex-wrap: wrap; }
+  .sizes button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(246,239,226,.35); background: transparent; cursor: pointer; font-size: 14px; transition: background .15s, color .15s, border-color .15s; }
+  .sizes button:hover { border-color: var(--cream); }
+  .sizes button[aria-pressed="true"] { background: var(--cream); color: var(--forest); border-color: var(--cream); }
+  .sizes button:disabled { opacity: .45; text-decoration: line-through; cursor: not-allowed; }
+  .actions { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .cta { display: inline-flex; align-items: center; gap: 12px; height: 58px; padding: 0 30px; background: var(--ochre); color: #1e1404; border-radius: 999px; text-decoration: none; font-weight: 600; font-size: 16px; transition: background .15s; }
+  .cta:hover { background: #f0b955; }
+  .cta span { transition: transform .15s; }
+  .cta:hover span { transform: translateX(4px); }
+  .ship { font-size: 14px; color: var(--dim); line-height: 1.45; }
+
+  /* produkten */
+  .stage { position: relative; aspect-ratio: 1; width: min(100%, 76vh); justify-self: center; perspective: 1100px; }
+  .disc { position: absolute; inset: 6%; border-radius: 50%; background: var(--ochre); }
+  .ring-text { position: absolute; inset: 0; animation: spin 40s linear infinite; }
+  .ring-text text { font-family: var(--sans); font-size: 12.4px; letter-spacing: .32em; text-transform: uppercase; fill: var(--cream); font-weight: 500; }
+  @keyframes spin { to { transform: rotate(1turn); } }
+  .float { position: absolute; inset: 6%; transform-style: preserve-3d; will-change: transform; }
+  .shoe { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: var(--ochre); isolation: isolate; }
+  /* Friställning med CSS: ljust fotopapper blir skivans färg via multiply. */
+  .shoe img { position: absolute; left: -12%; top: 4%; width: 124%; mix-blend-mode: multiply; filter: brightness(1.16) contrast(1.22) saturate(1.05); animation: bob 5s ease-in-out infinite alternate; }
+  @keyframes bob { from { transform: translateY(-1.5%) rotate(-1deg); } to { transform: translateY(1.5%) rotate(1deg); } }
+  .shadow { position: absolute; left: 22%; right: 22%; bottom: 23%; height: 5%; border-radius: 50%; background: radial-gradient(closest-side, rgba(40,24,4,.45), transparent); filter: blur(4px); animation: shadow 5s ease-in-out infinite alternate; }
+  @keyframes shadow { from { transform: scaleX(1.05); opacity: .9; } to { transform: scaleX(.9); opacity: .6; } }
+  .spec { position: absolute; background: var(--cream); color: var(--deep); border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 500; white-space: nowrap; box-shadow: 0 10px 24px rgba(0,0,0,.22); }
+  .spec b { font-weight: 600; }
+  .s1 { left: -2%; top: 30%; }
+  .s2 { right: -4%; top: 58%; }
+  .s3 { left: 12%; bottom: 8%; }
+
+  @media (max-width: 860px) {
+    header nav a:not(.bag) { display: none; }
+    main { grid-template-columns: 1fr; gap: 0; padding-bottom: 28px; }
+    .stage { order: -1; width: min(86vw, 46vh); margin: -6px auto 6px; }
+    h1 { font-size: clamp(46px, 13vw, 64px); }
+    .row { margin: 20px 0 16px; gap: 16px; }
+    .price { font-size: 28px; }
+    .s1 { left: -4%; } .s2 { right: -6%; } .s3 { display: none; }
+    .spec { font-size: 12px; padding: 6px 11px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ring-text, .shoe img, .shadow { animation: none; }
+    .float { transform: none !important; }
+    .cta, .cta span, .sizes button { transition: none; }
+  }
+</style>
+</head>
+<body>
+<section class="hero">
+  <header>
+    <a class="logo" href="#">ullmark</a>
+    <nav aria-label="Huvudmeny"><a href="#">Dam</a><a href="#">Herr</a><a href="#">Skovård</a><a href="#">Butiken i Göteborg</a><a class="bag" href="#">Varukorg <i>0</i></a></nav>
+  </header>
+  <main>
+    <div>
+      <p class="eyebrow">Nyhet · vinter 2026</p>
+      <h1>Vinga.<span>Mockakängan som tål en göteborgsk november.</span></h1>
+      <div class="row">
+        <span class="price">2 195 kr</span>
+        <div class="sizes" role="group" aria-label="Välj storlek">
+          <button type="button" aria-pressed="false">37</button><button type="button" aria-pressed="false">38</button><button type="button" aria-pressed="true">39</button><button type="button" aria-pressed="false">40</button><button type="button" disabled aria-label="41, slutsåld">41</button><button type="button" aria-pressed="false">42</button>
+        </div>
+      </div>
+      <div class="actions">
+        <a class="cta" href="#">Lägg i varukorgen <span aria-hidden="true">→</span></a>
+        <p class="ship">Fri frakt och fri retur i 60 dagar.<br>Prova i butiken på Magasinsgatan.</p>
+      </div>
+    </div>
+
+    <div class="stage" id="stage">
+      <div class="disc" aria-hidden="true"></div>
+      <svg class="ring-text" viewBox="0 0 400 400" aria-hidden="true">
+        <defs><path id="c" d="M200 200 m-188 0 a188 188 0 1 1 376 0 a188 188 0 1 1 -376 0"/></defs>
+        <text><textPath href="#c" textLength="1175" lengthAdjust="spacing">Vaxad mocka · Gummisula · Ullfoder · Sydd i Portugal · Vaxad mocka · Gummisula · Ullfoder · Sydd i Portugal ·</textPath></text>
+      </svg>
+      <div class="float" id="float">
+        <div class="shoe"><img src="../img/produkt-sko.jpg" alt="Par bruna mockakängor med dragkedja och spänne"></div>
+        <div class="shadow" aria-hidden="true"></div>
+      </div>
+      <span class="spec s1"><b>Vaxad mocka</b> tål regn</span>
+      <span class="spec s2"><b>Ullfoder</b> ner till −15 °C</span>
+      <span class="spec s3"><b>Gummisula</b> som går att byta</span>
+    </div>
+  </main>
+</section>
+<script>
+(() => {
+  document.querySelectorAll('.sizes button:not(:disabled)').forEach((b, _, all) => b.addEventListener('click', () => {
+    all.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  }));
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const stage = document.getElementById('stage'), fl = document.getElementById('float');
+  let tx = 0, ty = 0, cx = 0, cy = 0, t0 = performance.now(), moved = false;
+  addEventListener('pointermove', (e) => {
+    const r = stage.getBoundingClientRect();
+    tx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width)));
+    ty = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height)));
+    moved = true;
+  });
+  (function tick(now) {
+    if (!moved) { const t = (now - t0) / 1000; tx = Math.sin(t * .6) * .5; ty = Math.cos(t * .45) * .25; }
+    cx += (tx - cx) * .07; cy += (ty - cy) * .07;
+    fl.style.transform = `rotateY(${cx * 18}deg) rotateX(${-cy * 12}deg) translate3d(${cx * 14}px, ${cy * 10}px, 0)`;
+    requestAnimationFrame(tick);
+  })(t0);
+})();
+</script>
+</body>
+</html>

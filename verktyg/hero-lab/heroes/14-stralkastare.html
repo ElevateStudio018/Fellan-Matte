@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ljusberg Redovisning · Strålkastare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0d0f;
+    --ink: #f0ede6;
+    --dim: #a9a7a1;
+    --warm: #ffcf7a;
+    --serif: "Newsreader", Georgia, serif;
+    --sans: "Geist", system-ui, sans-serif;
+    --mono: "Geist Mono", ui-monospace, monospace;
+    --x: 68%;
+    --y: 52%;
+    --r: 300px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); overflow-x: hidden; }
+  a { color: inherit; }
+  a:focus-visible { outline: 2px solid var(--warm); outline-offset: 4px; }
+
+  .hero { position: relative; min-height: 100vh; overflow: hidden; isolation: isolate; display: grid; grid-template-rows: auto 1fr; touch-action: pan-y; }
+
+  /* Mörkt foto i botten, upplyst kopia ovanpå som bara syns i ljuskäglan. */
+  .dark, .lit { position: absolute; inset: 0; z-index: -3; }
+  .dark img, .lit img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+  .dark img { filter: grayscale(.85) brightness(.16) contrast(1.1); }
+  .lit { z-index: -2;
+    -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 0%, rgba(0,0,0,.9) 40%, transparent 72%);
+            mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 0%, rgba(0,0,0,.9) 40%, transparent 72%); }
+  .lit img { filter: brightness(1.08) saturate(1) sepia(.18); }
+  .shade { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(12,13,15,.9) 0%, rgba(12,13,15,.62) 30%, rgba(12,13,15,0) 50%); }
+
+  /* Fynden som ljuset avslöjar */
+  .find { position: absolute; font-family: var(--mono); font-size: 13px; line-height: 1.35; color: #1a1408; background: var(--warm); padding: 7px 10px; border-radius: 3px; white-space: nowrap; }
+  .find::before { content: ""; position: absolute; left: -22px; top: 50%; width: 18px; height: 1px; background: var(--warm); }
+  .find b { font-weight: 500; display: block; font-size: 15px; }
+  .f1 { left: 62%; top: 30%; } .f2 { left: 74%; top: 58%; } .f3 { left: 52%; top: 72%; } .f4 { left: 82%; top: 22%; }
+
+  header { display: flex; justify-content: space-between; align-items: center; padding: 26px clamp(18px, 4.5vw, 72px); font-size: 14px; }
+  .logo { font-family: var(--serif); font-size: 25px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .logo i { width: 12px; height: 12px; border-radius: 50%; background: var(--warm); box-shadow: 0 0 18px 4px rgba(255,207,122,.55); }
+  header nav { display: flex; gap: 28px; color: var(--dim); }
+  header nav a { text-decoration: none; }
+  header nav a:hover { color: var(--ink); }
+
+  .copy { align-self: center; padding: 0 clamp(18px, 4.5vw, 72px) 6vh; max-width: 720px; }
+  .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--warm); margin: 0 0 22px; }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(46px, 5.2vw, 86px); line-height: 1.02; letter-spacing: -.02em; margin: 0; }
+  h1 em { color: var(--warm); }
+  .lead { font-size: 18px; line-height: 1.55; color: var(--dim); max-width: 30em; margin: 24px 0 32px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: center; }
+  .cta { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 28px; background: var(--ink); color: var(--bg); border-radius: 999px; text-decoration: none; font-weight: 600; font-size: 16px; transition: background .15s; }
+  .cta:hover { background: var(--warm); }
+  .cta span { transition: transform .15s; }
+  .cta:hover span { transform: translateX(4px); }
+  .hint { font-size: 13px; color: var(--dim); display: flex; align-items: center; gap: 8px; }
+  .hint svg { width: 16px; height: 16px; }
+
+  @media (max-width: 860px) {
+    :root { --x: 60%; --y: 26%; --r: 150px; }
+    header nav { display: none; }
+    .copy { align-self: end; padding-bottom: 28px; }
+    h1 { font-size: clamp(38px, 10.8vw, 52px); }
+    .lead { font-size: 16px; margin: 16px 0 22px; }
+    .shade { background: linear-gradient(0deg, rgba(12,13,15,.96) 0%, rgba(12,13,15,.85) 48%, rgba(12,13,15,0) 70%); }
+    .find { font-size: 11px; padding: 5px 8px; }
+    .find b { font-size: 13px; }
+    .f1 { left: 30%; top: 12%; } .f2 { left: 38%; top: 30%; } .f3, .f4 { display: none; }
+  }
+</style>
+</head>
+<body>
+<section class="hero" id="hero">
+  <div class="dark" aria-hidden="true"><img src="../img/mote.jpg" alt=""></div>
+  <div class="lit" aria-hidden="true">
+    <img src="../img/mote.jpg" alt="">
+    <span class="find f1"><b>+38 400 kr</b>outnyttjad periodiseringsfond</span>
+    <span class="find f2"><b>12 300 kr</b>momsfel i kvartal 2, rättat</span>
+    <span class="find f3"><b>−4 h/mån</b>kvitton via app i stället för pärm</span>
+    <span class="find f4"><b>Förmånsbil</b>fel förmånsvärde sedan mars</span>
+  </div>
+  <div class="shade" aria-hidden="true"></div>
+
+  <header>
+    <a class="logo" href="#"><i aria-hidden="true"></i>Ljusberg</a>
+    <nav aria-label="Huvudmeny"><a href="#">Bokföring</a><a href="#">Bokslut</a><a href="#">Löner</a><a href="#">Priser</a></nav>
+  </header>
+
+  <div class="copy">
+    <p class="eyebrow">Ljusberg Redovisning AB · Linköping</p>
+    <h1>Vi ser det i era siffror som <em>ni inte hinner se.</em></h1>
+    <p class="lead">Bokföring, bokslut och löner för företag med 2–40 anställda. Varje kvartal går vi igenom siffrorna med er och pekar på det som kostar pengar.</p>
+    <div class="actions">
+      <a class="cta" href="#">Boka en gratis genomlysning <span aria-hidden="true">→</span></a>
+      <span class="hint" id="hint"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="currentColor"/><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor"/></svg>Rör pekaren över bilden</span>
+    </div>
+  </div>
+</section>
+<script>
+(() => {
+  const hero = document.getElementById('hero');
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touch = !matchMedia('(pointer: fine)').matches;
+  if (touch) document.getElementById('hint').lastChild.textContent = 'Dra fingret över bilden';
+  // Utan rörelse: ljuskäglan står still på fynden (statisk version).
+  if (reduce) { document.getElementById('hint').remove(); return; }
+  let tx = null, ty = null, cx, cy, t0 = performance.now(), user = false;
+  const start = () => { const cs = getComputedStyle(root); cx = parseFloat(cs.getPropertyValue('--x')) / 100 * innerWidth; cy = parseFloat(cs.getPropertyValue('--y')) / 100 * innerHeight; };
+  start();
+  let first = null;
+  const move = (e) => {
+    // ta över först när pekaren faktiskt rör sig, inte vid en enstaka händelse
+    if (!user) { if (!first) { first = [e.clientX, e.clientY]; if (e.type !== 'pointerdown') return; } else if (Math.hypot(e.clientX - first[0], e.clientY - first[1]) < 24) return; }
+    tx = e.clientX; ty = e.clientY; user = true;
+  };
+  hero.addEventListener('pointermove', move);
+  hero.addEventListener('pointerdown', move);
+  (function tick(now) {
+    if (!user) {
+      // vandrar långsamt mellan fynden tills någon tar över
+      const t = (now - t0) / 1000;
+      const narrow = innerWidth < 860;
+      tx = innerWidth * ((narrow ? .55 : .7) + Math.sin(t * .5) * (narrow ? .18 : .12));
+      ty = innerHeight * ((narrow ? .24 : .5) + Math.sin(t * .37 + 1) * (narrow ? .1 : .18));
+    }
+    cx += (tx - cx) * .12; cy += (ty - cy) * .12;
+    root.style.setProperty('--x', cx.toFixed(1) + 'px');
+    root.style.setProperty('--y', cy.toFixed(1) + 'px');
+    requestAnimationFrame(tick);
+  })(t0);
+})();
+</script>
+</body>
+</html>

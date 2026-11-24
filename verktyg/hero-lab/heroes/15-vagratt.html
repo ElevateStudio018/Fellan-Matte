@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nattlinjen Resor · Vågrät rullning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3eee4;
+    --ink: #1c2230;
+    --dim: #545b66;
+    --rail: #c4472c;
+    --line: #d9d1c2;
+    --serif: "Young Serif", Georgia, serif;
+    --sans: "Public Sans", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); overflow-x: hidden; }
+  a, button { color: inherit; font: inherit; }
+  a:focus-visible, button:focus-visible, .track:focus-visible { outline: 2px solid var(--rail); outline-offset: 3px; }
+
+  .hero { min-height: 100vh; display: grid; grid-template-rows: auto auto 1fr; overflow: hidden; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 22px clamp(18px, 4vw, 64px); font-size: 15px; font-weight: 500; }
+  .logo { font-family: var(--serif); font-size: 24px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .logo svg { width: 32px; height: 14px; }
+  header nav { display: flex; gap: 26px; }
+  header nav a { text-decoration: none; }
+  header nav a:hover { color: var(--rail); }
+
+  .top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: end; padding: 2vh clamp(18px, 4vw, 64px) 3vh; }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(44px, 5.4vw, 92px); line-height: .98; letter-spacing: -.02em; margin: 0; }
+  h1 em { font-style: normal; color: var(--rail); }
+  .lead { font-size: 17px; line-height: 1.55; color: var(--dim); margin: 18px 0 0; max-width: 34em; }
+  .side { display: grid; gap: 16px; justify-items: end; }
+  .cta { display: inline-flex; align-items: center; gap: 12px; height: 58px; padding: 0 28px; border-radius: 999px; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 600; font-size: 16px; white-space: nowrap; transition: background .15s; }
+  .cta:hover { background: var(--rail); }
+  .cta span { transition: transform .15s; }
+  .cta:hover span { transform: translateX(4px); }
+  .ctrl { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--dim); }
+  .ctrl button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--ink); background: transparent; cursor: pointer; display: grid; place-items: center; }
+  .ctrl button:hover { background: var(--ink); color: var(--paper); }
+  .ctrl svg { width: 16px; height: 16px; }
+
+  /* korten */
+  .track {
+    display: flex; gap: 14px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
+    padding: 0 clamp(18px, 4vw, 64px) 24px; scroll-padding: 0 clamp(18px, 4vw, 64px); cursor: grab; min-height: 0;
+  }
+  .track::-webkit-scrollbar { display: none; }
+  .track.drag { cursor: grabbing; scroll-snap-type: none; }
+  .card {
+    flex: none; position: relative; width: clamp(260px, 25vw, 380px); height: 100%; min-height: 340px; max-height: 560px;
+    border-radius: 6px; overflow: hidden; color: #fbf7ef; text-decoration: none; background: var(--ink);
+  }
+  .card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2,.8,.2,1); pointer-events: none; }
+  .card:hover img { transform: scale(1.05); }
+  .card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(14,17,26,.9) 0%, rgba(14,17,26,.25) 45%, rgba(14,17,26,.1) 70%, rgba(14,17,26,.55) 100%); }
+  .card .info { position: absolute; inset: 0; z-index: 1; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+  .card .route { font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+  .card .route i { flex: 1; height: 1px; background: rgba(251,247,239,.6); position: relative; }
+  .card .route i::after { content: ""; position: absolute; right: 0; top: -3px; width: 7px; height: 7px; border-radius: 50%; background: #fbf7ef; }
+  .card h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(32px, 2.8vw, 46px); line-height: 1; margin: 0 0 10px; }
+  .card .meta { display: flex; justify-content: space-between; font-size: 14px; border-top: 1px solid rgba(251,247,239,.35); padding-top: 10px; }
+  .card .meta b { font-weight: 700; }
+  .card.wide { width: clamp(320px, 36vw, 560px); }
+
+  @media (max-width: 860px) {
+    header nav a:not(:last-child) { display: none; }
+    .top { grid-template-columns: 1fr; gap: 18px; padding-bottom: 20px; }
+    .side { justify-items: start; grid-auto-flow: column; align-items: center; gap: 14px; }
+    .ctrl span { display: none; }
+    h1 { font-size: clamp(38px, 10.4vw, 52px); }
+    .lead { font-size: 15px; margin-top: 12px; }
+    .card, .card.wide { width: 74vw; min-height: 300px; }
+    .track { gap: 10px; }
+    .cta { height: 52px; padding: 0 20px; font-size: 15px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card img, .cta, .cta span { transition: none; }
+  }
+</style>
+</head>
+<body>
+<section class="hero">
+  <header>
+    <a class="logo" href="#"><svg viewBox="0 0 32 14" aria-hidden="true"><path d="M0 11h32M3 13h26" stroke="#c4472c" stroke-width="1.6"/><rect x="4" y="1" width="24" height="8" rx="2" fill="#1c2230"/></svg>Nattlinjen</a>
+    <nav aria-label="Huvudmeny"><a href="#">Resmål</a><a href="#">Sovvagn</a><a href="#">Gruppresor</a><a href="#">Mina bokningar</a></nav>
+  </header>
+
+  <div class="top">
+    <div>
+      <h1>Somna i Stockholm.<br><em>Vakna i Berlin.</em></h1>
+      <p class="lead">Vi sätter ihop tågresor genom Europa och norra Sverige med sovvagn, hotell och byten som går ihop. En bokning, en kontakt om något strular.</p>
+    </div>
+    <div class="side">
+      <a class="cta" href="#">Hitta er resa <span aria-hidden="true">→</span></a>
+      <div class="ctrl"><span>Dra eller bläddra</span>
+        <button type="button" id="prev" aria-label="Föregående resmål"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+        <button type="button" id="next" aria-label="Nästa resmål"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="track" id="track" data-overflow-ok tabindex="0" aria-label="Resmål, rulla i sidled">
+    <a class="card wide" href="#"><img src="../img/berlin.jpg" alt="Brandenburger Tor i kvällsljus"><div class="info"><span class="route">Stockholm <i></i> Berlin</span><div><h2>Berlin</h2><div class="meta"><span>Nattåg, 15 h 50 min</span><span>från <b>1 290 kr</b></span></div></div></div></a>
+    <a class="card" href="#"><img src="../img/perrong-fjall.jpg" alt="Perrong med lok, fjäll och rött stationshus i Abisko" style="object-position:30% 50%"><div class="info"><span class="route">Stockholm <i></i> Abisko</span><div><h2>Abisko</h2><div class="meta"><span>Nattåg, 17 h 20 min</span><span>från <b>990 kr</b></span></div></div></div></a>
+    <a class="card" href="#"><img src="../img/kopenhamn.jpg" alt="Tre personer cyklar längs Nyhavn i Köpenhamn" style="object-position:40% 50%"><div class="info"><span class="route">Göteborg <i></i> Köpenhamn</span><div><h2>Köpenhamn</h2><div class="meta"><span>Dagtåg, 3 h 40 min</span><span>från <b>395 kr</b></span></div></div></div></a>
+    <a class="card wide" href="#"><img src="../img/vinter-skidor.jpg" alt="Skidåkare vid en lift i kvällsljus"><div class="info"><span class="route">Malmö <i></i> Åre</span><div><h2>Åre</h2><div class="meta"><span>Nattåg, 14 h 05 min</span><span>från <b>1 150 kr</b></span></div></div></div></a>
+    <a class="card" href="#"><img src="../img/station-vinter.jpg" alt="Äldre motorvagn framför gult stationshus i snö" style="object-position:35% 50%"><div class="info"><span class="route">Stockholm <i></i> Mora</span><div><h2>Mora</h2><div class="meta"><span>Dagtåg, 3 h 50 min</span><span>från <b>345 kr</b></span></div></div></div></a>
+    <a class="card" href="#"><img src="../img/stugor-sjo.jpg" alt="Röda stugor vid en skogssjö i Kiruna" style="object-position:40% 50%"><div class="info"><span class="route">Stockholm <i></i> Kiruna</span><div><h2>Kiruna</h2><div class="meta"><span>Nattåg, 16 h 40 min</span><span>från <b>1 090 kr</b></span></div></div></div></a>
+  </div>
+</section>
+<script>
+(() => {
+  const track = document.getElementById('track');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cardStep = () => (track.querySelector('.card').offsetWidth + 14);
+  const by = (dir) => track.scrollBy({ left: dir * cardStep(), behavior: reduce ? 'auto' : 'smooth' });
+  document.getElementById('prev').addEventListener('click', () => { hold(); by(-1); });
+  document.getElementById('next').addEventListener('click', () => { hold(); by(1); });
+
+  // Mushjul rullar i sidled när pekaren är över korten
+  track.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { track.scrollLeft += e.deltaY; e.preventDefault(); hold(); }
+  }, { passive: false });
+
+  // Dra med musen
+  let down = false, sx = 0, sl = 0, moved = 0;
+  track.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') { hold(); return; } down = true; sx = e.clientX; sl = track.scrollLeft; moved = 0; track.classList.add('drag'); hold(); });
+  addEventListener('pointermove', (e) => { if (!down) return; moved = Math.abs(e.clientX - sx); track.scrollLeft = sl - (e.clientX - sx); });
+  addEventListener('pointerup', () => { down = false; track.classList.remove('drag'); });
+  track.addEventListener('click', (e) => { if (moved > 6) { e.preventDefault(); moved = 0; } }, true);
+  track.addEventListener('dragstart', (e) => e.preventDefault());
+
+  // Korten glider långsamt av sig själva tills någon tar över, som utsikten från ett tågfönster.
+  let idleUntil = 0, pos = 0, dir = 1;
+  function hold() { idleUntil = performance.now() + 6000; }
+  track.addEventListener('pointerenter', hold);
+  track.addEventListener('focusin', hold);
+  if (reduce) return;
+  let last = performance.now();
+  (function glide(now) {
+    const dt = Math.min(50, now - last); last = now;
+    if (now > idleUntil && !document.hidden) {
+      const max = track.scrollWidth - track.clientWidth;
+      if (Math.abs(track.scrollLeft - pos) > 2) pos = track.scrollLeft;
+      pos += dt * 0.035 * dir;
+      if (pos >= max) { pos = max; dir = -1; } else if (pos <= 0) { pos = 0; dir = 1; }
+      track.scrollLeft = pos;
+    } else { pos = track.scrollLeft; }
+    requestAnimationFrame(glide);
+  })(last);
+})();
+</script>
+</body>
+</html>

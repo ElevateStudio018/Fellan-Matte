@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero-labb · Elevate Studio</title>
+<meta name="description" content="Arton hero-riktningar att bläddra mellan och tycka till om.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lab.css">
+</head>
+<body>
+<main class="stage">
+  <iframe id="hero" title="Hero" src="about:blank"></iframe>
+</main>
+
+<nav class="bar" aria-label="Hero-labb">
+  <div class="bar__nav">
+    <button class="btn btn--icon" id="prev" type="button" aria-label="Föregående hero (vänsterpil)">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+    </button>
+    <span class="count" id="count" aria-live="polite">1 / 18</span>
+    <button class="btn btn--icon" id="next" type="button" aria-label="Nästa hero (högerpil)">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+    </button>
+    <span class="name" id="name"></span>
+  </div>
+  <div class="bar__vote" role="group" aria-label="Omdöme">
+    <button class="btn btn--vote" id="like" type="button" aria-pressed="false">Gillar <span aria-hidden="true">♥</span></button>
+    <button class="btn btn--vote" id="dislike" type="button" aria-pressed="false">Gillar inte</button>
+  </div>
+  <div class="bar__send">
+    <label class="sr" for="comment">Kommentar till den här riktningen</label>
+    <input id="comment" type="text" placeholder="Kommentar (valfritt)" autocomplete="off" maxlength="400">
+    <button class="btn btn--send" id="send" type="button">Skicka svaren <span class="tally" id="tally">0/18</span></button>
+  </div>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dialog id="fallback">
+  <p>Det gick inte att kopiera automatiskt. Markera texten och kopiera den själv.</p>
+  <textarea id="fallbackText" rows="12" readonly></textarea>
+  <form method="dialog"><button class="btn btn--send" type="submit">Stäng</button></form>
+</dialog>
+
+<script src="lab.js"></script>
+</body>
+</html>
