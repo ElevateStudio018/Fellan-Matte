@@ -736,8 +736,8 @@
     Q('kr-avstand', 'Hur stort ska avståndet mellan ruta och text vara?', [8, 10, 12].map(g => [`${g} px avstånd`, W(khead + `<div class="stack" style="gap:12px">${KROWS.map(([t, on]) => crow(cbox({ on }), t, `gap:${g}px`)).join('')}</div>`, 'gap:12px')])),
     Q('kr-radavstand', 'Hur tätt ska kryssrutorna i en lista ligga?', [8, 12, 16].map(g => [`${g} px mellan raderna`, klist({}, '', g)])),
     Q('kr-tvarad', 'Hur ska rutan linjera mot en etikett på två rader?', [
-      ['Mot första raden', W(crow(cbox({ on: true }), 'Jag vill få påminnelser inför bokade tider via e-post', 'align-items:flex-start;line-height:1.4').replace('display:inline-grid', 'margin-top:1px;display:inline-grid'))],
-      ['Centrerad mot texten', W(crow(cbox({ on: true }), 'Jag vill få påminnelser inför bokade tider via e-post', 'align-items:center;line-height:1.4'))],
+      ['Mot första raden', W('<div style="max-width:220px">' + crow(cbox({ on: true }), 'Jag vill få påminnelser inför bokade tider via e-post', 'align-items:flex-start;line-height:1.4').replace('display:inline-grid', 'margin-top:1px;display:inline-grid') + '</div>')],
+      ['Centrerad mot texten', W('<div style="max-width:220px">' + crow(cbox({ on: true }), 'Jag vill få påminnelser inför bokade tider via e-post', 'align-items:center;line-height:1.4') + '</div>')],
     ]),
     Q('kr-delvis', 'Hur ska en delvis markerad ruta se ut?', ['line', 'outline', 'square'].map((k, i) => [
       ['Streck i fylld ruta', 'Streck i ruta med kant', 'Liten fylld fyrkant'][i],
@@ -935,6 +935,493 @@
       ['Bara text', W(seg({ items: ['Lista', 'Rutnät', 'Karta'], sel: 0 }))],
       ['Ikon och text', W(seg({ items: ['Lista', 'Rutnät', 'Karta'], sel: 0, icons: 'both', ico: ['list', 'grid', 'map'] }))],
       ['Bara ikon', W(seg({ items: ['Lista', 'Rutnät', 'Karta'], sel: 0, icons: 'only', ico: ['list', 'grid', 'map'], eq: false }))],
+    ]),
+  ]);
+
+  // =====================================================================
+  // Reglage
+  // =====================================================================
+  const KS = {
+    white: 'border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(26,28,30,.35);',
+    fill: `border-radius:50%;background:${BR};`,
+    ring: `border-radius:50%;background:#fff;border:2px solid ${BR};`,
+  };
+  function slider(o = {}) {
+    const t = o.t || 4, k = o.k || 20, col = BR;
+    const from = o.v2 != null ? o.v : 0, to = o.v2 != null ? o.v2 : (o.v != null ? o.v : 60);
+    const kst = o.ks === 'bar' ? `border-radius:3px;background:${BR};width:6px;margin-left:-3px;` : `width:${k}px;margin-left:-${k / 2}px;` + KS[o.ks || 'white'];
+    const kh = o.ks === 'bar' ? Math.round(k * 1.2) : k;
+    const knob = (p, lab) => `<span style="position:absolute;left:${p}%;top:50%;margin-top:-${kh / 2}px;height:${kh}px;${kst}">${o.bubble ? `<span style="position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--sink);color:#fff;font-size:12px;font-weight:600;padding:3px 7px;border-radius:5px;white-space:nowrap">${lab}</span>` : ''}</span>`;
+    const fill = o.fill === false ? '' : `<span style="position:absolute;left:${from}%;width:${to - from}%;top:0;bottom:0;background:${col};border-radius:${t}px"></span>`;
+    const ticks = o.ticks ? [0, 25, 50, 75, 100].map(p => `<span style="position:absolute;left:${p}%;top:50%;width:4px;height:4px;margin:-2px 0 0 -2px;border-radius:50%;background:${p <= to && p >= from ? '#fff' : 'rgba(26,28,30,.35)'}"></span>`).join('') : '';
+    const knobs = (o.v2 != null ? knob(from, o.l1 || '') : '') + knob(to, o.l2 || '');
+    return `<div style="position:relative;height:${Math.max(kh, t)}px;margin:${o.bubble ? 30 : 0}px ${k / 2}px 0"><span style="position:absolute;left:0;right:0;top:50%;height:${t}px;margin-top:-${t / 2}px;background:#DDE0E4;border-radius:${t}px">${fill}${ticks}</span>${knobs}</div>`;
+  }
+  const slHead = (r = '') => `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><span class="lbl" style="font-size:13px;font-weight:600">Pris</span>${r}</div>`;
+  const slv = t => `<span style="font-size:14px;font-weight:600;font-variant-numeric:tabular-nums">${t}</span>`;
+  const SL = (so = {}, r = slv('600 kr'), after = '') => W(slHead(r) + slider(so) + after, 'gap:12px');
+  group('reglage', 'Reglage (slider)', [
+    Q('sl-spar', 'Hur tjockt ska reglagets spår vara?', [2, 4, 6, 8].map(t => [`${t} px spår`, SL({ t })])),
+    Q('sl-knopp', 'Hur ska reglagets knopp se ut?', [
+      ['Vit med skugga', SL({ ks: 'white' })],
+      ['Fylld i märkesfärg', SL({ ks: 'fill' })],
+      ['Vit med färgad kant', SL({ ks: 'ring' })],
+      ['Smal stav', SL({ ks: 'bar' })],
+    ]),
+    Q('sl-knopp-storlek', 'Hur stor ska reglagets knopp vara?', [16, 20, 24, 28].map(k => [`${k} px knopp`, SL({ k })])),
+    Q('sl-varde', 'Hur ska reglagets värde visas?', [
+      ['Inget värde', SL({}, '')],
+      ['I etikettraden till höger', SL()],
+      ['Bubbla ovanför knoppen', SL({ bubble: true, l2: '600 kr' }, '')],
+      ['I ett litet fält bredvid', W(slHead() + `<div style="display:flex;align-items:center;gap:12px"><div style="flex:1;min-width:0">${slider()}</div><span class="inp" style="height:36px;width:84px;flex:0 0 auto;padding:0 10px;font-size:14px">600 kr</span></div>`, 'gap:12px')],
+    ]),
+    Q('sl-fyllt', 'Ska spåret fyllas fram till knoppen?', [
+      ['Fyllt fram till knoppen', SL()],
+      ['Ofyllt spår', SL({ fill: false })],
+    ]),
+    Q('sl-intervall', 'Hur ska ett reglage för intervall (från–till) visa värdena?', [
+      ['Text i etikettraden', SL({ v: 30, v2: 75 }, slv('300–750 kr'))],
+      ['Bubblor ovanför knopparna', SL({ v: 30, v2: 75, bubble: true, l1: '300 kr', l2: '750 kr' }, '')],
+      ['Två fält under reglaget', SL({ v: 30, v2: 75 }, '', `<div style="display:flex;align-items:center;gap:8px"><span class="inp" style="flex:1;min-width:0;height:40px;font-size:14px">300 kr</span><span class="muted">–</span><span class="inp" style="flex:1;min-width:0;height:40px;font-size:14px">750 kr</span></div>`)],
+    ]),
+    Q('sl-steg', 'Ska reglagets steg markeras?', [
+      ['Inga stegmarkeringar', SL({ v: 50 }, slv('500 kr'))],
+      ['Prickar på spåret', SL({ v: 50, t: 6, ticks: true }, slv('500 kr'))],
+      ['Siffror under spåret', SL({ v: 50 }, slv('500 kr'), `<div style="display:flex;justify-content:space-between;font-size:12px;color:${MUT};font-variant-numeric:tabular-nums"><span>0</span><span>250</span><span>500</span><span>750</span><span>1 000</span></div>`)],
+    ]),
+    Q('sl-minmax', 'Ska reglagets lägsta och högsta värde visas?', [
+      ['Nej', SL()],
+      ['Ja, under spårets ändar', SL({}, slv('600 kr'), `<div style="display:flex;justify-content:space-between;font-size:12px;color:${MUT}"><span>0 kr</span><span>1 000 kr</span></div>`)],
+    ]),
+  ]);
+
+  // =====================================================================
+  // Antalsväljare
+  // =====================================================================
+  function stepper(o = {}) {
+    const h = o.h || 44, r = o.r != null ? o.r : 8, n = o.n != null ? o.n : 2, st = o.st || 'box';
+    const b = (i, dis) => {
+      const fill = o.btn === 'grey' ? 'background:#EEF0F2;' : o.btn === 'brand' && i === 'plus' ? `background:${BR};color:#fff;` : '';
+      const ico = dis === 'trash' ? 'trash' : i;
+      const c = dis === true ? 'color:rgba(26,28,30,.28);' : '';
+      if (st === 'round') return `<span style="display:grid;place-items:center;width:${h - 8}px;height:${h - 8}px;border-radius:50%;border:1px solid var(--sline);${fill}${c}">${ic(ico, { s: 18 })}</span>`;
+      if (st === 'bare') return `<span style="display:grid;place-items:center;width:${h - 12}px;height:${h - 12}px;color:${BR};${c}">${ic(ico, { s: 20 })}</span>`;
+      const ir = Math.max(0, Math.min(r, h / 2) - 4);
+      return `<span style="display:grid;place-items:center;width:${h - 8}px;height:${h - 8}px;border-radius:${r >= 99 ? 999 : ir}px;${fill}${c}">${ic(ico, { s: 18 })}</span>`;
+    };
+    const num = `<span style="min-width:28px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums">${n}</span>`;
+    const minus = b('minus', n <= 1 ? (o.min || false) : false);
+    if (st === 'box') return `<span style="display:inline-flex;align-items:center;gap:4px;height:${h}px;padding:0 3px;border:1px solid var(--sline);border-radius:${r}px;background:#fff">${minus}${num}${b('plus')}</span>`;
+    if (st === 'arrows') return `<span class="inp" style="display:inline-flex;width:120px;height:${h}px;padding:0 0 0 14px;border-radius:${r}px"><span style="flex:1;font-weight:600">${n}</span><span style="display:flex;flex-direction:column;align-self:stretch;border-left:1px solid var(--sline)"><span style="flex:1;display:grid;place-items:center;padding:0 8px;border-bottom:1px solid var(--sline)">${ic('up', { s: 14 })}</span><span style="flex:1;display:grid;place-items:center;padding:0 8px">${ic('down', { s: 14 })}</span></span></span>`;
+    return `<span style="display:inline-flex;align-items:center;gap:8px">${minus}${num}${b('plus')}</span>`;
+  }
+  const stRow = (s, t = 'Antal personer') => W(`<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><span style="font-size:15px">${t}</span>${s}</div>`);
+  group('antal', 'Antalsväljare', [
+    Q('an-stil', 'Hur ska antalsväljaren se ut?', [
+      ['Knappar och siffra i en ram', stRow(stepper({ st: 'box' }))],
+      ['Separata runda knappar', stRow(stepper({ st: 'round' }))],
+      ['Fält med små pilar', stRow(stepper({ st: 'arrows' }))],
+      ['Bara ikoner, ingen ram', stRow(stepper({ st: 'bare' }))],
+    ]),
+    Q('an-rundning', 'Hur rund ska antalsväljarens ram vara?', [
+      ['4 px rundning', stRow(stepper({ r: 4 }))],
+      ['8 px rundning', stRow(stepper({ r: 8 }))],
+      ['Helt runda ändar (pill)', stRow(stepper({ r: 999 }))],
+    ]),
+    Q('an-knappar', 'Hur ska minus- och plusknapparna se ut?', [
+      ['Bara ikonen', stRow(stepper())],
+      ['Grå platta bakom', stRow(stepper({ btn: 'grey' }))],
+      ['Plus fyllt i märkesfärg', stRow(stepper({ btn: 'brand' }))],
+    ]),
+    Q('an-min', 'Hur ska minusknappen se ut vid lägsta värdet?', [
+      ['Utgråad', stRow(stepper({ n: 1, min: true }), 'Antal')],
+      ['Oförändrad', stRow(stepper({ n: 1 }), 'Antal')],
+      ['Blir en papperskorg', stRow(stepper({ n: 1, min: 'trash' }), 'Antal')],
+    ]),
+    Q('an-storlek', 'Hur hög ska antalsväljaren vara?', [32, 40, 48].map(h => [`${h} px hög`, stRow(stepper({ h }))])),
+  ]);
+
+  // =====================================================================
+  // Datumväljare
+  // =====================================================================
+  const SELD = `background:${BR};color:#fff;font-weight:600;border-radius:50%;`;
+  function cal(o = {}) {
+    const off = 1, days = [];
+    for (let i = 0; i < off; i++) days.push(null);
+    for (let d = 1; d <= 31; d++) days.push(d);
+    while (days.length % 7) days.push(null);
+    const wd = o.wd || ['M', 'T', 'O', 'T', 'F', 'L', 'S'];
+    const cols = o.wk ? '22px repeat(7,minmax(0,1fr))' : 'repeat(7,minmax(0,1fr))';
+    let g = (o.wk ? '<span></span>' : '') + wd.map(t => `<span style="text-align:center;font-size:11px;font-weight:600;color:${MUT};padding-bottom:4px">${t}</span>`).join('');
+    days.forEach((d, i) => {
+      const col = i % 7;
+      if (o.wk && col === 0) g += `<span style="display:grid;place-items:center;font-size:10px;color:${MUT}">${49 + i / 7}</span>`;
+      let cell = '', dot = '', extra = '';
+      if (d) {
+        if (o.past && d < o.past) dot += o.pastSt || 'color:rgba(26,28,30,.3);';
+        if (o.wkend && col >= 5) dot += o.wkend;
+        if (o.range && d >= o.range[0] && d <= o.range[1]) { const r = o.rangeFn(d, o.range[0], o.range[1]); cell += r.cell || ''; dot += r.dot || ''; }
+        if (d === o.today) { dot += o.todaySt || ''; if (o.todayMark) extra = o.todayMark; }
+        if (d === o.sel) dot += o.selSt || SELD;
+      }
+      g += `<span style="display:grid;place-items:center;padding:1px 0;${cell}"><span style="position:relative;display:grid;place-items:center;width:min(30px,100%);aspect-ratio:1;font-size:13px;font-variant-numeric:tabular-nums;${dot}">${d || ''}${d ? extra : ''}</span></span>`;
+    });
+    const t = '<span style="font-weight:600;font-size:14px">December 2026</span>';
+    const L = `<span style="display:inline-flex;color:var(--sink)">${ic('left', { s: 18 })}</span>`, R = `<span style="display:inline-flex;color:var(--sink)">${ic('right', { s: 18 })}</span>`;
+    const pillSel = x => `<span style="display:inline-flex;align-items:center;gap:2px;font-weight:600;font-size:13px;border:1px solid var(--sline);border-radius:6px;padding:2px 4px 2px 8px">${x}${ic('down', { s: 14 })}</span>`;
+    const nav = o.nav === 'right' ? `${t}<span style="display:flex;gap:10px">${L}${R}</span>` : o.nav === 'select' ? `<span style="display:flex;gap:6px">${pillSel('Dec')}${pillSel('2026')}</span><span style="display:flex;gap:10px">${L}${R}</span>` : `${L}${t}${R}`;
+    return `<div style="border:1px solid var(--sline);border-radius:12px;padding:12px 10px;background:#fff;box-shadow:0 6px 20px rgba(26,28,30,.08);${o.st || ''}">${o.top || ''}<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:8px;padding:0 4px">${nav}</div><div style="display:grid;grid-template-columns:${cols};row-gap:2px">${g}</div></div>`;
+  }
+  const C = (o = {}) => W(cal({ sel: 17, today: 10, ...o }), 'padding:14px 12px');
+  const band = 'var(--tint)';
+  const RF = {
+    band: (d, a, b) => ({ cell: d === a ? `background:linear-gradient(90deg,transparent 50%,${band} 50%);` : d === b ? `background:linear-gradient(90deg,${band} 50%,transparent 50%);` : `background:${band};`, dot: d === a || d === b ? SELD : '' }),
+    tiles: (d, a, b) => ({ dot: d === a || d === b ? `background:${BR};color:#fff;font-weight:600;border-radius:6px;` : `background:${band};border-radius:6px;` }),
+    square: (d, a, b) => ({ cell: `background:${d === a || d === b ? BR : band};`, dot: d === a || d === b ? 'color:#fff;font-weight:600;' : '' }),
+  };
+  function dchips(k, sel = 2) {
+    const D = [['Mån', 7], ['Tis', 8], ['Ons', 9], ['Tor', 10], ['Fre', 11]];
+    if (k === 'pill') return `<div class="row" style="gap:6px">${D.map(([w, n], i) => `<span class="chip" style="height:34px;font-size:13px;${i === sel ? `background:${BR};border-color:${BR};color:#fff;font-weight:600` : ''}">${w.toLowerCase()} ${n} dec</span>`).join('')}</div>`;
+    if (k === 'circle') return `<div style="display:flex;gap:4px">${D.map(([w, n], i) => `<span style="flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:11px;font-weight:600;color:${MUT}">${w}</span><span style="display:grid;place-items:center;width:36px;max-width:100%;aspect-ratio:1;border-radius:50%;font-weight:600;font-size:14px;${i === sel ? `background:${BR};color:#fff` : 'border:1px solid var(--sline)'}">${n}</span></span>`).join('')}</div>`;
+    return `<div style="display:flex;gap:6px">${D.map(([w, n], i) => `<span style="flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;height:58px;border-radius:10px;${i === sel ? `background:${BR};color:#fff;border:1px solid ${BR}` : 'border:1px solid var(--sline)'}"><span style="font-size:11px;font-weight:600;${i === sel ? '' : `color:${MUT}`}">${w}</span><span style="font-size:17px;font-weight:700">${n}</span></span>`).join('')}</div>`;
+  }
+  group('datum', 'Datumväljare', [
+    Q('da-vald', 'Hur ska den valda dagen i kalendern markeras?', [
+      ['Fylld cirkel', C()],
+      ['Fylld rundad fyrkant', C({ selSt: `background:${BR};color:#fff;font-weight:600;border-radius:8px;` })],
+      ['Fylld fyrkant med raka hörn', C({ selSt: `background:${BR};color:#fff;font-weight:600;border-radius:0;` })],
+      ['Ring runt siffran', C({ selSt: `box-shadow:inset 0 0 0 2px ${BR};color:${BR};font-weight:700;border-radius:50%;` })],
+    ]),
+    Q('da-idag', 'Hur ska dagens datum markeras?', [
+      ['Tunn ring', C({ todaySt: 'box-shadow:inset 0 0 0 1px rgba(26,28,30,.4);border-radius:50%;' })],
+      ['Prick under siffran', C({ todayMark: `<span style="position:absolute;bottom:3px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:${BR}"></span>` })],
+      ['Fet siffra i märkesfärg', C({ todaySt: `color:${BR};font-weight:700;` })],
+      ['Ingen markering', C()],
+    ]),
+    Q('da-intervall', 'Hur ska ett valt datumintervall visas?', [
+      ['Band mellan två fyllda cirklar', C({ sel: 0, range: [14, 18], rangeFn: RF.band })],
+      ['Varje dag som egen tonad ruta', C({ sel: 0, range: [14, 18], rangeFn: RF.tiles })],
+      ['Rakt band med fyllda ändar', C({ sel: 0, range: [14, 18], rangeFn: RF.square })],
+    ]),
+    Q('da-veckodagar', 'Hur ska veckodagarna skrivas i kalendern?', [
+      ['En bokstav: M T O', C()],
+      ['Två bokstäver: må ti on', C({ wd: ['må', 'ti', 'on', 'to', 'fr', 'lö', 'sö'] })],
+      ['Tre bokstäver: Mån Tis', C({ wd: ['Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör', 'Sön'] })],
+    ]),
+    Q('da-veckonummer', 'Ska kalendern visa veckonummer?', [
+      ['Utan veckonummer', C()],
+      ['Med veckonummer', C({ wk: true })],
+    ]),
+    Q('da-passerade', 'Hur ska dagar som inte går att välja visas?', [
+      ['Ljusgrå siffror', C({ past: 10, today: 0 })],
+      ['Överstrukna', C({ past: 10, today: 0, pastSt: 'color:rgba(26,28,30,.38);text-decoration:line-through;' })],
+      ['Grå med prickad bakgrund', C({ past: 10, today: 0, pastSt: 'color:rgba(26,28,30,.35);background:repeating-linear-gradient(135deg,#F1F2F3 0 3px,#fff 3px 6px);border-radius:6px;' })],
+    ]),
+    Q('da-helg', 'Ska lördag och söndag skilja sig från vardagar?', [
+      ['Som övriga dagar', C()],
+      ['Grå siffror', C({ wkend: `color:${MUT};` })],
+      ['Röda siffror', C({ wkend: 'color:#B3261E;' })],
+    ]),
+    Q('da-navigering', 'Hur ska man byta månad i kalendern?', [
+      ['Pilar på var sin sida', C()],
+      ['Båda pilarna till höger', C({ nav: 'right' })],
+      ['Listor för månad och år', C({ nav: 'select' })],
+    ]),
+    Q('da-snabbval', 'Ska kalendern ha snabbval?', [
+      ['Inga snabbval', C()],
+      ['Chips ovanför kalendern', C({ top: `<div class="row" style="gap:6px;margin-bottom:10px">${['I dag', 'I morgon', 'Nästa vecka'].map(t => `<span class="chip" style="height:28px;font-size:12px;padding:0 10px">${t}</span>`).join('')}</div>` })],
+    ]),
+    Q('da-falt', 'Hur ska ett datumfält se ut när det är stängt?', [
+      ['Kalenderikon till höger', W(F({ lbl: 'Datum', val: '2026-12-17', right: ic('cal', { s: 18, st: 'color:var(--smuted)' }) }))],
+      ['Kalenderikon till vänster', W(F({ lbl: 'Datum', val: '2026-12-17', left: ic('cal', { s: 18, st: 'color:var(--smuted)' }) }))],
+      ['Tre fält: dag, månad, år', W(`<div class="fld" style="flex:none"><span class="lbl">Datum</span><div style="display:flex;gap:8px">${[['Dag', '17', 1], ['Månad', '12', 1], ['År', '2026', 1.6]].map(([l, v, f]) => `<div style="flex:${f} 1 0;min-width:0;display:flex;flex-direction:column;gap:3px"><span class="inp">${v}</span><span style="font-size:12px;color:${MUT}">${l}</span></div>`).join('')}</div></div>`)],
+      ['Skrivet datum utan ikon', W(F({ lbl: 'Datum', val: 'tor 17 december 2026' }))],
+    ]),
+    Q('da-chips', 'Hur ska man välja när det bara finns ett fåtal dagar?', [
+      ['Vanlig kalender', C({ sel: 9, today: 0, past: 7, pastSt: 'color:rgba(26,28,30,.3);' })],
+      ['Rad med dagar som chips', W(`<span class="lbl" style="font-size:13px;font-weight:600">Välj dag</span>` + dchips('two'), 'gap:10px')],
+      ['Rullgardin med dagar', W(F({ lbl: 'Välj dag', val: 'Onsdag 9 december', right: chev() }))],
+    ]),
+    Q('da-chip-stil', 'Hur ska dagarna se ut när de visas som chips?', [
+      ['Ruta med veckodag och siffra', W(dchips('two'))],
+      ['Pill med text på en rad', W(dchips('pill'))],
+      ['Cirkel med veckodag ovanför', W(dchips('circle'))],
+    ]),
+  ]);
+
+  // =====================================================================
+  // Tidsval
+  // =====================================================================
+  const TIMES = ['09:00', '09:30', '10:00', '10:30', '11:00', '13:00'];
+  const tgrid = (fn, times = TIMES) => `<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">${times.map((t, i) => fn(t, i)).join('')}</div>`;
+  const tbtn = (t, i, k = 'out', busy = []) => {
+    const on = i === 2, b = busy.includes(i);
+    let s = `display:grid;place-items:center;height:40px;font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;border-radius:${k === 'pill' ? 999 : 8}px;`;
+    if (on) s += `background:${BR};color:#fff;border:1px solid ${BR};`;
+    else if (k === 'grey') s += 'background:#EEF0F2;border:1px solid transparent;';
+    else s += 'border:1px solid var(--sline);';
+    return `<span style="${s}">${t}</span>`;
+  };
+  group('tid', 'Tidsval', [
+    Q('ti-typ', 'Hur ska man välja en tid?', [
+      ['Knappar i rutnät', W('<span class="lbl" style="font-size:13px;font-weight:600">Välj tid</span>' + tgrid((t, i) => tbtn(t, i)), 'gap:10px')],
+      ['Lista med tider', W('<span class="lbl" style="font-size:13px;font-weight:600">Välj tid</span>' + `<div style="border:1px solid var(--sline);border-radius:10px;overflow:hidden">${TIMES.slice(0, 4).map((t, i) => `<div style="display:flex;justify-content:space-between;align-items:center;height:40px;padding:0 12px;font-variant-numeric:tabular-nums;${i ? 'border-top:1px solid var(--sline);' : ''}${i === 2 ? `background:var(--tint);font-weight:600` : ''}">${t}${i === 2 ? ck() : ''}</div>`).join('')}</div>`, 'gap:10px')],
+      ['Rullgardin', W(F({ lbl: 'Välj tid', val: '10:00', right: chev() }))],
+      ['Skriv tiden i ett fält', W(F({ lbl: 'Tid', val: '10:00', right: ic('clock', { s: 18, st: 'color:var(--smuted)' }) }))],
+    ]),
+    Q('ti-knapp', 'Hur ska tidsknapparna se ut?', [
+      ['Vit med kant', W(tgrid((t, i) => tbtn(t, i, 'out')))],
+      ['Grå utan kant', W(tgrid((t, i) => tbtn(t, i, 'grey')))],
+      ['Pill med kant', W(tgrid((t, i) => tbtn(t, i, 'pill')))],
+    ]),
+    Q('ti-upptagen', 'Hur ska upptagna tider visas?', [
+      ['Överstrukna och grå', W(tgrid((t, i) => [1, 4].includes(i) ? `<span style="display:grid;place-items:center;height:40px;font-size:14px;border-radius:8px;border:1px solid rgba(26,28,30,.08);color:rgba(26,28,30,.35);text-decoration:line-through;font-variant-numeric:tabular-nums">${t}</span>` : tbtn(t, i)))],
+      ['Grå utan kant', W(tgrid((t, i) => [1, 4].includes(i) ? `<span style="display:grid;place-items:center;height:40px;font-size:14px;border-radius:8px;background:#F1F2F3;color:rgba(26,28,30,.35);font-variant-numeric:tabular-nums">${t}</span>` : tbtn(t, i)))],
+      ['Dolda helt', W(tgrid((t, i) => tbtn(t, i === 0 ? 0 : i === 1 ? 2 : 9), ['09:00', '10:00', '10:30', '13:00']))],
+    ]),
+    Q('ti-format', 'Hur ska klockslag skrivas?', [
+      ['09:00', W(tgrid((t, i) => tbtn(t, i)))],
+      ['9:00', W(tgrid((t, i) => tbtn(t.replace(/^0/, ''), i)))],
+      ['9.00', W(tgrid((t, i) => tbtn(t.replace(/^0/, '').replace(':', '.'), i)))],
+      ['kl. 9.00', W(tgrid((t, i) => tbtn('kl. ' + t.replace(/^0/, '').replace(':', '.'), i)))],
+    ]),
+  ]);
+
+  // =====================================================================
+  // Filuppladdning
+  // =====================================================================
+  const dz = (o = {}) => `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:22px 14px;border-radius:12px;border:${o.bd || '1.5px dashed rgba(26,28,30,.3)'};background:${o.bg || 'transparent'}">${o.ico === '' ? '' : `<span style="display:inline-flex;color:${o.ic || MUT}">${ic(o.ico || 'upload', { s: 26, sw: 1.75 })}</span>`}<span style="font-size:14px"><b style="color:${BR}">Välj fil</b> eller dra hit</span><span style="font-size:12px;color:${MUT}">PDF eller JPG, max 10 MB</span></div>`;
+  const fileRow = (x = '', extra = '') => `<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--sline);border-radius:10px;${x}"><span style="display:inline-flex;color:${MUT}">${ic('doc', { s: 20 })}</span><span style="flex:1;min-width:0;line-height:1.3"><span style="display:block;font-size:14px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">underlag.pdf</span>${extra || `<span style="font-size:12px;color:${MUT}">1,2 MB</span>`}</span><span style="display:inline-flex;color:${MUT}">${ic('x', { s: 18 })}</span></div>`;
+  const ulab = '<span class="lbl" style="font-size:13px;font-weight:600">Bifoga fil</span>';
+  group('uppladdning', 'Filuppladdning', [
+    Q('up-typ', 'Hur ska filuppladdning se ut?', [
+      ['Dropzon att dra filer till', W(ulab + dz(), 'gap:8px')],
+      ['Knapp ”Välj fil”', W(ulab + `<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span class="sb2" style="height:40px;padding:0 16px;font-size:14px">${ic('upload', { s: 18 })}Välj fil</span><span class="small muted">Ingen fil vald</span></div>`, 'gap:8px')],
+      ['Fält med bläddra-knapp', W(ulab + `<div class="inp" style="padding-right:4px;gap:10px"><span style="flex:1;min-width:0;color:${MUT}">Ingen fil vald</span><span style="height:38px;display:flex;align-items:center;padding:0 12px;border-radius:6px;background:#EEF0F2;font-size:14px;font-weight:600">Bläddra</span></div>`, 'gap:8px')],
+    ]),
+    Q('up-kant', 'Hur ska dropzonens kant se ut?', [
+      ['Streckad kant', W(dz())],
+      ['Prickad kant', W(dz({ bd: '2px dotted rgba(26,28,30,.3)' }))],
+      ['Heldragen tunn kant', W(dz({ bd: '1px solid var(--sline)' }))],
+      ['Grå yta utan kant', W(dz({ bd: '1px solid transparent', bg: '#F1F2F3' }))],
+    ]),
+    Q('up-ikon', 'Vilken ikon ska dropzonen ha?', [
+      ['Pil uppåt', W(dz({ ico: 'upload' }))],
+      ['Moln med pil', W(dz({ ico: 'cloud' }))],
+      ['Dokument', W(dz({ ico: 'doc' }))],
+      ['Ingen ikon', W(dz({ ico: '' }))],
+    ]),
+    Q('up-drag', 'Hur ska dropzonen se ut när en fil dras över den?', [
+      ['Färgad kant och tonad yta', W(dz({ bd: `1.5px dashed ${BR}`, bg: 'var(--tint)', ic: BR }))],
+      ['Bara färgad kant', W(dz({ bd: `1.5px dashed ${BR}`, ic: BR }))],
+      ['Heldragen färgad kant, 2 px', W(dz({ bd: `2px solid ${BR}`, ic: BR }))],
+    ]),
+    Q('up-fil', 'Hur ska en uppladdad fil visas?', [
+      ['Rad med ikon, namn och kryss', W(ulab + fileRow(), 'gap:8px')],
+      ['Chip med namn och kryss', W(ulab + `<span class="chip" style="align-self:flex-start;gap:8px;max-width:100%">${ic('doc', { s: 16 })}underlag.pdf<span style="display:inline-flex;color:${MUT}">${ic('x', { s: 14 })}</span></span>`, 'gap:8px')],
+      ['Bara länkat filnamn', W(ulab + `<span style="display:flex;gap:10px;align-items:center;font-size:14px"><span class="link">underlag.pdf</span><span class="small muted">1,2 MB</span><span class="small" style="color:${BAD};font-weight:600">Ta bort</span></span>`, 'gap:8px')],
+    ]),
+    Q('up-forlopp', 'Hur ska en pågående uppladdning visas?', [
+      ['Linje under filnamnet', W(fileRow('', `<span style="display:block;height:4px;border-radius:2px;background:#E4E6E9;margin-top:6px"><span style="display:block;width:64%;height:100%;border-radius:2px;background:${BR}"></span></span>`))],
+      ['Procent i text', W(fileRow('', `<span style="font-size:12px;color:${MUT}">Laddar upp … 64 %</span>`))],
+      ['Fylls som bakgrund', W(fileRow(`background:linear-gradient(90deg,var(--tint) 64%,transparent 64%)`, `<span style="font-size:12px;color:${MUT}">64 %</span>`))],
+    ]),
+  ]);
+
+  // =====================================================================
+  // Telefonfält
+  // =====================================================================
+  const flag = '<svg viewBox="0 0 16 10" aria-hidden="true" style="width:20px;height:13px;border-radius:2px;flex:0 0 auto"><rect width="16" height="10" fill="#006AA7"/><path d="M5 0h2v10H5zM0 4h16v2H0z" fill="#FECC00"/></svg>';
+  const cc = (inner, div = true) => `<span style="display:flex;align-items:center;gap:6px;align-self:stretch;margin-left:-4px;padding-right:12px;${div ? 'border-right:1px solid var(--sline);' : ''}flex:0 0 auto">${inner}${ic('down', { s: 14, st: 'color:var(--smuted)' })}</span>`;
+  const telF = (left, val = '70-123 45 67', x = {}) => W(F({ lbl: 'Telefon', val, left, ...x }));
+  group('telefon', 'Telefonfält', [
+    Q('te-landskod', 'Hur ska landskoden visas i telefonfältet?', [
+      ['Flagga och kod i en meny', telF(cc(flag + '<span>+46</span>'))],
+      ['Bara koden i en meny', telF(cc('<span>+46</span>'))],
+      ['Ingen meny, skriv +46 själv', telF('', '+46 70-123 45 67')],
+      ['Ingen landskod alls', telF('', '070-123 45 67')],
+    ]),
+    Q('te-avdelare', 'Ska landskoden skiljas från numret med en linje?', [
+      ['Med lodrät linje', telF(cc(flag + '<span>+46</span>'))],
+      ['Utan linje', telF(cc(flag + '<span>+46</span>', false))],
+      ['Som egen ruta bredvid', W(`<div class="fld" style="flex:none"><span class="lbl">Telefon</span><div style="display:flex;gap:8px"><span class="inp" style="flex:0 0 auto;gap:6px;padding:0 10px">${flag}+46${ic('down', { s: 14, st: 'color:var(--smuted)' })}</span><span class="inp" style="flex:1;min-width:0">70-123 45 67</span></div></div>`)],
+    ]),
+    Q('te-format', 'Hur ska numret formateras medan man skriver?', [
+      ['Som man skriver det', telF('', '0701234567')],
+      ['Med bindestreck och mellanslag', telF('', '070-123 45 67')],
+      ['Bara mellanslag', telF('', '070 123 45 67')],
+    ]),
+    Q('te-ph', 'Vad ska ett tomt telefonfält visa?', [
+      ['Ett exempelnummer', telF('', undefined, { ph: '070-123 45 67' })],
+      ['Ordet ”Telefonnummer”', telF('', undefined, { ph: 'Telefonnummer' })],
+      ['Inget', telF('', undefined, { ph: '' })],
+    ]),
+  ]);
+
+  // =====================================================================
+  // Lösenordsfält
+  // =====================================================================
+  const PW = '••••••••••';
+  const eyeB = k => k === 'text' ? `<span style="font-size:13px;font-weight:600;color:${BR};flex:0 0 auto">Visa</span>`
+    : k === 'both' ? `<span style="display:flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:${BR};flex:0 0 auto">${ic('eye', { s: 16 })}Visa</span>`
+    : `<span style="display:inline-flex;color:${MUT}">${ic('eye', { s: 20 })}</span>`;
+  const pwF = (x = {}) => F({ lbl: 'Lösenord', val: `<span style="letter-spacing:2px">${PW}</span>`, right: eyeB(), ...x });
+  const meter = (k, lvl = 3) => {
+    const cols = { 1: '#B3261E', 2: '#9A5B00', 3: '#1E7A45', 4: '#1E7A45' };
+    const c = k === 'brand' ? BR : k === 'mono' ? '#1A1C1E' : cols[lvl];
+    const word = ['', 'Svagt', 'Okej', 'Starkt', 'Mycket starkt'][lvl];
+    if (k === 'line') return `<div style="display:flex;flex-direction:column;gap:5px"><span style="height:4px;border-radius:2px;background:#E4E6E9"><span style="display:block;height:100%;width:75%;border-radius:2px;background:${cols[lvl]}"></span></span><span style="font-size:12px;color:${MUT}">Lösenordet är <b style="color:${cols[lvl]}">${word.toLowerCase()}</b></span></div>`;
+    if (k === 'text') return `<span style="font-size:13px;color:${MUT}">Styrka: <b style="color:${cols[lvl]}">${word}</b></span>`;
+    if (k === 'list') return `<div style="display:flex;flex-direction:column;gap:3px;font-size:13px">${[['Minst 8 tecken', 1], ['En siffra', 1], ['Ett specialtecken', 0]].map(([t, ok]) => `<span style="display:flex;gap:6px;align-items:center;color:${ok ? 'var(--ok)' : MUT}">${ok ? ic('check', { s: 15 }) : '<span style="width:15px;display:inline-grid;place-items:center"><span style="width:5px;height:5px;border-radius:50%;background:currentColor"></span></span>'}${t}</span>`).join('')}</div>`;
+    return `<div style="display:flex;flex-direction:column;gap:5px"><span style="display:flex;gap:4px">${[1, 2, 3, 4].map(i => `<span style="flex:1;height:4px;border-radius:2px;background:${i <= lvl ? c : '#E4E6E9'}"></span>`).join('')}</span><span style="font-size:12px;color:${MUT}">Lösenordet är <b style="color:${k === 'seg' ? cols[lvl] : c}">${word.toLowerCase()}</b></span></div>`;
+  };
+  group('losenord', 'Lösenordsfält', [
+    Q('pw-visa', 'Hur ska knappen för att visa lösenordet se ut?', [
+      ['Öga-ikon', W(pwF())],
+      ['Texten ”Visa”', W(pwF({ right: eyeB('text') }))],
+      ['Ikon och text', W(pwF({ right: eyeB('both') }))],
+      ['Ingen visa-knapp', W(pwF({ right: '' }))],
+    ]),
+    Q('pw-styrka', 'Hur ska lösenordets styrka visas?', [
+      ['Stapel i fyra delar', W(pwF({ below: meter('seg') }))],
+      ['Sammanhängande linje', W(pwF({ below: meter('line') }))],
+      ['Bara text', W(pwF({ below: meter('text') }))],
+      ['Lista med krav som bockas av', W(pwF({ below: meter('list') }))],
+    ]),
+    Q('pw-styrka-farg', 'Vilka färger ska styrkemätaren ha?', [
+      ['Röd, orange, grön efter styrka', W(pwF({ below: meter('seg', 2) }) + pwF({ lbl: 'Lösenord (starkt)', below: meter('seg', 4) }))],
+      ['Alltid märkesfärg', W(pwF({ below: meter('brand', 2) }) + pwF({ lbl: 'Lösenord (starkt)', below: meter('brand', 4) }))],
+      ['Alltid svart', W(pwF({ below: meter('mono', 2) }) + pwF({ lbl: 'Lösenord (starkt)', below: meter('mono', 4) }))],
+    ]),
+    Q('pw-krav', 'När ska kraven på lösenordet visas?', [
+      ['Alltid under fältet', W(pwF({ val: '', ph: '', below: `<span class="small muted">Minst 8 tecken, varav en siffra.</span>` }))],
+      ['När fältet får fokus', W(pwF({ val: '', ph: '', caret: true, is: `border-color:${BR};box-shadow:0 0 0 3px rgba(36,64,94,.18);`, below: meter('list') }))],
+      ['Först om något är fel', W(pwF({ val: '<span style="letter-spacing:2px">•••••</span>', is: `border-color:${BAD};`, below: errMsg('Minst 8 tecken, varav en siffra') }))],
+    ]),
+    Q('pw-upprepa', 'Ska man skriva ett nytt lösenord två gånger?', [
+      ['Ett fält med visa-knapp', W(pwF({ lbl: 'Nytt lösenord' }))],
+      ['Två fält: skriv och upprepa', W(pwF({ lbl: 'Nytt lösenord', right: '' }) + pwF({ lbl: 'Upprepa lösenord', right: '' }))],
+    ]),
+    Q('pw-glomt', 'Var ska länken ”Glömt lösenord?” sitta?', [
+      ['I etikettraden till höger', W(F({ ...EMAIL }) + pwF({ lbl: `<span style="display:flex;justify-content:space-between;gap:8px"><span>Lösenord</span><span class="link" style="font-size:13px">Glömt lösenord?</span></span>` }) + '<span class="sb">Logga in</span>')],
+      ['Under fältet', W(F({ ...EMAIL }) + pwF({ below: '<span class="link" style="font-size:13px;align-self:flex-start">Glömt lösenord?</span>' }) + '<span class="sb">Logga in</span>')],
+      ['Under knappen', W(F({ ...EMAIL }) + pwF() + '<span class="sb">Logga in</span><span class="link" style="font-size:13px;align-self:center">Glömt lösenord?</span>')],
+    ]),
+  ]);
+
+  // =====================================================================
+  // Fältgrupper och layout
+  // =====================================================================
+  const g2 = (a, b) => `<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">${a}${b}</div>`;
+  const wide = 'max-width:600px;width:100%;margin:0 auto';
+  const TA2 = `<div class="fld" style="flex:none"><span class="lbl">Meddelande</span><div class="inp" style="height:84px"></div></div>`;
+  const stackGap = (g, inner) => `<div class="stack" style="gap:${g}px">${inner}</div>`;
+  const grpH = (t, k) => k === 'line' ? `<div style="display:flex;flex-direction:column;gap:8px"><span class="h h3" style="font-size:16px;font-weight:600">${t}</span><hr class="divider"></div>` : `<span class="h h3" style="font-size:16px;font-weight:600">${t}</span>`;
+  const grpForm = k => {
+    const a = [F({ ...NAME }), F({ ...EMAIL })].join(''), b = [F({ lbl: 'Gatuadress', val: 'Storgatan 12' }), F({ lbl: 'Ort', val: 'Stockholm' })].join('');
+    if (k === 'box') return W([['Kontaktuppgifter', a], ['Adress', b]].map(([t, f]) => `<div style="border:1px solid var(--sline);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px">${grpH(t)}${f}</div>`).join(''), 'gap:16px');
+    if (k === 'none') return W(stackGap(12, a) + stackGap(12, b), 'gap:32px');
+    return W([['Kontaktuppgifter', a], ['Adress', b]].map(([t, f]) => `<div style="display:flex;flex-direction:column;gap:12px">${grpH(t, k)}${f}</div>`).join(''), 'gap:28px');
+  };
+  group('faltgrupper', 'Fältgrupper och layout', [
+    Q('gr-kolumner', 'Ska formuläret ha en eller två kolumner på stor skärm?', [
+      ['En kolumn', W(F({ lbl: 'Förnamn', val: 'Anna' }) + F({ lbl: 'Efternamn', val: 'Berg' }) + F({ ...EMAIL }) + F({ ...TEL }) + TA2, wide)],
+      ['Två kolumner för korta fält', W(g2(F({ lbl: 'Förnamn', val: 'Anna' }), F({ lbl: 'Efternamn', val: 'Berg' })) + g2(F({ ...EMAIL }), F({ ...TEL })) + TA2, wide)],
+    ], 'stack'),
+    Q('gr-avstand', 'Hur stort ska avståndet mellan fälten vara?', [12, 16, 20, 24, 32].map(g => [`${g} px mellan fälten`, W(stackGap(g, F(NAME) + F(EMAIL) + F(TEL)))])),
+    Q('gr-rubriker', 'Hur ska fälten delas upp i grupper?', [
+      ['Rubrik ovanför varje grupp', grpForm('head')],
+      ['Rubrik med linje under', grpForm('line')],
+      ['Varje grupp i en egen ruta', grpForm('box')],
+      ['Bara större avstånd, ingen rubrik', grpForm('none')],
+    ]),
+    Q('gr-adress', 'Hur ska postnummer och ort placeras?', [
+      ['På var sin rad', W(F({ lbl: 'Postnummer', val: '123 45' }) + F({ lbl: 'Ort', val: 'Stockholm' }))],
+      ['Bredvid, postnummer smalt', W(`<div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:12px">${F({ lbl: 'Postnummer', val: '123 45' })}${F({ lbl: 'Ort', val: 'Stockholm' })}</div>`)],
+      ['Bredvid, lika breda', W(g2(F({ lbl: 'Postnummer', val: '123 45' }), F({ lbl: 'Ort', val: 'Stockholm' })))],
+    ]),
+    Q('gr-namn', 'Ska namnet vara ett eller två fält?', [
+      ['Ett fält: Namn', W(F({ ...NAME }))],
+      ['Två fält bredvid varandra', W(g2(F({ lbl: 'Förnamn', val: 'Anna' }), F({ lbl: 'Efternamn', val: 'Berg' })))],
+      ['Två fält under varandra', W(F({ lbl: 'Förnamn', val: 'Anna' }) + F({ lbl: 'Efternamn', val: 'Berg' }))],
+    ]),
+    Q('gr-yta', 'Var ska formuläret ligga?', [
+      ['Direkt på sidans bakgrund', `<div class="pad stack" style="flex:1;justify-content:center;gap:14px">${F(NAME)}${F(EMAILPH)}<span class="sb" style="align-self:flex-start">Skicka</span></div>`],
+      ['På ett vitt kort med kant', `<div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:center"><div class="panel stack" style="gap:14px;border:1px solid var(--sline)">${F(NAME)}${F(EMAILPH)}<span class="sb" style="align-self:flex-start">Skicka</span></div></div>`],
+      ['På ett vitt kort med skugga', `<div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:center"><div class="panel stack" style="gap:14px;box-shadow:0 4px 18px rgba(26,28,30,.10)">${F(NAME)}${F(EMAILPH)}<span class="sb" style="align-self:flex-start">Skicka</span></div></div>`],
+    ]),
+  ]);
+
+  // =====================================================================
+  // Skicka-knappen
+  // =====================================================================
+  const spinCss = '<style>.fa-sk-spin{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;animation:fa-sk-rot .8s linear infinite;flex:0 0 auto}@keyframes fa-sk-rot{to{transform:rotate(360deg)}}@media (prefers-reduced-motion: reduce){.fa-sk-spin{animation-duration:2.4s}}</style>';
+  const form2 = (btns, x = '') => W(F(NAME) + F(EMAIL) + `<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;${x}">${btns}</div>`);
+  group('skicka', 'Formulärets skicka-knapp', [
+    Q('sk-bredd', 'Hur bred ska formulärets skicka-knapp vara?', [
+      ['Full bredd', W(F(NAME) + F(EMAIL) + '<span class="sb" style="width:100%">Skicka</span>')],
+      ['Efter texten', form2('<span class="sb">Skicka</span>')],
+    ]),
+    Q('sk-plats', 'Var ska en smal skicka-knapp placeras?', [
+      ['Vänster, i linje med fälten', form2('<span class="sb">Skicka</span>')],
+      ['Till höger', form2('<span class="sb">Skicka</span>', 'justify-content:flex-end')],
+      ['Centrerad', form2('<span class="sb">Skicka</span>', 'justify-content:center')],
+    ]),
+    Q('sk-avstand', 'Hur stort ska avståndet mellan sista fältet och knappen vara?', [16, 24, 32].map(g => [`${g} px ovanför knappen`, W(F(NAME) + F(EMAIL) + `<span class="sb" style="align-self:flex-start;margin-top:${g - 14}px">Skicka</span>`)])),
+    Q('sk-avbryt', 'Hur ska ”Avbryt” visas bredvid skicka-knappen?', [
+      ['Som sekundärknapp', form2('<span class="sb">Spara</span><span class="sb2">Avbryt</span>')],
+      ['Som textlänk', form2(`<span class="sb">Spara</span><span style="font-weight:600;color:${BR};padding:0 8px">Avbryt</span>`)],
+      ['Ingen avbryt-knapp', form2('<span class="sb">Spara</span>')],
+    ]),
+    Q('sk-ordning', 'I vilken ordning ska knapparna stå när de ligger till höger?', [
+      ['Huvudknappen ytterst till höger', form2('<span class="sb2">Avbryt</span><span class="sb">Spara</span>', 'justify-content:flex-end')],
+      ['Huvudknappen först', form2('<span class="sb">Spara</span><span class="sb2">Avbryt</span>', 'justify-content:flex-end')],
+    ]),
+    Q('sk-laddar', 'Hur ska knappen se ut medan formuläret skickas?', [
+      ['Snurra och ”Skickar …”', W(spinCss + F(NAME) + F(EMAIL) + '<span class="sb" style="align-self:flex-start"><span class="fa-sk-spin"></span>Skickar …</span>')],
+      ['Bara snurra, samma bredd', W(spinCss + F(NAME) + F(EMAIL) + '<span class="sb" style="align-self:flex-start;min-width:110px"><span class="fa-sk-spin"></span></span>')],
+      ['Blekt med ”Skickar …”', W(F(NAME) + F(EMAIL) + '<span class="sb" style="align-self:flex-start;opacity:.55">Skickar …</span>')],
+    ]),
+    Q('sk-inaktiv', 'Ska skicka-knappen vara inaktiv tills allt är ifyllt?', [
+      ['Alltid aktiv, fel visas vid klick', W(F(NAME) + F({ ...EMAILPH, req: star() }) + '<span class="sb" style="align-self:flex-start">Skicka</span>')],
+      ['Inaktiv tills allt är ifyllt', W(F(NAME) + F({ ...EMAILPH, req: star() }) + '<span class="sb" style="align-self:flex-start;background:#E1E3E6;border-color:#E1E3E6;color:#8A8F95">Skicka</span>')],
+    ]),
+  ]);
+
+  // =====================================================================
+  // Validering
+  // =====================================================================
+  group('validering', 'Inline-validering kontra vid skick', [
+    Q('va-tidpunkt', 'När ska ett fält kontrolleras och visa fel?', [
+      ['Medan man skriver'],
+      ['När man lämnar fältet'],
+      ['Först när man trycker på skicka'],
+      ['Vid skick, sedan direkt medan man rättar'],
+    ]),
+    Q('va-rattat', 'Vad ska hända när man har rättat ett fel?', [
+      ['Felet byts mot en grön bock', W(cap('Före') + errF({ is: `border-color:${BAD};`, below: errMsg('Ange en giltig e-postadress') }) + cap('Efter rättning') + F({ ...EMAIL, right: okI() }), 'gap:6px')],
+      ['Felet försvinner bara', W(cap('Före') + errF({ is: `border-color:${BAD};`, below: errMsg('Ange en giltig e-postadress') }) + cap('Efter rättning') + F({ ...EMAIL }), 'gap:6px')],
+    ]),
+    Q('va-skick', 'Vad ska hända om man skickar ett formulär med fel?', [
+      ['Hoppa till första felet och fokusera det'],
+      ['Visa sammanfattning överst med länkar'],
+      ['Bara markera fälten, ingen förflyttning'],
+    ]),
+  ]);
+
+  // =====================================================================
+  // Autofyll
+  // =====================================================================
+  group('autofyll', 'Autofyll', [
+    Q('af-utseende', 'Hur ska fält som webbläsaren har fyllt i automatiskt se ut?', [
+      ['Webbläsarens ljusblå färg', W(F({ ...NAME, is: 'background:#E8F0FE;' }) + F({ ...EMAIL, is: 'background:#E8F0FE;' }))],
+      ['Ljust tonad i märkesfärg', W(F({ ...NAME, is: 'background:var(--tint);' }) + F({ ...EMAIL, is: 'background:var(--tint);' }))],
+      ['Ingen skillnad mot vanliga fält', W(F(NAME) + F(EMAIL))],
+    ]),
+    Q('af-adress', 'Hur ska adressförslag visas medan man skriver?', [
+      ['Gata och ort på två rader', W(F({ lbl: 'Gatuadress', val: 'Storg', caret: true, is: `border-color:${BR};`, below: dlist({ rh: 50, rows: ['Storgatan 12', 'Storgatan 14'].map(t => `<span style="display:block;line-height:1.3"><b style="font-weight:600">${t}</b><span style="display:block;font-size:13px;color:${MUT}">123 45 Stockholm</span></span>`) }) }), 'justify-content:flex-start')],
+      ['Allt på en rad', W(F({ lbl: 'Gatuadress', val: 'Storg', caret: true, is: `border-color:${BR};`, below: dlist({ rows: ['Storgatan 12', 'Storgatan 14'].map(t => `<span style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t}, <span style="color:${MUT}">123 45 Stockholm</span></span>`) }) }), 'justify-content:flex-start')],
+      ['Med kartnål före', W(F({ lbl: 'Gatuadress', val: 'Storg', caret: true, is: `border-color:${BR};`, below: dlist({ rows: ['Storgatan 12', 'Storgatan 14'].map(t => `<span style="display:flex;gap:8px;align-items:center;min-width:0"><span style="display:inline-flex;color:${MUT}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:16px;height:16px"><path d="M12 21s-7-6.3-7-11.5a7 7 0 0 1 14 0C19 14.7 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t}, Stockholm</span></span>`) }) }), 'justify-content:flex-start')],
     ]),
   ]);
 

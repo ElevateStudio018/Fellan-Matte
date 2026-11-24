@@ -686,6 +686,208 @@
       }), 'stack'),
   ];
 
+  // ---------- Paneler och sektioner ----------
+  const tiles3 = (n = 3, st) => `<div style="display:grid;grid-template-columns:repeat(${n},minmax(0,1fr));gap:10px">${Array.from({ length: n }, (_, i) => `<div style="background:var(--box);border:${BD};border-radius:10px;padding:12px;${st || ''}"><p style="font-weight:600;font-size:14px">Rubrik ${i + 1}</p><p class="muted small">Kort text</p></div>`).join('')}</div>`;
+  const secHead = (t, w) => `<p class="h h3"${w ? ' style="color:#fff"' : ''}>${t || 'Rubrik för sektionen'}</p><p class="small" style="color:${w ? 'rgba(255,255,255,.75)' : 'var(--smuted)'};margin:4px 0 14px">En rad som förklarar sektionen.</p>`;
+  const sec = (bg, inner, st) => `<div style="background:${bg};padding:28px 24px;${st || ''}"><div style="max-width:680px;margin:0 auto">${inner}</div></div>`;
+  const sektioner = [
+    Q('yt-sek-bredd', 'Hur ska en sektion med egen bakgrund ligga på sidan?',
+      [
+        ['Band i full bredd', sec('#fff', secHead('Föregående sektion')) + sec('var(--ground)', secHead() + tiles3())],
+        ['Inramad, rundad panel', sec('#fff', secHead('Föregående sektion')) + `<div style="background:#fff;padding:0 16px 16px"><div style="background:var(--ground);border-radius:24px;padding:28px 24px"><div style="max-width:680px;margin:0 auto">${secHead() + tiles3()}</div></div></div>`],
+        ['Ingen egen bakgrund', sec('#fff', secHead('Föregående sektion')) + sec('#fff', secHead() + tiles3())],
+      ], 'stack'),
+
+    Q('yt-sek-rundning', 'Hur runda ska inramade sektionspaneler vara?',
+      [0, 16, 24, 32, 48].map(n => [n ? 'Sektionspanel ' + n + ' px' : 'Raka hörn', `<div style="background:#fff;padding:16px;height:100%"><div style="background:var(--ground);border-radius:${n}px;padding:28px 22px">${secHead()}${tiles3(2)}</div></div>`])),
+
+    Q('yt-sek-separation', 'Hur ska sektioner skiljas från varandra?',
+      [
+        ['Växlande bakgrund', ['#fff', 'var(--ground)', '#fff'], ''],
+        ['Tunn linje mellan sektionerna', ['#fff', '#fff', '#fff'], 'line'],
+        ['Bara luft', ['#fff', '#fff', '#fff'], 'air'],
+      ].map(([l, bgs, k]) => [l, bgs.map((b, i) => sec(b, (k === 'line' && i ? '<div class="divider" style="margin:-28px 0 28px"></div>' : '') + secHead('Sektion ' + (i + 1)), k === 'air' ? 'padding:40px 24px' : '')).join('')]), 'stack'),
+
+    Q('yt-sek-luft', 'Hur mycket luft ska det vara mellan sektioner på en dator?',
+      [48, 80, 120].map(n => [n + ' px mellan sektioner', `<div style="background:#fff;padding:24px"><div style="max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:${n}px"><div>${secHead('Sektion 1')}${tiles3()}</div><div>${secHead('Sektion 2')}${tiles3()}</div></div></div>`]), 'stack'),
+
+    Q('yt-sek-vaxling', 'Vilka ytor ska växla när sektioner har olika bakgrund?',
+      [
+        ['Vit och benvit', ['#fff', '#F6F6F4'], false],
+        ['Vit och svagt tonad', ['#fff', 'var(--tint)'], false],
+        ['Vit och mörk', ['#fff', '#1A1C1E'], true],
+      ].map(([l, [a, b], dark]) => [l, sec(a, secHead('Sektion 1')) + sec(b, secHead('Sektion 2', dark)) + sec(a, secHead('Sektion 3'))]), 'stack'),
+
+    Q('yt-sek-cta', 'Hur ska en uppmaningsruta längst ner på sidan se ut?',
+      [
+        ['Band i accentfärg, full bredd', 'band'], ['Rundad panel i accentfärg', 'panel'], ['Tonad, rundad panel', 'tint'], ['Panel med tunn kant', 'line'],
+      ].map(([l, k]) => {
+        const dark = k === 'band' || k === 'panel';
+        const inner = `<p class="h h3" style="${dark ? 'color:#fff' : ''}">Redo att börja?</p><p class="small" style="color:${dark ? 'rgba(255,255,255,.8)' : 'var(--smuted)'};margin:4px 0 14px">En kort rad text om nästa steg.</p><span class="sb" style="${dark ? 'background:#fff;border-color:#fff;color:var(--brand)' : ''}">Kom igång</span>`;
+        const box = k === 'band' ? `<div style="background:var(--brand);padding:28px 24px">${inner}</div>`
+          : `<div style="padding:0 16px"><div style="border-radius:20px;padding:28px 24px;${k === 'panel' ? 'background:var(--brand)' : k === 'tint' ? 'background:var(--tint)' : `border:${BD}`}">${inner}</div></div>`;
+        return [l, `<div style="background:#fff;padding:20px 0;height:100%;display:flex;flex-direction:column;justify-content:center">${box}</div>`];
+      })),
+
+    Q('yt-sek-mobilmarginal', 'Hur långt från skärmkanten ska en inramad panel ligga i mobilen?',
+      [[0, 'Kant till kant'], [8, '8 px från kanten'], [16, '16 px från kanten']].map(([m, l]) => [l, `<div style="padding:16px">${phone(`<div style="background:#fff;height:100%;padding:16px 0"><div style="padding:0 16px 16px"><p class="h h3">Rubrik</p><p class="muted small">Text som står direkt på sidan.</p></div><div style="margin:0 ${m}px;background:var(--ground);border-radius:${m ? 16 : 0}px;padding:20px 16px">${secHead()}${tiles3(1)}</div></div>`)}</div>`])),
+
+    Q('yt-sek-overlapp', 'Får kort ligga över kanten mellan två sektioner?',
+      [['Nej, korten ligger under bandet', false], ['Ja, korten går in över bandets kant', true]].map(([l, o]) => [l, `<div style="background:#fff"><div style="background:var(--tint);padding:32px 24px ${o ? '72px' : '32px'}"><div style="max-width:680px;margin:0 auto"><p class="h h2">Rubrik för sidan</p><p class="muted" style="margin-top:6px">En kort ingress under rubriken.</p></div></div><div style="max-width:728px;margin:${o ? '-48px' : '24px'} auto 0;padding:0 24px 28px">${tiles3(3, 'padding:16px;min-height:90px;' + (o ? 'box-shadow:0 8px 20px rgba(26,28,30,.08)' : ''))}</div></div>`]), 'stack'),
+
+    Q('yt-sek-mork', 'Får enstaka sektioner vara mörka på en ljus sida?',
+      [['Nej, alla sektioner ljusa', false], ['Ja, en mörk sektion som betoning', true]].map(([l, d]) => [l, sec('#fff', secHead('Sektion 1')) + sec(d ? '#1A1C1E' : 'var(--ground)', secHead('Sektion 2', d) + tiles3(3, d ? 'background:#26282B;border-color:#33363A;--sink:#fff;--smuted:rgba(255,255,255,.7);color:#fff' : '')) + sec('#fff', secHead('Sektion 3'))]), 'stack'),
+
+    Q('yt-sek-linje', 'Om sektioner skiljs med en linje: hur lång ska linjen vara?',
+      [['Hela sidans bredd', 'full'], ['Innehållets bredd', 'content'], ['Kort linje i mitten', 'short']].map(([l, k]) => [l, `<div style="background:#fff;padding:22px 0;height:100%">${['Sektion 1', 'Sektion 2'].map((t, i) => `${i ? (k === 'full' ? '<div class="divider" style="margin:22px 0"></div>' : k === 'content' ? '<div style="padding:0 22px"><div class="divider" style="margin:22px 0"></div></div>' : '<div style="width:48px;height:2px;background:rgba(26,28,30,.25);margin:22px auto"></div>') : ''}<div style="padding:0 22px">${secHead(t)}</div>`).join('')}</div>`])),
+
+    Q('yt-sek-staplade', 'Ska sektioner kunna staplas som ark med rundade övre hörn?',
+      [['Nej, raka övergångar', false], ['Ja, varje sektion har rundade övre hörn', true]].map(([l, r]) => [l, ['#fff', 'var(--ground)', 'var(--tint)'].map((b, i) => `<div style="background:${b};padding:24px 22px 40px;${r && i ? 'border-radius:28px 28px 0 0;margin-top:-20px;position:relative' : ''}">${secHead('Sektion ' + (i + 1))}</div>`).join('')])),
+
+    Q('yt-sek-inre-luft', 'Hur mycket luft ska en inramad sektionspanel ha inuti?',
+      [24, 40, 64].map(n => [n + ' px inre luft', `<div style="background:#fff;padding:16px"><div style="background:var(--ground);border-radius:24px;padding:${n}px"><div style="max-width:680px;margin:0 auto">${secHead()}${tiles3()}</div></div></div>`]), 'stack'),
+
+    Q('yt-sek-kortgrupp', 'Ska en grupp kort ligga i en gemensam panel?',
+      [['Korten direkt på sidan', false], ['Korten i en gemensam grå panel', true]].map(([l, p]) => [l, `<div style="background:#fff;padding:24px"><div style="max-width:720px;margin:0 auto">${secHead()}<div style="${p ? 'background:var(--ground);border-radius:20px;padding:16px' : ''}">${tiles3(3, 'min-height:80px')}</div></div></div>`]), 'stack'),
+
+    Q('yt-sek-kort-mork', 'Hur ska kort se ut på en mörk sektion?',
+      [
+        ['Vita kort', 'background:#fff;border:0;--sink:#1A1C1E;--smuted:#5D6166;color:#1A1C1E'],
+        ['Något ljusare mörka kort', 'background:#26282B;border:1px solid #33363A'],
+        ['Bara en tunn ljus kant', 'background:transparent;border:1px solid rgba(255,255,255,.18)'],
+      ].map(([l, s]) => [l, `<div style="background:#1A1C1E;padding:24px;height:100%;--sink:#fff;--smuted:rgba(255,255,255,.7);color:#fff">${secHead('Rubrik', true)}<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">${[1, 2].map(i => `<div style="border-radius:10px;padding:14px;${s}"><p style="font-weight:600;font-size:14px">Rubrik ${i}</p><p class="small" style="color:var(--smuted)">Kort text</p></div>`).join('')}</div></div>`])),
+  ];
+
+  // ---------- Maxbredd och marginaler ----------
+  const wire = (st) => `<div style="${st || ''}"><div style="height:12px;width:40%;border-radius:6px;background:rgba(26,28,30,.55);margin-bottom:10px"></div><div style="height:8px;width:70%;border-radius:4px;background:rgba(26,28,30,.18);margin-bottom:14px"></div><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">${'<div style="aspect-ratio:4/3;border-radius:6px;background:#fff;border:1px solid rgba(26,28,30,.12)"></div>'.repeat(3)}</div></div>`;
+  const browser = (inner, bg) => `<div style="padding:20px;background:var(--box)"><div style="border:1px solid rgba(26,28,30,.18);border-radius:10px;overflow:hidden"><div style="height:22px;background:#E9EAE8;display:flex;align-items:center;gap:5px;padding:0 9px">${'<span style="width:7px;height:7px;border-radius:50%;background:rgba(26,28,30,.25)"></span>'.repeat(3)}</div><div style="background:${bg || 'var(--ground)'};padding:24px 0">${inner}</div></div></div>`;
+  const PARA = '<p class="muted">Brödtext som visar hur långa raderna blir. Med en lagom radlängd är texten lätt att följa från rad till rad, och ögat hittar tillbaka till början av nästa rad utan problem.</p>';
+  const maxbredd = [
+    Q('yt-max-innehall', 'Hur bred får innehållet bli på en stor skärm (1440 px)?',
+      [['Max 960 px', 66.7], ['Max 1140 px', 79], ['Max 1280 px', 89], ['Nästan full bredd (24 px marginal)', 96.7]].map(([l, p]) => [l, browser(wire(`width:${p}%;margin:0 auto`))]), 'stack'),
+
+    Q('yt-max-mobilmarginal', 'Hur stor ska sidmarginalen vara i mobilen?',
+      [12, 16, 20, 24].map(n => [n + ' px sidmarginal', `<div style="padding:16px">${phone(`<div style="background:#fff;height:100%;padding:18px ${n}px;display:flex;flex-direction:column;gap:10px"><p class="h h3">Rubrik som är två rader lång</p><p class="muted small">Brödtext i mobilen som visar hur nära kanten raderna går.</p>${card({ img: 'skog-sjo', ratio: '16/9', pad: '12px', gap: '2px', body: '<p style="font-weight:600">Rubrik</p><p class="muted small">Kort text</p>' })}</div>`)}</div>`])),
+
+    Q('yt-max-datormarginal', 'Hur stor ska sidmarginalen vara på en dator när innehållet fyller bredden?',
+      [24, 48, 96].map(n => [n + ' px sidmarginal', `<div style="background:var(--ground);padding:24px ${n}px">${wire()}</div>`]), 'stack'),
+
+    Q('yt-max-text', 'Hur bred ska en textspalt vara jämfört med resten av innehållet?',
+      [['Smal textspalt (cirka 65 tecken)', true], ['Text i hela innehållsbredden', false]].map(([l, n]) => [l, `<div style="background:#fff;padding:28px 24px"><div style="max-width:900px;margin:0 auto"><div style="${n ? 'max-width:62ch' : ''}" class="stack"><p class="h h2">Rubrik för en artikel</p>${PARA}${PARA}</div></div></div>`]), 'stack'),
+
+    Q('yt-max-bild', 'Hur bred ska en bild i en textspalt vara?',
+      [['Lika bred som texten', 'col'], ['Bredare än texten', 'wide'], ['Hela sidans bredd', 'full']].map(([l, k]) => [l, `<div style="background:#fff;padding:28px 0"><div style="max-width:560px;margin:0 auto;padding:0 24px">${PARA}</div><div style="margin:18px auto;${k === 'col' ? 'max-width:560px;padding:0 24px' : k === 'wide' ? 'max-width:820px;padding:0 24px' : ''}">${IMG('fjallen', 'auto', `height:200px;${k === 'full' ? '' : 'border-radius:10px'}`)}</div><div style="max-width:560px;margin:0 auto;padding:0 24px">${PARA}</div></div>`]), 'stack'),
+
+    Q('yt-max-ultrabred', 'Hur ska sidan se ut på en mycket bred skärm?',
+      [['Bakgrunder i full bredd, innehåll centrerat', false], ['Hela sidan i en centrerad ruta', true]].map(([l, box]) => [l, `<div style="padding:20px;background:var(--box)"><div style="border:1px solid rgba(26,28,30,.18);border-radius:10px;overflow:hidden;background:${box ? '#D9DBD8' : '#fff'}"><div style="${box ? 'max-width:62%;margin:0 auto;background:#fff' : ''}"><div style="background:var(--ground);padding:20px 0"><div style="width:${box ? '88%' : '55%'};margin:0 auto">${wire()}</div></div><div style="padding:20px 0"><div style="width:${box ? '88%' : '55%'};margin:0 auto">${wire()}</div></div></div></div></div>`]), 'stack'),
+
+    Q('yt-max-panelbredd', 'Hur bred ska en fristående panel (till exempel inloggning) vara?',
+      [360, 440, 560].map(n => [n + ' px bred panel', `<div style="background:var(--ground);padding:28px 16px"><div style="max-width:${n}px;margin:0 auto;background:var(--box);border:${BD};border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px"><p class="h h3">Logga in</p><div class="fld"><span class="lbl">E-post</span><span class="inp ph">namn@exempel.se</span></div><div class="fld"><span class="lbl">Lösenord</span><span class="inp ph">••••••••</span></div><span class="sb">Fortsätt</span></div></div>`]), 'stack'),
+
+    Q('yt-max-dialogbredd', 'Hur bred ska en vanlig dialogruta vara?',
+      [400, 480, 560].map(n => [n + ' px bred dialog', `<div style="background:rgba(26,28,30,.5);padding:32px 16px"><div style="max-width:${n}px;margin:0 auto;background:var(--box);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:8px"><p class="h h3">Spara ändringarna?</p><p class="muted">Du har ändringar som inte är sparade. Vill du spara dem innan du lämnar sidan?</p><div class="row" style="justify-content:flex-end;margin-top:10px;gap:8px"><span class="sb2" style="height:40px;padding:0 16px;font-size:14px">Avbryt</span><span class="sb" style="height:40px;padding:0 16px;font-size:14px">Spara</span></div></div></div>`]), 'stack'),
+  ];
+
+  // ---------- Djup och glas ----------
+  const glassBox = (bg, blur, extra) => `<div style="background:${bg};${blur ? `-webkit-backdrop-filter:blur(${blur}px);backdrop-filter:blur(${blur}px);` : ''}border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:4px;${extra || ''}"><span class="eyebrow">Etikett</span><p class="h h3">Rubrik på en rad</p><p class="small" style="color:var(--smuted)">Kort text på panelen.</p></div>`;
+  const onImg = (box, n) => `<div style="position:relative;border-radius:12px;overflow:hidden;aspect-ratio:4/5;display:flex;flex-direction:column;justify-content:flex-end;padding:14px"><img src="img/${n || 'tag-rapsfalt'}.jpg" alt="Exempelbild" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><div style="position:relative">${box}</div></div>`;
+  const glas = [
+    Q('yt-glas-panel', 'Ska paneler som ligger på bilder vara av frostat glas?',
+      [
+        ['Ja, frostat glas', glassBox('rgba(255,255,255,.5)', 16)],
+        ['Nej, solid vit panel', glassBox('#fff', 0)],
+        ['Halvgenomskinlig utan oskärpa', glassBox('rgba(255,255,255,.78)', 0)],
+      ].map(([l, b]) => [l, scene(onImg(b))])),
+
+    Q('yt-glas-styrka', 'Om glas används: hur stark ska oskärpan vara?',
+      [['Lätt (4 px)', 4], ['Mellan (12 px)', 12], ['Kraftig (24 px)', 24]].map(([l, b]) => [l, scene(onImg(glassBox('rgba(255,255,255,.4)', b)))])),
+
+    Q('yt-glas-ton', 'Om glas används: hur ska glaset vara tonat?',
+      [
+        ['Ljust, tydligt vitt (60 %)', glassBox('rgba(255,255,255,.6)', 14)],
+        ['Ljust, mest genomskinligt (25 %)', glassBox('rgba(255,255,255,.25)', 14, '--sink:#fff;--smuted:rgba(255,255,255,.85);color:#fff')],
+        ['Mörkt glas', glassBox('rgba(20,22,24,.38)', 14, '--sink:#fff;--smuted:rgba(255,255,255,.8);color:#fff')],
+      ].map(([l, b]) => [l, scene(onImg(b))])),
+
+    Q('yt-glas-kant', 'Ska glaspaneler ha en ljus kant?',
+      [['Ingen kant', ''], ['Tunn ljus kant', 'border:1px solid rgba(255,255,255,.7)']].map(([l, k]) => [l, scene(onImg(glassBox('rgba(255,255,255,.4)', 14, k), 'kopenhamn'))])),
+
+    Q('yt-glas-sidhuvud', 'Hur ska ett fast sidhuvud se ut när innehåll scrollar under det?',
+      [
+        ['Frostat glas', 'background:rgba(255,255,255,.62);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)'],
+        ['Solid vit', 'background:#fff'],
+        ['Solid vit med linje', 'background:#fff;border-bottom:1px solid rgba(26,28,30,.12)'],
+      ].map(([l, s]) => [l, scene(`<div style="position:relative;border-radius:12px;overflow:hidden;border:${BD};background:#fff;height:300px"><div style="position:absolute;inset:0;padding:30px 14px 14px;display:flex;flex-direction:column;gap:10px">${IMG('kopenhamn', '4/3', 'border-radius:8px')}<p class="h h3">Rubrik</p></div><div style="position:absolute;top:0;left:0;right:0;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;${s}"><span style="font-weight:700">Logotyp</span>${ico('<path d="M4 7h16M4 12h16M4 17h16"/>')}</div></div>`)])),
+
+    Q('yt-glas-anvandning', 'Var får frostat glas användas?',
+      [['Aldrig'], ['Bara på paneler över bilder och video'], ['Även i fasta sidhuvuden och menyer'], ['Fritt på kort och paneler']]),
+  ];
+
+  // ---------- Former ----------
+  const TINT = '#E6EBF0';
+  const edge = (k, h) => {
+    const top = `<div style="background:${TINT};padding:32px 24px ${k === 'rak' ? 32 : 24}px;${k === 'diag' ? `clip-path:polygon(0 0,100% 0,100% calc(100% - ${h || 48}px),0 100%);padding-bottom:${(h || 48) + 24}px` : ''}${k === 'bage' ? 'border-radius:0 0 50% 50% / 0 0 56px 56px;padding-bottom:56px' : ''}"><div style="max-width:680px;margin:0 auto"><p class="h h2">Rubrik för sektionen</p><p class="muted" style="margin-top:6px">En kort text under rubriken.</p></div></div>`;
+    const waves = {
+      vag: '<path d="M0 0H1200V30C1000 66 800 -6 600 30S200 66 0 30Z"/>',
+      hog: '<path d="M0 0H1200V20C950 110 650 -40 400 50S100 70 0 40Z"/>',
+      sma: '<path d="M0 0H1200V24' + Array.from({ length: 8 }, (_, i) => `Q${1200 - i * 150 - 75} ${i % 2 ? 0 : 48} ${1200 - (i + 1) * 150} 24`).join('') + 'Z"/>',
+    };
+    const svg = waves[k] ? `<svg viewBox="0 0 1200 ${k === 'hog' ? 90 : 60}" preserveAspectRatio="none" aria-hidden="true" style="display:block;width:100%;height:${k === 'hog' ? 70 : k === 'sma' ? 28 : 44}px;margin-top:-1px" fill="${TINT}">${waves[k]}</svg>` : '';
+    return `<div style="background:#fff">${top}${svg}<div style="padding:24px"><div style="max-width:680px;margin:0 auto">${tiles3()}</div></div></div>`;
+  };
+  const former = [
+    Q('yt-form-sektionskant', 'Hur ska kanten mellan två sektioner se ut?',
+      [['Rak kant', 'rak'], ['Diagonal kant', 'diag'], ['Vågig kant', 'vag'], ['Bågformad kant', 'bage']].map(([l, k]) => [l, edge(k)]), 'stack'),
+
+    Q('yt-form-diagonal', 'Om sektionskanten är diagonal: hur brant ska den vara?',
+      [['Svag lutning', 24], ['Tydlig lutning', 48], ['Brant lutning', 96]].map(([l, h]) => [l, edge('diag', h)]), 'stack'),
+
+    Q('yt-form-vag', 'Om sektionskanten är vågig: hur ska vågen se ut?',
+      [['Låg, lång våg', 'vag'], ['Hög våg', 'hog'], ['Flera små vågor', 'sma']].map(([l, k]) => [l, edge(k)]), 'stack'),
+
+    Q('yt-form-dekor', 'Ska bilder ha dekorativa former bakom sig?',
+      [
+        ['Ingen dekor', ''],
+        ['Mjuk blobb bakom', `<span style="position:absolute;width:78%;height:78%;right:-10%;bottom:-12%;background:${TINT};border-radius:58% 42% 52% 48% / 46% 56% 44% 54%"></span>`],
+        ['Cirkel bakom', `<span style="position:absolute;width:62%;aspect-ratio:1;right:-12%;top:-14%;background:${TINT};border-radius:50%"></span>`],
+        ['Prickrutnät i hörnet', '<span style="position:absolute;width:46%;height:46%;left:-9%;bottom:-11%;background-image:radial-gradient(rgba(36,64,94,.45) 1.6px,transparent 1.8px);background-size:12px 12px"></span>'],
+      ].map(([l, d]) => [l, scene(`<div style="position:relative;margin:18px">${d}<div style="position:relative">${IMG('stugor-sjo', '4/3', 'border-radius:12px')}</div></div>`, { bg: '#fff' })])),
+
+    Q('yt-form-bildform', 'Vilka former får fristående bilder ha?',
+      [
+        ['Rektangel', 'border-radius:12px;aspect-ratio:4/5'],
+        ['Båge upptill', 'border-radius:999px 999px 12px 12px;aspect-ratio:4/5'],
+        ['Cirkel', 'border-radius:50%;aspect-ratio:1/1'],
+        ['Kapsel', 'border-radius:999px;aspect-ratio:3/5'],
+        ['Organisk form', 'border-radius:62% 38% 46% 54% / 55% 45% 55% 45%;aspect-ratio:1/1'],
+      ].map(([l, s]) => [l, scene(`<img src="img/portratt-2.jpg" alt="Exempelbild" style="width:100%;max-width:190px;margin:0 auto;object-fit:cover;display:block;${s}">`, { bg: '#fff' })])),
+
+    Q('yt-form-horn', 'Vilken hörnform ska kort ha?',
+      [
+        ['Rundade hörn', 'border-radius:14px'],
+        ['Avfasade hörn', 'clip-path:polygon(14px 0,calc(100% - 14px) 0,100% 14px,100% calc(100% - 14px),calc(100% - 14px) 100%,14px 100%,0 calc(100% - 14px),0 14px)'],
+        ['Ett utskuret hörn', 'clip-path:polygon(0 0,calc(100% - 28px) 0,100% 28px,100% 100%,0 100%)'],
+        ['Raka hörn', 'border-radius:0'],
+      ].map(([l, s]) => [l, scene(`<div style="background:var(--box);${s};overflow:hidden">${IMG('skog-sjo')}<div style="padding:20px" class="stack">${EB}${H3}${TX}</div></div>`)])),
+
+    Q('yt-form-linjer', 'Får sektioner ha dekorativa linjer?',
+      [
+        ['Inga linjer', ''],
+        ['Tunna bågar', `<svg viewBox="0 0 200 200" aria-hidden="true" style="position:absolute;right:-40px;top:-40px;width:200px;height:200px" fill="none" stroke="rgba(36,64,94,.28)" stroke-width="1.2"><circle cx="150" cy="50" r="40"/><circle cx="150" cy="50" r="70"/><circle cx="150" cy="50" r="100"/></svg>`],
+        ['Raka, tunna linjer', '<span style="position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(36,64,94,.12) 1px,transparent 1px);background-size:64px 100%"></span>'],
+      ].map(([l, d]) => [l, `<div style="position:relative;overflow:hidden;background:var(--ground);padding:36px 24px;height:100%">${d}<div style="position:relative;max-width:420px"><span class="eyebrow">Etikett</span><p class="h h2" style="margin-top:6px">Rubrik för sektionen</p><p class="muted" style="margin-top:8px">En kort text under rubriken som beskriver innehållet.</p></div></div>`])),
+
+    Q('yt-form-bildutfall', 'Får en bild sticka ut utanför sin panel?',
+      [['Nej, bilden ligger inuti panelen', false], ['Ja, bilden sticker upp ovanför panelen', true]].map(([l, o]) => [l, scene(`<div style="background:${TINT};border-radius:16px;padding:${o ? '0 18px 18px' : '18px'};margin-top:${o ? '34px' : '0'}"><div style="${o ? 'margin-top:-34px' : ''}">${IMG('produkt-stol', '4/3', 'border-radius:12px')}</div><div class="stack" style="gap:6px;padding-top:14px">${H3s}${TX}</div></div>`, { bg: '#fff' })])),
+
+    Q('yt-form-bildkant', 'Hur ska bildens nederkant se ut i ett kort?',
+      [
+        ['Rak', ''],
+        ['Svagt böjd', 'clip-path:ellipse(85% 100% at 50% 0)'],
+        ['Diagonal', 'clip-path:polygon(0 0,100% 0,100% 82%,0 100%)'],
+      ].map(([l, s]) => [l, scene(`<div style="background:var(--box);border:${BD};border-radius:12px;overflow:hidden">${IMG('skog-sjo', '3/2', s)}<div style="padding:16px 20px 20px" class="stack">${EB}${H3}${TX}</div></div>`)])),
+  ];
+
   window.QZ.part({
     key: 'ytor',
     groups: [
@@ -699,6 +901,10 @@
       { key: 'textpabild', title: 'Text på bild', questions: textpabild },
       { key: 'ramar', title: 'Bildramar', questions: ramar },
       { key: 'rutnat', title: 'Rutnät och avstånd', questions: rutnat },
+      { key: 'sektioner', title: 'Paneler och sektioner', questions: sektioner },
+      { key: 'maxbredd', title: 'Maxbredd och marginaler', questions: maxbredd },
+      { key: 'glas', title: 'Djup och glas', questions: glas },
+      { key: 'former', title: 'Former', questions: former },
     ],
   });
 })();

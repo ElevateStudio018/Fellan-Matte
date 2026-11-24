@@ -743,8 +743,8 @@
       ['Centrerat', pad(`<div class="panel" style="max-width:280px;text-align:center"><div style="display:flex;justify-content:center">${ICON}</div>${hd(3, 'margin-top:12px', 'En rubrik i ett kort')}${p(PS, 'margin-top:6px')}</div>`)],
     ]),
     Q('tx-just-statistik', 'Hur ska en rad med statistiksiffror ställas?', [
-      ['Vänsterställt', pad(`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:20px">${STATS.map(s => { const [n, l] = s.split('|'); return `<div><div style="font-size:36px;font-weight:700;line-height:1;letter-spacing:-0.02em">${n}</div><div class="small muted" style="margin-top:6px">${l}</div></div>`; }).join('')}</div>`)],
-      ['Centrerat', pad(`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:20px;text-align:center">${STATS.map(s => { const [n, l] = s.split('|'); return `<div><div style="font-size:36px;font-weight:700;line-height:1;letter-spacing:-0.02em">${n}</div><div class="small muted" style="margin-top:6px">${l}</div></div>`; }).join('')}</div>`)],
+      ['Vänsterställt', pad(`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:20px">${STATS.map(s => { const [n, l] = s.split('|'); return `<div><div style="font-size:36px;font-weight:700;line-height:1;letter-spacing:-0.02em">${n}</div><div class="small muted" style="margin-top:6px">${l}</div></div>`; }).join('')}</div>`)],
+      ['Centrerat', pad(`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:20px;text-align:center">${STATS.map(s => { const [n, l] = s.split('|'); return `<div><div style="font-size:36px;font-weight:700;line-height:1;letter-spacing:-0.02em">${n}</div><div class="small muted" style="margin-top:6px">${l}</div></div>`; }).join('')}</div>`)],
     ], 'stack'),
     Q('tx-just-cta', 'Hur ska ett avslutande block med rubrik och knapp ställas?', [
       ['Vänsterställt', pad(`<div class="panel" style="padding:28px">${hd(2, '', 'En avslutande uppmaning')}${p(PS, 'margin-top:10px;font-size:16px')}<div style="margin-top:20px">${BTN}</div></div>`)],
@@ -772,7 +772,7 @@
     Q('tx-langt-ord-rubrik', 'Vad ska hända när ett långt ord inte får plats i en rubrik på mobil?', [
       ['Ordet avstavas', pad(`<div class="h h1" lang="sv" style="font-size:32px;width:240px;max-width:100%;hyphens:manual">Boknings&shy;bekräftelsen kommer strax</div>`)],
       ['Ordet bryts utan streck', pad(`<div class="h h1" style="font-size:32px;width:240px;max-width:100%;overflow-wrap:anywhere;hyphens:none">Bokningsbekräftelsen kommer strax</div>`)],
-      ['Rubriken blir mindre', pad(`<div class="h h1" style="font-size:24px;width:240px;max-width:100%">Bokningsbekräftelsen kommer strax</div>`)],
+      ['Rubriken blir mindre', pad(`<div class="h h1" style="font-size:22px;width:240px;max-width:100%">Bokningsbekräftelsen kommer strax</div>`)],
     ]),
     Q('tx-lang-adress', 'Hur ska en lång e-postadress eller länk brytas?', [
       ['Bryts var som helst', narrow('Skriv till <span class="link" style="overflow-wrap:anywhere">fornamn.efternamn@exempeladressen.se</span> så svarar vi.')],

@@ -1113,6 +1113,281 @@
     ['Flytande ruta under headern', scr('<div class="tb">Vi har stängt 24–26 dec. <u>Läs mer</u><span class="x">×</span></div>', 150), `& .tb{position:absolute;left:10px;right:10px;top:34px;background:#fff;color:var(--sink);border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.14)}`]
   ], { css: '& .tb{font-size:12px;padding:8px 28px 8px 12px;text-align:center;line-height:1.35}& .tb u{font-weight:600}& .x{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:15px}' });
 
+  /* =====================================================================
+     TOASTS
+     ===================================================================== */
+  grp('toasts', 'Toasts');
+
+  const T = (txt = 'Ändringarna är sparade', icn = ico('checkc', 16), extra = '') => `<div class="ts">${icn}<span class="tt">${txt}</span>${extra}</div>`;
+  const tCss = '& .ts{display:flex;align-items:center;gap:8px;background:#1F2225;color:#fff;font-size:13px;font-weight:500;padding:9px 12px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.2);line-height:1.3;max-width:100%}& .tt{flex:1;min-width:0}';
+  const tPos = (pos) => scr(`<div class="tp" style="${pos}">${T('Sparat')}</div>`, 170);
+  Q('toa-plac', 'Var ska toasts dyka upp på dator?', [
+    ['Överst i mitten', tPos('top:10px;left:50%;transform:translateX(-50%)')],
+    ['Nere till höger', tPos('bottom:10px;right:10px')],
+    ['Nere i mitten', tPos('bottom:10px;left:50%;transform:translateX(-50%)')],
+    ['Överst till höger', tPos('top:10px;right:10px')]
+  ], { css: tCss + '& .tp{position:absolute}& .ts{white-space:nowrap}' });
+
+  const tPh = (pos) => phone(`<div class="tp" style="${pos}">${T()}</div>`, 280);
+  Q('toa-mobil', 'Var ska toasts dyka upp på mobil?', [
+    ['Överst', tPh('top:10px')],
+    ['Nederst', tPh('bottom:10px')],
+    ['Nederst, över hela bredden', tPh('bottom:0;left:0!important;right:0!important').replace('class="ts"', 'class="ts fw"')]
+  ], { css: tCss + '& .tp{position:absolute;left:8px;right:8px}& .fw{border-radius:0}' });
+
+  const tStyle = (st, ic = ico('checkc', 18)) => `<div class="ts" style="${st}">${ic}<span class="tt">Ändringarna är sparade</span></div>`;
+  Q('toa-stil', 'Hur ska en toast se ut?', [
+    ['Mörk', tStyle('')],
+    ['Ljus med skugga', tStyle('background:#fff;color:var(--sink);box-shadow:0 8px 24px rgba(0,0,0,.14),0 0 0 1px var(--sline)', ico('checkc', 18, 2, 'color:#1E7A45'))],
+    ['Färgad efter läge (grön)', tStyle('background:#1E7A45')],
+    ['Ljus med färgad kant till vänster', tStyle('background:#fff;color:var(--sink);border-left:4px solid #1E7A45;box-shadow:0 8px 24px rgba(0,0,0,.14)', ico('checkc', 18, 2, 'color:#1E7A45'))]
+  ], { css: tCss + '& .ts{padding:12px 14px;font-size:14px}' });
+
+  Q('toa-ikon', 'Ska en toast ha en ikon?', [
+    ['Med ikon', tStyle('')],
+    ['Utan ikon', tStyle('').replace(ico('checkc', 18), '')]
+  ], { css: tCss + '& .ts{padding:12px 14px;font-size:14px}' });
+
+  const undoT = (u) => `<div class="ts"><span class="tt">Filen togs bort</span>${u}</div>`;
+  Q('toa-angra', 'Hur ska knappen ”Ångra” i en toast se ut?', [
+    ['Ljus färgad text', undoT('<span style="color:#9CC3F5;font-weight:700">Ångra</span>')],
+    ['Vit understruken text', undoT('<span style="text-decoration:underline;text-underline-offset:3px;font-weight:600">Ångra</span>')],
+    ['Liten knapp med kant', undoT('<span style="border:1px solid rgba(255,255,255,.45);border-radius:6px;padding:4px 10px;font-weight:600">Ångra</span>')],
+    ['Ikon och text', undoT(`<span style="display:inline-flex;align-items:center;gap:5px;font-weight:600">${ico('undo', 15)}Ångra</span>`)]
+  ], { css: tCss + '& .ts{padding:12px 14px;font-size:14px;gap:16px}' });
+
+  const tTime = (s) => `<div class="lx-cap" style="margin-bottom:10px">Stapeln visar tiden</div><div class="ts tb"><span class="tt">Filen togs bort</span><span style="color:#9CC3F5;font-weight:700">Ångra</span><i class="bar"></i></div>`;
+  Q('toa-tid', 'Hur länge ska en toast med ”Ångra” synas?', [
+    ['3 sekunder', tTime(), '& .bar{animation:&&k 3s linear infinite}'],
+    ['5 sekunder', tTime(), '& .bar{animation:&&k 5s linear infinite}'],
+    ['8 sekunder', tTime(), '& .bar{animation:&&k 8s linear infinite}'],
+    ['Tills man stänger den', `<div class="lx-cap" style="margin-bottom:10px">Stannar kvar</div><div class="ts"><span class="tt">Filen togs bort</span><span style="color:#9CC3F5;font-weight:700">Ångra</span>${ico('x', 16)}</div>`, '']
+  ], { css: tCss + '& .ts{padding:12px 14px;font-size:14px;gap:16px;position:relative;overflow:hidden}& .bar{position:absolute;left:0;bottom:0;height:3px;width:100%;background:rgba(255,255,255,.6);transform-origin:left}@keyframes &&k{from{transform:scaleX(1)}to{transform:scaleX(0)}}' });
+
+  Q('toa-kryss', 'Ska en toast ha ett stäng-kryss?', [
+    ['Ja, alltid', `<div class="ts">${ico('checkc', 18)}<span class="tt">Ändringarna är sparade</span><span style="display:flex;opacity:.7">${ico('x', 16)}</span></div>`],
+    ['Nej, den försvinner själv', `<div class="ts">${ico('checkc', 18)}<span class="tt">Ändringarna är sparade</span></div>`]
+  ], { css: tCss + '& .ts{padding:12px 14px;font-size:14px}' });
+
+  const stk = (inner) => `<div class="lx-scr" style="height:190px">${fake(4)}<div class="sk">${inner}</div></div>`;
+  Q('toa-flera', 'Hur ska flera toasts visas samtidigt?', [
+    ['Staplade under varandra', stk(`${T('Filen sparades')}${T('Filen delades')}${T('Länken kopierades')}`), '& .sk{position:absolute;right:10px;bottom:10px;left:10px;display:flex;flex-direction:column;gap:6px;align-items:flex-end}'],
+    ['Bara den senaste syns', stk(T('Länken kopierades')), '& .sk{position:absolute;right:10px;bottom:10px;left:10px;display:flex;justify-content:flex-end}'],
+    ['Hög som ligger omlott', stk(`<div class="h3x">${T('Filen sparades')}</div><div class="h2x">${T('Filen delades')}</div><div class="h1x">${T('Länken kopierades')}</div>`), '& .sk{position:absolute;right:10px;bottom:10px;width:min(200px,calc(100% - 20px));height:60px}& .sk>div{position:absolute;left:0;right:0;bottom:0}& .h3x{transform:translateY(-14px) scale(.88);opacity:.5}& .h2x{transform:translateY(-7px) scale(.94);opacity:.75}']
+  ], { css: tCss + '& .ts{white-space:nowrap}' });
+
+  const tIn = `<div class="lx-scr" style="height:150px">${fake(3)}<div class="tp">${T()}</div></div>`;
+  Q('toa-in', 'Hur ska en toast komma in?', [
+    ['Glider upp', tIn, '& .tp{animation:&&k 3s infinite}@keyframes &&k{0%,10%{transform:translateY(60px);opacity:0}22%,80%{transform:none;opacity:1}90%,100%{transform:translateY(60px);opacity:0}}'],
+    ['Tonar in', tIn, '& .tp{animation:&&k 3s infinite}@keyframes &&k{0%,10%{opacity:0}22%,80%{opacity:1}90%,100%{opacity:0}}'],
+    ['Växer fram', tIn, '& .tp{animation:&&k 3s infinite}@keyframes &&k{0%,10%{transform:scale(.85);opacity:0}22%,80%{transform:none;opacity:1}90%,100%{transform:scale(.85);opacity:0}}'],
+    ['Dyker upp direkt', tIn, '& .tp{animation:&&k 3s infinite steps(1)}@keyframes &&k{0%,10%{opacity:0}11%,85%{opacity:1}86%,100%{opacity:0}}']
+  ], { css: tCss + '& .tp{position:absolute;left:10px;right:10px;bottom:10px;display:flex;justify-content:center}& .ts{white-space:nowrap}' });
+
+  /* =====================================================================
+     DIALOGER OCH MODALER
+     ===================================================================== */
+  grp('dialoger', 'Dialoger och modaler');
+
+  const dlgBody = (x = true) => `<div class="dg"><div class="dh"><b>Spara ändringar?</b>${x ? `<span class="dx">${ico('x', 16)}</span>` : ''}</div><p class="dp">Du har ändringar som inte är sparade.</p><div class="df"><span class="sb2 b2">Avbryt</span><span class="sb b1">Spara</span></div></div>`;
+  const dCss = '& .ov{position:absolute;inset:0;background:rgba(15,18,22,.45);display:grid;place-items:center;padding:10px}& .dg{background:#fff;border-radius:12px;padding:14px;width:82%;max-width:100%;box-shadow:0 18px 40px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:6px}& .dh{display:flex;justify-content:space-between;gap:8px;align-items:center}& .dh b{font-size:14px}& .dx{display:flex;color:var(--smuted)}& .dp{font-size:12px;color:var(--smuted);line-height:1.35}& .df{display:flex;gap:6px;justify-content:flex-end;margin-top:6px;flex-wrap:wrap}& .df span{height:30px;padding:0 11px;font-size:12px;border-radius:7px}';
+  const D = (x = true, h = 200) => scr(`<div class="ov">${dlgBody(x)}</div>`, h);
+
+  Q('dia-storlek', 'Hur bred ska en vanlig dialog vara?', [
+    ['Smal (ca 400 px)', D(), '& .dg{width:58%}'],
+    ['Medel (ca 560 px)', D(), '& .dg{width:78%}'],
+    ['Bred (ca 720 px)', D(), '& .dg{width:96%}']
+  ], { css: dCss });
+
+  Q('dia-rundning', 'Hur rund ska en dialog vara?', [6, 12, 16, 24].map(r => [`${r} px`, D(), `& .dg{border-radius:${r}px}`]), { css: dCss });
+
+  Q('dia-dimma', 'Hur mörk ska bakgrunden bakom en dialog vara?', [
+    ['Svag (20 %)', D(), '& .ov{background:rgba(15,18,22,.2)}'],
+    ['Medel (45 %)', D(), '& .ov{background:rgba(15,18,22,.45)}'],
+    ['Stark (70 %)', D(), '& .ov{background:rgba(15,18,22,.7)}'],
+    ['Ljus vit slöja', D(), '& .ov{background:rgba(255,255,255,.7)}& .dg{box-shadow:0 18px 40px rgba(0,0,0,.18),0 0 0 1px var(--sline)}']
+  ], { css: dCss });
+
+  Q('dia-blur', 'Ska bakgrunden bakom en dialog bli suddig?', [
+    ['Ingen suddning', D(), '& .ov{background:rgba(15,18,22,.3)}'],
+    ['Lätt suddig (3 px)', D(), '& .ov{background:rgba(15,18,22,.3);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}'],
+    ['Tydligt suddig (8 px)', D(), '& .ov{background:rgba(15,18,22,.3);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}']
+  ], { css: dCss });
+
+  Q('dia-kryss', 'Ska en dialog ha ett stäng-kryss?', [
+    ['Kryss uppe till höger', D()],
+    ['Kryss i rund platta', D(), '& .dx{width:26px;height:26px;border-radius:50%;background:#EFEFED;display:grid;place-items:center;color:var(--sink)}'],
+    ['Inget kryss, bara Avbryt', D(false)]
+  ], { css: dCss });
+
+  Q('dia-knappordning', 'I vilken ordning ska knapparna stå i en dialog?', [
+    ['Avbryt vänster, Spara höger', D()],
+    ['Spara vänster, Avbryt höger', D(), '& .df{flex-direction:row-reverse;justify-content:flex-start}'],
+    ['Staplade, Spara överst', D(), '& .df{flex-direction:column-reverse}& .df span{width:100%}']
+  ], { css: dCss });
+
+  Q('dia-knappjustering', 'Hur ska dialogens knappar placeras?', [
+    ['Till höger', D()],
+    ['Delar hela bredden', D(), '& .df span{flex:1}'],
+    ['Till vänster', D(), '& .df{justify-content:flex-start}']
+  ], { css: dCss });
+
+  Q('dia-fot', 'Ska dialogens knappar ligga i en egen fot?', [
+    ['Samma yta som texten', D()],
+    ['Grå fot med linje ovanför', D(), '& .dg{padding:14px 14px 0;overflow:hidden}& .df{margin:8px -14px 0;padding:10px 14px;background:#F4F4F2;border-top:1px solid var(--sline)}'],
+    ['Linje ovanför, ingen färg', D(), '& .df{border-top:1px solid var(--sline);padding-top:10px;margin-top:8px}']
+  ], { css: dCss });
+
+  const mobDlg = (kind) => {
+    const body = `<div class="mb ${kind}">${kind === 'sheet' ? '<i class="hd"></i>' : ''}<b>Välj tid</b><span class="r">09.00</span><span class="r">10.30</span><span class="r">13.00</span><span class="sb lx-btnsm" style="width:100%">Välj</span></div>`;
+    return phone(`<div class="ov2">${body}</div>`, 300);
+  };
+  Q('dia-mobil', 'Hur ska en dialog visas på mobil?', [
+    ['Centrerad ruta', mobDlg('mid')],
+    ['Bottenark nerifrån', mobDlg('sheet')],
+    ['Helskärm', mobDlg('full').replace('<b>Välj tid</b>', `<span class="fh"><span style="display:flex">${ico('x', 18)}</span><b>Välj tid</b></span>`)]
+  ], { css: '& .ov2{position:absolute;inset:0;background:rgba(15,18,22,.45);display:flex;padding:10px}& .mb{background:#fff;display:flex;flex-direction:column;gap:6px;padding:14px;width:100%;font-size:13px}& .mb b{font-size:14px;margin-bottom:4px}& .r{padding:7px 10px;border:1px solid var(--sline);border-radius:7px}& .mid{margin:auto 0;border-radius:14px}& .sheet{margin-top:auto;border-radius:16px 16px 0 0;margin:auto -10px -10px}& .full{margin:-10px;border-radius:0}& .hd{display:block;width:34px;height:4px;border-radius:2px;background:#C9CCCF;margin:-4px auto 6px}& .fh{display:flex;gap:10px;align-items:center;margin-bottom:6px}& .fh b{margin:0!important}' });
+
+  const det = `<b>Detaljer</b><span class="ln" style="width:80%"></span><span class="ln"></span><span class="ln" style="width:60%"></span><span class="sb lx-btnsm" style="margin-top:auto">Spara</span>`;
+  Q('dia-utdrag', 'Hur ska en panel för att visa eller redigera detaljer öppnas på dator?', [
+    ['Modal i mitten', scr(`<div class="ov"><div class="pn md">${det}</div></div>`, 200)],
+    ['Utdragslåda från höger', scr(`<div class="ov"><div class="pn dr">${det}</div></div>`, 200)],
+    ['Egen sida', `<div class="lx-scr pn pg" style="height:200px">${det.replace('<b>Detaljer</b>', '<span class="small muted">← Tillbaka</span><b>Detaljer</b>')}</div>`]
+  ], { css: '& .ov{position:absolute;inset:0;background:rgba(15,18,22,.4);display:flex}& .pn{background:#fff;display:flex;flex-direction:column;gap:7px;padding:14px;font-size:13px}& .pn b{font-size:14px}& .ln{display:block;height:7px;border-radius:3px;background:#E3E5E7}& .md{margin:auto;width:70%;height:75%;border-radius:12px}& .dr{margin-left:auto;width:58%;height:100%;box-shadow:-10px 0 30px rgba(0,0,0,.18)}& .pg{border-radius:10px}& .pn .sb{align-self:flex-start}' });
+
+  const sheet = (h) => phone(`<div class="ov2"><div class="sh">${h ? '<i class="hd"></i>' : ''}<div class="shh"><b>Filter</b>${h ? '' : `<span style="display:flex">${ico('x', 16)}</span>`}</div><span class="ln" style="width:70%"></span><span class="ln"></span><span class="ln" style="width:50%"></span></div></div>`, 280);
+  Q('dia-handtag', 'Ska ett bottenark ha ett grepp-streck överst?', [
+    ['Ja, grepp-streck', sheet(true)],
+    ['Nej, stäng-kryss i stället', sheet(false)]
+  ], { css: '& .ov2{position:absolute;inset:0;background:rgba(15,18,22,.45);display:flex;align-items:flex-end}& .sh{background:#fff;width:100%;border-radius:16px 16px 0 0;padding:12px 14px 22px;display:flex;flex-direction:column;gap:8px}& .hd{display:block;width:34px;height:4px;border-radius:2px;background:#C9CCCF;margin:0 auto 4px}& .shh{display:flex;justify-content:space-between;align-items:center}& .shh b{font-size:14px}& .ln{display:block;height:7px;border-radius:3px;background:#E3E5E7}' });
+
+  Q('dia-in', 'Hur ska en dialog öppnas?', [
+    ['Tonar in och växer lite', D(), '& .ov{animation:&&o 3s infinite}& .dg{animation:&&k 3s infinite}@keyframes &&o{0%,8%{opacity:0}18%,85%{opacity:1}95%,100%{opacity:0}}@keyframes &&k{0%,8%{transform:scale(.94)}20%,100%{transform:none}}'],
+    ['Glider upp underifrån', D(), '& .ov{animation:&&o 3s infinite}& .dg{animation:&&k 3s infinite}@keyframes &&o{0%,8%{opacity:0}18%,85%{opacity:1}95%,100%{opacity:0}}@keyframes &&k{0%,8%{transform:translateY(30px)}22%,100%{transform:none}}'],
+    ['Bara tonar in', D(), '& .ov{animation:&&o 3s infinite}@keyframes &&o{0%,8%{opacity:0}18%,85%{opacity:1}95%,100%{opacity:0}}'],
+    ['Dyker upp direkt', D(), '& .ov{animation:&&o 3s infinite steps(1)}@keyframes &&o{0%,8%{opacity:0}9%,88%{opacity:1}89%,100%{opacity:0}}']
+  ], { css: dCss });
+
+  /* =====================================================================
+     TOOLTIPS
+     ===================================================================== */
+  grp('tooltips', 'Tooltips');
+
+  const tip = (txt = 'Kopiera länk') => `<div class="tw"><span class="tip">${txt}<i class="ar"></i></span><span class="lx-ib tg">${ico('share')}</span></div>`;
+  const tipCss = (bg = '#1F2225', fg = '#fff', extra = '') => `& .tw{display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:6px}& .tg{background:#fff;border:1px solid var(--sline)}& .tip{position:relative;background:${bg};color:${fg};font-size:12px;font-weight:500;padding:6px 9px;border-radius:6px;white-space:nowrap}& .ar{position:absolute;left:50%;bottom:-4px;width:8px;height:8px;margin-left:-4px;background:${bg};transform:rotate(45deg)}${extra}`;
+  Q('tip-stil', 'Hur ska en tooltip se ut?', [
+    ['Mörk', tip(), tipCss()],
+    ['Ljus med kant och skugga', tip(), tipCss('#fff', 'var(--sink)', '& .tip{box-shadow:0 4px 14px rgba(0,0,0,.12),0 0 0 1px var(--sline)}& .ar{box-shadow:1px 1px 0 var(--sline)}')],
+    ['Märkesfärg', tip(), tipCss('#24405E')]
+  ]);
+
+  Q('tip-pil', 'Ska en tooltip ha en liten pil mot det den förklarar?', [
+    ['Med pil', tip(), tipCss()],
+    ['Utan pil', tip(), tipCss('#1F2225', '#fff', '& .ar{display:none}')]
+  ]);
+
+  Q('tip-rundning', 'Hur rund ska en tooltip vara?', [
+    ['Nästan rak (3 px)', tip(), tipCss('#1F2225', '#fff', '& .tip{border-radius:3px}')],
+    ['Rundad (8 px)', tip(), tipCss('#1F2225', '#fff', '& .tip{border-radius:8px}')],
+    ['Helt rund', tip(), tipCss('#1F2225', '#fff', '& .tip{border-radius:999px;padding:6px 12px}')]
+  ]);
+
+  Q('tip-plats', 'Var ska en tooltip helst dyka upp?', [
+    ['Ovanför', tip(), tipCss()],
+    ['Under', tip(), tipCss('#1F2225', '#fff', '& .tw{flex-direction:column-reverse}& .ar{bottom:auto;top:-4px}')],
+    ['Till höger', tip(), tipCss('#1F2225', '#fff', '& .tw{flex-direction:row-reverse;justify-content:center;padding:14px 0}& .ar{left:-4px;top:50%;bottom:auto;margin:-4px 0 0}')]
+  ]);
+
+  const trig = (t) => `<p style="font-size:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap">Avgift tillkommer ${t}</p>`;
+  Q('tip-utlosare', 'Hur ska det synas att det finns en förklaring att hämta?', [
+    ['Info-ikon (i)', trig(`<span style="display:inline-flex;color:var(--smuted)">${ico('info', 17)}</span>`)],
+    ['Frågetecken i cirkel', trig('<span style="display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;border:1.5px solid var(--smuted);color:var(--smuted);font-size:11px;font-weight:700">?</span>')],
+    ['Prickad understrykning', '<p style="font-size:14px">Avgift <span style="text-decoration:underline dotted;text-underline-offset:4px;text-decoration-thickness:1.5px">tillkommer</span></p>'],
+    ['Liten textlänk ”Vad är det?”', trig('<span class="link small">Vad är det?</span>')]
+  ]);
+
+  const tDel = (d) => `<div class="lx-cap" style="margin-bottom:6px">Hover upprepas</div><div class="tw"><span class="tip">Kopiera länk<i class="ar"></i></span><span class="lx-ib tg">${ico('share')}</span></div>`;
+  const tdk = (d) => {
+    const C = 3000, a = 25, b = a + d / C * 100;
+    return tipCss() + `& .tg{animation:&&g 3s infinite steps(1)}& .tip{animation:&&k 3s infinite}@keyframes &&g{0%,${a}%{background:#fff}${a + .1}%,85%{background:var(--tint)}86%,100%{background:#fff}}@keyframes &&k{0%,${b.toFixed(2)}%{opacity:0}${(b + 3).toFixed(2)}%,85%{opacity:1}88%,100%{opacity:0}}`;
+  };
+  Q('tip-fordrojning', 'Hur länge ska man hovra innan tooltipen visas?', [
+    ['Direkt', tDel(), tdk(0)],
+    ['Efter 0,3 s', tDel(), tdk(300)],
+    ['Efter 0,7 s', tDel(), tdk(700)]
+  ]);
+
+  /* =====================================================================
+     POPOVER-MENYER
+     ===================================================================== */
+  grp('popover', 'Popover-menyer');
+
+  const pop = (ic = true, del = 'plain') => `<div class="pw"><span class="lx-ib tg">${ico('more')}</span><div class="lx-menu pm">${[['edit', 'Redigera'], ['copy', 'Duplicera'], ['share', 'Dela']].map(([i, t]) => `<span class="lx-mi">${ic ? ico(i, 17) : ''}${t}</span>`).join('')}${del === 'sep' ? '<i class="sep"></i>' : ''}<span class="lx-mi dl">${ic ? ico('trash', 17) : ''}Ta bort</span></div></div>`;
+  const popCss = '& .pw{display:flex;flex-direction:column;align-items:flex-end;gap:6px;max-width:220px;margin-left:auto;margin-right:auto}& .tg{background:#fff;border:1px solid var(--sline);background:var(--tint)}& .pm{max-width:190px}& .sep{display:block;height:1px;background:var(--sline);margin:4px 2px}& .lx-mi{height:36px}';
+  Q('pop-stil', 'Hur ska en popover-meny avgränsas mot sidan?', [
+    ['Skugga och tunn kant', pop()],
+    ['Bara skugga', pop(), '& .pm{box-shadow:0 10px 30px rgba(0,0,0,.16)}'],
+    ['Bara kant', pop(), '& .pm{box-shadow:none;border:1px solid rgba(26,28,30,.22)}']
+  ], { css: popCss });
+
+  Q('pop-avstand', 'Hur långt från knappen ska menyn öppnas?', [
+    ['Tätt intill (2 px)', pop(), '& .pw{gap:2px}'],
+    ['6 px', pop(), '& .pw{gap:6px}'],
+    ['12 px', pop(), '& .pw{gap:12px}']
+  ], { css: popCss });
+
+  Q('pop-ikoner', 'Ska valen i en popover-meny ha ikoner?', [
+    ['Med ikoner', pop(true)],
+    ['Bara text', pop(false)]
+  ], { css: popCss });
+
+  Q('pop-farlig', 'Hur ska ett farligt val som ”Ta bort” visas i menyn?', [
+    ['Röd text', pop(true), '& .dl{color:#B3261E}'],
+    ['Röd text och linje ovanför', pop(true, 'sep'), '& .dl{color:#B3261E}'],
+    ['Som de andra valen', pop(true, 'sep')]
+  ], { css: popCss });
+
+  Q('pop-radhojd', 'Hur höga ska raderna i en popover-meny vara?', [32, 40, 48].map(h => [`${h} px`, pop(), `& .lx-mi{height:${h}px}`]), { css: popCss });
+
+  /* =====================================================================
+     BEKRÄFTA BORTTAGNING
+     ===================================================================== */
+  grp('borttagning', 'Bekräfta borttagning');
+
+  const row = (end) => `<div class="rw"><span class="fi">${ico('file', 18)}</span><span class="nm">Offert.pdf</span>${end}</div>`;
+  const rwCss = '& .rw{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--sline);border-radius:10px;padding:10px 12px;font-size:14px;min-height:54px}& .fi{display:flex;color:var(--smuted)}& .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}';
+  const delDlg = (btn = '<span class="sb b1" style="background:#B3261E;border-color:#B3261E">Ta bort</span>', icon = '') => scr(`<div class="ov"><div class="dg">${icon}<div class="dh"><b>Ta bort Offert.pdf?</b></div><p class="dp">Filen tas bort för gott.</p><div class="df"><span class="sb2 b2">Avbryt</span>${btn}</div></div></div>`, 200);
+  Q('del-monster', 'Hur ska man bekräfta att något tas bort?', [
+    ['Dialog som frågar först', delDlg(), dCss],
+    ['Tas bort direkt, toast med Ångra', `<div class="stack" style="gap:10px">${row('<span class="small muted">Borttagen</span>').replace('class="rw"', 'class="rw" style="opacity:.45"')}<div class="ts"><span class="tt">Offert.pdf togs bort</span><span style="color:#9CC3F5;font-weight:700">Ångra</span></div></div>`, rwCss + tCss + '& .ts{padding:11px 14px;font-size:13px;gap:14px}'],
+    ['Bekräfta på plats i raden', row('<span class="small" style="white-space:nowrap">Säker?</span><span class="sb lx-btnsm" style="height:30px;padding:0 10px;font-size:13px;background:#B3261E;border-color:#B3261E">Ta bort</span>'), rwCss]
+  ]);
+
+  Q('del-knappfarg', 'Vilken färg ska knappen som bekräftar borttagning ha?', [
+    ['Fylld röd', delDlg()],
+    ['Röd kant och text', delDlg('<span class="sb2 b1" style="border-color:#B3261E;color:#B3261E">Ta bort</span>')],
+    ['Mörk som vanlig primärknapp', delDlg('<span class="sb b1">Ta bort</span>')]
+  ], { css: dCss });
+
+  Q('del-knapptext', 'Vad ska det stå på knappen som bekräftar borttagning?', [
+    ['”Ta bort”', delDlg()],
+    ['”Ja, ta bort”', delDlg('<span class="sb b1" style="background:#B3261E;border-color:#B3261E">Ja, ta bort</span>')],
+    ['”Ta bort filen”', delDlg('<span class="sb b1" style="background:#B3261E;border-color:#B3261E">Ta bort filen</span>')],
+    ['”OK”', delDlg('<span class="sb b1" style="background:#B3261E;border-color:#B3261E">OK</span>')]
+  ], { css: dCss });
+
+  Q('del-skriv', 'Ska man behöva skriva in namnet för att ta bort något stort, som ett helt konto?', [
+    ['Ja, skriv namnet först', scr(`<div class="ov"><div class="dg"><div class="dh"><b>Ta bort kontot?</b></div><p class="dp">Skriv <b style="color:var(--sink)">RADERA</b> för att bekräfta.</p><span class="inp ph" style="height:32px;font-size:12px">RADERA</span><div class="df"><span class="sb2 b2">Avbryt</span><span class="sb b1" style="background:#B3261E;border-color:#B3261E;opacity:.4">Ta bort</span></div></div></div>`, 210)],
+    ['Nej, en dialog räcker', scr(`<div class="ov"><div class="dg"><div class="dh"><b>Ta bort kontot?</b></div><p class="dp">Allt innehåll tas bort för gott.</p><div class="df"><span class="sb2 b2">Avbryt</span><span class="sb b1" style="background:#B3261E;border-color:#B3261E">Ta bort</span></div></div></div>`, 210)]
+  ], { css: dCss });
+
+  Q('del-rad', 'Hur ska ”ta bort” se ut på en rad i en lista?', [
+    ['Papperskorg-ikon', row(`<span class="lx-ib" style="width:34px;height:34px;color:var(--smuted)">${ico('trash', 18)}</span>`)],
+    ['Textlänk ”Ta bort”', row('<span class="small" style="color:#B3261E;font-weight:600;text-decoration:underline;text-underline-offset:3px">Ta bort</span>')],
+    ['Gömd i ⋯-meny', row(`<span class="lx-ib" style="width:34px;height:34px;color:var(--smuted)">${ico('more', 18)}</span>`)],
+    ['Röd papperskorg-ikon', row(`<span class="lx-ib" style="width:34px;height:34px;color:#B3261E">${ico('trash', 18)}</span>`)]
+  ], { css: rwCss });
+
   // SLUT-PÅ-GRUPPER
 
   window.QZ.part({ key: 'lagen', groups });

@@ -1,6 +1,6 @@
 window.QZ_MANIFEST = {
- "v": 1795507959,
- "total": 1417,
+ "v": 1795508186,
+ "total": 1766,
  "parts": [
   {
    "key": "typsnitt",
@@ -27,7 +27,7 @@ window.QZ_MANIFEST = {
    "files": [
     "data-knappar.js"
    ],
-   "count": 159
+   "count": 205
   },
   {
    "key": "symboler",
@@ -36,7 +36,7 @@ window.QZ_MANIFEST = {
    "files": [
     "data-symboler.js"
    ],
-   "count": 117
+   "count": 162
   },
   {
    "key": "pilar",
@@ -45,7 +45,7 @@ window.QZ_MANIFEST = {
    "files": [
     "data-pilar.js"
    ],
-   "count": 128
+   "count": 200
   },
   {
    "key": "falt",
@@ -54,7 +54,7 @@ window.QZ_MANIFEST = {
    "files": [
     "data-falt.js"
    ],
-   "count": 139
+   "count": 202
   },
   {
    "key": "ytor",
@@ -63,7 +63,7 @@ window.QZ_MANIFEST = {
    "files": [
     "data-ytor.js"
    ],
-   "count": 103
+   "count": 140
   },
   {
    "key": "navigering",
@@ -72,7 +72,7 @@ window.QZ_MANIFEST = {
    "files": [
     "data-navigering.js"
    ],
-   "count": 131
+   "count": 180
   },
   {
    "key": "lagen",
@@ -81,7 +81,7 @@ window.QZ_MANIFEST = {
    "files": [
     "data-lagen.js"
    ],
-   "count": 144
+   "count": 181
   },
   {
    "key": "ux",
