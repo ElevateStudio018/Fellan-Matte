@@ -13,67 +13,67 @@
 .ev-footer .ev-logo__mark, .ev-on-dark .ev-logo__mark { color: #fff; }
 .ev-footer p, .ev-footer li, .ev-footer__bottom, .ev-concept, .ev-footer__links li + li::before { color: #E2E9DE; }
 
-/* Hero (ny) */
-/* Årstidsväxling (BRIEF-HERO: tradgard). Fyra flikar byter bildens färgton, ytans färg och texten.
-   Alla ytor ger minst 7,6:1 mot vit text. Postnummerfältet ligger under bilden. */
-.tg-hero { --s-bg: #1B3417; --s-acc: #C3E0A8; --s-filter: saturate(1.08); --s-wash: transparent;
-  background: var(--s-bg); color: #fff; transition: background-color 600ms var(--ev-ease); }
-.tg-hero[data-season="var"] { --s-bg: #3D5C1C; --s-acc: #E4F2A8; --s-filter: brightness(1.14) saturate(.85) hue-rotate(-24deg) contrast(.88); --s-wash: rgba(248, 250, 214, .2); }
-.tg-hero[data-season="host"] { --s-bg: #582A0F; --s-acc: #F6C48E; --s-filter: sepia(.35) saturate(1.55) hue-rotate(-22deg) brightness(.98); }
-.tg-hero[data-season="vinter"] { --s-bg: #1D3045; --s-acc: #C4DCF2; --s-filter: grayscale(.85) brightness(1.18) contrast(.82); --s-wash: rgba(205, 225, 245, .28); }
-.tg-hero .ev-dot::after { color: var(--s-acc); transition: color 600ms ease; }
-.tg-hero__in { padding-top: 24px; padding-bottom: 32px; }
-.tg-hero__head h1 { max-width: 18ch; }
-.tg-hero__head p { margin-top: 12px; max-width: 46ch; color: #EEF2EA; }
-.tg-seasons { position: relative; margin-top: 20px; border-radius: var(--ev-r-card); overflow: hidden; background: #0E1A0B; }
-.tg-seasons__media { position: relative; aspect-ratio: 4 / 3; }
-.tg-seasons__media::after { content: ""; position: absolute; inset: 0; background: var(--s-wash); transition: background-color 600ms ease; }
-.tg-seasons__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; filter: var(--s-filter); transition: filter 600ms var(--ev-ease); }
-.tg-seasons__tabs { position: absolute; top: 12px; left: 12px; display: flex; gap: 2px; padding: 4px; border-radius: var(--ev-r-pill); background: var(--s-bg); transition: background-color 600ms var(--ev-ease); }
-.tg-seasons__tab { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; border: 0; border-radius: var(--ev-r-pill);
-  background: transparent; color: #fff; font: 500 15px/1 var(--ev-font); cursor: pointer; white-space: nowrap; transition: background-color var(--ev-dur-btn) ease, color var(--ev-dur-btn) ease; }
-.tg-seasons__tab .ev-icon { display: none; width: 20px; height: 20px; --ev-stroke: 1.75px; }
-.tg-seasons__tab:hover { background: rgba(255, 255, 255, .14); }
-.tg-seasons__tab[aria-selected="true"] { background: #fff; color: var(--ev-ink); }
-.tg-seasons__tab:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-.tg-seasons__panel { position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 12px 14px; border-radius: 12px; background: var(--s-bg);
-  font-size: 14px; line-height: 1.45; transition: background-color 600ms var(--ev-ease); }
-.tg-seasons__panel[hidden] { display: none; }
-.tg-seasons__panel p { margin: 0; }
-.tg-seasons__panel .tg-seasons__when { font-size: 15px; margin-bottom: 2px; }
-.tg-seasons__when b { font-weight: 600; }
-.tg-seasons__panel .tg-seasons__inc { display: none; margin-top: 8px; color: var(--s-acc); font-weight: 600; font-size: 13px; }
-.tg-heroform { margin-top: 20px; display: grid; gap: 6px; max-width: 520px; }
+/* Hero (ny): mellanläget (24 nov 2026). Foto i full höjd med texten nere i mitten, gradient nerifrån i varumärkets
+   mörka gröna ton (ingen jämn hinna), rubrik i Bricolage Grotesque, långsam Ken Burns och förskjuten intoning en gång.
+   Levande detalj: en vit rad ovanför rubriken om säsongen. Postnummerfältet fyller i beställningen som förut.
+   Centrerat i heron: ux-hero-justering är fri. Fältet står kvar vänsterställt inom sin ruta så att etiketten sitter vid fältet. */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('fonts/bricolage-grotesque-latin-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+.tg-hero { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: calc(100svh - var(--ev-header-h));
+  overflow: hidden; background: var(--ev-brand-dark); color: #fff; }
+.tg-hero__media { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+.tg-hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 52% 30%; transform-origin: 50% 35%;
+  animation: tg-kenburns 20s cubic-bezier(.3, .1, .3, 1) both; }
+.tg-hero::before { content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, rgba(20, 40, 17, .95) 0%, rgba(20, 40, 17, .86) 44%, rgba(20, 40, 17, .4) 62%, rgba(20, 40, 17, 0) 78%); }
+.tg-hero .ev-dot::after { color: var(--ev-accent-on-dark); }
+.tg-hero :focus-visible { outline-color: #fff; }
+.tg-hero__in { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 48px; padding-bottom: 32px; }
+.tg-hero h1 { font-family: 'Bricolage Grotesque', var(--ev-font); font-weight: 600; font-size: clamp(42px, 4.6vw + 18px, 84px);
+  line-height: 1; letter-spacing: -.03em; max-width: 10em; font-variation-settings: 'opsz' 96; }
+.tg-hero__lead { margin: 16px 0 0; font-size: 18px; line-height: 1.5; max-width: 38ch; color: #fff; }
+
+/* Säsongsraden: vit rad med mörk text, året i varumärkesgrönt (6,5:1 mot vitt) */
+.tg-seasontag { margin: 0 0 20px; padding: 6px 14px; border-radius: var(--ev-r-pill); background: #fff; color: var(--ev-ink);
+  font: 500 14px/1.4 var(--ev-font); text-wrap: balance; }
+.tg-seasontag[hidden] { display: none; }
+.tg-seasontag b { font-weight: 600; color: var(--ev-brand); }
+
+.tg-heroform { width: 100%; max-width: 520px; margin-top: 28px; display: grid; gap: 6px; text-align: left; }
 .tg-heroform label { font-size: 14px; font-weight: 600; }
 .tg-heroform__row { display: grid; gap: 12px; }
 .tg-heroform .ev-input { border-color: #fff; }
 .tg-heroform .ev-error { color: #fff; }
 .tg-heroform .ev-input[aria-invalid="true"] { border-color: #FFB4AB; box-shadow: inset 0 0 0 1px #FFB4AB; }
+@media (max-width: 640px) { .tg-heroform .ev-btn { width: 100%; } }
 @media (min-width: 641px) {
   .tg-heroform__row { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; }
   .tg-heroform .ev-btn { height: var(--ev-btn-h-sm); }   /* lägre än fältet (kn-hojd-falt) */
-  .tg-seasons__media { aspect-ratio: 16 / 9; }
-  .tg-seasons__tabs { top: 16px; left: 16px; }
-  .tg-seasons__tab { padding: 0 16px; }
-  .tg-seasons__tab .ev-icon { display: block; }
-  .tg-seasons__panel { left: 16px; right: auto; bottom: 16px; max-width: 380px; padding: 18px 20px; font-size: 15px; }
-  .tg-seasons__panel .tg-seasons__inc { display: block; }
 }
-@media (max-width: 640px) { .tg-heroform .ev-btn { width: 100%; } }
-@media (min-width: 900px) {
-  .tg-hero__in { padding-top: 48px; padding-bottom: 56px; }
-  .tg-hero__head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px; align-items: end; }
-  .tg-hero__head p { margin-top: 0; font-size: 18px; }
-  .tg-seasons { margin-top: 32px; }
-  .tg-seasons__media { aspect-ratio: auto; height: clamp(360px, 50svh, 520px); }
-  .tg-seasons__tabs { top: 24px; left: 24px; }
-  .tg-seasons__panel { left: 24px; bottom: 24px; max-width: 420px; padding: 20px 24px; font-size: 16px; }
-  .tg-seasons__panel .tg-seasons__when { font-size: 17px; }
-  .tg-heroform { margin-top: 24px; }
-}
-.tg-hero.is-init, .tg-hero.is-init * { transition: none !important; }   /* ingen övergång när årstiden väljs vid start */
+
+/* Rörelse: fotot zoomar 1,00–1,06 under 20 s och stannar. Texten tonar in förskjutet en gång. */
+@keyframes tg-kenburns { from { transform: scale(1); } to { transform: scale(1.06); } }
+@keyframes tg-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.tg-hero__in > * { animation: tg-rise 700ms var(--ev-ease) both; }
+.tg-hero__in > h1 { animation-delay: 100ms; }
+.tg-hero__in > .tg-hero__lead { animation-delay: 240ms; }
+.tg-hero__in > .tg-heroform { animation-delay: 380ms; }
+.tg-hero__in > .tg-seasontag { animation-delay: 650ms; }
 @media (prefers-reduced-motion: reduce) {
-  .tg-hero, .tg-hero .ev-dot::after, .tg-seasons__media::after, .tg-seasons__media img, .tg-seasons__tabs, .tg-seasons__panel { transition: none; }
+  .tg-hero__media img, .tg-hero__in > * { animation: none; }
+}
+
+@media (min-width: 900px) {
+  .tg-hero::before { background: linear-gradient(to top, rgba(20, 40, 17, .94) 0%, rgba(20, 40, 17, .82) 36%, rgba(20, 40, 17, .4) 56%, rgba(20, 40, 17, 0) 74%); }
+  .tg-hero__media img { object-position: 50% 62%; }
+  .tg-hero__in { padding-bottom: 64px; }
+  .tg-hero__lead { font-size: 20px; }
+  .tg-seasontag { font-size: 15px; padding: 7px 16px; }
 }
 
 /* ---------- Abonnemang ---------- */

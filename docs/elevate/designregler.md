@@ -538,6 +538,17 @@ Bara 20 frågor är besvarade och 18 av dem är "Spelar ingen roll". Det som är
 - **Inget under knappen eller fältet** och **ingen scrollpil** (ux-hero-under-knapp, ux-hero-scrolltips). Justeringen är fri (ux-hero-justering).
 - Startsidan har **sex till sju block** (ux-start-langd). Ordningen, vad som kommer efter heron, var omdömen ligger och hur sidan slutar är fritt (ux-start-*).
 
+### Hero: mellanläget (24 nov 2026)
+Beställaren tyckte att heron var "för lika och tråkiga" och att hero-labbet (`verktyg/hero-lab/`) "tog ett steg för långt". Mellanläget gäller tills vidare. Prov finns på `koncept/restaurang/`, `koncept/elektriker/` och `koncept/tradgard/`.
+- **Grunden är regeln ovan:** foto i full höjd med texten på bilden, rubrik, en mening och **en** primärknapp (pill med pil →) eller ett fält. Ingen collage-, bento- eller marquee-hero och ingen jättetypografi som fyller skärmen.
+- **Display-typsnitt för rubriken, ett per varumärke**, självhostat från Google Fonts (OFL). Brödtext, knappar och fält är fortfarande Inter. H1 har fortfarande vikt 600 och meningsform (tx-h1-vikt). Exempel: Fraunces (restaurang), Space Grotesk (elektriker) och Bricolage Grotesque (trädgård).
+- **Starkare skala:** rubriken är 64–88 px på desktop och cirka 42 px på mobil, med radavstånd 1,0–1,05 och tät spärrning.
+- **Diskret rörelse, en gång:** långsam Ken Burns på fotot (20 s, skala 1,00–1,06, stannar sedan). Rubrik, mening och knapp tonar in förskjutet (cirka 100, 240 och 380 ms) och detaljen sist. Inget annat rör sig. Allt stängs av vid `prefers-reduced-motion`.
+- **Bilden ska lysa:** ingen jämn grå hinna. Använd en gradient **från ett håll** i varumärkets mörka ton (nerifrån, från vänster eller från nedre hörnet), så att texten klarar AA och resten av bilden är orörd.
+- **En levande detalj** som ger en anledning att agera: en liten ruta eller rad på fotot, beräknad från datum eller data på sidan (lediga bord i kväll, nästa lediga dag, säsongen som bokas). Den är diskret och aldrig ett andra huvudbudskap. Inga påhittade betyg och ingen falsk brådska ("bara 2 kvar"). Statusrader får ingen grön prick (pi-et-oppet).
+- **Varumärkesfärgen syns i en detalj:** rubrikprick i ljus varumärkeston, knappen eller detaljen.
+- **Variation mellan sajter:** olika textplacering (nere till vänster, mitt till vänster, nere i mitten), olika bildutsnitt och olika detaljer. Två sajter i rad får inte samma kombination.
+
 ### Innehåll och vanliga frågor
 - Tjänstesidor är **utförliga med mellanrubriker** (ux-innehall-mangd). Långa texter kortas med **en länk till en egen sida** (ux-innehall-korta-ner).
 - Fördelar visas som **en punktlista** (ux-innehall-fordelar). Se konflikten om bockar.

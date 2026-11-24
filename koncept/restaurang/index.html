@@ -8,6 +8,7 @@
 <meta name="description" content="Säsongsmat från västkusten på kajen i Eriksberg. Lunch, middag, helgbrunch och privata sällskap.">
 <meta name="theme-color" content="#155E75">
 <link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/fraunces-latin-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23155E75'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='17' font-weight='700' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
 <script src="main.js" defer></script>
@@ -27,17 +28,15 @@
 <main id="innehall" tabindex="-1">
 
 <section class="ev-hero rb-hero ev-on-photo" aria-labelledby="hero-rubrik">
-  <img class="rb-hero__img" src="img/restaurang-ratt.jpg" alt="Kocken häller sås över halstrad torsk med musslor" fetchpriority="high" width="1400" height="1400">
+  <div class="rb-hero__media"><img src="img/restaurang-ratt.jpg" alt="Kocken häller sås över halstrad torsk med musslor" fetchpriority="high" width="1400" height="1400"></div>
   <div class="ev-wrap rb-hero__in">
-    <aside class="rb-lunchcard" aria-labelledby="hero-lunch-rubrik">
-      <p class="rb-lunchcard__head"><span id="hero-lunch-rubrik" data-hero-lunch-title>Dagens lunch</span> <span class="rb-lunchcard__time" data-hero-lunch-time>11.30–14.00</span></p>
-      <p class="rb-lunchcard__dish" data-hero-lunch-dish>Ugnsbakad torsk med räkor och pepparrot</p>
-      <p class="rb-lunchcard__meta"><span data-hero-lunch-more>Och två rätter till</span> <span class="ev-price" data-hero-lunch-price>145&nbsp;kr</span></p>
-      <a class="ev-link" href="#lunch-rubrik">Se dagens lunch<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+    <aside class="rb-tonight" aria-labelledby="rb-tonight-rubrik" data-hero-tonight hidden>
+      <p class="rb-tonight__head" id="rb-tonight-rubrik" data-hero-tonight-title>Lediga bord i kväll</p>
+      <div class="rb-tonight__times" data-hero-tonight-times></div>
     </aside>
     <div class="rb-hero__text">
-      <h1 id="hero-rubrik" class="ev-dot">Säsongsmat från västkusten, vid vattnet i Eriksberg</h1>
-      <p>Lunch på vardagar, middag och helgbrunch på kajen. Tio minuter med färjan från Stenpiren.</p>
+      <h1 id="hero-rubrik" class="ev-dot">Säsongsmat vid vattnet i Eriksberg</h1>
+      <p>Fisk och grönt från västkusten till lunch, middag och helgbrunch, tio minuter med färjan från Stenpiren.</p>
       <div class="ev-actions" data-sticky-anchor><a class="ev-btn ev-btn--lg" href="#boka" data-boka><span>Boka bord</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
     </div>
   </div>
