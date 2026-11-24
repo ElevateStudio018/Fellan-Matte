@@ -52,15 +52,46 @@
 <main id="innehall" tabindex="-1">
 
 <section class="ek-hero ev-on-photo" aria-labelledby="hero-rubrik">
-  <img class="ek-hero__img" src="img/vardagsrum.jpg" alt="Ljust vardagsrum med vit linnesoffa, grå soffa och runt soffbord framför stora fönster" fetchpriority="high" width="1400" height="933">
+  <div class="ek-hero__scene">
+    <div class="ek-hero__stage">
+      <img class="ek-hero__img" src="img/vardagsrum.jpg" alt="Ljust vardagsrum med grå soffa, vit linnesoffa och runt soffbord i masurbjörk framför stora fönster" fetchpriority="high" width="1400" height="933">
+    <div class="ek-spot ek-spot--wide" style="--x:16%;--y:67%" data-side="right">
+      <button class="ek-spot__btn" type="button" aria-expanded="false" aria-controls="look-1" aria-label="Soffa Granit 2-sits, visa pris"><span aria-hidden="true"></span></button>
+      <a class="ek-look" id="look-1" href="produkt.html?id=granit">
+        <span class="ek-look__name">Soffa Granit 2-sits</span>
+        <span class="ek-look__sub">Ullblandning, grå</span>
+        <span class="ek-look__foot"><span class="ev-price ev-price--sale">9&nbsp;195&nbsp;kr<s><span class="ev-sr">Ordinarie pris </span>11&nbsp;495&nbsp;kr</s></span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+    <div class="ek-spot" style="--x:47%;--y:80%;--mx:52%;--my:80%" data-side="right">
+      <button class="ek-spot__btn" type="button" aria-expanded="false" aria-controls="look-2" aria-label="Soffbord Masur, visa pris"><span aria-hidden="true"></span></button>
+      <a class="ek-look" id="look-2" href="produkt.html?id=masur">
+        <span class="ek-look__name">Soffbord Masur</span>
+        <span class="ek-look__sub">Ø 80 cm, björkmasur</span>
+        <span class="ek-look__foot"><span class="ev-price">5&nbsp;290&nbsp;kr</span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+    <div class="ek-spot" style="--x:77%;--y:71%;--mx:73%;--my:72%" data-side="left">
+      <button class="ek-spot__btn" type="button" aria-expanded="false" aria-controls="look-3" aria-label="Soffa Lunden 3-sits, visa pris"><span aria-hidden="true"></span></button>
+      <a class="ek-look" id="look-3" href="produkt.html?id=lunden">
+        <span class="ek-look__name">Soffa Lunden 3-sits</span>
+        <span class="ek-look__sub">Linneklädsel som går att tvätta</span>
+        <span class="ek-look__foot"><span class="ev-price">14&nbsp;900&nbsp;kr</span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+    </div>
+  </div>
   <div class="ev-wrap ek-hero__in">
-    <h1 id="hero-rubrik" class="ev-dot">Möbler för ett hem som används</h1>
-    <p>Du väljer leveransdag själv, och vi bär in och monterar om du vill.</p>
-    <form class="ev-search" role="search" data-search-form>
-      <label class="ev-sr" for="hero-sok">Sök bland möblerna</label><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>
-      <input id="hero-sok" type="search" placeholder="Soffa, bord, lampa …" autocomplete="off">
-      <button class="ev-btn" type="submit"><span>Sök</span></button>
-    </form>
+    <div class="ek-hero__plate">
+      <h1 id="hero-rubrik" class="ev-dot">Möbler för ett hem som används</h1>
+      <p>Du väljer leveransdag själv, och vi bär in och monterar om du vill.</p>
+      <form class="ev-search" role="search" data-search-form>
+        <label class="ev-sr" for="hero-sok">Sök bland möblerna</label><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>
+        <input id="hero-sok" type="search" placeholder="Soffa, bord, lampa …" autocomplete="off">
+        <button class="ev-btn" type="submit"><span>Sök</span></button>
+      </form>
+      <p class="ek-hero__hint">Tryck på punkterna i bilden för att se pris.</p>
+    </div>
   </div>
 </section>
 

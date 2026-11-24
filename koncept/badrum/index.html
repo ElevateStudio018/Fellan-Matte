@@ -33,18 +33,29 @@
 </dialog>
 <main id="innehall" tabindex="-1">
 
-<section class="ev-hero bd-hero ev-on-photo" aria-labelledby="hero-rubrik">
-  <img class="ev-hero__img" src="img/badrum.jpg" alt="Ljust badrum med marmorkakel, glasvägg i duschen, rund spegel och mässingsblandare" fetchpriority="high" width="1400" height="934">
-  <div class="ev-wrap ev-hero__in">
-    <h1 id="hero-rubrik" class="ev-dot">Nytt badrum i Västerås, med fast pris innan vi river</h1>
-    <p>Skriv in hur stort badrummet är, så får du ett ungefärligt pris på två minuter.</p>
-    <form class="bd-heroform" action="prisuppskattning.html" method="get" data-heroform data-sticky-anchor novalidate>
-      <label for="hero-yta">Badrummets yta</label>
-      <div class="bd-heroform__row">
-        <div class="ev-field bd-heroform__unit"><input class="ev-input" id="hero-yta" name="yta" type="text" inputmode="decimal" autocomplete="off" placeholder="Till exempel 5" data-error="Skriv ytan i kvadratmeter med siffror, till exempel 5."><span aria-hidden="true">m²</span></div>
-        <button class="ev-btn" type="submit"><span>Räkna pris</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
-      </div>
-    </form>
+<section class="ev-hero bd-hero" aria-labelledby="hero-rubrik">
+  <div class="bd-compare" data-compare style="--pos:58%">
+    <img class="bd-compare__img" src="img/badrum.jpg" alt="Efter: ljust badrum med marmorkakel, glasvägg i duschen, rund spegel och mässingsblandare" fetchpriority="high" width="1400" height="934">
+    <div class="bd-compare__before">
+      <img class="bd-compare__img" src="img/badrum.jpg" alt="Före: samma badrum med gulnade väggar och dov belysning (bearbetad bild)" width="1400" height="934">
+    </div>
+    <span class="bd-compare__tag bd-compare__tag--before" aria-hidden="true">Före</span>
+    <span class="bd-compare__tag bd-compare__tag--after" aria-hidden="true">Efter</span>
+    <div class="bd-compare__line" aria-hidden="true"><span class="bd-compare__knob"><svg class="ev-icon" viewBox="0 0 24 24"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></svg></span></div>
+    <input class="bd-compare__range" type="range" min="0" max="100" step="1" value="58" aria-label="Jämför badrummet före och efter" aria-valuetext="Före syns på 58 procent av bilden">
+  </div>
+  <div class="ev-wrap bd-hero__in">
+    <div class="bd-hero__plate ev-on-dark">
+      <h1 id="hero-rubrik" class="ev-dot">Nytt badrum i Västerås, med fast pris innan vi river</h1>
+      <p>Skriv in hur stort badrummet är, så får du ett ungefärligt pris på två minuter.</p>
+      <form class="bd-heroform" action="prisuppskattning.html" method="get" data-heroform data-sticky-anchor novalidate>
+        <label for="hero-yta">Badrummets yta</label>
+        <div class="bd-heroform__row">
+          <div class="ev-field bd-heroform__unit"><input class="ev-input" id="hero-yta" name="yta" type="text" inputmode="decimal" autocomplete="off" placeholder="Till exempel 5" data-error="Skriv ytan i kvadratmeter med siffror, till exempel 5."><span aria-hidden="true">m²</span></div>
+          <button class="ev-btn" type="submit"><span>Räkna pris</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+        </div>
+      </form>
+    </div>
   </div>
 </section>
 

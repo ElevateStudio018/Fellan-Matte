@@ -108,6 +108,24 @@
     el.innerHTML = marksHtml(m);
   });
 
+  /* ---------- Hero (ny): dagens lunch i den flytande rutan ---------- */
+  const heroLunch = $('.rb-lunchcard');
+  if (heroLunch) {
+    const d = new Date().getDay();
+    const set = (sel, html) => { const el = $(sel, heroLunch); if (el) el.innerHTML = html; };
+    if (LUNCH[d]) {
+      set('[data-hero-lunch-dish]', LUNCH[d][0][1]);
+    } else {
+      set('[data-hero-lunch-title]', 'Helgbrunch i dag');
+      set('[data-hero-lunch-time]', d === 6 ? '10.00–14.00' : '10.00–15.00');
+      set('[data-hero-lunch-dish]', 'Brunchbrickan med gravad lax och ägg från Tjörn');
+      set('[data-hero-lunch-more]', 'Och två rätter till');
+      set('[data-hero-lunch-price]', '245&nbsp;kr');
+      const link = $('.ev-link', heroLunch);
+      if (link) link.firstChild.textContent = 'Se brunchen';
+    }
+  }
+
   const lunchBox = $('[data-lunch]');
   if (lunchBox) {
     const now = new Date();

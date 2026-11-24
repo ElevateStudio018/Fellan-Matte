@@ -26,12 +26,20 @@
 </header>
 <main id="innehall" tabindex="-1">
 
-<section class="ev-hero ev-on-photo" aria-labelledby="hero-rubrik">
-  <img class="ev-hero__img" src="img/restaurang-ratt.jpg" alt="Kocken häller sås över halstrad torsk med musslor" fetchpriority="high" width="1400" height="1400">
-  <div class="ev-wrap ev-hero__in">
-    <h1 id="hero-rubrik" class="ev-dot">Säsongsmat från västkusten, vid vattnet i Eriksberg</h1>
-    <p>Lunch på vardagar, middag och helgbrunch på kajen. Tio minuter med färjan från Stenpiren.</p>
-    <div class="ev-actions" data-sticky-anchor><a class="ev-btn ev-btn--lg" href="#boka" data-boka><span>Boka bord</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+<section class="ev-hero rb-hero ev-on-photo" aria-labelledby="hero-rubrik">
+  <img class="rb-hero__img" src="img/restaurang-ratt.jpg" alt="Kocken häller sås över halstrad torsk med musslor" fetchpriority="high" width="1400" height="1400">
+  <div class="ev-wrap rb-hero__in">
+    <aside class="rb-lunchcard" aria-labelledby="hero-lunch-rubrik">
+      <p class="rb-lunchcard__head"><span id="hero-lunch-rubrik" data-hero-lunch-title>Dagens lunch</span><span class="rb-lunchcard__time" data-hero-lunch-time>11.30–14.00</span></p>
+      <p class="rb-lunchcard__dish" data-hero-lunch-dish>Ugnsbakad torsk med räkor och pepparrot</p>
+      <p class="rb-lunchcard__meta"><span data-hero-lunch-more>Och två rätter till</span><span class="ev-price" data-hero-lunch-price>145&nbsp;kr</span></p>
+      <a class="ev-link" href="#lunch-rubrik">Se dagens lunch<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+    </aside>
+    <div class="rb-hero__text">
+      <h1 id="hero-rubrik" class="ev-dot">Säsongsmat från västkusten, vid vattnet i Eriksberg</h1>
+      <p>Lunch på vardagar, middag och helgbrunch på kajen. Tio minuter med färjan från Stenpiren.</p>
+      <div class="ev-actions" data-sticky-anchor><a class="ev-btn ev-btn--lg" href="#boka" data-boka><span>Boka bord</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+    </div>
   </div>
 </section>
 

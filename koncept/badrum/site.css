@@ -12,12 +12,32 @@
 .ev-logo { gap: 8px; align-items: center; }
 .ev-logo__mark { width: 28px; height: 28px; color: var(--ev-brand); --ev-stroke: 2px; }
 
-/* ---------- Hero med ytfält (ux-hero-innehall, kn-hojd-falt) ---------- */
-.bd-hero { align-items: flex-end; }
-.bd-hero .ev-hero__img { object-position: 60% 50%; }
-.bd-hero h1 { max-width: 17ch; }
-.bd-hero p { max-width: 44ch; }
-.bd-heroform { margin-top: 28px; display: grid; gap: 6px; max-width: 460px; }
+/* Hero (ny) */
+/* Före/efter-reglage i full bredd, texten på en mörk platta (BRIEF-HERO: badrum).
+   "Före" är samma foto med CSS-filter. Plattan #10294A ger 14:1 mot vit text. */
+.bd-hero { display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; min-height: calc(100svh - var(--ev-header-h)); background: var(--ev-brand-dark); }
+.bd-hero::after { display: none; }
+.bd-compare { --knob-y: 140px; position: absolute; inset: 0; overflow: hidden; touch-action: pan-y; cursor: ew-resize; user-select: none; -webkit-user-select: none; }
+.bd-compare__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; pointer-events: none; }
+.bd-compare__before { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.bd-compare__before .bd-compare__img { filter: sepia(.75) saturate(.55) brightness(.74) contrast(.86); }
+.bd-compare__tag { position: absolute; top: 16px; display: inline-flex; align-items: center; height: 26px; padding: 0 12px; border-radius: var(--ev-r-pill);
+  background: var(--ev-brand-dark); color: #fff; font: 600 12px/1 var(--ev-font); transition: opacity var(--ev-dur-arrow) ease; pointer-events: none; }
+.bd-compare__tag--before { left: var(--ev-pad); }
+.bd-compare__tag--after { right: var(--ev-pad); }
+.bd-compare.is-left .bd-compare__tag--before, .bd-compare.is-right .bd-compare__tag--after { opacity: 0; }
+/* Linjen och knoppen i mörkblått syns mot både den ljusa och den gulnade sidan (minst 3:1) */
+.bd-compare__line { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: var(--ev-brand-dark); pointer-events: none; }
+.bd-compare__knob { position: absolute; left: 50%; top: var(--knob-y); width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--ev-brand-dark); color: #fff; border: 2px solid #fff; }
+.bd-compare__knob .ev-icon { width: 24px; height: 24px; --ev-stroke: 2px; }
+.bd-compare__range { position: absolute; left: 0; right: 0; top: var(--knob-y); width: 100%; height: 48px; margin: -24px 0 0; opacity: 0; cursor: ew-resize; touch-action: pan-y; }
+.bd-compare:has(.bd-compare__range:focus-visible) .bd-compare__knob { outline: 3px solid var(--ev-brand-dark); outline-offset: 3px; box-shadow: 0 0 0 3px #fff; }
+.bd-hero__in { position: relative; z-index: 2; padding-top: 260px; padding-bottom: 16px; pointer-events: none; }
+.bd-hero__plate { pointer-events: auto; background: var(--ev-brand-dark); color: #fff; border-radius: var(--ev-r-card); padding: 24px 20px; max-width: 560px; }
+.bd-hero__plate h1 { max-width: 17ch; text-shadow: none; }
+.bd-hero__plate p { max-width: 44ch; margin-top: 12px; font-size: 17px; color: #DDE6F1; text-shadow: none; }
+.bd-heroform { margin-top: 24px; display: grid; gap: 6px; max-width: 460px; }
 .bd-heroform label { font-size: 14px; font-weight: 600; color: #fff; }
 .bd-heroform__row { display: grid; gap: 12px; }
 .bd-heroform .ev-input { border-color: #fff; }
@@ -25,13 +45,20 @@
 .bd-heroform__unit span { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--ev-ink-2); pointer-events: none; }
 .bd-heroform .ev-error { color: #fff; }
 .bd-heroform .ev-input[aria-invalid="true"] { border-color: #FFB4AB; box-shadow: inset 0 0 0 1px #FFB4AB; }
-.bd-heroform__note { font-size: 14px; color: #E6ECF3; }
 @media (min-width: 641px) {
   .bd-heroform__row { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; }
   .bd-heroform .ev-btn { height: var(--ev-btn-h-sm); }    /* knappen lägre än fältet (kn-hojd-falt) */
+  .bd-compare { --knob-y: 45%; }
+  .bd-hero__in { padding-top: 320px; padding-bottom: 32px; }
+  .bd-hero__plate { padding: 32px; }
 }
 @media (max-width: 640px) { .bd-heroform .ev-btn { width: 100%; } }
-@media (min-width: 900px) { .bd-hero .ev-hero__in { padding-bottom: 88px; } .bd-hero { align-items: flex-end; } }
+@media (min-width: 900px) {
+  .bd-compare__tag { top: 24px; height: 28px; font-size: 13px; }
+  .bd-hero__in { padding-bottom: 56px; }
+  .bd-hero__plate { padding: 40px; }
+  .bd-hero__plate p { font-size: 19px; }
+}
 
 /* ---------- Tjänstekort med 32 px ikon (sy-storlek-kort) ---------- */
 .bd-services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
