@@ -1045,6 +1045,153 @@
       [['Tonad med accentfärg', 'background:rgba(120,160,210,.14)'], ['Ljusare grå', `background:${mix(8, '#121212')}`], ['Bara en ljus kant', 'border:1px solid rgba(255,255,255,.18)']].map(([l, s]) => [l, dscene(`<div class="stack" style="gap:12px"><p class="small" style="color:var(--smuted)">Ett stycke brödtext före rutan.</p><div style="display:flex;gap:10px;align-items:flex-start;border-radius:8px;padding:14px 16px;${s}">${ico(I.info, 'color:#9DB8D8;margin-top:1px')}<p class="small">Leveransen tar normalt två till tre arbetsdagar.</p></div><p class="small" style="color:var(--smuted)">Texten fortsätter efter rutan.</p></div>`)])),
   ];
 
+  // ---------- Tillägg i tidigare grupper ----------
+  skuggor.push(
+    Q('yt-skugga-ton', 'Vilken ton ska skuggorna ha?',
+      [['Neutral grå', 'rgba(26,28,30,.14)'], ['Tonad mot accentfärgen', 'rgba(36,64,94,.24)']].map(([l, c]) => [l, sc(`0 12px 30px ${c}`)])),
+
+    Q('yt-skugga-djup', 'Hur mycket djup ska gränssnittet ha överlag?',
+      [
+        ['Platt: inga skuggor, bara kanter', [BD, 'none', 'none']],
+        ['Lätt djup: hårfina skuggor', ['1px solid rgba(26,28,30,.06)', SH.hair, '0 6px 16px rgba(26,28,30,.10)']],
+        ['Tydligt djup: mjuka skuggor', ['none', '0 10px 26px rgba(26,28,30,.10)', '0 18px 40px rgba(26,28,30,.16)']],
+      ].map(([l, [b, c, m]]) => [l, scene(`<div style="display:flex;flex-direction:column;gap:12px"><div style="background:#fff;border:${b};box-shadow:${c};border-radius:10px;height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 12px"><span style="font-weight:700;font-size:14px">Logotyp</span>${ico('<path d="M4 7h16M4 12h16M4 17h16"/>', 'width:18px;height:18px')}</div><div style="position:relative">${card({ bd: b, sh: c, pad: '16px', gap: '6px', body: H3s + TX })}<div style="position:absolute;right:12px;top:52px;width:130px;background:#fff;border-radius:10px;border:${b === 'none' ? 'none' : BD};box-shadow:${m};padding:4px 0">${['Redigera', 'Dela', 'Ta bort'].map(t => `<div style="padding:7px 12px;font-size:13px">${t}</div>`).join('')}</div></div></div>`, { pad: '28px 24px' })])),
+  );
+
+  sektioner.push(
+    Q('yt-sek-rubrik', 'Hur ska en sektionsrubrik placeras över ett kortrutnät?',
+      [['Vänsterställd', 'left'], ['Centrerad', 'center'], ['Vänster, med länk till höger', 'link']].map(([l, k]) => [l, `<div style="background:#fff;padding:28px 24px"><div style="max-width:720px;margin:0 auto"><div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:16px;${k === 'center' ? 'flex-direction:column;align-items:center;text-align:center' : ''}"><div><p class="h h2">Rubrik för sektionen</p><p class="muted" style="margin-top:4px">En rad som förklarar sektionen.</p></div>${k === 'link' ? '<span class="link">Visa alla</span>' : ''}</div>${tiles3(3, 'min-height:80px')}</div></div>`]), 'stack'),
+
+    Q('yt-sek-bildsektion', 'Hur ska en sektion med bakgrundsbild ligga på sidan?',
+      [['Bilden i full bredd', false], ['Bilden i en inramad, rundad panel', true]].map(([l, p]) => [l, `<div style="background:#fff;padding:${p ? '16px' : '0'}">${overlay({ img: 'fjallen', ratio: 'auto', r: p ? '24px' : '0', st: 'min-height:260px', shade: 'rgba(0,0,0,.35)', pos: 'center', pad: '32px', body: '<p class="h h2">Rubrik för sektionen</p><p style="color:rgba(255,255,255,.88)">En kort text ovanpå bilden.</p>' })}</div>`]), 'stack'),
+  );
+
+  rutnat.push(
+    Q('yt-rut-sista-rad', 'Hur ska en ofullständig sista rad med kort placeras?',
+      [['Vänsterställd', 'flex-start', false], ['Centrerad', 'center', false], ['Korten sträcks ut över raden', 'flex-start', true]].map(([l, j, grow]) => [l, page(`<div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:${j}">${IMGS.slice(0, 5).map(i => mc(i, { ratio: '16/9', st: `flex:${grow ? '1 1' : '0 0'} calc((100% - 32px) / 3)` })).join('')}</div>`)]), 'stack'),
+
+    Q('yt-rut-karusell', 'Hur ska en vågrät rad med kort se ut på en dator?',
+      [['Hela kort och pilar', false], ['Nästa kort skymtar i kanten', true]].map(([l, peek]) => [l, `<div style="background:var(--ground);padding:24px 0 24px 24px;overflow:hidden"><div style="display:flex;justify-content:space-between;align-items:center;padding-right:24px;margin-bottom:14px"><p class="h h3">Rubrik</p>${peek ? '' : `<div style="display:flex;gap:8px">${['<path d="M15 6l-6 6 6 6"/>', I.chevR].map(d => `<span style="width:36px;height:36px;border-radius:50%;border:${BD};background:#fff;display:grid;place-items:center">${ico(d, 'width:18px;height:18px')}</span>`).join('')}</div>`}</div><div style="display:flex;gap:16px;${peek ? '' : 'padding-right:24px'}">${IMGS.slice(0, 4).map(i => mc(i, { st: `flex:0 0 ${peek ? 'calc((100% - 48px) / 3.4)' : 'calc((100% - 32px) / 3)'}` })).join('')}</div></div>`]), 'stack'),
+
+    Q('yt-rut-scrollkant', 'Hur ska kanten på en vågrät rad som går att scrolla se ut?',
+      [['Rak avskärning', false], ['Tonar ut mot kanten', true]].map(([l, f]) => [l, scene(`<div style="display:flex;gap:10px;overflow:hidden;${f ? '-webkit-mask-image:linear-gradient(90deg,#000 70%,transparent);mask-image:linear-gradient(90deg,#000 70%,transparent)' : ''}">${IMGS.slice(0, 3).map(i => mc(i, { ratio: '1/1', st: 'flex:0 0 46%' })).join('')}</div>`, { mw: '320px' })])),
+  );
+
+  ramar.push(
+    Q('yt-ram-staplade', 'Får bildgrupper visas som staplade, lätt vridna foton?',
+      [['Nej, bilder bredvid varandra', false], ['Ja, staplade och lätt vridna', true]].map(([l, st]) => [l, scene(st
+        ? `<div style="position:relative;height:220px">${[['-6deg', '4%', '18px'], ['4deg', '30%', '6px'], ['-1deg', '17%', '40px']].map(([r, x, y], i) => `<div style="position:absolute;left:${x};top:${y};width:62%;background:#fff;padding:6px 6px 18px;box-shadow:0 6px 16px rgba(26,28,30,.16);transform:rotate(${r})"><img src="img/${IMGS[i]}.jpg" alt="Exempelbild" style="width:100%;aspect-ratio:1/1;object-fit:cover"></div>`).join('')}</div>`
+        : `<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">${IMGS.slice(0, 3).map(i => `<img src="img/${i}.jpg" alt="Exempelbild" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:8px">`).join('')}</div>`, { bg: '#fff' })])),
+  );
+
+  // ---------- Flytande ytor ----------
+  const behind = `<div style="padding:18px" class="stack"><p class="h h3">Sidans innehåll</p><p class="small muted">Text som ligger bakom.</p>${IMG('skog-sjo', '16/9', 'border-radius:8px')}</div>`;
+  const dlg = (pad, extra) => `<div style="position:relative;background:var(--box);border-radius:12px;padding:${pad || 22}px;display:flex;flex-direction:column;gap:8px;max-width:250px;width:100%;box-shadow:0 18px 40px rgba(26,28,30,.18)">${extra || ''}<p class="h h3">Spara ändringarna?</p><p class="muted small">Du har ändringar som inte är sparade.</p><div class="row" style="gap:8px;margin-top:8px;justify-content:flex-end"><span class="sb2" style="height:38px;padding:0 14px;font-size:14px">Avbryt</span><span class="sb" style="height:38px;padding:0 14px;font-size:14px">Spara</span></div></div>`;
+  const overlayScene = (bd, inner) => `<div style="position:relative;background:#fff;height:100%;min-height:300px">${behind}<div style="position:absolute;inset:0;${bd}"></div><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16px">${inner}</div></div>`;
+  const HEART = '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>';
+  const flytande = [
+    Q('yt-flyt-bakgrund', 'Hur ska bakgrunden bakom en dialog se ut?',
+      [['Mörk, 40 %', 'background:rgba(26,28,30,.4)'], ['Mörk, 65 %', 'background:rgba(26,28,30,.65)'], ['Ljus, 70 %', 'background:rgba(255,255,255,.72)'], ['Mörk med oskärpa', 'background:rgba(26,28,30,.32);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)']].map(([l, b]) => [l, overlayScene(b, dlg())])),
+
+    Q('yt-flyt-dialog-luft', 'Hur mycket luft ska en dialog ha inuti?',
+      [16, 24, 32].map(n => [n + ' px utfyllnad', overlayScene('background:rgba(26,28,30,.45)', dlg(n))])),
+
+    Q('yt-flyt-stang', 'Ska en dialog ha en stängknapp i hörnet?',
+      [
+        ['Ett X uppe till höger', `<span style="position:absolute;top:14px;right:14px;color:var(--smuted)">${ico('<path d="M6 6l12 12M18 6L6 18"/>', 'width:18px;height:18px')}</span>`],
+        ['Ett X i en grå cirkel', `<span style="position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;background:var(--ground);display:grid;place-items:center">${ico('<path d="M6 6l12 12M18 6L6 18"/>', 'width:16px;height:16px')}</span>`],
+        ['Ingen stängknapp, bara knapparna', ''],
+      ].map(([l, x]) => [l, overlayScene('background:rgba(26,28,30,.45)', dlg(22, x))])),
+
+    Q('yt-flyt-tooltip', 'Hur ska en tooltip-yta se ut?',
+      [['Mörk ruta', 'background:#1A1C1E;color:#fff'], ['Vit ruta med skugga', `background:#fff;color:var(--sink);border:${BD};box-shadow:0 8px 20px rgba(26,28,30,.12)`], ['Ruta i accentfärg', 'background:var(--brand);color:#fff']].map(([l, s]) => [l, scene(`<div style="display:flex;flex-direction:column;align-items:flex-start;gap:8px"><div style="font-size:13px;line-height:1.4;padding:8px 11px;border-radius:8px;max-width:210px;${s}">Visas när man håller muspekaren över ikonen.</div><span style="display:inline-flex;gap:6px;align-items:center;font-weight:600;margin-left:8px">Leveranstid ${ico(I.info, 'width:18px;height:18px;color:var(--smuted)')}</span></div>`, { bg: '#fff' })])),
+
+    Q('yt-flyt-pil', 'Ska utfällda paneler ha en liten pil mot knappen de hör till?',
+      [['Med pil', true], ['Utan pil', false]].map(([l, a]) => [l, scene(`<span class="sb2" style="height:40px;padding:0 16px;font-size:14px">Filter ${ico(I.chev, 'width:16px;height:16px')}</span><div style="position:relative;margin-top:${a ? 12 : 8}px;background:#fff;border:${BD};border-radius:10px;box-shadow:0 10px 26px rgba(26,28,30,.12);padding:14px">${a ? `<span style="position:absolute;top:-7px;left:28px;width:12px;height:12px;background:#fff;border-left:${BD};border-top:${BD};transform:rotate(45deg)"></span>` : ''}<p style="font-weight:600;font-size:14px">Visa endast</p><div class="stack" style="gap:6px;margin-top:8px">${['Tillgängliga', 'Nyheter'].map(t => `<span class="small" style="display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:4px;border:1.5px solid rgba(26,28,30,.35)"></span>${t}</span>`).join('')}</div></div>`, { bg: 'var(--box)' })])),
+
+    Q('yt-flyt-handtag', 'Hur ska en panel som glider upp i mobilen visa att den kan stängas?',
+      [['Draghandtag överst', 'h'], ['Stängknapp (X)', 'x'], ['Både handtag och X', 'hx']].map(([l, k]) => [l, `<div style="padding:16px">${phone(`<div style="position:absolute;inset:0;background:rgba(26,28,30,.45)"></div><div style="position:absolute;left:0;right:0;bottom:0;background:var(--box);border-radius:20px 20px 0 0;padding:${k === 'x' ? 16 : 10}px 16px 20px;display:flex;flex-direction:column;gap:10px">${k.includes('h') ? '<div style="width:36px;height:4px;border-radius:2px;background:rgba(26,28,30,.2);margin:0 auto 4px"></div>' : ''}<div style="display:flex;justify-content:space-between;align-items:center"><p class="h h3">Filter</p>${k.includes('x') ? ico('<path d="M6 6l12 12M18 6L6 18"/>', 'color:var(--smuted)') : ''}</div><span class="inp ph">Välj kategori</span><span class="inp ph">Välj pris</span><span class="sb">Visa resultat</span></div>`)}</div>`])),
+
+    Q('yt-flyt-mobilbar', 'Hur ska en fast knappbalk längst ner i mobilen avgränsas?',
+      [['Skugga uppåt', 'background:#fff;box-shadow:0 -6px 18px rgba(26,28,30,.10)'], ['Tunn linje', 'background:#fff;border-top:1px solid rgba(26,28,30,.12)'], ['Frostat glas', 'background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)']].map(([l, s]) => [l, `<div style="padding:16px">${phone(`<div style="padding:12px;display:flex;flex-direction:column;gap:10px;background:#fff;height:100%">${IMG('kopenhamn', '4/3', 'border-radius:10px')}<p class="h h3">Rubrik</p><p class="muted small">Text som scrollar under balken.</p>${IMG('stugor-sjo', '4/3', 'border-radius:10px')}</div><div style="position:absolute;left:0;right:0;bottom:0;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;${s}"><span class="price">495 kr</span><span class="sb" style="height:42px;padding:0 18px">Boka</span></div>`)}</div>`])),
+
+    Q('yt-flyt-menyrad', 'Hur ska den markerade raden i en meny se ut?',
+      [['Tonad rad i hela bredden', 'full'], ['Infälld, rundad tonad rad', 'inset'], ['Bara fet text och bock', 'bold']].map(([l, k]) => [l, scene(`<div style="background:#fff;border:${BD};border-radius:10px;box-shadow:0 8px 24px rgba(26,28,30,.12);padding:${k === 'inset' ? '6px' : '4px 0'}">${['Senaste', 'Pris, lägst först', 'Populärast'].map((t, i) => `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;font-size:14px;${i === 1 ? (k === 'full' ? 'background:var(--tint);font-weight:600' : k === 'inset' ? 'background:var(--tint);border-radius:6px;font-weight:600' : 'font-weight:700') : ''}">${t}${i === 1 && k === 'bold' ? ico(I.check, 'width:16px;height:16px;color:var(--brand)') : ''}</div>`).join('')}</div>`, { mw: '230px' })])),
+  ];
+
+  // ---------- Listor och tabeller ----------
+  const TROWS = [['Rad ett', '12 mars', '495 kr'], ['Rad två', '14 mars', '1 290 kr'], ['Rad tre', '20 mars', '320 kr']];
+  const listor = [
+    Q('yt-lista-tabellhuvud', 'Hur ska rubrikraden i en tabell se ut?',
+      [['Tonad rubrikrad', 'background:var(--ground)'], ['Bara en tydlig linje under', 'border-bottom:2px solid rgba(26,28,30,.7)'], ['Ingen avgränsning', '']].map(([l, s]) => [l, scene(`<div style="background:#fff;border:${BD};border-radius:10px;overflow:hidden;font-size:14px">${[['Namn', 'Datum', 'Belopp'], ...TROWS].map((r, i) => `<div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:8px;padding:11px 14px;${i ? (i > 1 ? 'border-top:1px solid rgba(26,28,30,.08)' : '') : 'font-weight:600;font-size:13px;' + s}">${r.map((c, j) => `<span style="${j === 2 ? 'text-align:right' : ''}">${c}</span>`).join('')}</div>`).join('')}</div>`, { mw: '320px' })])),
+
+    Q('yt-lista-radhojd', 'Hur höga ska rader i en lista vara?',
+      [40, 52, 64].map(n => [n + ' px höga rader', scene(`<div style="background:#fff;border:${BD};border-radius:10px;overflow:hidden">${TROWS.map((r, i) => `<div style="height:${n}px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;${i ? 'border-top:1px solid rgba(26,28,30,.08)' : ''}"><span>${r[0]}</span><span class="price">${r[2]}</span></div>`).join('')}</div>`)])),
+
+    Q('yt-lista-avdelare', 'Hur långa ska linjerna mellan rader med bild vara?',
+      [['Hela radens bredd', 'full'], ['Från texten (indragna)', 'inset'], ['Inga linjer', 'none']].map(([l, k]) => [l, scene(`<div style="background:#fff;border:${BD};border-radius:10px;overflow:hidden">${PP.map((n, i) => `<div style="display:flex;gap:12px;align-items:center;padding-left:14px;${i && k === 'full' ? 'border-top:1px solid rgba(26,28,30,.10)' : ''}">${ava(n, 40, 'border-radius:50%')}<div style="flex:1;min-width:0;padding:12px 14px 12px 0;${i && k === 'inset' ? 'border-top:1px solid rgba(26,28,30,.10)' : ''}"><p style="font-weight:600;font-size:14px">Förnamn Efternamn</p><p class="muted small">Kort text</p></div></div>`).join('')}</div>`)])),
+  ];
+
+  // ---------- Kortvarianter ----------
+  const kortvarianter = [
+    Q('yt-kv-rubrik-bild', 'Ska rubriken stå ovanför eller under bilden i ett kort?',
+      [['Under bilden', false], ['Ovanför bilden', true]].map(([l, a]) => [l, scene(`<div style="background:var(--box);border:${BD};border-radius:12px;overflow:hidden">${a ? `<div style="padding:18px 20px 14px" class="stack">${EB}${H3}</div>${IMG('skog-sjo')}<div style="padding:14px 20px 18px">${TX}</div>` : `${IMG('skog-sjo')}<div style="padding:18px 20px" class="stack">${EB}${H3}${TX}</div>`}</div>`)])),
+
+    Q('yt-kv-tva-knappar', 'Hur ska ett kort med två handlingar byggas?',
+      [
+        ['Två knappar bredvid varandra', `<div class="row" style="gap:8px;margin-top:6px">${smallBtn('Boka tid')}<span class="sb2" style="height:40px;padding:0 16px;font-size:14px">Läs mer</span></div>`],
+        ['Knapp och textlänk', `<div class="row" style="gap:16px;margin-top:6px">${smallBtn('Boka tid')}<span class="link">Läs mer</span></div>`],
+        ['Knapp och ikonknapp', `<div class="row" style="gap:8px;margin-top:6px">${smallBtn('Boka tid', 'flex:1')}<span style="width:40px;height:40px;border-radius:10px;border:2px solid var(--brand);color:var(--brand);display:grid;place-items:center">${ico(HEART, 'width:18px;height:18px')}</span></div>`],
+      ].map(([l, f]) => [l, scene(card({ img: 'skog-sjo', body: EB + H3 + TX + `<div style="width:100%">${f}</div>` }))])),
+
+    Q('yt-kv-pris', 'Hur ska ett priskort byggas?',
+      [['Allt på samma yta', 'flat'], ['Tonad överdel med namn och pris', 'tint'], ['Mörk överdel', 'dark']].map(([l, k]) => {
+        const top = `<span class="eyebrow">Plus</span><p class="h h2">695 kr</p><p class="small" style="color:var(--smuted)">per månad</p>`;
+        const list = ['Första fördelen', 'Andra fördelen', 'Tredje fördelen'].map(t => `<p class="small" style="display:flex;gap:8px;align-items:center">${ico(I.check, 'width:16px;height:16px;color:var(--brand)')}${t}</p>`).join('');
+        return [l, scene(`<div style="background:var(--box);border:${BD};border-radius:12px;overflow:hidden"><div style="padding:20px 20px ${k === 'flat' ? '6px' : '18px'};display:flex;flex-direction:column;gap:2px;${k === 'tint' ? 'background:var(--tint)' : k === 'dark' ? 'background:var(--brand);--sink:#fff;--smuted:rgba(255,255,255,.75);color:#fff' : ''}">${top}</div><div style="padding:16px 20px 20px;display:flex;flex-direction:column;gap:8px">${list}<span class="sb" style="margin-top:8px">Välj</span></div></div>`)];
+      })),
+
+    Q('yt-kv-person', 'Hur ska ett personkort byggas?',
+      [['Foto överst i hela bredden', 'top'], ['Rund bild, centrerat', 'round'], ['Liten bild till vänster', 'left']].map(([l, k]) => [l, scene(k === 'top'
+        ? `<div style="background:var(--box);border:${BD};border-radius:12px;overflow:hidden">${IMG('portratt-1', '4/3', 'object-position:center 25%')}<div style="padding:16px 18px"><p class="h h3">Förnamn Efternamn</p><p class="muted small">Roll</p></div></div>`
+        : k === 'round'
+          ? `<div style="background:var(--box);border:${BD};border-radius:12px;padding:24px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px">${ava('portratt-1', 96, 'border-radius:50%')}<div><p class="h h3">Förnamn Efternamn</p><p class="muted small">Roll</p></div></div>`
+          : `<div style="background:var(--box);border:${BD};border-radius:12px;padding:14px;display:flex;gap:14px;align-items:center">${ava('portratt-1', 64, 'border-radius:10px')}<div><p class="h h3">Förnamn Efternamn</p><p class="muted small">Roll</p></div></div>`)])),
+
+    Q('yt-kv-steg', 'Hur ska numrerade stegkort se ut?',
+      [['Stor siffra överst', 'big'], ['Siffra i en cirkel', 'circle'], ['"Steg 1" som etikett', 'eyebrow'], ['Ingen siffra', 'none']].map(([l, k]) => [l, scene(`<div style="display:flex;gap:10px;flex-wrap:wrap">${[1, 2].map(n => `<div style="flex:1 1 110px;min-width:0;background:var(--box);border:${BD};border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px;align-items:flex-start">${k === 'big' ? `<span style="font-size:30px;font-weight:700;line-height:1;color:var(--brand)">0${n}</span>` : k === 'circle' ? `<span style="width:30px;height:30px;border-radius:50%;background:var(--tint);color:var(--brand);display:grid;place-items:center;font-weight:700;font-size:14px">${n}</span>` : k === 'eyebrow' ? `<span class="eyebrow">Steg ${n}</span>` : ''}<p style="font-weight:600">Rubrik</p><p class="muted small">Kort text om steget.</p></div>`).join('')}</div>`, { mw: '320px' })])),
+
+    Q('yt-kv-favorit', 'Hur ska en favoritknapp på ett bildkort se ut?',
+      [['Vit cirkel med hjärta', 'circle'], ['Fritt hjärta med skugga', 'plain'], ['Ingen favoritknapp', 'none']].map(([l, k]) => [l, scene(`<div style="background:var(--box);border:${BD};border-radius:12px;overflow:hidden"><div style="position:relative">${IMG('produkt-stol', '1/1')}${k === 'circle' ? `<span style="position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--sink)">${ico(HEART, 'width:18px;height:18px')}</span>` : k === 'plain' ? `<span style="position:absolute;top:12px;right:12px;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))">${ico(HEART, 'width:24px;height:24px')}</span>` : ''}</div><div style="padding:14px 16px"><p style="font-weight:600">Produktnamn</p><p class="price">1 495 kr</p></div></div>`, { mw: '220px' })])),
+
+    Q('yt-kv-kategori', 'Hur ska rutor för kategorier se ut?',
+      [['Bild med text under', 'below'], ['Text på bilden', 'on'], ['Ikon på tonad ruta', 'icon']].map(([l, k]) => [l, scene(`<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">${['Kategori ett', 'Kategori två', 'Kategori tre', 'Kategori fyra'].map((t, i) => k === 'below'
+        ? `<div>${IMG(IMGS[i], '4/3', 'border-radius:10px')}<p style="font-weight:600;font-size:14px;margin-top:6px">${t}</p></div>`
+        : k === 'on'
+          ? `<div style="position:relative;border-radius:10px;overflow:hidden;aspect-ratio:4/3"><img src="img/${IMGS[i]}.jpg" alt="Exempelbild" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><span style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.6))"></span><span style="position:absolute;left:10px;bottom:8px;color:#fff;font-weight:600;font-size:14px">${t}</span></div>`
+          : `<div style="background:var(--tint);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px;color:var(--brand)">${ico(ICO_LAY)}<span style="font-weight:600;font-size:14px;color:var(--sink)">${t}</span></div>`).join('')}</div>`)])),
+
+    Q('yt-kv-datum', 'Hur ska ett datum visas på ett kort?',
+      [['Datumruta till vänster', 'tile'], ['Datummärke på bilden', 'img'], ['Som textrad över rubriken', 'text']].map(([l, k]) => {
+        const tile = st => `<span style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:52px;height:56px;border-radius:10px;flex:0 0 auto;${st}"><span style="font-size:20px;font-weight:700;line-height:1">12</span><span style="font-size:12px;font-weight:600">mars</span></span>`;
+        return [l, scene(`<div style="background:var(--box);border:${BD};border-radius:12px;overflow:hidden"><div style="position:relative">${IMG('stockholm', '16/9')}${k === 'img' ? `<span style="position:absolute;top:10px;left:10px">${tile('background:#fff;color:var(--sink)')}</span>` : ''}</div><div style="padding:16px 18px;display:flex;gap:14px;align-items:flex-start">${k === 'tile' ? tile('background:var(--tint);color:var(--brand)') : ''}<div class="stack" style="gap:4px">${k === 'text' ? '<span class="small" style="font-weight:600;color:var(--brand)">12 mars · 18.00</span>' : ''}<p class="h h3">Rubrik på en rad</p><p class="muted small">Kort text om tillfället.</p></div></div></div>`)];
+      })),
+
+    Q('yt-kv-citat', 'Hur ska ett citatkort se ut?',
+      [['Stort citattecken', 'mark'], ['Linje till vänster', 'line'], ['Enkelt, utan markering', 'plain']].map(([l, k]) => [l, scene(`<div style="background:var(--box);border:${BD};border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px">${k === 'mark' ? '<span style="font-size:54px;line-height:.6;height:26px;color:var(--brand);font-weight:700">“</span>' : ''}<p style="font-size:16px;line-height:1.5;${k === 'line' ? 'border-left:3px solid var(--brand);padding-left:14px' : ''}">Ett kort citat på två eller tre rader som beskriver en upplevelse.</p><div style="display:flex;gap:10px;align-items:center">${ava('portratt-2', 36, 'border-radius:50%')}<div><p style="font-weight:600;font-size:14px">Förnamn Efternamn</p><p class="muted small">Roll</p></div></div></div>`)])),
+
+    Q('yt-kv-formular', 'Ska ett formulär ligga i en panel?',
+      [['I ett vitt kort på grå sida', 'card'], ['Direkt på sidan', 'page'], ['I en tonad panel', 'tint']].map(([l, k]) => [l, `<div style="background:${k === 'card' ? 'var(--ground)' : '#fff'};padding:24px;height:100%"><div style="max-width:300px;margin:0 auto;display:flex;flex-direction:column;gap:12px;${k === 'card' ? `background:#fff;border:${BD};border-radius:14px;padding:20px` : k === 'tint' ? 'background:var(--tint);border-radius:14px;padding:20px' : ''}"><p class="h h3">Kontakta oss</p><div class="fld"><span class="lbl">Namn</span><span class="inp ph">För- och efternamn</span></div><div class="fld"><span class="lbl">E-post</span><span class="inp ph">namn@exempel.se</span></div><span class="sb">Skicka</span></div></div>`])),
+
+    Q('yt-kv-video', 'Hur ska en uppspelningsknapp på en bild se ut?',
+      [['Vit cirkel', 'white'], ['Mörk halvgenomskinlig cirkel', 'dark'], ['Liten ikon och speltid i hörnet', 'corner']].map(([l, k]) => [l, scene(`<div style="position:relative;border-radius:12px;overflow:hidden">${IMG('fjallen-vandring', '16/9')}${k === 'corner'
+        ? `<span style="position:absolute;left:10px;bottom:10px;display:inline-flex;gap:6px;align-items:center;background:rgba(0,0,0,.6);color:#fff;border-radius:999px;padding:4px 10px 4px 8px;font-size:12px;font-weight:600"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>2:14</span>`
+        : `<span style="position:absolute;inset:0;display:grid;place-items:center"><span style="width:56px;height:56px;border-radius:50%;display:grid;place-items:center;${k === 'white' ? 'background:#fff;color:#1A1C1E' : 'background:rgba(0,0,0,.5);color:#fff;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)'}"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true" style="margin-left:3px"><path d="M8 5v14l11-7z"/></svg></span></span>`}</div><p style="font-weight:600;margin-top:10px">Rubrik på en rad</p>`)])),
+
+    Q('yt-kv-avsandare', 'Ska artikelkort visa vem som skrivit?',
+      [['Avatar och namn', 'ava'], ['Bara namn i text', 'name'], ['Ingen avsändare', 'none']].map(([l, k]) => [l, scene(card({ img: 'stockholm', body: EB + H3 + TX + (k === 'ava' ? `<div style="display:flex;gap:10px;align-items:center;margin-top:6px">${ava('portratt-3', 32, 'border-radius:50%')}<div><p style="font-weight:600;font-size:13px">Förnamn Efternamn</p><p class="muted small">12 mars</p></div></div>` : k === 'name' ? '<p class="small muted" style="margin-top:4px">Förnamn Efternamn · 12 mars</p>' : '') }))])),
+  ];
+
   window.QZ.part({
     key: 'ytor',
     groups: [
