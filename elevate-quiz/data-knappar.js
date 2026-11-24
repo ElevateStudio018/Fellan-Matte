@@ -274,7 +274,7 @@
   q('kn-ikon-behallare', 'Ska pilen stå fritt eller sitta i en egen form?', [
     ['Pilen står fritt', S(B(T('Fortsätt') + svg('arrow', 18)))],
     ['Pilen i en ljus cirkel', S(B(T('Fortsätt') + `<span style="display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.18)">${svg('arrow', 16)}</span>`, 'padding:0 8px 0 22px;gap:12px'))],
-    ['Pilen i en vit cirkel', S(B(T('Fortsätt') + `<span style="display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#fff;color:var(--brand)">${svg('arrow', 16)}</span>`, 'padding:0 8px 0 22px;gap:12px;border-radius:999px'))],
+    ['Pilen i en vit cirkel', S(B(T('Fortsätt') + `<span style="display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#fff;color:var(--brand)">${svg('arrow', 16)}</span>`, 'padding:0 8px 0 22px;gap:12px'))],
     ['Pilen i en egen ruta', S(B(T('Fortsätt') + `<span style="display:inline-grid;place-items:center;align-self:stretch;width:44px;margin-right:-24px;border-left:1px solid rgba(255,255,255,.25)">${svg('arrow', 18)}</span>`, 'gap:20px'))]
   ]);
   q('kn-ikon-utfyllnad', 'Ska utfyllnaden vara mindre på ikonsidan?', [
@@ -311,6 +311,215 @@
     ['Pilen direkt efter texten', S(`<div style="width:100%;max-width:240px">${B(T('Till kassan') + svg('arrow', 18), 'width:100%')}</div>`)],
     ['Pilen längst till höger', S(`<div style="width:100%;max-width:240px">${B(T('Till kassan') + svg('arrow', 18, 2, 'position:absolute;right:18px'), 'width:100%;position:relative')}</div>`)]
   ]);
+
+  /* ===================== Primärknapp: fyllning, skugga, kant och bredd ===================== */
+  group('primar-yta', 'Primärknapp: fyllning, skugga, kant och bredd');
+  q('kn-fyllning', 'Hur ska primärknappen vara fylld?', [
+    ['Hel fyllning', S(B('Boka tid'))],
+    ['Svag gradient', S(B('Boka tid', 'background:linear-gradient(180deg,#2F5378,#1C3450);border-color:transparent'))],
+    ['Ingen fyllning (bara kontur)', S(B('Boka tid', '', 'sb2'))]
+  ]);
+  q('kn-gradient-typ', 'Om knappen har gradient: vilken sort?', [
+    ['Uppifrån och ner, svag', S(B('Boka tid', 'background:linear-gradient(180deg,#2F5378,#1C3450);border-color:transparent'))],
+    ['Diagonal', S(B('Boka tid', 'background:linear-gradient(135deg,#355C86,#1A3049);border-color:transparent'))],
+    ['Glans i övre halvan', S(B('Boka tid', 'background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 55%),var(--brand);border-color:transparent'))]
+  ]);
+  q('kn-skugga', 'Ska primärknappen ha skugga?', [
+    ['Ingen skugga', S(B('Boka tid'))],
+    ['Hårfin skugga', S(B('Boka tid', 'box-shadow:0 1px 2px rgba(16,24,40,.18)'))],
+    ['Mjuk skugga', S(B('Boka tid', 'box-shadow:0 8px 18px -6px rgba(16,24,40,.38)'))],
+    ['Hård skugga (3D)', S(B('Boka tid', 'box-shadow:0 4px 0 #0F1E30'))]
+  ]);
+  q('kn-skugga-styrka', 'Om skuggan är mjuk: hur stark?', [
+    ['Svag', S(B('Boka tid', 'box-shadow:0 4px 10px -4px rgba(16,24,40,.22)'))],
+    ['Mellan', S(B('Boka tid', 'box-shadow:0 8px 18px -6px rgba(16,24,40,.36)'))],
+    ['Tydlig', S(B('Boka tid', 'box-shadow:0 14px 28px -8px rgba(16,24,40,.5)'))]
+  ]);
+  q('kn-skugga-ton', 'Vilken ton ska en mjuk knappskugga ha?', [
+    ['Neutral grå skugga', S(B('Boka tid', 'box-shadow:0 10px 22px -8px rgba(0,0,0,.45)'))],
+    ['Skugga tonad i knappens färg', S(B('Boka tid', 'box-shadow:0 10px 22px -8px rgba(36,64,94,.75)'))]
+  ]);
+  q('kn-3d-djup', 'Om knappen har hård 3D-skugga: hur djup?', [
+    ['2 px djup', S(B('Boka tid', 'box-shadow:0 2px 0 #0F1E30'))],
+    ['4 px djup', S(B('Boka tid', 'box-shadow:0 4px 0 #0F1E30'))],
+    ['6 px djup', S(B('Boka tid', 'box-shadow:0 6px 0 #0F1E30'))]
+  ]);
+  q('kn-kant', 'Ska den fyllda knappen ha en kant?', [
+    ['Ingen synlig kant', S(B('Boka tid'))],
+    ['1 px mörkare kant', S(B('Boka tid', 'border:1px solid #0F1E30'))],
+    ['2 px mörkare kant', S(B('Boka tid', 'border:2px solid #0F1E30'))],
+    ['Ljus innerkant upptill', S(B('Boka tid', 'box-shadow:inset 0 1px 0 rgba(255,255,255,.28)'))]
+  ]);
+  q('kn-farg-primar', 'Vilken grundton ska primärknappen ha?', [
+    ['Varumärkesfärgen', C(B('Boka tid'))],
+    ['Nästan svart', C(B('Boka tid', 'background:#1A1C1E;border-color:#1A1C1E'))]
+  ]);
+  q('kn-textkontrast', 'Hur ska text och yta i primärknappen kontrastera?', [
+    ['Vit text på mörk yta', S(B('Boka tid'))],
+    ['Mörk text på ljus yta', S(B('Boka tid', 'background:#C9D6E3;border-color:#C9D6E3;color:#13253A'))],
+    ['Vit text på mellanton', S(B('Boka tid', 'background:#46698F;border-color:#46698F'))]
+  ]);
+  q('kn-bredd', 'Hur bred ska primärknappen vara i ett kort?', [
+    ['Efter innehållet', C(B('Fortsätt'))],
+    ['Fast bredd (180 px)', C(B('Fortsätt', 'width:180px;max-width:100%'))],
+    ['Full bredd', C(B('Fortsätt', 'width:100%'))]
+  ]);
+  q('kn-bredd-mobil', 'Hur bred ska en ensam knapp vara på mobil?', [
+    ['Efter innehållet', phone(phoneText + `<div style="padding:16px 14px 18px">${B('Boka tid')}</div>`)],
+    ['Full bredd', phone(phoneText + `<div style="padding:16px 14px 18px">${B('Boka tid', 'width:100%')}</div>`)]
+  ]);
+  {
+    const form = (btn, al = 'stretch') => `<div class="pad"><div class="panel stack" style="gap:12px"><div class="fld" style="flex:none"><span class="lbl">Namn</span><span class="inp ph">Förnamn och efternamn</span></div><div class="fld" style="flex:none"><span class="lbl">E-post</span><span class="inp ph">namn@exempel.se</span></div><div style="display:flex;flex-direction:column;align-items:${al};margin-top:4px">${btn}</div></div></div>`;
+    q('kn-bredd-formular', 'Hur ska skicka-knappen sitta under ett formulär?', [
+      ['Full bredd', form(B('Skicka'))],
+      ['Efter innehållet, vänster', form(B('Skicka'), 'flex-start')],
+      ['Efter innehållet, höger', form(B('Skicka'), 'flex-end')]
+    ]);
+  }
+
+  /* ===================== Sekundärknapp ===================== */
+  group('sekundar', 'Sekundärknapp');
+  {
+    const P = B('Boka tid');
+    const two = s => S(P + s, 'gap:10px');
+    q('kn-sek-typ', 'Hur ska sekundärknappen se ut?', [
+      ['Kontur', two(B('Läs mer', '', 'sb2'))],
+      ['Tonad yta', two(B('Läs mer', 'background:var(--tint);border-color:var(--tint)', 'sb2'))],
+      ['Grå yta', two(B('Läs mer', 'background:#E7E7E4;border-color:#E7E7E4;color:var(--sink)', 'sb2'))],
+      ['Bara text', two(B('Läs mer', 'background:transparent;border-color:transparent;padding:0 12px', 'sb2'))]
+    ]);
+    q('kn-sek-kontur-tjocklek', 'Om sekundärknappen har kontur: hur tjock?', [
+      ['1 px kontur', two(B('Läs mer', 'border-width:1px', 'sb2'))],
+      ['1,5 px kontur', two(B('Läs mer', 'border-width:1.5px', 'sb2'))],
+      ['2 px kontur', two(B('Läs mer', 'border-width:2px', 'sb2'))]
+    ]);
+    q('kn-sek-kontur-farg', 'Vilken färg ska konturknappen ha?', [
+      ['Kant och text i knappfärg', two(B('Läs mer', 'border-width:1.5px', 'sb2'))],
+      ['Grå kant, mörk text', two(B('Läs mer', 'border:1.5px solid rgba(26,28,30,.22);color:var(--sink)', 'sb2'))],
+      ['Mörk kant och text', two(B('Läs mer', 'border:1.5px solid var(--sink);color:var(--sink)', 'sb2'))]
+    ]);
+    q('kn-sek-tonad-styrka', 'Om sekundärknappen är tonad: hur stark ton?', [
+      ['Lätt ton', two(B('Läs mer', 'background:#EEF2F6;border-color:#EEF2F6', 'sb2'))],
+      ['Mellan', two(B('Läs mer', 'background:#DCE3EA;border-color:#DCE3EA', 'sb2'))],
+      ['Tydlig ton', two(B('Läs mer', 'background:#C6D3E0;border-color:#C6D3E0', 'sb2'))]
+    ]);
+    q('kn-sek-tonad-text', 'Vilken textfärg i den tonade sekundärknappen?', [
+      ['Text i knappfärg', two(B('Läs mer', 'background:var(--tint);border-color:var(--tint)', 'sb2'))],
+      ['Mörk text', two(B('Läs mer', 'background:var(--tint);border-color:var(--tint);color:var(--sink)', 'sb2'))]
+    ]);
+    q('kn-sek-gra', 'Om sekundärknappen är neutral: vilken yta?', [
+      ['Ljusgrå yta', two(B('Läs mer', 'background:#ECECE9;border-color:#ECECE9;color:var(--sink)', 'sb2'))],
+      ['Mellangrå yta', two(B('Läs mer', 'background:#DEDEDA;border-color:#DEDEDA;color:var(--sink)', 'sb2'))],
+      ['Vit yta med hårfin kant', two(B('Läs mer', 'background:#fff;border:1px solid rgba(26,28,30,.16);color:var(--sink)', 'sb2'))],
+      ['Vit yta med mjuk skugga', two(B('Läs mer', 'background:#fff;border-color:#fff;color:var(--sink);box-shadow:0 1px 3px rgba(16,24,40,.14)', 'sb2'))]
+    ]);
+    q('kn-sek-textknapp', 'Om sekundärknappen bara är text: hur markeras den?', [
+      ['Utan understrykning', two(B('Läs mer', 'background:transparent;border-color:transparent;padding:0 12px', 'sb2'))],
+      ['Med understrykning', two(B('Läs mer', 'background:transparent;border-color:transparent;padding:0 12px;text-decoration:underline;text-underline-offset:4px', 'sb2'))],
+      ['Med pil efter', two(B(T('Läs mer') + svg('arrow', 18), 'background:transparent;border-color:transparent;padding:0 12px;gap:6px', 'sb2'))]
+    ]);
+    q('kn-sek-understrykning', 'Om textknappen är understruken: hur?', [
+      ['Tunn, nära texten', two(B('Läs mer', 'background:transparent;border-color:transparent;padding:0 12px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px', 'sb2'))],
+      ['Tunn, med luft', two(B('Läs mer', 'background:transparent;border-color:transparent;padding:0 12px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px', 'sb2'))],
+      ['Tjock, med luft', two(B('Läs mer', 'background:transparent;border-color:transparent;padding:0 12px;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px', 'sb2'))]
+    ]);
+    q('kn-sek-vikt', 'Ska sekundärknappen ha samma textvikt som primärknappen?', [
+      ['Samma vikt (600)', two(B('Läs mer', 'border-width:1.5px', 'sb2'))],
+      ['Lättare (500)', two(B('Läs mer', 'border-width:1.5px;font-weight:500', 'sb2'))]
+    ]);
+    q('kn-sek-hojd', 'Ska sekundärknappen vara lika hög som primärknappen?', [
+      ['Lika hög', two(B('Läs mer', 'border-width:1.5px', 'sb2'))],
+      ['Lägre (40 px)', two(B('Läs mer', 'border-width:1.5px;height:40px;padding:0 18px', 'sb2'))]
+    ]);
+    q('kn-sek-ikon', 'Ska sekundärknappen ha en pil?', [
+      ['Utan pil', two(B('Läs mer', 'border-width:1.5px', 'sb2'))],
+      ['Med pil efter', two(B(T('Läs mer') + svg('arrow', 18), 'border-width:1.5px', 'sb2'))]
+    ]);
+  }
+  {
+    const P = B('Boka tid');
+    const onWhite = s => `<div class="pad"><div class="panel" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:28px 18px">${P}${s}</div></div>`;
+    q('kn-sek-pa-vitt', 'Hur ska sekundärknappen se ut på en vit yta?', [
+      ['Kontur', onWhite(B('Läs mer', 'border-width:1.5px', 'sb2'))],
+      ['Tonad yta', onWhite(B('Läs mer', 'background:var(--tint);border-color:var(--tint)', 'sb2'))],
+      ['Grå yta', onWhite(B('Läs mer', 'background:#ECECE9;border-color:#ECECE9;color:var(--sink)', 'sb2'))]
+    ]);
+    q('kn-sek-pa-gra', 'Hur ska sekundärknappen se ut på en ljusgrå yta?', [
+      ['Genomskinlig med kontur', S(P + B('Läs mer', 'border-width:1.5px', 'sb2'), 'gap:10px')],
+      ['Vit yta med hårfin kant', S(P + B('Läs mer', 'background:#fff;border:1px solid rgba(26,28,30,.14)', 'sb2'), 'gap:10px')],
+      ['Vit yta utan kant', S(P + B('Läs mer', 'background:#fff;border-color:#fff', 'sb2'), 'gap:10px')]
+    ]);
+    const ph = s => photo(B('Boka tid', 'background:#fff;border-color:#fff;color:var(--sink)') + s);
+    q('kn-sek-spok-foto', 'Hur ska en sekundärknapp på foto se ut?', [
+      ['Vit kontur 1,5 px', ph(B('Läs mer', 'border:1.5px solid #fff;color:#fff', 'sb2'))],
+      ['Vit kontur 2 px', ph(B('Läs mer', 'border:2px solid #fff;color:#fff', 'sb2'))],
+      ['Frostat glas', ph(B('Läs mer', 'border:1px solid rgba(255,255,255,.35);color:#fff;background:rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)', 'sb2'))],
+      ['Halvgenomskinlig mörk', ph(B('Läs mer', 'border-color:transparent;color:#fff;background:rgba(0,0,0,.45)', 'sb2'))]
+    ], 'grid');
+    q('kn-sek-spok-kant', 'Om spökknappen har kontur: hur synlig ska kanten vara?', [
+      ['Helvit kant', ph(B('Läs mer', 'border:1.5px solid #fff;color:#fff', 'sb2'))],
+      ['Halvgenomskinlig kant', ph(B('Läs mer', 'border:1.5px solid rgba(255,255,255,.5);color:#fff', 'sb2'))]
+    ]);
+  }
+
+  /* ===================== Tertiär- och textlänkknappar ===================== */
+  group('tertiar', 'Tertiär- och textlänkknappar');
+  {
+    const L = (inner, st = '') => `<span style="display:inline-flex;align-items:center;gap:6px;color:var(--brand);font-weight:600;font-size:15px;cursor:pointer;${st}">${inner}</span>`;
+    const ctx = l => C(l);
+    q('kn-ter-stil', 'Hur ska en tertiär handling som "Läs mer" se ut?', [
+      ['Text med pil', ctx(L(T('Läs mer') + svg('arrow', 18)))],
+      ['Understruken text', ctx(L('Läs mer', 'text-decoration:underline;text-underline-offset:4px'))],
+      ['Färgad text utan dekor', ctx(L('Läs mer'))],
+      ['Liten tonad knapp', ctx(B('Läs mer', 'height:34px;padding:0 12px;font-size:14px;background:var(--tint);border-color:var(--tint);border-radius:8px', 'sb2'))]
+    ]);
+    q('kn-ter-pil-typ', 'Vilken pil passar efter en textlänk?', [
+      ['Pil →', ctx(L(T('Läs mer') + svg('arrow', 18)))],
+      ['Chevron ›', ctx(L(T('Läs mer') + svg('chev', 18)))],
+      ['Diagonal pil ↗', ctx(L(T('Läs mer') + svg('diag', 18)))],
+      ['Pil i cirkel', ctx(L(T('Läs mer') + svg('circleArrow', 22, 1.6), 'gap:8px'))]
+    ]);
+    q('kn-ter-pil-avstand', 'Hur stort avstånd mellan länktext och pil?', [
+      ['4 px', ctx(L(T('Läs mer') + svg('arrow', 18), 'gap:4px'))],
+      ['6 px', ctx(L(T('Läs mer') + svg('arrow', 18), 'gap:6px'))],
+      ['10 px', ctx(L(T('Läs mer') + svg('arrow', 18), 'gap:10px'))]
+    ]);
+    q('kn-ter-vikt', 'Hur tung ska texten i en textlänkknapp vara?', [
+      ['Medium (500)', ctx(L(T('Läs mer') + svg('arrow', 18), 'font-weight:500'))],
+      ['Halvfet (600)', ctx(L(T('Läs mer') + svg('arrow', 18), 'font-weight:600'))],
+      ['Fet (700)', ctx(L(T('Läs mer') + svg('arrow', 18), 'font-weight:700'))]
+    ]);
+    q('kn-ter-storlek', 'Hur stor ska texten i en textlänkknapp vara?', [
+      ['14 px', ctx(L(T('Läs mer') + svg('arrow', 16), 'font-size:14px'))],
+      ['15 px', ctx(L(T('Läs mer') + svg('arrow', 18), 'font-size:15px'))],
+      ['16 px', ctx(L(T('Läs mer') + svg('arrow', 18), 'font-size:16px'))]
+    ]);
+    q('kn-ter-farg', 'Vilken färg ska en textlänkknapp ha?', [
+      ['Knappfärgen', ctx(L(T('Läs mer') + svg('arrow', 18)))],
+      ['Mörk text', ctx(L(T('Läs mer') + svg('arrow', 18), 'color:var(--sink)'))],
+      ['Grå text', ctx(L(T('Läs mer') + svg('arrow', 18), 'color:var(--smuted)'))]
+    ]);
+    q('kn-ter-understrykning', 'När ska en textlänkknapp vara understruken?', [
+      ['Alltid', states([['Normal', L('Läs mer', 'text-decoration:underline;text-underline-offset:4px')], ['Hover', L('Läs mer', 'text-decoration:underline;text-underline-offset:4px;color:var(--brand-d)')]])],
+      ['Bara vid hover', states([['Normal', L('Läs mer')], ['Hover', L('Läs mer', 'text-decoration:underline;text-underline-offset:4px')]])],
+      ['Aldrig', states([['Normal', L('Läs mer')], ['Hover', L('Läs mer', 'color:var(--brand-d)')]])]
+    ]);
+    const card = (foot, extra = '') => `<div class="pad"><div class="panel stack" style="gap:8px;position:relative;${extra}"><p class="h h3">Rubrik som är kort</p><p class="muted small">Två rader text som beskriver innehållet i kortet kort och neutralt.</p>${foot}</div></div>`;
+    q('kn-ter-i-kort', 'Hur ska "Läs mer" se ut längst ner i ett kort?', [
+      ['Textlänk med pil', card(`<div style="margin-top:6px">${L(T('Läs mer') + svg('arrow', 18))}</div>`)],
+      ['Liten konturknapp', card(`<div style="margin-top:6px">${B('Läs mer', 'height:38px;padding:0 16px;font-size:14px;border-width:1.5px', 'sb2')}</div>`)],
+      ['Pilknapp i hörnet', card(`<span style="position:absolute;right:14px;bottom:14px;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--tint);color:var(--brand)">${svg('arrow', 18)}</span>`, 'padding-bottom:58px')]
+    ]);
+    q('kn-ter-versaler', 'Ska textlänkknappen skrivas med versaler?', [
+      ['Vanlig text', ctx(L(T('Läs mer') + svg('arrow', 18)))],
+      ['Små versaler med spärrning', ctx(L(T('Läs mer') + svg('arrow', 16), 'text-transform:uppercase;font-size:13px;letter-spacing:.08em'))]
+    ]);
+    q('kn-ter-avbryt', 'Hur ska "Avbryt" se ut bredvid "Spara"?', [
+      ['Textknapp', S(B('Avbryt', 'background:transparent;border-color:transparent;padding:0 14px;color:var(--sink)', 'sb2') + B('Spara'), 'gap:8px;justify-content:flex-end')],
+      ['Grå knapp', S(B('Avbryt', 'background:#ECECE9;border-color:#ECECE9;color:var(--sink)', 'sb2') + B('Spara'), 'gap:8px;justify-content:flex-end')],
+      ['Konturknapp', S(B('Avbryt', 'border:1.5px solid rgba(26,28,30,.22);color:var(--sink)', 'sb2') + B('Spara'), 'gap:8px;justify-content:flex-end')]
+    ]);
+  }
 
   // --- FLER GRUPPER ---
 

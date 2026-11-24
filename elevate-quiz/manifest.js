@@ -1,7 +1,16 @@
 window.QZ_MANIFEST = {
- "v": 1795507276,
- "total": 111,
+ "v": 1795507579,
+ "total": 599,
  "parts": [
+  {
+   "key": "typsnitt",
+   "title": "Typsnitt",
+   "desc": "Vilka typsnitt som ska användas och vilka som aldrig ska användas",
+   "files": [
+    "data-typsnitt.js"
+   ],
+   "count": 84
+  },
   {
    "key": "text",
    "title": "Textdetaljer",
@@ -9,7 +18,7 @@ window.QZ_MANIFEST = {
    "files": [
     "data-text.js"
    ],
-   "count": 43
+   "count": 124
   },
   {
    "key": "knappar",
@@ -18,7 +27,7 @@ window.QZ_MANIFEST = {
    "files": [
     "data-knappar.js"
    ],
-   "count": 40
+   "count": 77
   },
   {
    "key": "pilar",
@@ -27,7 +36,52 @@ window.QZ_MANIFEST = {
    "files": [
     "data-pilar.js"
    ],
-   "count": 28
+   "count": 77
+  },
+  {
+   "key": "falt",
+   "title": "Fält och kontroller",
+   "desc": "Inmatningsfält, val, kryssrutor, reglage, datum och sök",
+   "files": [
+    "data-falt.js"
+   ],
+   "count": 43
+  },
+  {
+   "key": "ytor",
+   "title": "Ytor, kort och former",
+   "desc": "Rundning, skuggor, kanter, kort och bildbehandling",
+   "files": [
+    "data-ytor.js"
+   ],
+   "count": 41
+  },
+  {
+   "key": "navigering",
+   "title": "Navigering och menyer",
+   "desc": "Header, menyer, mobilmeny, flikar, brödsmulor och sidfot",
+   "files": [
+    "data-navigering.js"
+   ],
+   "count": 41
+  },
+  {
+   "key": "lagen",
+   "title": "Lägen och återkoppling",
+   "desc": "Hover, fokus, laddning, fel, klart, tomt, notiser och dialoger",
+   "files": [
+    "data-lagen.js"
+   ],
+   "count": 71
+  },
+  {
+   "key": "ux",
+   "title": "UX-mönster",
+   "desc": "Flöden, steg, sök, filter, sidnumrering, val och mobilmönster",
+   "files": [
+    "data-ux.js"
+   ],
+   "count": 41
   }
  ]
 };
