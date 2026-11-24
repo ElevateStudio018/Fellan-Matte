@@ -269,16 +269,17 @@ main:focus { outline: none; }
 .sk-hero { --sk-bg: #8A3B12; position: relative; overflow: hidden; background: var(--sk-bg); color: #fff;
   transition: background-color 500ms var(--ev-ease); }
 .sk-hero__in { position: relative; display: grid; gap: 20px; padding-top: 28px; padding-bottom: 36px; }
-.sk-stage { display: grid; position: relative; }
-.sk-stage > * { grid-area: 1 / 1; }
-.sk-title { display: flex; flex-direction: column; justify-content: space-between; font-size: min(17vw, 92px); line-height: .9;
+/* Scenen mäts i em (rubrikens storlek), så att skon alltid hamnar mellan raderna:
+   överkanten täcker nedre delen av första raden, sulan ligger bakom övre delen av andra raden. */
+.sk-stage { position: relative; font-size: 17vw; }
+.sk-title { display: flex; flex-direction: column; justify-content: space-between; min-height: 5.3em; font-size: 1em; line-height: .9;
   letter-spacing: -.045em; text-wrap: initial; }
 .sk-title__back { position: relative; z-index: 1; }
-.sk-title__front { position: relative; z-index: 3; align-self: flex-end; text-align: right; max-width: 6em; text-shadow: 0 2px 24px rgba(0, 0, 0, .18); }
+.sk-title__front { position: relative; z-index: 3; align-self: flex-end; text-align: right; max-width: 5.2em; text-shadow: 0 2px 24px rgba(0, 0, 0, .2); }
 .sk-hero .ev-dot::after { color: #F0B98F; }
-.sk-shoe { position: relative; z-index: 2; align-self: center; justify-self: center; width: 118%; max-width: none; height: auto; margin-left: -9%;
+.sk-shoe { position: absolute; z-index: 2; top: .74em; left: -7%; width: 114%; max-width: none; height: auto;
   filter: drop-shadow(0 28px 24px rgba(0, 0, 0, .3)); animation: sk-shoe-in 800ms var(--ev-ease) both; }
-@keyframes sk-shoe-in { from { opacity: 0; transform: translateX(8%) rotate(4deg); } }
+@keyframes sk-shoe-in { from { opacity: 0; transform: translateX(6%) rotate(3deg); } }
 .sk-hero__lead { font-size: 17px; line-height: 1.5; max-width: 36ch; }
 .sk-hero .ev-search { margin-top: 18px; }
 .sk-hero .ev-search input { border-color: #fff; }
@@ -294,15 +295,17 @@ main:focus { outline: none; }
 .sk-swatch:focus-visible { outline: 2px solid #fff; outline-offset: 0; }
 @media (prefers-reduced-motion: reduce) { .sk-shoe { animation: none; } .sk-hero { transition: none; } }
 @media (min-width: 641px) {
-  .sk-title { font-size: min(13vw, 120px); }
+  .sk-stage { font-size: min(13vw, 120px); }
+  .sk-title { min-height: 4.55em; }
   .sk-title__front { max-width: none; }
-  .sk-shoe { width: 86%; margin-left: 4%; }
+  .sk-shoe { top: .72em; left: auto; right: -2%; width: 80%; }
 }
 @media (min-width: 900px) {
   .sk-hero { min-height: calc(100svh - var(--ev-header-h) - 36px); display: flex; align-items: center; }
   .sk-hero__in { gap: 28px; padding-top: 40px; padding-bottom: 44px; }
-  .sk-title { font-size: min(11.2vw, 168px); min-height: min(37vw, 520px); }
-  .sk-shoe { width: 66%; margin: 0 0 0 4%; }
+  .sk-stage { font-size: min(11.2vw, 168px); }
+  .sk-title { min-height: 3.3em; }
+  .sk-shoe { top: .46em; right: 7%; width: min(48vw, 720px); }
   .sk-hero__foot { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 48px; align-items: end; }
   .sk-hero__lead { font-size: 19px; }
   .sk-hero__side { flex-direction: column; align-items: flex-end; }

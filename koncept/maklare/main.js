@@ -58,6 +58,22 @@
     });
   }
 
+  /* ---------- Hero (ny): rullande rad med sålda bostäder ---------- */
+  const ticker = $('[data-ticker]');
+  if (ticker) {
+    const tBtn = $('[data-ticker-toggle]', ticker);
+    const PAUSE = '<path d="M9 6v12M15 6v12"/>', PLAY = '<path d="M8 5.5v13l10.5-6.5z"/>';
+    tBtn.addEventListener('click', () => {
+      const paused = ticker.classList.toggle('is-paused');
+      $('span', tBtn).textContent = paused ? 'Spela' : 'Pausa';
+      $('svg', tBtn).innerHTML = paused ? PLAY : PAUSE;
+    });
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const view = $('.ev-ticker__view', ticker);
+      view.tabIndex = 0; view.setAttribute('role', 'region'); view.setAttribute('aria-label', 'Nyligen sålt, rulla i sidled');
+    }
+  }
+
   /* ---------- Fast list på desktop ---------- */
   const bar = $('.ev-stickybar');
   const anchor = $('[data-sticky-anchor]');
