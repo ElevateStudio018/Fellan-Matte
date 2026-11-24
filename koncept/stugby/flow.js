@@ -13,6 +13,9 @@
   const MONTHS = ['jan', 'feb', 'mars', 'april', 'maj', 'juni', 'juli', 'aug', 'sep', 'okt', 'nov', 'dec'];
   const short = d => `${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}`;
   const icon = n => `<svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#${n}"/></svg>`;
+  /* Text in som text. Pilen mellan datum ritas som SVG, inte som tecken (pi-form-tecken, pi-form-frantill). */
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const put = (el, t) => { el.innerHTML = esc(t).replace(/ → /g, ' <svg class="ev-icon sb-to" aria-hidden="true"><use href="img/ikoner.svg#pil"/></svg><span class="ev-sr">till</span> '); };
 
   /* Stugor (exempel). Pris per natt: lågsäsong och högsäsong. */
   const C = {
@@ -117,7 +120,7 @@
   }
   function nightsText() {
     const ok = !checkA() && !checkB();
-    $('[data-nights]').textContent = ok ? `${Math.round((parse(inB.value) - parse(inA.value)) / 864e5)} nätter, ${short(parse(inA.value))} → ${short(parse(inB.value))}` : '';
+    put($('[data-nights]'), ok ? `${Math.round((parse(inB.value) - parse(inA.value)) / 864e5)} nätter, ${short(parse(inA.value))} → ${short(parse(inB.value))}` : '');
   }
   inA.addEventListener('change', () => {
     minB();
@@ -243,7 +246,7 @@
     dl.innerHTML = rows.map(([k, , step]) =>
       `<div><dt>${k}</dt><dd></dd>${edit ? `<a class="ev-link" href="#" data-edit="${step}">Ändra<span class="ev-sr"> ${k.toLowerCase()}</span></a>` : ''}</div>`).join('') +
       `<div class="ev-total"><dt>Totalt</dt><dd>${kr(total())}</dd></div>`;
-    $$('dd', dl).forEach((dd, i) => { if (rows[i]) dd.textContent = rows[i][1]; });
+    $$('dd', dl).forEach((dd, i) => { if (rows[i]) put(dd, rows[i][1]); });
     $$('[data-edit]', dl).forEach(a => a.addEventListener('click', e => { e.preventDefault(); returnTo = 'bekrafta'; go(a.dataset.edit); }));
   }
   $('[data-form="bekrafta"]').addEventListener('submit', e => {
@@ -262,7 +265,7 @@
     S.tillval.forEach(k => rows.push([EXTRAS[k][0], kr(extraPrice(k))]));
     if (S.hund === 'ja') rows.push(['Husdjur', kr(PET_FEE)]);
     list.innerHTML = rows.map(([k]) => `<div><dt>${k}</dt><dd></dd></div>`).join('') + (S.stuga ? `<div class="ev-total"><dt>Totalt</dt><dd>${kr(total())}</dd></div>` : '');
-    $$('dd', list).forEach((dd, i) => { if (rows[i]) dd.textContent = rows[i][1]; });
+    $$('dd', list).forEach((dd, i) => { if (rows[i]) put(dd, rows[i][1]); });
     list.hidden = false; empty.hidden = true;
   }
 

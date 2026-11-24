@@ -616,3 +616,4 @@ a.ev-chip { text-decoration: none; }
 .bl-addons .ev-price { color: var(--ev-ink); font-size: 16px; }
 
 [hidden] { display: none !important; }
+.bl-addons .ev-price { white-space: normal; text-align: right; max-width: 11ch; }

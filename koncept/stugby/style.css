@@ -650,3 +650,4 @@ button.ev-link { background: none; border: 0; padding: 0; cursor: pointer; }
 
 /* Flödet */
 .sb-nights { margin-top: 12px; min-height: 21px; font-weight: 500; color: var(--ev-ink); }
+.sb-to { width: 1em; height: 1em; --ev-stroke: 1.75px; vertical-align: -.125em; }
