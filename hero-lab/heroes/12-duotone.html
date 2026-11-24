@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kraftverket Gym · Duotone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #17134a;      /* djup ultramarin, skuggorna */
+    --lime: #d4ff3d;     /* överprintsfärgen, högdagrarna */
+    --paper: #f4f6ea;
+    --dim: #c9c6ee;
+    --display: "Archivo Black", Impact, sans-serif;
+    --sans: "Archivo", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--ink); color: var(--paper); font-family: var(--sans); overflow-x: hidden; }
+  a { color: inherit; }
+  a:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
+
+  .hero { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 46fr) minmax(0, 54fr); position: relative; overflow: hidden; }
+
+  .panel { display: grid; grid-template-rows: auto 1fr auto; padding: 0 clamp(18px, 3.5vw, 56px); position: relative; z-index: 2; }
+  header { display: flex; justify-content: space-between; align-items: center; height: 80px; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .06em; }
+  .logo { font-family: var(--display); font-size: 20px; letter-spacing: -.01em; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .logo svg { width: 26px; height: 26px; }
+  header nav { display: flex; gap: 22px; }
+  header nav a { text-decoration: none; }
+  header nav a:hover { color: var(--lime); }
+
+  .copy { align-self: center; }
+  .eyebrow { font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 18px; color: var(--dim); }
+  h1 { font-family: var(--display); font-weight: 400; text-transform: uppercase; color: var(--lime); font-size: clamp(52px, 6.6vw, 116px); line-height: .84; letter-spacing: -.035em; margin: 0; }
+  h1 span { display: block; }
+  /* ”12” överprintar fotot: samma lime, multiply över bilden */
+  .lead { font-size: 18px; line-height: 1.5; max-width: 27em; margin: 26px 0 30px; color: var(--paper); }
+  .actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .cta { display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 30px; background: var(--lime); color: var(--ink); border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 17px; transition: transform .15s; }
+  .cta:hover { transform: translateY(-2px); }
+  .cta span { transition: transform .15s; }
+  .cta:hover span { transform: translateX(4px); }
+  .hours { font-size: 14px; line-height: 1.4; color: var(--dim); }
+  .hours b { color: var(--paper); display: block; }
+
+  .weeks { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; padding: 0 0 28px; }
+  .weeks i { height: 26px; background: rgba(212,255,61,.16); position: relative; }
+  .weeks i::after { content: ""; position: absolute; inset: 0; background: var(--lime); transform: scaleY(0); transform-origin: bottom; animation: lift 6s infinite; animation-delay: calc(var(--i) * .25s); height: calc(30% + var(--i) * 6%); top: auto; }
+  @keyframes lift { 0%, 8% { transform: scaleY(0); } 30%, 80% { transform: scaleY(1); } 100% { transform: scaleY(0); } }
+  .weeks-label { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); padding-bottom: 8px; }
+
+  /* duotone */
+  .photo { position: relative; background: var(--lime); overflow: hidden; isolation: isolate; }
+  .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 38% 50%; filter: grayscale(1) contrast(1.35) brightness(.95); mix-blend-mode: multiply; animation: push 18s ease-in-out infinite alternate; }
+  .photo::after { content: ""; position: absolute; inset: 0; background: var(--ink); mix-blend-mode: lighten; pointer-events: none; }
+  @keyframes push { from { transform: scale(1.02); } to { transform: scale(1.12) translate(-2%, 1%); } }
+  .big12 { position: absolute; right: -2vw; bottom: -6vh; font-family: var(--display); font-size: 46vh; line-height: .8; color: var(--lime); mix-blend-mode: multiply; z-index: 2; letter-spacing: -.06em; pointer-events: none; }
+  .stamp { position: absolute; left: 22px; top: 22px; z-index: 3; background: var(--ink); color: var(--lime); font-weight: 700; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; padding: 8px 12px; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; grid-template-rows: auto 34vh; }
+    .photo { order: 2; }
+    header nav { display: none; }
+    header { height: 64px; }
+    h1 { font-size: clamp(52px, 15vw, 76px); }
+    .lead { font-size: 16px; margin: 18px 0 22px; }
+    .copy { padding: 8px 0 24px; }
+    .weeks { display: none; } .weeks-label { display: none; }
+    .big12 { font-size: 40vh; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .photo img, .weeks i::after { animation: none; }
+    .weeks i::after { transform: none; }
+    .cta, .cta span { transition: none; }
+  }
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="panel">
+    <header>
+      <a class="logo" href="#"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M15 1 4 15h7l-1 10 11-14h-7z" fill="#d4ff3d"/></svg>Kraftverket</a>
+      <nav aria-label="Huvudmeny"><a href="#">Pass</a><a href="#">Coacher</a><a href="#">Priser</a></nav>
+    </header>
+    <div class="copy">
+      <p class="eyebrow">Gym och coachning · Möllan, Malmö</p>
+      <h1><span>Starkare</span><span>på tolv</span><span>veckor.</span></h1>
+      <p class="lead">En coach som följer er två gånger i veckan, ett schema som går ihop med jobbet och en kroppsanalys var fjärde vecka.</p>
+      <div class="actions">
+        <a class="cta" href="#">Prova en vecka gratis <span aria-hidden="true">→</span></a>
+        <p class="hours"><b>Öppet 05–23</b>alla dagar, med tagg</p>
+      </div>
+    </div>
+    <div aria-hidden="true">
+      <div class="weeks-label"><span>Vecka 1</span><span>Vecka 12</span></div>
+      <div class="weeks"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i></div>
+    </div>
+  </div>
+
+  <div class="photo">
+    <img src="../img/gym.jpg" alt="Man och kvinna tränar med battle ropes i ljus träningslokal">
+    <span class="big12" aria-hidden="true">12</span>
+    <span class="stamp" aria-hidden="true">Nytt block startar 1 december</span>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Salong Nord · Marquee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #161412;
+    --ink: #f3ede4;
+    --dim: #b9b0a4;
+    --rose: #ff9ec4;
+    --display: "Syne", system-ui, sans-serif;
+    --mono: "Space Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--mono); overflow-x: hidden; }
+  a { color: inherit; }
+  a:focus-visible { outline: 2px solid var(--rose); outline-offset: 4px; }
+
+  .hero { min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: minmax(0, 1fr); overflow: hidden; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 22px clamp(18px, 3.5vw, 56px); font-size: 13px; }
+  .logo { font-family: var(--display); font-weight: 800; font-size: 22px; text-decoration: none; letter-spacing: -.02em; }
+  header nav { display: flex; gap: 26px; text-transform: uppercase; letter-spacing: .08em; font-size: 12px; }
+  header nav a { text-decoration: none; }
+  header nav a:hover { color: var(--rose); }
+
+  .bands { min-width: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 1.2vh; }
+  .band { display: flex; width: max-content; }
+  .band .track { display: flex; align-items: center; gap: .32em; padding-right: .32em; animation: slide var(--dur, 40s) linear infinite; }
+  .band.rev .track { animation-direction: reverse; }
+  .bands:hover .track { animation-play-state: paused; }
+  @keyframes slide { to { transform: translateX(-100%); } }
+  .w { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: -.03em; line-height: .9; white-space: nowrap; }
+  .b1 { font-size: clamp(64px, 11.5vw, 190px); }
+  .b2 { font-size: clamp(44px, 7.5vw, 124px); --dur: 34s; }
+  .b3 { font-size: clamp(64px, 11.5vw, 190px); --dur: 46s; }
+  .w.o { color: transparent; -webkit-text-stroke: 1.5px var(--ink); }
+  .w.r { color: var(--rose); }
+  .pic { flex: none; height: .78em; aspect-ratio: 1.6; border-radius: 999px; overflow: hidden; }
+  .pic.sq { aspect-ratio: 1; }
+  .pic img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.9); }
+  .star { font-family: var(--display); font-size: .5em; color: var(--rose); }
+
+  .foot {
+    display: grid; grid-template-columns: 1.2fr 1fr auto; gap: clamp(20px, 3vw, 48px); align-items: end;
+    padding: 26px clamp(18px, 3.5vw, 56px) 30px; border-top: 1px solid rgba(243,237,228,.18);
+  }
+  h1 { font-family: var(--display); font-weight: 700; font-size: clamp(28px, 2.6vw, 42px); line-height: 1.05; letter-spacing: -.02em; margin: 0; }
+  .lead { margin: 0; font-size: 14px; line-height: 1.65; color: var(--dim); }
+  .lead b { color: var(--ink); font-weight: 700; }
+  .cta { display: inline-flex; align-items: center; gap: 12px; height: 58px; padding: 0 30px; border-radius: 999px; background: var(--rose); color: #1a0d13; text-decoration: none; font-family: var(--display); font-weight: 700; font-size: 17px; white-space: nowrap; transition: background .15s; }
+  .cta:hover { background: #ffc0d9; }
+  .cta span { transition: transform .15s; }
+  .cta:hover span { transform: translateX(4px); }
+
+  @media (max-width: 860px) {
+    header nav { display: none; }
+    .foot { grid-template-columns: 1fr; gap: 14px; padding-top: 20px; }
+    .cta { justify-self: start; height: 54px; }
+    .b1, .b3 { font-size: 27vw; }
+    .b2 { font-size: 15vw; }
+    .bands { gap: 2.4vh; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .band .track { animation: none; }
+    .band.rev { transform: translateX(-30%); }
+    .cta, .cta span { transition: none; }
+  }
+</style>
+</head>
+<body>
+<section class="hero">
+  <header>
+    <a class="logo" href="#">Salong Nord</a>
+    <nav aria-label="Huvudmeny"><a href="#">Priser</a><a href="#">Frisörerna</a><a href="#">Produkter</a><a href="tel:+4631141418">031-14 14 18</a></nav>
+  </header>
+
+  <div class="bands" aria-hidden="true">
+    <div class="band b1">
+      <div class="track"><span class="w">Klipp</span><span class="pic"><img src="../img/frisor.jpg" alt="" style="object-position:40% 40%"></span><span class="w o">Färg</span><span class="star">✦</span><span class="w">Slingor</span><span class="pic sq"><img src="../img/portratt-1.jpg" alt="" style="object-position:50% 20%"></span><span class="w r">Balayage</span><span class="star">✦</span></div>
+      <div class="track"><span class="w">Klipp</span><span class="pic"><img src="../img/frisor.jpg" alt="" style="object-position:40% 40%"></span><span class="w o">Färg</span><span class="star">✦</span><span class="w">Slingor</span><span class="pic sq"><img src="../img/portratt-1.jpg" alt="" style="object-position:50% 20%"></span><span class="w r">Balayage</span><span class="star">✦</span></div>
+    </div>
+    <div class="band b2 rev">
+      <div class="track"><span class="w o">Drop-in vardagar 10–12</span><span class="pic"><img src="../img/portratt-3.jpg" alt="" style="object-position:50% 25%"></span><span class="w">Skägg och kant</span><span class="star">✦</span><span class="w o">Barnklipp 295 kr</span><span class="pic sq"><img src="../img/portratt-2.jpg" alt="" style="object-position:50% 15%"></span><span class="w">Bröllopsuppsättning</span><span class="star">✦</span></div>
+      <div class="track"><span class="w o">Drop-in vardagar 10–12</span><span class="pic"><img src="../img/portratt-3.jpg" alt="" style="object-position:50% 25%"></span><span class="w">Skägg och kant</span><span class="star">✦</span><span class="w o">Barnklipp 295 kr</span><span class="pic sq"><img src="../img/portratt-2.jpg" alt="" style="object-position:50% 15%"></span><span class="w">Bröllopsuppsättning</span><span class="star">✦</span></div>
+    </div>
+    <div class="band b3">
+      <div class="track"><span class="w r">Linnégatan</span><span class="pic"><img src="../img/frisor.jpg" alt="" style="object-position:70% 50%"></span><span class="w">Göteborg</span><span class="star">✦</span><span class="w o">Sedan 2009</span><span class="pic sq"><img src="../img/kladstall.jpg" alt="" style="object-position:30% 50%"></span><span class="star">✦</span></div>
+      <div class="track"><span class="w r">Linnégatan</span><span class="pic"><img src="../img/frisor.jpg" alt="" style="object-position:70% 50%"></span><span class="w">Göteborg</span><span class="star">✦</span><span class="w o">Sedan 2009</span><span class="pic sq"><img src="../img/kladstall.jpg" alt="" style="object-position:30% 50%"></span><span class="star">✦</span></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <h1>Klippning, färg och balayage på Linnégatan 18</h1>
+    <p class="lead">Sex frisörer, inga stressade 30-minuterspass. <b>Konsultationen före färg är gratis</b> och vi säger vad det kostar innan vi börjar.</p>
+    <a class="cta" href="#">Boka tid <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+</body>
+</html>

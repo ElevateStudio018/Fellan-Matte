@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fixa Bygg &amp; Hem · Kinetisk typografi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800;900&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sig: #ff5a24;      /* signalorange */
+    --ink: #170c06;
+    --paper: #fff3ea;
+    --display: "Unbounded", system-ui, sans-serif;
+    --sans: "Manrope", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--sig); color: var(--ink); font-family: var(--sans); overflow-x: hidden; }
+  a { color: inherit; }
+  a:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+
+  .hero { min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; padding: 0 clamp(18px, 4vw, 64px); }
+
+  header { display: flex; align-items: center; justify-content: space-between; height: 84px; border-bottom: 2px solid var(--ink); }
+  .logo { font-family: var(--display); font-weight: 900; font-size: 22px; text-decoration: none; letter-spacing: -.02em; display: flex; align-items: center; gap: 10px; }
+  .logo b { display: inline-grid; place-items: center; width: 34px; height: 34px; background: var(--ink); color: var(--sig); border-radius: 50%; font-size: 15px; }
+  header nav { display: flex; gap: 30px; font-weight: 600; font-size: 15px; }
+  header nav a { text-decoration: none; }
+  header nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
+  .tel { font-weight: 700; font-size: 15px; text-decoration: none; }
+
+  main { display: flex; flex-direction: column; justify-content: center; padding: 4vh 0; }
+  .kicker { font-weight: 700; font-size: 15px; letter-spacing: .02em; margin: 0 0 2vh; display: flex; gap: 12px; align-items: center; }
+  .kicker i { width: 10px; height: 10px; border-radius: 50%; background: var(--ink); display: inline-block; }
+
+  h1 {
+    font-family: var(--display); font-weight: 900; margin: 0;
+    font-size: clamp(42px, 9.6vw, 170px); line-height: .92; letter-spacing: -.045em; text-transform: lowercase;
+  }
+  h1 .static { display: block; }
+  .swap-row { display: flex; align-items: center; gap: .18em; }
+  .word { position: relative; display: inline-block; height: 1.02em; overflow: hidden; vertical-align: bottom; transition: width .55s cubic-bezier(.2,.9,.2,1); }
+  .word .w { display: block; white-space: nowrap; }
+  .word .w span { display: inline-block; transform: translateY(0); }
+  .word .w.out span { animation: out .5s cubic-bezier(.6,0,.8,.2) both; animation-delay: calc(var(--i) * 28ms); }
+  .word .w.in { position: absolute; left: 0; top: 0; }
+  .word .w.in span { animation: in .62s cubic-bezier(.2,.9,.2,1) both; animation-delay: calc(140ms + var(--i) * 32ms); }
+  @keyframes out { to { transform: translateY(-105%); } }
+  @keyframes in { from { transform: translateY(105%); } to { transform: translateY(0); } }
+
+  .chip {
+    flex: none; width: .9em; height: .9em; border-radius: 22%; overflow: hidden; position: relative;
+    background: var(--ink); transform: rotate(-6deg); box-shadow: .06em .06em 0 var(--ink);
+  }
+  .chip img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.15); transition: opacity .5s, transform .9s cubic-bezier(.2,.9,.2,1); }
+  .chip img.on { opacity: 1; transform: scale(1); }
+
+  .under { display: grid; grid-template-columns: minmax(0, 34em) auto; gap: 40px; align-items: end; justify-content: space-between; margin-top: 5vh; }
+  .lead { font-size: clamp(17px, 1.35vw, 21px); line-height: 1.5; font-weight: 500; margin: 0; }
+  .lead strong { font-weight: 700; }
+  .actions { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 14px; height: 62px; padding: 0 30px;
+    background: var(--ink); color: var(--paper); border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 17px; transition: transform .15s;
+  }
+  .cta:hover { transform: translateY(-2px); }
+  .cta span { display: inline-block; transition: transform .15s; }
+  .cta:hover span { transform: translateX(5px); }
+  .cta:focus-visible { outline-color: var(--paper); box-shadow: 0 0 0 6px var(--ink); }
+  .alt { font-weight: 700; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+
+  footer { border-top: 2px solid var(--ink); display: flex; gap: 0; height: 64px; align-items: center; overflow: hidden; font-weight: 700; font-size: 14px; }
+  footer ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 40px; white-space: nowrap; }
+  footer li::before { content: "✓"; margin-right: 10px; }
+
+  @media (max-width: 860px) {
+    header nav { display: none; }
+    header { height: 68px; }
+    .under { grid-template-columns: 1fr; gap: 26px; margin-top: 4vh; }
+    .cta { height: 56px; font-size: 16px; padding: 0 24px; }
+    footer { height: auto; padding: 16px 0; }
+    footer ul { flex-direction: column; gap: 6px; }
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 10vw; }
+    .logo { font-size: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .word .w span { animation: none !important; }
+    .chip img, .cta, .cta span { transition: none; }
+  }
+</style>
+</head>
+<body>
+<section class="hero">
+  <header>
+    <a class="logo" href="#"><b>F</b>Fixa</a>
+    <nav aria-label="Huvudmeny"><a href="#">Badrum</a><a href="#">Kök</a><a href="#">El</a><a href="#">Projekt</a></nav>
+    <a class="tel" href="tel:+4621123456">021-12 34 56</a>
+  </header>
+
+  <main>
+    <p class="kicker"><i aria-hidden="true"></i>Fixa Bygg &amp; Hem AB · Västerås</p>
+    <h1>
+      <span class="static">Vi fixar</span>
+      <span class="swap-row">
+        <span class="word" aria-live="off"><span class="w" id="w">badrummet.</span></span>
+        <span class="chip" aria-hidden="true">
+          <img class="on" src="../img/badrum.jpg" alt="">
+          <img src="../img/snickare.jpg" alt="">
+          <img src="../img/elektriker.jpg" alt="">
+          <img src="../img/renovering.jpg" alt="">
+        </span>
+      </span>
+    </h1>
+    <div class="under">
+      <p class="lead">Badrum, kök och el med <strong>ett lag, ett fast pris och en kontaktperson</strong> från rivning till slutbesiktning. ROT-avdraget drar vi direkt på fakturan.</p>
+      <div class="actions">
+        <a class="cta" href="#">Få fast pris på 48 timmar <span aria-hidden="true">→</span></a>
+        <a class="alt" href="#">Se 40 färdiga projekt</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <ul>
+      <li>Våtrumscertifikat enligt GVK</li>
+      <li>Auktoriserade elinstallatörer</li>
+      <li>Fem års garanti på arbetet</li>
+    </ul>
+  </footer>
+</section>
+<script>
+(() => {
+  const words = ['badrummet.', 'köket.', 'elen.', 'väggarna.'];
+  const el = document.getElementById('w');
+  const box = el.parentElement;
+  const imgs = [...document.querySelectorAll('.chip img')];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // läsbar text för skärmläsare: hela listan
+  box.setAttribute('aria-label', 'badrummet, köket, elen och väggarna');
+  const split = (w, cls) => {
+    const s = document.createElement('span');
+    s.className = 'w ' + cls;
+    s.setAttribute('aria-hidden', 'true');
+    [...w].forEach((c, i) => { const t = document.createElement('span'); t.textContent = c; t.style.setProperty('--i', i); s.appendChild(t); });
+    return s;
+  };
+  if (reduce) return;
+  let i = 0, cur = split(words[0], '');
+  box.replaceChildren(cur);
+  let paused = false;
+  box.closest('h1').addEventListener('pointerenter', () => paused = true);
+  box.closest('h1').addEventListener('pointerleave', () => paused = false);
+  setInterval(() => {
+    if (paused || document.hidden) return;
+    i = (i + 1) % words.length;
+    const next = split(words[i], 'in');
+    box.style.width = cur.offsetWidth + 'px';
+    cur.classList.add('out');
+    box.appendChild(next);
+    void box.offsetWidth;
+    box.style.width = next.offsetWidth + 'px';
+    imgs.forEach((im, k) => im.classList.toggle('on', k === i));
+    const old = cur;
+    setTimeout(() => { old.remove(); next.classList.remove('in'); }, 1000);
+    cur = next;
+  }, 2600);
+})();
+</script>
+</body>
+</html>

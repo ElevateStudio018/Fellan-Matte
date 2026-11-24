@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lindqvist &amp; Berg Mäkleri · Tidningsomslag</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Libre+Franklin:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #141414;
+    --paper: #fbf8f1;
+    --red: #b3001b;
+    --yellow: #f6d34a;
+    --serif: "Playfair Display", Georgia, serif;
+    --sans: "Libre Franklin", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--ink); color: var(--paper); font-family: var(--sans); overflow-x: hidden; }
+  a { color: inherit; }
+  a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+  .cover { position: relative; min-height: 100vh; overflow: hidden; isolation: isolate; display: grid; grid-template-rows: auto auto 1fr auto; grid-template-columns: minmax(0, 1fr); }
+  .photo { position: absolute; inset: 0; z-index: -2; }
+  .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; animation: settle 2.2s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes settle { from { transform: scale(1.08); } }
+  .photo::after { content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(251,248,241,.9) 0%, rgba(251,248,241,.55) 22%, rgba(251,248,241,0) 36%),
+      linear-gradient(90deg, rgba(10,10,10,.82) 0%, rgba(10,10,10,.45) 30%, rgba(10,10,10,0) 48%),
+      linear-gradient(0deg, rgba(10,10,10,.8) 0%, rgba(10,10,10,0) 30%); }
+
+  /* topprad som på ett omslag */
+  .strip { display: flex; justify-content: space-between; align-items: center; padding: 14px clamp(16px, 3vw, 44px) 0; color: var(--ink); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .strip nav { display: flex; gap: 22px; }
+  .strip nav a { text-decoration: none; }
+  .strip nav a:hover { text-decoration: underline; }
+
+  .mast { display: flex; align-items: flex-end; justify-content: space-between; gap: 2vw; padding: 0 clamp(16px, 3vw, 44px); color: var(--ink); }
+  .mast-word { font-family: var(--serif); font-weight: 900; font-size: min(22vw, 30vh); line-height: .78; letter-spacing: -.05em; margin: 0; color: var(--red); }
+  .issue { text-align: right; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; line-height: 1.7; padding-bottom: .6vw; }
+  .issue b { display: block; font-family: var(--serif); font-size: 44px; font-weight: 900; letter-spacing: -.02em; line-height: 1; }
+  .rule { height: 3px; background: var(--ink); margin: 10px clamp(16px, 3vw, 44px) 0; grid-row: 2; align-self: end; }
+
+  .lines { display: grid; grid-template-columns: minmax(0, 470px) 1fr minmax(0, 300px); padding: 3vh clamp(16px, 3vw, 44px) 0; gap: 3vw; align-items: start; }
+  .left > * { animation: up .8s cubic-bezier(.2,.8,.2,1) both; }
+  .left > *:nth-child(2) { animation-delay: .15s; } .left > *:nth-child(3) { animation-delay: .3s; } .left > *:nth-child(4) { animation-delay: .45s; }
+  @keyframes up { from { opacity: 0; transform: translateY(14px); } }
+  .kicker { display: inline-block; background: var(--yellow); color: var(--ink); font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 5px 9px; margin: 0 0 14px; }
+  h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(38px, 3.9vw, 64px); line-height: 1; letter-spacing: -.02em; margin: 0; }
+  h1 em { font-weight: 400; }
+  .deck { font-size: 17px; line-height: 1.5; margin: 16px 0 24px; max-width: 26em; color: #ece6d8; }
+  .cta { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 26px; background: var(--paper); color: var(--ink); border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 16px; transition: background .15s; }
+  .cta:hover { background: var(--yellow); }
+  .cta span { transition: transform .15s; }
+  .cta:hover span { transform: translateX(4px); }
+
+  .right { justify-self: end; display: grid; gap: 18px; text-align: right; }
+  .right article { background: rgba(14,14,14,.74); padding: 14px 16px; border-top: 3px solid var(--yellow); }
+  .right .n { font-family: var(--serif); font-weight: 900; font-size: 40px; line-height: 1; color: var(--yellow); display: block; }
+  .right p { margin: 4px 0 0; font-size: 14px; line-height: 1.35; font-weight: 500; }
+  .right a { font-weight: 700; }
+
+  .foot { display: flex; justify-content: space-between; align-items: flex-end; padding: 0 clamp(16px, 3vw, 44px) 22px; font-size: 13px; }
+  .foot ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 26px; font-weight: 500; }
+  .foot li b { font-family: var(--serif); font-style: italic; font-weight: 700; font-size: 16px; margin-right: 6px; }
+  .barcode { background: var(--paper); padding: 6px 8px 4px; color: var(--ink); text-align: center; font-size: 9px; letter-spacing: .3em; }
+  .barcode svg { display: block; width: 104px; height: 34px; }
+
+  @media (max-width: 900px) {
+    .strip nav { display: none; }
+    .issue { display: none; }
+    .mast-word { font-size: 26vw; margin-top: 6px; }
+    .lines { grid-template-columns: 1fr; gap: 20px; padding-top: 2vh; align-self: end; }
+    .lines { grid-row: 4; padding-bottom: 20px; }
+    .mid { display: none; }
+    .right { justify-self: stretch; grid-template-columns: 1fr 1fr; text-align: left; gap: 10px; }
+    .right article:nth-child(3) { display: none; }
+    .right .n { font-size: 30px; }
+    .foot { display: none; }
+    .photo img { object-position: 50% 55%; }
+    .photo::after { background:
+      linear-gradient(180deg, rgba(251,248,241,.92) 0%, rgba(251,248,241,.4) 20%, rgba(251,248,241,0) 30%),
+      linear-gradient(0deg, rgba(10,10,10,.92) 0%, rgba(10,10,10,.75) 45%, rgba(10,10,10,0) 70%); }
+    h1 { font-size: clamp(34px, 9.4vw, 46px); }
+    .deck { font-size: 15px; margin: 12px 0 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .photo img, .left > * { animation: none; }
+    .cta, .cta span { transition: none; }
+  }
+</style>
+</head>
+<body>
+<section class="cover">
+  <div class="photo"><img src="../img/villa.jpg" alt="Rött trähus med vita knutar, gul dörr och trädgård i sommarljus"></div>
+
+  <div class="strip">
+    <span>Lindqvist &amp; Berg Fastighetsmäkleri</span>
+    <nav aria-label="Huvudmeny"><a href="#">Till salu</a><a href="#">Sålda</a><a href="#">Mäklarna</a><a href="tel:+46302101010">0302-10 10 10</a></nav>
+  </div>
+
+  <div class="mast">
+    <p class="mast-word" aria-hidden="true">Hemma</p>
+    <div class="issue">Nr<b>11</b>November 2026<br>Lerum &amp; Alingsås</div>
+  </div>
+
+  <div class="lines">
+    <div class="left">
+      <span class="kicker">Värdering inom 48 timmar</span>
+      <h1>Vad är ert hus <em>värt</em> i höst?</h1>
+      <p class="deck">Vi har sålt 212 hus i Lerum och Alingsås de senaste tre åren. Värderingen är gratis och binder er inte vid något.</p>
+      <a class="cta" href="#">Boka gratis värdering <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="mid"></div>
+    <div class="right">
+      <article><span class="n">14</span><p>villor på visning i helgen. <a href="#">Se alla</a></p></article>
+      <article><span class="n">23 dagar</span><p>snittid från annons till kontrakt i år</p></article>
+      <article><span class="n">+6,2 %</span><p>slutpris över utgångspris, snitt 2026</p></article>
+    </div>
+  </div>
+
+  <div class="foot">
+    <ul>
+      <li><b>s. 4</b>Så sattes priset på Gräfsnäs gård</li>
+      <li><b>s. 12</b>Fem saker köpare frågar om vid visning</li>
+      <li><b>s. 18</b>Flytta från lägenhet till hus: kalkylen</li>
+    </ul>
+    <div class="barcode" aria-hidden="true">
+      <svg viewBox="0 0 104 34"><g fill="#141414"><rect x="0" width="2" height="34"/><rect x="4" width="1" height="34"/><rect x="7" width="3" height="34"/><rect x="12" width="1" height="34"/><rect x="15" width="2" height="34"/><rect x="19" width="1" height="34"/><rect x="22" width="3" height="34"/><rect x="27" width="2" height="34"/><rect x="31" width="1" height="34"/><rect x="34" width="1" height="34"/><rect x="37" width="3" height="34"/><rect x="42" width="1" height="34"/><rect x="45" width="2" height="34"/><rect x="49" width="1" height="34"/><rect x="52" width="2" height="34"/><rect x="56" width="3" height="34"/><rect x="61" width="1" height="34"/><rect x="64" width="2" height="34"/><rect x="68" width="1" height="34"/><rect x="71" width="3" height="34"/><rect x="76" width="1" height="34"/><rect x="79" width="2" height="34"/><rect x="83" width="1" height="34"/><rect x="86" width="3" height="34"/><rect x="91" width="1" height="34"/><rect x="94" width="2" height="34"/><rect x="98" width="1" height="34"/><rect x="101" width="3" height="34"/></g></svg>
+      7 391234 11
+    </div>
+  </div>
+</section>
+</body>
+</html>

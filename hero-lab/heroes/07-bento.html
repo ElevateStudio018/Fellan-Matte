@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verkstan Hisingen · Bento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #e7e5df;
+    --tile: #f6f5f1;
+    --ink: #15171a;
+    --dim: #4f545a;
+    --line: #d2cfc7;
+    --orange: #ff5a1f;
+    --orange-ink: #1d0c03;
+    --ok: #13804e;
+    --sans: "Space Grotesk", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --gap: 10px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); overflow-x: hidden; }
+  a { color: inherit; }
+  a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  .hero { min-height: 100vh; display: grid; grid-template-rows: auto 1fr; padding: 0 var(--gap) var(--gap); }
+  header { display: flex; justify-content: space-between; align-items: center; height: 62px; padding: 0 10px; font-size: 14px; }
+  .logo { font-weight: 700; font-size: 19px; text-decoration: none; letter-spacing: -.02em; display: flex; gap: 10px; align-items: center; }
+  .logo svg { width: 26px; height: 26px; }
+  header nav { display: flex; gap: 24px; font-weight: 500; }
+  header nav a { text-decoration: none; }
+  header nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  .grid {
+    display: grid; gap: var(--gap); min-height: 0;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-areas:
+      "a a a a a p p p c c c c"
+      "a a a a a p p p c c c c"
+      "a a a a a p p p r r m m"
+      "a a a a a p p p r r m m"
+      "s s s n n n n n r r m m"
+      "s s s n n n n n x x m m";
+  }
+  .t { background: var(--tile); border-radius: 6px; padding: clamp(14px, 1.6vw, 24px); position: relative; overflow: hidden; display: flex; flex-direction: column; transition: transform .25s; }
+  .t:hover { transform: translateY(-2px); }
+  .label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); margin: 0 0 auto; display: flex; align-items: center; gap: 8px; }
+
+  /* huvudrutan */
+  .a { grid-area: a; background: var(--ink); color: #f2f0ea; justify-content: space-between; }
+  .a .label { color: #b6b3ab; margin: 0; }
+  h1 { font-weight: 700; font-size: clamp(40px, 4.6vw, 78px); line-height: .95; letter-spacing: -.045em; margin: 0; }
+  h1 span { color: var(--orange); }
+  .a p.lead { font-size: 17px; line-height: 1.5; color: #c9c6be; max-width: 30em; margin: 18px 0 26px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
+  .cta { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 26px; background: var(--orange); color: var(--orange-ink); border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 16px; transition: background .15s; }
+  .cta:hover { background: #ff7a47; }
+  .cta span { transition: transform .15s; }
+  .cta:hover span { transform: translateX(4px); }
+  .cta:focus-visible { outline-color: #fff; }
+  .alt { font-weight: 500; text-underline-offset: 5px; }
+
+  /* foto */
+  .p { grid-area: p; padding: 0; }
+  .p img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; transform: scale(1.04); animation: breathe 14s ease-in-out infinite alternate; }
+  @keyframes breathe { to { transform: scale(1.12) translateX(-2%); } }
+  .p .tag { position: absolute; left: 12px; bottom: 12px; background: var(--tile); border-radius: 4px; padding: 6px 10px; font-family: var(--mono); font-size: 11px; }
+
+  /* klocka */
+  .c { grid-area: c; justify-content: space-between; }
+  .clock { font-family: var(--mono); font-weight: 600; font-size: clamp(40px, 4.4vw, 72px); letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .clock small { font-size: .42em; color: var(--dim); font-weight: 400; margin-left: .15em; }
+  .status { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; }
+  .status i { width: 10px; height: 10px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 rgba(19,128,78,.5); animation: pulse 2s infinite; }
+  .status.closed i { background: #b3261e; animation: none; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgba(19,128,78,0); } 100% { box-shadow: 0 0 0 0 rgba(19,128,78,0); } }
+  .hours { font-size: 13px; color: var(--dim); margin: 4px 0 0; }
+
+  /* betyg */
+  .r { grid-area: r; justify-content: space-between; }
+  .score { font-weight: 700; font-size: clamp(48px, 5vw, 84px); letter-spacing: -.05em; line-height: .9; }
+  .stars { display: flex; gap: 3px; margin: 8px 0 6px; }
+  .stars svg { width: 18px; height: 18px; }
+  .r p { margin: 0; font-size: 13px; color: var(--dim); line-height: 1.4; }
+  .quote { font-size: 14px !important; color: var(--ink) !important; margin-top: 10px !important; }
+
+  /* karta */
+  .m { grid-area: m; padding: 0; background: #dcdad2; }
+  .m svg.map { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .m .label { position: absolute; top: 14px; left: 14px; margin: 0; background: var(--tile); padding: 5px 8px; border-radius: 4px; }
+  .m .addr { position: absolute; left: 14px; right: 14px; bottom: 14px; background: var(--tile); border-radius: 4px; padding: 10px 12px; font-size: 13px; line-height: 1.35; text-decoration: none; }
+  .m .addr b { display: block; font-size: 15px; }
+  .pin { transform-origin: 50% 100%; animation: drop .7s cubic-bezier(.3,1.6,.5,1) .4s both; }
+  @keyframes drop { from { transform: translateY(-30px); opacity: 0; } }
+  .ripple { animation: ripple 2.4s ease-out infinite; transform-origin: center; transform-box: fill-box; }
+  @keyframes ripple { from { transform: scale(.4); opacity: .8; } to { transform: scale(2.6); opacity: 0; } }
+
+  /* pris */
+  .s { grid-area: s; justify-content: space-between; }
+  .price { font-weight: 700; font-size: clamp(30px, 2.8vw, 46px); letter-spacing: -.04em; line-height: 1; }
+  .price small { display: block; font-size: 14px; font-weight: 500; letter-spacing: 0; color: var(--dim); margin-bottom: 6px; }
+  .price .v { display: inline-block; transition: opacity .3s, transform .3s; }
+  .price .v.hide { opacity: 0; transform: translateY(8px); }
+  .s .fine { font-size: 12px; color: var(--dim); margin: 6px 0 0; }
+
+  /* nästa lediga tid */
+  .n { grid-area: n; justify-content: space-between; }
+  .next { font-weight: 700; font-size: clamp(26px, 2.4vw, 38px); letter-spacing: -.03em; line-height: 1.05; }
+  .week { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 12px; }
+  .day { font-family: var(--mono); font-size: 11px; color: var(--dim); }
+  .bar { height: 8px; border-radius: 2px; background: var(--line); margin-top: 6px; position: relative; overflow: hidden; }
+  .bar i { position: absolute; inset: 0 auto 0 0; background: var(--ink); width: var(--w); transform-origin: left; animation: grow 1s cubic-bezier(.2,.9,.2,1) both; animation-delay: var(--d); }
+  .day.free .bar i { background: var(--orange); }
+  @keyframes grow { from { transform: scaleX(0); } }
+
+  /* lånebil */
+  .x { grid-area: x; background: var(--orange); color: var(--orange-ink); justify-content: center; text-decoration: none; }
+  .x:hover b { text-decoration: underline; text-underline-offset: 4px; }
+  .x b { font-size: 18px; letter-spacing: -.02em; }
+  .x span { font-size: 13px; }
+
+  @media (max-width: 900px) {
+    header nav { display: none; }
+    .grid { grid-template-columns: 1fr 1fr; grid-template-rows: none; grid-template-areas: "a a" "c c" "p r" "p r" "n n" "s m" "x m"; grid-auto-rows: minmax(110px, auto); }
+    .p { min-height: 240px; }
+    .m { min-height: 220px; }
+    .a { padding: 22px 18px; }
+    .a .label { margin-bottom: 40px; }
+    h1 { font-size: clamp(38px, 10.6vw, 52px); }
+    .a p.lead { font-size: 16px; }
+    .c { flex-direction: row; align-items: end; gap: 12px; }
+    .clock { font-size: 40px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<section class="hero">
+  <header>
+    <a class="logo" href="#"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="1" width="24" height="24" rx="5" fill="#15171a"/><path d="M7 17l4-8h4l4 8M9.5 13h7" stroke="#ff5a1f" stroke-width="2.2" fill="none"/></svg>Verkstan Hisingen</a>
+    <nav aria-label="Huvudmeny"><a href="#">Service</a><a href="#">Däck</a><a href="#">Reparation</a><a href="#">Priser</a><a href="tel:+46312233440">031-22 33 44</a></nav>
+  </header>
+
+  <div class="grid">
+    <div class="t a">
+      <p class="label">Märkesoberoende bilverkstad · Göteborg</p>
+      <div>
+        <h1>Service på morgonen, <span>bilen tillbaka</span> till lunch.</h1>
+        <p class="lead">Fast pris före start, protokoll i mobilen och originaldelar så att nybilsgarantin gäller. Alla bilmärken, även el och hybrid.</p>
+        <div class="actions">
+          <a class="cta" href="#">Boka verkstadstid <span aria-hidden="true">→</span></a>
+          <a class="alt" href="#">Räkna ut pris på regnummer</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="t p"><img src="../img/bilverkstad.jpg" alt="Mekaniker med servicepärm vid en orange bil i verkstaden"><span class="tag">Hall 2 · 6 lyftar</span></div>
+
+    <div class="t c" aria-live="off">
+      <p class="label">Klockan på verkstan</p>
+      <div>
+        <div class="clock" id="clock">08:00<small>:00</small></div>
+        <div class="status" id="status"><i aria-hidden="true"></i><span>Öppet nu</span></div>
+        <p class="hours">Mån–fre 07–17 · Lör 09–13</p>
+      </div>
+    </div>
+
+    <div class="t r">
+      <p class="label">Google-omdömen</p>
+      <div>
+        <div class="score">4,8</div>
+        <div class="stars" aria-label="4,8 av 5 stjärnor">
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L10 14.9 4.4 18l1.3-6.2L1 7.5l6.3-.7z" fill="#15171a"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L10 14.9 4.4 18l1.3-6.2L1 7.5l6.3-.7z" fill="#15171a"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L10 14.9 4.4 18l1.3-6.2L1 7.5l6.3-.7z" fill="#15171a"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L10 14.9 4.4 18l1.3-6.2L1 7.5l6.3-.7z" fill="#15171a"/></svg><svg viewBox="0 0 20 20"><defs><linearGradient id="h"><stop offset=".8" stop-color="#15171a"/><stop offset=".8" stop-color="#c9c6be"/></linearGradient></defs><path d="M10 1l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L10 14.9 4.4 18l1.3-6.2L1 7.5l6.3-.7z" fill="url(#h)"/></svg>
+        </div>
+        <p>312 omdömen</p>
+        <p class="quote">”Ringde före de bytte något. Precis det pris vi kom överens om.”</p>
+      </div>
+    </div>
+
+    <div class="t m">
+      <svg class="map" viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="200" height="300" fill="#dcdad2"/>
+        <path d="M-10 230 C 60 210, 120 250, 210 215 L210 310 L-10 310Z" fill="#b9cbd3"/>
+        <g stroke="#f6f5f1" stroke-linecap="round" fill="none">
+          <path d="M-10 60 L210 110" stroke-width="10"/>
+          <path d="M60 -10 L90 320" stroke-width="7"/>
+          <path d="M150 -10 L130 220" stroke-width="5"/>
+          <path d="M-10 160 L210 150" stroke-width="5"/>
+          <path d="M20 -10 L-5 200" stroke-width="3"/>
+          <path d="M-10 110 L90 125" stroke-width="3"/>
+        </g>
+        <rect x="100" y="120" width="26" height="20" fill="#cbc8bf"/><rect x="20" y="80" width="30" height="24" fill="#cbc8bf"/><rect x="155" y="55" width="30" height="30" fill="#cbc8bf"/>
+        <circle class="ripple" cx="112" cy="104" r="8" fill="#ff5a1f" opacity=".5"/>
+        <g class="pin"><path d="M112 104c-7-9-11-14-11-20a11 11 0 0 1 22 0c0 6-4 11-11 20z" fill="#15171a"/><circle cx="112" cy="84" r="4" fill="#ff5a1f"/></g>
+      </svg>
+      <p class="label">Hitta hit</p>
+      <a class="addr" href="#"><b>Importgatan 14</b>Hisingen · 6 min från Lindholmen</a>
+    </div>
+
+    <div class="t s">
+      <p class="label">Fast pris</p>
+      <div>
+        <div class="price"><small id="pname">Service enligt protokoll</small><span class="v" id="pval">från 2 495 kr</span></div>
+        <p class="fine">Inklusive olja, filter och stämpel i serviceboken</p>
+      </div>
+    </div>
+
+    <div class="t n">
+      <p class="label">Nästa lediga tid</p>
+      <div>
+        <div class="next" id="next">i morgon 07.30</div>
+        <div class="week" id="week" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <a class="t x" href="#"><b>Gratis lånebil</b><span>vid jobb över 4 timmar</span></a>
+  </div>
+</section>
+<script>
+(() => {
+  const pad = (n) => String(n).padStart(2, '0');
+  const clock = document.getElementById('clock'), status = document.getElementById('status');
+  // Öppettider: mån–fre 7–17, lör 9–13
+  const hours = { 1: [7, 17], 2: [7, 17], 3: [7, 17], 4: [7, 17], 5: [7, 17], 6: [9, 13] };
+  function tick() {
+    const d = new Date();
+    clock.innerHTML = `${pad(d.getHours())}:${pad(d.getMinutes())}<small>:${pad(d.getSeconds())}</small>`;
+    const h = hours[d.getDay()], t = d.getHours() + d.getMinutes() / 60;
+    const open = h && t >= h[0] && t < h[1];
+    status.classList.toggle('closed', !open);
+    status.querySelector('span').textContent = open ? `Öppet nu · stänger ${pad(h[1])}.00` : 'Stängt just nu';
+  }
+  tick(); setInterval(tick, 1000);
+
+  // Nästa lediga tid och veckans beläggning
+  const names = ['sön', 'mån', 'tis', 'ons', 'tor', 'fre', 'lör'];
+  const fill = [92, 100, 74, 58, 81, 66, 88];
+  const week = document.getElementById('week');
+  let d = new Date(), shown = 0, first = null;
+  while (shown < 5) {
+    d.setDate(d.getDate() + 1);
+    if (d.getDay() === 0 || d.getDay() === 6) continue;
+    const w = fill[(d.getDate() + shown) % fill.length];
+    const free = w < 100;
+    if (free && !first) first = new Date(d);
+    const el = document.createElement('div');
+    el.className = 'day' + (free && first && first.toDateString() === d.toDateString() ? ' free' : '');
+    el.innerHTML = `${names[d.getDay()]} ${d.getDate()}/${d.getMonth() + 1}<div class="bar"><i style="--w:${w}%;--d:${shown * 90}ms"></i></div>`;
+    week.appendChild(el);
+    shown++;
+  }
+  const tm = new Date(); tm.setDate(tm.getDate() + 1);
+  document.getElementById('next').textContent = (first.toDateString() === tm.toDateString() ? 'i morgon' : ['söndag','måndag','tisdag','onsdag','torsdag','fredag','lördag'][first.getDay()] + ' ' + first.getDate() + '/' + (first.getMonth() + 1)) + ' kl 07.30';
+
+  // Priser som roterar
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const prices = [['Service enligt protokoll', 'från 2 495 kr'], ['Däckskifte inklusive tvätt', '595 kr'], ['AC-service med påfyllning', '1 295 kr'], ['Bromsbyte fram, skivor och belägg', 'från 3 190 kr']];
+  let i = 0;
+  const pn = document.getElementById('pname'), pv = document.getElementById('pval');
+  setInterval(() => {
+    if (document.hidden) return;
+    i = (i + 1) % prices.length;
+    pv.classList.add('hide');
+    setTimeout(() => { pn.textContent = prices[i][0]; pv.textContent = prices[i][1]; pv.classList.remove('hide'); }, 300);
+  }, 3200);
+})();
+</script>
+</body>
+</html>

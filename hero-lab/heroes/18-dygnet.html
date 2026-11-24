@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dygn Hudvård · Dygnsrytm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Sora:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5efe6;
+    --ink: #1d1712;
+    --soft: rgba(29,23,18,.7);
+    --line: rgba(29,23,18,.2);
+    --moon: #efe9df;
+    --serif: "Bodoni Moda", Didot, serif;
+    --sans: "Sora", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); overflow-x: hidden; transition: background-color .5s, color .5s; }
+  body.dragging { transition: none; }
+  a { color: inherit; }
+  a:focus-visible, input:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+  .hero { min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; padding: 0 clamp(18px, 4vw, 64px); }
+  header { display: flex; justify-content: space-between; align-items: center; height: 84px; font-size: 14px; }
+  .logo { font-family: var(--serif); font-size: 30px; letter-spacing: .28em; text-decoration: none; font-weight: 500; }
+  header nav { display: flex; gap: 28px; }
+  header nav a { text-decoration: none; }
+  header nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
+
+  main { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 72px); align-items: center; }
+  .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; margin: 0 0 22px; color: var(--soft); }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(44px, 5.3vw, 90px); line-height: 1; letter-spacing: -.02em; margin: 0; min-height: 2em; }
+  h1 .time { font-style: italic; font-variant-numeric: lining-nums tabular-nums; }
+  h1 .msg { display: block; }
+  .lead { font-size: 17px; line-height: 1.6; color: var(--soft); max-width: 30em; margin: 24px 0 30px; }
+  .actions { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .cta { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 28px; border-radius: 999px; background: var(--ink); color: var(--bg); text-decoration: none; font-weight: 500; font-size: 16px; transition: opacity .15s; }
+  .cta:hover { opacity: .88; }
+  .cta span { transition: transform .15s; }
+  .cta:hover span { transform: translateX(4px); }
+  .price { font-size: 14px; color: var(--soft); line-height: 1.45; }
+  .price b { color: var(--ink); font-weight: 600; display: block; }
+
+  /* urtavlan */
+  .dial-wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(16px, 2.5vw, 40px); align-items: center; }
+  .dial { position: relative; width: min(100%, 58vh); aspect-ratio: 1; justify-self: center; touch-action: none; cursor: grab; }
+  .dial.grab { cursor: grabbing; }
+  .dial svg.ticks { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .dial .ticks line { stroke: currentColor; opacity: .35; }
+  .dial .ticks text { fill: currentColor; font-family: var(--sans); font-size: 3.4px; opacity: .75; }
+  .face { position: absolute; inset: 13%; border-radius: 50%; background: var(--moon); overflow: hidden; isolation: isolate; box-shadow: 0 0 0 1px var(--line), 0 0 var(--glow, 0px) calc(var(--glow, 0px) / 3) rgba(239,233,223,.35); transition: box-shadow .5s; }
+  .face img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 22% 55%; transform: scale(1.5); transform-origin: 22% 55%; mix-blend-mode: multiply; filter: brightness(1.08) contrast(1.08); }
+  .face .label { position: absolute; left: 50%; bottom: 13%; transform: translateX(-50%); background: #1d1712; color: #f5efe6; font-size: 12px; letter-spacing: .08em; padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
+  .orb { position: absolute; left: 50%; top: 50%; width: 9%; aspect-ratio: 1; margin: -4.5% 0 0 -4.5%; border-radius: 50%; background: var(--orb, #f2b45c); box-shadow: 0 0 24px 6px var(--orbglow, rgba(242,180,92,.5)); transform: rotate(var(--a, 0deg)) translateY(calc(-1 * var(--rad, 200px))); pointer-events: none; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; counter-reset: s; min-width: 190px; }
+  .steps li { counter-increment: s; border-top: 1px solid var(--line); padding-top: 10px; font-size: 15px; line-height: 1.35; transition: opacity .3s; }
+  .steps li::before { content: "0" counter(s); display: block; font-family: var(--serif); font-style: italic; font-size: 22px; margin-bottom: 2px; }
+  .steps .routine { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); border: 0; padding: 0; }
+  .steps .routine::before { content: none; }
+  .steps .routine { counter-increment: none; }
+
+  .timeline { padding: 6px 0 26px; }
+  .timeline label { display: flex; justify-content: space-between; font-size: 12px; color: var(--soft); margin-bottom: 10px; gap: 12px; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 44px; background: transparent; cursor: pointer; margin: 0; }
+  input[type=range]::-webkit-slider-runnable-track { height: 2px; background: var(--line); }
+  input[type=range]::-moz-range-track { height: 2px; background: var(--line); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--ink); margin-top: -10px; border: 3px solid var(--bg); box-shadow: 0 0 0 1px var(--ink); }
+  input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--ink); border: 3px solid var(--bg); }
+  .hours { display: flex; justify-content: space-between; font-size: 11px; color: var(--soft); font-variant-numeric: tabular-nums; }
+
+  @media (max-width: 900px) {
+    header nav { display: none; }
+    header { height: 64px; }
+    main { grid-template-columns: 1fr; gap: 18px; }
+    .dial-wrap { order: -1; grid-template-columns: 1fr; }
+    .dial { width: min(72vw, 36vh); }
+    .steps { display: none; }
+    h1 { font-size: clamp(36px, 10vw, 50px); }
+    .lead { font-size: 15px; margin: 14px 0 20px; }
+    .eyebrow { margin-bottom: 12px; }
+    .timeline { padding-bottom: 18px; }
+    .timeline label span:last-child { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body, .cta, .cta span, .face, .steps li { transition: none; }
+  }
+</style>
+</head>
+<body>
+<section class="hero">
+  <header>
+    <a class="logo" href="#">DYGN</a>
+    <nav aria-label="Huvudmeny"><a href="#">Morgon</a><a href="#">Kväll</a><a href="#">Hudtest</a><a href="#">Prenumeration</a></nav>
+  </header>
+
+  <main>
+    <div>
+      <p class="eyebrow">Dygn Hudvård · Malmö</p>
+      <h1 aria-live="polite"><span class="time" id="time">07.20.</span> <span class="msg" id="msg">Dags för C-vitamin.</span></h1>
+      <p class="lead">Huden gör olika saker på dagen och på natten, så vi gör två rutiner. Tre steg på morgonen, tre på kvällen. Vi skickar påfyllning varannan månad.</p>
+      <div class="actions">
+        <a class="cta" href="#">Gör hudtestet, 2 minuter <span aria-hidden="true">→</span></a>
+        <p class="price"><b>Från 349 kr i månaden</b>pausa eller avsluta när ni vill</p>
+      </div>
+    </div>
+
+    <div class="dial-wrap">
+      <div class="dial" id="dial" aria-hidden="true">
+        <svg class="ticks" viewBox="0 0 100 100" id="ticks"></svg>
+        <div class="face" id="face"><img src="../img/produkt-hudvard.jpg" alt=""><span class="label" id="label">Serum C 15 %</span></div>
+        <span class="orb" id="orb"></span>
+      </div>
+      <ol class="steps" id="steps" aria-label="Rutinen just nu"></ol>
+    </div>
+  </main>
+
+  <div class="timeline">
+    <label for="t"><span>Dra i reglaget, eller i solen på urtavlan, för att se rutinen över dygnet</span><span id="now">Nu: 07.20</span></label>
+    <input type="range" id="t" min="0" max="1439" step="5" value="440" aria-valuetext="07.20">
+    <div class="hours" aria-hidden="true"><span>00</span><span>03</span><span>06</span><span>09</span><span>12</span><span>15</span><span>18</span><span>21</span><span>24</span></div>
+  </div>
+</section>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const range = $('t'), dial = $('dial'), orb = $('orb'), body = document.body, root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pad = (n) => String(n).padStart(2, '0');
+
+  // himlens färg över dygnet
+  const sky = [[0, '#0f1626'], [4.5, '#18203a'], [6, '#5a4650'], [7.5, '#efcdb4'], [10, '#f3e8da'], [14, '#f6f0e7'], [17, '#efd0aa'], [19, '#8a4a32'], [20.5, '#243049'], [22.5, '#141b2c'], [24, '#0f1626']];
+  const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const lum = (c) => { const [r, g, b] = c.map((v) => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }); return .2126 * r + .7152 * g + .0722 * b; };
+  const DARK = [29, 23, 18], LIGHT = [246, 241, 232];
+  function colorAt(h) {
+    let i = 0; while (h > sky[i + 1][0]) i++;
+    const [h0, c0] = sky[i], [h1, c1] = sky[i + 1], k = (h - h0) / (h1 - h0);
+    const a = hex(c0), b = hex(c1);
+    let c = a.map((v, j) => v + (b[j] - v) * k);
+    // undvik mellanzonen där varken mörk eller ljus text klarar 4.5:1
+    let L = lum(c);
+    if (L > .15 && L < .22) { const t = L < .185 ? .97 : 1.03; while (L > .15 && L < .22) { c = c.map((v) => Math.max(0, Math.min(255, v * t))); L = lum(c); } }
+    return { c, L };
+  }
+  const rgb = (c) => `rgb(${c.map(Math.round).join(',')})`;
+
+  const routines = {
+    morning: { name: 'Morgonrutin', msg: 'Dags för C-vitamin.', label: 'Serum C 15 %', steps: ['Mild rengöring med ljummet vatten', 'Serum C 15 %, tre droppar', 'Solskydd SPF 30'] },
+    day: { name: 'Dagtid', msg: 'Dags att fylla på solskyddet.', label: 'Solskydd SPF 30', steps: ['Solskydd SPF 30, ett nytt lager', 'Ansiktsmist om huden stramar', 'Läppbalsam med SPF'] },
+    evening: { name: 'Kvällsrutin', msg: 'Dags för retinol.', label: 'Retinol 0,3 %', steps: ['Rengöringsolja, sedan mild rengöring', 'Retinol 0,3 %, en ärta räcker', 'Nattkräm med ceramider'] },
+    night: { name: 'Natt', msg: 'Nu reparerar huden sig själv.', label: 'Nattkräm', steps: ['Kvällsrutinen är klar', 'Låt huden vara till i morgon', 'Ett glas vatten vid sängen'] }
+  };
+  const which = (h) => h >= 5 && h < 11 ? 'morning' : h >= 11 && h < 17 ? 'day' : h >= 17 && h < 22 ? 'evening' : 'night';
+
+  // urtavlans skalstreck
+  const svg = $('ticks');
+  let s = '';
+  for (let i = 0; i < 96; i++) {
+    const a = i / 96 * Math.PI * 2, long = i % 12 === 0, mid = i % 4 === 0;
+    const r1 = 49, r2 = long ? 45 : mid ? 46.5 : 47.6;
+    s += `<line x1="${50 + Math.sin(a) * r1}" y1="${50 - Math.cos(a) * r1}" x2="${50 + Math.sin(a) * r2}" y2="${50 - Math.cos(a) * r2}" stroke-width="${long ? .5 : .25}"/>`;
+    if (long) { const h = i / 4; s += `<text x="${50 + Math.sin(a) * 41.5}" y="${50 - Math.cos(a) * 41.5 + 1.2}" text-anchor="middle">${pad(h)}</text>`; }
+  }
+  svg.innerHTML = s;
+
+  const setRad = () => dial.style.setProperty('--rad', (dial.offsetWidth * .5 * .985) + 'px');
+  setRad(); addEventListener('resize', setRad);
+
+  let lastKey = '';
+  function render(min) {
+    const h = min / 60, hh = Math.floor(min / 60), mm = min % 60, t = `${pad(hh)}.${pad(mm)}`;
+    const { c, L } = colorAt(h);
+    const light = L <= .15;
+    body.style.backgroundColor = rgb(c);
+    const ink = light ? LIGHT : DARK;
+    root.style.setProperty('--bg', rgb(c));
+    root.style.setProperty('--ink', rgb(ink));
+    root.style.setProperty('--soft', `rgba(${ink.join(',')},${light ? .78 : .74})`);
+    root.style.setProperty('--line', `rgba(${ink.join(',')},.22)`);
+    body.style.color = rgb(ink);
+    const isSun = h >= 6 && h < 20;
+    orb.style.setProperty('--orb', isSun ? '#f2b45c' : '#e9e6f0');
+    orb.style.setProperty('--orbglow', isSun ? 'rgba(242,180,92,.55)' : 'rgba(233,230,240,.45)');
+    $('face').style.setProperty('--glow', light ? '60px' : '0px');
+    orb.style.setProperty('--a', (h / 24 * 360) + 'deg');
+    $('time').textContent = `Klockan är ${t}.`;
+    range.value = min; range.setAttribute('aria-valuetext', t);
+    const key = which(h);
+    if (key !== lastKey) {
+      lastKey = key;
+      const r = routines[key];
+      $('msg').textContent = r.msg;
+      $('label').textContent = r.label;
+      $('steps').innerHTML = `<li class="routine">${r.name}</li>` + r.steps.map((x) => `<li>${x}</li>`).join('');
+    }
+  }
+
+  const nowMin = () => { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); };
+  $('now').textContent = 'Nu: ' + (() => { const m = nowMin(); return `${pad(Math.floor(m / 60))}.${pad(m % 60)}`; })();
+  let follow = true;
+
+  range.addEventListener('input', () => { follow = false; body.classList.add('dragging'); render(+range.value); });
+  range.addEventListener('change', () => body.classList.remove('dragging'));
+
+  // dra solen runt urtavlan
+  let drag = false;
+  const fromPointer = (e) => {
+    const r = dial.getBoundingClientRect();
+    const a = Math.atan2(e.clientX - (r.left + r.width / 2), -(e.clientY - (r.top + r.height / 2)));
+    let min = Math.round(((a / (Math.PI * 2) + 1) % 1) * 1440 / 5) * 5;
+    render(Math.min(1435, min));
+  };
+  dial.addEventListener('pointerdown', (e) => { drag = true; follow = false; dial.classList.add('grab'); body.classList.add('dragging'); dial.setPointerCapture(e.pointerId); fromPointer(e); });
+  dial.addEventListener('pointermove', (e) => { if (drag) fromPointer(e); });
+  const end = () => { drag = false; dial.classList.remove('grab'); body.classList.remove('dragging'); };
+  dial.addEventListener('pointerup', end); dial.addEventListener('pointercancel', end);
+
+  // start: snabb soluppgång fram till klockan just nu
+  const target = nowMin();
+  if (reduce) { render(target); }
+  else {
+    const t0 = performance.now(), dur = 1600, from = 300;
+    body.classList.add('dragging');
+    (function rise(now) {
+      const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      const span = ((target - from) + 1440) % 1440;
+      render(Math.round((from + span * e) % 1440));
+      if (p < 1) requestAnimationFrame(rise); else body.classList.remove('dragging');
+    })(t0);
+  }
+  setInterval(() => { if (follow) render(nowMin()); }, 30000);
+})();
+</script>
+</body>
+</html>

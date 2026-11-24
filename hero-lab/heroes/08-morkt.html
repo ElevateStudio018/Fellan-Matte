@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sälta Badhus · Mörk premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Red+Hat+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0b09;
+    --ink: #f2e9dc;
+    --dim: #c2b5a3;
+    --sand: #e8c9a1;
+    --line: rgba(242,233,220,.16);
+    --display: "Italiana", "Didot", serif;
+    --sans: "Red Hat Text", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); overflow-x: hidden; }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible, input:focus-visible + label { outline: 2px solid var(--sand); outline-offset: 3px; }
+
+  .hero { position: relative; min-height: 100vh; overflow: hidden; isolation: isolate; display: grid; grid-template-rows: auto 1fr; }
+
+  /* Värmen från bastun och kvällsljuset över havet, som långsamt rörliga ljusfält. */
+  .mesh { position: absolute; inset: -20%; z-index: -2; filter: blur(70px) saturate(1.05); }
+  .mesh i { position: absolute; border-radius: 50%; mix-blend-mode: screen; will-change: transform; }
+  .m1 { width: 60vw; height: 60vw; left: 40%; top: 10%; background: radial-gradient(circle, rgba(170,92,38,.75), rgba(170,92,38,0) 65%); animation: f1 22s ease-in-out infinite alternate; }
+  .m2 { width: 55vw; height: 55vw; left: 5%; top: 40%; background: radial-gradient(circle, rgba(22,78,74,.85), rgba(22,78,74,0) 65%); animation: f2 26s ease-in-out infinite alternate; }
+  .m3 { width: 45vw; height: 45vw; left: 60%; top: 55%; background: radial-gradient(circle, rgba(120,56,30,.7), rgba(120,56,30,0) 65%); animation: f3 19s ease-in-out infinite alternate; }
+  .m4 { width: 40vw; height: 40vw; left: 25%; top: -5%; background: radial-gradient(circle, rgba(62,46,30,.9), rgba(62,46,30,0) 65%); animation: f2 30s ease-in-out infinite alternate-reverse; }
+  @keyframes f1 { to { transform: translate(-18vw, 12vh) scale(1.15); } }
+  @keyframes f2 { to { transform: translate(16vw, -10vh) scale(.9); } }
+  @keyframes f3 { to { transform: translate(-10vw, -18vh) scale(1.2); } }
+  .grain { position: absolute; inset: 0; z-index: -1; opacity: .16; mix-blend-mode: overlay; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  header { display: flex; justify-content: space-between; align-items: center; padding: 28px clamp(18px, 4.5vw, 72px); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; }
+  .logo { font-family: var(--display); font-size: 28px; letter-spacing: .12em; text-decoration: none; text-transform: none; }
+  header nav { display: flex; gap: 34px; color: var(--dim); }
+  header nav a { text-decoration: none; }
+  header nav a:hover { color: var(--ink); }
+
+  main { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .8fr) minmax(320px, .9fr); gap: clamp(24px, 3.5vw, 64px); align-items: center; padding: 0 clamp(18px, 4.5vw, 72px) 6vh; }
+  .eyebrow { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--sand); margin: 0 0 24px; }
+  h1 { font-family: var(--display); font-weight: 400; font-size: clamp(56px, 6.8vw, 116px); line-height: .95; letter-spacing: -.01em; margin: 0; }
+  .lead { color: var(--dim); font-size: 17px; line-height: 1.6; max-width: 26em; margin: 26px 0 0; }
+
+  .arch { margin: 0; aspect-ratio: 3 / 4.2; border-radius: 999px 999px 4px 4px; overflow: hidden; position: relative; align-self: end; max-height: 72vh; }
+  .arch img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 50%; filter: brightness(.85) sepia(.15); animation: slowzoom 20s ease-in-out infinite alternate; }
+  @keyframes slowzoom { to { transform: scale(1.08); } }
+  .arch figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 18px 16px; font-size: 12px; letter-spacing: .08em; background: linear-gradient(transparent, rgba(13,11,9,.85)); color: var(--ink); }
+
+  /* glaskort: bokningen, med havet och värmen bakom */
+  .card {
+    background: rgba(242,233,220,.07); border: 1px solid var(--line); border-radius: 20px; padding: 28px;
+    -webkit-backdrop-filter: blur(22px) saturate(1.2); backdrop-filter: blur(22px) saturate(1.2);
+    box-shadow: 0 30px 80px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
+  }
+  .card h2 { font-family: var(--display); font-weight: 400; font-size: 30px; margin: 0 0 4px; }
+  .card .sub { font-size: 14px; color: var(--dim); margin: 0 0 20px; }
+  fieldset { border: 0; padding: 0; margin: 0 0 22px; display: grid; gap: 8px; }
+  legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .opt input { position: absolute; opacity: 0; }
+  .opt label { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; cursor: pointer; transition: border-color .15s, background .15s; font-size: 15px; }
+  .opt label small { grid-column: 1; color: var(--dim); font-size: 13px; }
+  .opt label span:last-child { grid-row: 1 / 3; grid-column: 2; align-self: center; font-weight: 600; }
+  .opt input:checked + label { border-color: var(--sand); background: rgba(232,201,161,.1); }
+  .opt label:hover { border-color: rgba(242,233,220,.4); }
+  .cta { width: 100%; display: inline-flex; justify-content: center; align-items: center; gap: 12px; height: 56px; border-radius: 999px; background: var(--sand); color: #1d140b; text-decoration: none; font-weight: 600; font-size: 16px; transition: background .15s; }
+  .cta:hover { background: #f3dcbd; }
+  .cta span { transition: transform .15s; }
+  .cta:hover span { transform: translateX(4px); }
+  .note { font-size: 12px; color: var(--dim); text-align: center; margin: 14px 0 0; }
+
+  @media (max-width: 1080px) {
+    main { grid-template-columns: 1fr 1fr; }
+    .arch { display: none; }
+  }
+  @media (max-width: 760px) {
+    header nav { display: none; }
+    main { grid-template-columns: 1fr; gap: 30px; padding-bottom: 28px; }
+    h1 { font-size: clamp(50px, 14vw, 70px); }
+    .lead { font-size: 16px; margin-top: 18px; }
+    .card { padding: 20px; }
+    .mesh i { width: 120vw !important; height: 120vw !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mesh i, .arch img { animation: none; }
+    .opt label, .cta, .cta span { transition: none; }
+  }
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="mesh" aria-hidden="true"><i class="m1"></i><i class="m2"></i><i class="m3"></i><i class="m4"></i></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header>
+    <a class="logo" href="#">Sälta</a>
+    <nav aria-label="Huvudmeny"><a href="#">Behandlingar</a><a href="#">Bastu</a><a href="#">Presentkort</a></nav>
+  </header>
+
+  <main>
+    <div>
+      <p class="eyebrow">Kallbadhus och spa · Varberg</p>
+      <h1>Värme som sjunker in långsamt</h1>
+      <p class="lead">Vedeldad bastu på pålar över Kattegatt, kallbad året runt och behandlingar med varma stenar från stranden nedanför.</p>
+    </div>
+
+    <figure class="arch"><img src="../img/spa.jpg" alt="Hetstensmassage med vita orkidéer"><figcaption>Hetstensmassage, 60 minuter</figcaption></figure>
+
+    <form class="card" onsubmit="return false" aria-label="Boka behandling">
+      <h2>Boka en kväll</h2>
+      <p class="sub">Alla behandlingar inkluderar bastu och kallbad.</p>
+      <fieldset>
+        <legend>Välj behandling</legend>
+        <div class="opt"><input type="radio" name="b" id="b1" checked><label for="b1"><span>Hetstensmassage</span><small>60 min</small><span>1 095 kr</span></label></div>
+        <div class="opt"><input type="radio" name="b" id="b2"><label for="b2"><span>Bastu och kallbad</span><small>hela kvällen</small><span>395 kr</span></label></div>
+        <div class="opt"><input type="radio" name="b" id="b3"><label for="b3"><span>Ansiktsbehandling</span><small>75 min</small><span>1 295 kr</span></label></div>
+      </fieldset>
+      <a class="cta" href="#">Välj datum och tid <span aria-hidden="true">→</span></a>
+      <p class="note">Öppet till 22 fredag och lördag</p>
+    </form>
+  </main>
+</section>
+</body>
+</html>

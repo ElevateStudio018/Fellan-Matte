@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kvitt · Brutalistisk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,500..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bone: #f1efe8;
+    --ink: #0f0f0e;
+    --red: #ff3d1f;
+    --red-ink: #0f0f0e;
+    --dim: #4a4945;
+    --b: 3px solid var(--ink);
+    --display: "Anybody", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bone); color: var(--ink); font-family: var(--mono); overflow-x: hidden; }
+  a { color: inherit; }
+  a:focus-visible { outline: 3px solid var(--red); outline-offset: -6px; }
+
+  .hero {
+    min-height: 100vh; display: grid; border: var(--b);
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr) minmax(0, .9fr);
+    grid-template-rows: 64px minmax(0, 1fr) minmax(0, .62fr) 56px;
+    grid-template-areas:
+      "nav  nav  nav"
+      "head head scan"
+      "img  stat cta"
+      "tick tick tick";
+  }
+  .cell { border: var(--b); margin: -1.5px; position: relative; overflow: hidden; }
+
+  nav.cell { grid-area: nav; display: grid; grid-template-columns: auto 1fr auto auto; align-items: stretch; text-transform: uppercase; font-size: 13px; font-weight: 600; }
+  .logo { font-family: var(--display); font-weight: 900; font-stretch: 140%; font-size: 30px; letter-spacing: -.02em; display: flex; align-items: center; padding: 0 22px; border-right: var(--b); text-decoration: none; }
+  .links { display: flex; }
+  .links a { display: flex; align-items: center; padding: 0 20px; border-right: var(--b); text-decoration: none; }
+  .links a:hover, .login:hover { background: var(--ink); color: var(--bone); }
+  .login { display: flex; align-items: center; padding: 0 22px; border-left: var(--b); text-decoration: none; }
+  .ver { display: flex; align-items: center; padding: 0 22px; border-left: var(--b); color: var(--dim); font-weight: 500; }
+
+  .head { grid-area: head; padding: clamp(18px, 2.4vw, 36px); display: flex; flex-direction: column; justify-content: space-between; }
+  .idx { font-size: 12px; font-weight: 600; text-transform: uppercase; display: flex; justify-content: space-between; }
+  h1 { font-family: var(--display); font-weight: 900; font-stretch: 112%; text-transform: uppercase; font-size: clamp(42px, 5.5vw, 98px); line-height: .86; letter-spacing: -.035em; margin: 0; }
+  h1 mark { background: var(--red); color: var(--red-ink); padding: 0 .08em; }
+  .lead { font-size: 15px; line-height: 1.55; max-width: 44em; margin: 18px 0 0; }
+
+  /* kvittot som läses in */
+  .scan { grid-area: scan; background: var(--ink); color: var(--bone); padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+  .scan .idx { color: #a8a69e; }
+  .receipt { flex: 1; background: var(--bone); color: var(--ink); position: relative; padding: 18px 18px 22px; font-size: 13px; line-height: 1.7; clip-path: polygon(0 0, 100% 0, 100% 100%, 95% 97%, 90% 100%, 85% 97%, 80% 100%, 75% 97%, 70% 100%, 65% 97%, 60% 100%, 55% 97%, 50% 100%, 45% 97%, 40% 100%, 35% 97%, 30% 100%, 25% 97%, 20% 100%, 15% 97%, 10% 100%, 5% 97%, 0 100%); }
+  .receipt .shop { font-weight: 600; text-transform: uppercase; border-bottom: 1px dashed var(--ink); padding-bottom: 6px; margin-bottom: 6px; }
+  .receipt .row { display: flex; justify-content: space-between; }
+  .receipt .row b { font-weight: 600; }
+  .receipt .row span:last-child { position: relative; }
+  .receipt .row.f span:last-child::after { content: ""; position: absolute; inset: -1px -4px; background: rgba(255,61,31,.28); transform: scaleX(0); transform-origin: left; animation: tagf 6s infinite; animation-delay: var(--d); }
+  @keyframes tagf { 0%, 30% { transform: scaleX(0); } 40%, 92% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+  .beam { position: absolute; left: 0; right: 0; height: 3px; background: var(--red); box-shadow: 0 0 18px 4px rgba(255,61,31,.6); top: 0; animation: beam 6s infinite; }
+  @keyframes beam { 0% { top: 0; opacity: 1; } 30% { top: 100%; opacity: 1; } 31%, 100% { top: 100%; opacity: 0; } }
+  .booked { display: flex; justify-content: space-between; align-items: center; font-size: 12px; text-transform: uppercase; font-weight: 600; }
+  .booked i { font-style: normal; background: var(--red); color: var(--ink); padding: 4px 8px; animation: pop 6s infinite; }
+  @keyframes pop { 0%, 38% { opacity: 0; } 42%, 94% { opacity: 1; } 100% { opacity: 0; } }
+
+  .img { grid-area: img; }
+  .img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.25); mix-blend-mode: multiply; }
+  .img { background: var(--bone); }
+  .img .cap { position: absolute; left: 0; bottom: 0; background: var(--ink); color: var(--bone); font-size: 12px; padding: 6px 10px; text-transform: uppercase; }
+
+  .stat { grid-area: stat; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+  .stat .n { font-family: var(--display); font-weight: 900; font-stretch: 130%; font-size: clamp(40px, 4.4vw, 76px); line-height: .85; letter-spacing: -.04em; }
+  .stat p { margin: 0; font-size: 13px; line-height: 1.45; }
+
+  a.cta { grid-area: cta; background: var(--red); color: var(--red-ink); text-decoration: none; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: background .15s, color .15s; }
+  a.cta:hover { background: var(--ink); color: var(--red); }
+  .cta .t { font-family: var(--display); font-weight: 900; font-stretch: 120%; text-transform: uppercase; font-size: clamp(28px, 2.5vw, 44px); line-height: .9; letter-spacing: -.02em; }
+  .cta .arrow { font-family: var(--display); font-weight: 900; font-size: clamp(48px, 5vw, 84px); line-height: .8; align-self: flex-end; transition: transform .15s; }
+  .cta:hover .arrow { transform: translateX(8px); }
+  .cta small { font-size: 13px; font-weight: 500; }
+
+  .tick { grid-area: tick; display: flex; align-items: center; background: var(--ink); color: var(--bone); }
+  .tick .run { display: flex; gap: 0; white-space: nowrap; animation: run 30s linear infinite; }
+  .tick span { padding: 0 26px; border-right: 2px solid var(--bone); font-size: 14px; font-weight: 600; text-transform: uppercase; }
+  @keyframes run { to { transform: translateX(-50%); } }
+
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr 1fr; grid-template-rows: 58px auto auto auto auto 48px;
+      grid-template-areas: "nav nav" "head head" "cta cta" "scan scan" "img stat" "tick tick";
+    }
+    .links, .ver { display: none; }
+    nav.cell { grid-template-columns: auto 1fr auto; }
+    .logo { font-size: 24px; }
+    .head { gap: 30px; }
+    h1 { font-size: clamp(36px, 10.4vw, 52px); }
+    .lead { font-size: 14px; }
+    .scan { padding: 16px; }
+    .receipt { min-height: 230px; }
+    a.cta { min-height: 140px; flex-direction: row; align-items: flex-end; gap: 12px; }
+    .img { min-height: 190px; }
+    .stat .n { font-size: 40px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .beam, .tick .run { animation: none; }
+    .beam { display: none; }
+    .receipt .row.f span:last-child::after { animation: none; transform: scaleX(1); }
+    .booked i { animation: none; opacity: 1; }
+    a.cta, .cta .arrow { transition: none; }
+  }
+</style>
+</head>
+<body>
+<section class="hero">
+  <nav class="cell" aria-label="Huvudmeny">
+    <a class="logo" href="#">KVITT</a>
+    <div class="links"><a href="#">Funktioner</a><a href="#">Priser</a><a href="#">För byråer</a></div>
+    <span class="ver">Version 4.2</span>
+    <a class="login" href="#">Logga in</a>
+  </nav>
+
+  <div class="cell head">
+    <div class="idx"><span>01 / Kvitton och utlägg</span><span>För företag med 1–50 anställda</span></div>
+    <div>
+      <h1>Kvittot är <mark>bokfört</mark> innan ni lämnat kaféet.</h1>
+      <p class="lead">Fota kvittot, Kvitt läser belopp, moms och konto och skickar verifikationen till ert bokföringsprogram som SIE-fil. Ingen pärm, inga påminnelser i slutet av månaden.</p>
+    </div>
+  </div>
+
+  <div class="cell scan" aria-hidden="true">
+    <div class="idx"><span>02 / Så går det till</span><span>live</span></div>
+    <div class="receipt">
+      <div class="beam"></div>
+      <div class="shop">Kafé Vete · Uppsala</div>
+      <div class="row"><span>2 × kaffe</span><span>84,00</span></div>
+      <div class="row"><span>Kardemummabulle</span><span>42,00</span></div>
+      <div class="row"><span>Smörgås</span><span>58,00</span></div>
+      <div class="row f" style="--d:.1s"><b>Summa</b><b><span>184,00</span></b></div>
+      <div class="row f" style="--d:.4s"><span>Moms 12 %</span><span>19,71</span></div>
+      <div class="row f" style="--d:.7s"><span>Konto</span><span>5831 Representation</span></div>
+    </div>
+    <div class="booked"><span>Ver. 2026-1184</span><i>Bokförd</i></div>
+  </div>
+
+  <div class="cell img"><img src="../img/laptop.jpg" alt="Bärbar dator på ljust träskrivbord"><span class="cap">03 / Fungerar i webbläsaren och i mobilen</span></div>
+
+  <div class="cell stat">
+    <span class="n">4 tim</span>
+    <p>sparad tid per månad för ett företag med tio anställda, enligt våra kunders egen uppföljning.</p>
+  </div>
+
+  <a class="cell cta" href="#">
+    <small>Gratis i 30 dagar, inget kort</small>
+    <span class="t">Testa Kvitt</span>
+    <span class="arrow" aria-hidden="true">→</span>
+  </a>
+
+  <div class="cell tick" aria-hidden="true">
+    <div class="run"><span>SIE-export</span><span>Moms rätt från start</span><span>Utlägg till lön</span><span>Attest i mobilen</span><span>Servrar i Sverige</span><span>Från 49 kr per användare</span><span>SIE-export</span><span>Moms rätt från start</span><span>Utlägg till lön</span><span>Attest i mobilen</span><span>Servrar i Sverige</span><span>Från 49 kr per användare</span></div>
+  </div>
+</section>
+</body>
+</html>
