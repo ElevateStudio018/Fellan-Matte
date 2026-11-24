@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Räkna ut pris och boka samtal – Balans redovisning</title>
+<meta name="description" content="Svara på tre frågor, se ditt månadspris och boka ett gratis samtal på 20 minuter.">
+<meta name="theme-color" content="#22428C">
+<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%2322428C'/%3E%3Cpath d='M10 13h12M10 19h12' stroke='white' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<script src="main.js" defer></script>
+</head>
+<body id="top">
+<a class="ev-skip" href="#innehall">Hoppa till innehållet</a>
+<header class="ev-header">
+  <div class="ev-wrap ev-header__in">
+    <a class="ev-logo" href="index.html"><svg class="ev-icon ev-logo__mark" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 10h8M8 14h8"/></svg><span>Balans<b>.</b></span></a>
+    <nav class="ev-nav" aria-label="Huvudmeny"><ul><li><a href="tjanster.html">Tjänster</a></li><li><a href="priser.html">Priser</a></li><li><a href="index.html#konsulter">Om oss</a></li><li><a href="index.html#kontakt">Kontakt</a></li><li><a href="rakna.html" aria-current="page">Räkna ut pris</a></li></ul></nav>
+    <div class="ev-header__tools">
+      <a class="ev-iconbtn" href="tel:+46100000000" aria-label="Ring oss på 010-000 00 00"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 3.6 6.3 4.2A2.3 2.3 0 0 0 4.6 6.6c.5 7 5.8 12.3 12.8 12.8a2.3 2.3 0 0 0 2.4-1.7l.6-2.3a1.5 1.5 0 0 0-.8-1.7l-2.8-1.3a1.5 1.5 0 0 0-1.8.4l-1 1.3a11 11 0 0 1-4.3-4.3l1.3-1a1.5 1.5 0 0 0 .4-1.8L10.3 4.4a1.5 1.5 0 0 0-1.7-.8z"/></svg></a>
+      <button class="ev-iconbtn ev-menubtn" type="button" aria-label="Öppna menyn" aria-haspopup="dialog"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="innehall" tabindex="-1" class="ev-flowpage">
+  <div class="ev-wrap ev-flowgrid">
+    <div class="ev-flow" data-flow>
+      <a class="ev-iconbtn ev-flow__close" href="index.html" aria-label="Avbryt och gå till startsidan"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+
+      <a class="ev-link ev-link--back ev-step__back" href="#" data-back hidden><svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>Tillbaka</a>
+
+      <!-- Steg 1: bolagsform, går vidare direkt -->
+      <section class="ev-step" data-step="1" aria-labelledby="s1-rubrik">
+        <h1 id="s1-rubrik" tabindex="-1">Vilken bolagsform har du?</h1>
+        <p class="ev-step__hint">Fyra korta steg, ungefär två minuter. Välj ett alternativ så går du vidare.</p>
+        <div class="ev-step__body ev-choices ev-choices--2" data-choices="bolag">
+          <button class="ev-choice" type="button" data-value="ab" aria-pressed="false">Aktiebolag<small>Även nystartat</small><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+          <button class="ev-choice" type="button" data-value="ef" aria-pressed="false">Enskild firma<small>Du driver i eget namn</small><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+          <button class="ev-choice" type="button" data-value="hb" aria-pressed="false">Handelsbolag<small>Eller kommanditbolag</small><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+          <button class="ev-choice" type="button" data-value="fo" aria-pressed="false">Ideell förening<small>Eller ekonomisk förening</small><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+        </div>
+        <p class="ev-step__aside"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span>Osäker? Bolagsformen står på registreringsbeviset från Bolagsverket.</span></p>
+      </section>
+
+      <!-- Steg 2: verifikationer, går vidare direkt -->
+      <section class="ev-step" data-step="2" aria-labelledby="s2-rubrik" hidden>
+        <h1 id="s2-rubrik" tabindex="-1">Hur många verifikationer har du i månaden?</h1>
+        <p class="ev-step__hint">Ett kvitto, en faktura eller en lönekörning är en verifikation. Välj det som ligger närmast så går du vidare.</p>
+        <div class="ev-step__body ev-choices" data-choices="ver">
+          <button class="ev-choice" type="button" data-value="0" aria-pressed="false">Upp till 20<small>Till exempel en konsult utan anställda</small><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+          <button class="ev-choice" type="button" data-value="1" aria-pressed="false">21–50<small>Till exempel en frisör eller en hantverkare</small><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+          <button class="ev-choice" type="button" data-value="2" aria-pressed="false">51–100<small>Till exempel ett café eller en mindre butik</small><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+          <button class="ev-choice" type="button" data-value="3" aria-pressed="false">Fler än 100<small>Till exempel en restaurang eller en e-handel</small><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+        </div>
+        <p class="ev-step__aside" data-ver-note hidden><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span></span></p>
+      </section>
+
+      <!-- Steg 3: tjänster, flerval -->
+      <section class="ev-step" data-step="3" aria-labelledby="s3-rubrik" hidden>
+        <h1 id="s3-rubrik" tabindex="-1">Vad vill du ha hjälp med?</h1>
+        <p class="ev-step__hint">Välj så många du vill. Priset räknas om direkt.</p>
+        <div class="ev-step__body ev-checks">
+          <div class="ev-checkcard ev-checkcard--fixed">
+            <b><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Löpande bokföring och moms</b>
+            <span>Ingår alltid. Bankavstämning och momsdeklaration.</span>
+            <span class="ev-price" data-base-price></span>
+          </div>
+          <label class="ev-checkcard">
+            <input type="checkbox" name="tjanst" value="lon" data-svc>
+            <b><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Lön</b>
+            <span>Lönebesked och arbetsgivardeklaration.</span>
+            <span class="ev-price" data-svc-price="lon"></span>
+          </label>
+          <div class="ev-subrow" data-lon-extra hidden>
+            <span id="anst-label">Antal anställda, du själv inräknad</span>
+            <div class="ev-qty" role="group" aria-labelledby="anst-label">
+              <button type="button" data-qty="-1" aria-label="Färre anställda"><svg class="ev-icon ev-icon--20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+              <output data-qty-out aria-live="polite">1</output>
+              <button type="button" data-qty="1" aria-label="Fler anställda"><svg class="ev-icon ev-icon--20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+            </div>
+          </div>
+          <label class="ev-checkcard">
+            <input type="checkbox" name="tjanst" value="bokslut" data-svc>
+            <b><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-bokslut-name>Bokslut och årsredovisning</span></b>
+            <span>Fördelat på tolv månader i stället för en stor faktura.</span>
+            <span class="ev-price" data-svc-price="bokslut"></span>
+          </label>
+          <label class="ev-checkcard">
+            <input type="checkbox" name="tjanst" value="dekl" data-svc>
+            <b><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Deklaration</b>
+            <span>För företaget och för dig som ägare.</span>
+            <span class="ev-price" data-svc-price="dekl"></span>
+          </label>
+          <label class="ev-checkcard">
+            <input type="checkbox" name="tjanst" value="fakt" data-svc>
+            <b><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Kundfakturering</b>
+            <span>Vi skickar fakturor och påminnelser åt dig.</span>
+            <span class="ev-price" data-svc-price="fakt"></span>
+          </label>
+          <label class="ev-checkcard">
+            <input type="checkbox" name="tjanst" value="rad" data-svc>
+            <b><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Rådgivning</b>
+            <span>Fyra timmar om året för budget, skatt och lön.</span>
+            <span class="ev-price" data-svc-price="rad"></span>
+          </label>
+        </div>
+        <p class="ev-livepris"><span>Ditt månadspris</span><span class="ev-price" data-total aria-live="polite"></span></p>
+      </section>
+
+      <!-- Steg 4: kontakt -->
+      <section class="ev-step" data-step="4" aria-labelledby="s4-rubrik" hidden>
+        <h1 id="s4-rubrik" tabindex="-1">Vart ringer vi?</h1>
+        <p class="ev-step__hint">Din konsult ringer upp nästa vardag. Samtalet tar 20 minuter och är gratis.</p>
+        <form class="ev-step__body ev-form" novalidate data-contact>
+          <div class="ev-field">
+            <label for="f-namn">Namn</label>
+            <input class="ev-input" id="f-namn" name="namn" autocomplete="name" placeholder="Förnamn Efternamn" required aria-describedby="f-namn-fel" data-msg="Skriv ditt namn så vet vi vem vi ska fråga efter.">
+            <p class="ev-error" id="f-namn-fel" hidden></p>
+          </div>
+          <div class="ev-field">
+            <label for="f-foretag">Företag <span class="ev-opt">(valfritt)</span></label>
+            <input class="ev-input" id="f-foretag" name="foretag" autocomplete="organization" placeholder="Företagets namn">
+          </div>
+          <div class="ev-form__row">
+            <div class="ev-field">
+              <label for="f-tel">Telefon</label>
+              <div class="ev-inputwrap"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 3.6 6.3 4.2A2.3 2.3 0 0 0 4.6 6.6c.5 7 5.8 12.3 12.8 12.8a2.3 2.3 0 0 0 2.4-1.7l.6-2.3a1.5 1.5 0 0 0-.8-1.7l-2.8-1.3a1.5 1.5 0 0 0-1.8.4l-1 1.3a11 11 0 0 1-4.3-4.3l1.3-1a1.5 1.5 0 0 0 .4-1.8L10.3 4.4a1.5 1.5 0 0 0-1.7-.8z"/></svg>
+              <input class="ev-input" id="f-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="070-123 45 67" required aria-describedby="f-tel-fel" data-type="tel" data-msg="Skriv ett telefonnummer med minst åtta siffror."></div>
+              <p class="ev-error" id="f-tel-fel" hidden></p>
+            </div>
+            <div class="ev-field">
+              <label for="f-epost">E-post</label>
+              <div class="ev-inputwrap"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="3"/><path d="M3.8 7.5 12 13.2l8.2-5.7"/></svg>
+              <input class="ev-input" id="f-epost" name="epost" type="email" autocomplete="email" placeholder="namn@foretag.se" required aria-describedby="f-epost-fel" data-type="email" data-msg="Skriv e-postadressen med @, till exempel namn@foretag.se."></div>
+              <p class="ev-error" id="f-epost-fel" hidden></p>
+            </div>
+          </div>
+          <fieldset class="ev-fieldset" data-radio-req aria-describedby="f-tid-fel">
+            <legend>När passar det att vi ringer?</legend>
+            <div class="ev-radiocards">
+              <label class="ev-radiocard"><input type="radio" name="tid" value="Förmiddag"><div><b>Förmiddag</b><span>9–12</span></div></label>
+              <label class="ev-radiocard"><input type="radio" name="tid" value="Eftermiddag"><div><b>Eftermiddag</b><span>13–17</span></div></label>
+              <label class="ev-radiocard"><input type="radio" name="tid" value="När som helst"><div><b>När som helst</b><span>8–17</span></div></label>
+            </div>
+            <p class="ev-error" id="f-tid-fel" hidden style="margin-top:8px"></p>
+          </fieldset>
+        </form>
+      </section>
+
+      <!-- Steg 5: bekräfta -->
+      <section class="ev-step" data-step="5" aria-labelledby="s5-rubrik" hidden>
+        <h1 id="s5-rubrik" tabindex="-1">Stämmer det här?</h1>
+        <p class="ev-step__hint">Ändra det som inte stämmer. Inget är bindande förrän du har pratat med oss.</p>
+        <div class="ev-step__body">
+          <dl class="ev-review" data-review></dl>
+          <div class="ev-total"><div><b>Uppskattat månadspris</b><small>Exklusive moms. Vi bekräftar priset i samtalet.</small></div><span class="ev-price" data-total></span></div>
+          <p class="ev-policy">Vi sparar dina uppgifter i 30 dagar för att kunna ringa dig, sedan raderas de om du inte blir kund.</p>
+        </div>
+      </section>
+
+      <!-- Klart -->
+      <section class="ev-done" data-done hidden aria-labelledby="klar-rubrik">
+        <svg class="ev-icon ev-icon--48 ev-draw" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M7.8 12.3l2.9 2.9 5.5-5.6"/></svg>
+        <h1 id="klar-rubrik" tabindex="-1" style="font-size:clamp(26px,2vw + 18px,34px)">Samtalet är bokat</h1>
+        <p data-done-text></p>
+        <p class="ev-muted" data-done-mail></p>
+        <div class="ev-actions"><a class="ev-btn" href="index.html"><span>Till startsidan</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+      </section>
+
+      <div class="ev-flow__foot" data-foot>
+        <button class="ev-btn ev-btn--block" type="button" data-next hidden><span data-next-label>Fortsätt</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+        <p class="ev-flow__missing" data-missing hidden></p>
+        <div class="ev-steps" data-steps>
+          <p class="ev-steps__count" aria-live="polite">Steg 1 av 5</p>
+          <ol class="ev-steps__list"><li aria-current="step">Bolagsform</li><li>Verifikationer</li><li>Tjänster</li><li>Kontakt</li><li>Bekräfta</li></ol>
+          <span class="ev-steps__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i><i></i></span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="ev-summary" aria-labelledby="sum-rubrik" data-summary>
+      <h2 id="sum-rubrik">Dina val</h2>
+      <dl>
+        <div><dt>Bolagsform</dt><dd class="is-empty" data-sum="bolag">Inte valt än</dd></div>
+        <div><dt>Verifikationer per månad</dt><dd class="is-empty" data-sum="ver">Inte valt än</dd></div>
+        <div><dt>Tjänster</dt><dd data-sum="tjanster">Löpande bokföring och moms</dd></div>
+      </dl>
+      <p class="ev-summary__total"><small>Uppskattat månadspris, exkl. moms</small><span class="ev-price" data-total>–</span></p>
+      <ul class="ev-facts">
+        <li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></svg><span>Ingen bindningstid</span></li>
+        <li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 3.6 6.3 4.2A2.3 2.3 0 0 0 4.6 6.6c.5 7 5.8 12.3 12.8 12.8a2.3 2.3 0 0 0 2.4-1.7l.6-2.3a1.5 1.5 0 0 0-.8-1.7l-2.8-1.3a1.5 1.5 0 0 0-1.8.4l-1 1.3a11 11 0 0 1-4.3-4.3l1.3-1a1.5 1.5 0 0 0 .4-1.8L10.3 4.4a1.5 1.5 0 0 0-1.7-.8z"/></svg><span>Samtalet är gratis</span></li>
+      </ul>
+    </aside>
+  </div>
+</main>
+
+<footer class="ev-footer ev-on-dark">
+  <div class="ev-wrap">
+    <div class="ev-footer__bottom" style="margin-top:0;padding-top:0;border-top:0">
+      <p class="ev-concept">Designkoncept av Elevate Studio. Påhittat företag med exempelinnehåll.</p>
+      <ul class="ev-footer__links">
+        <li><a href="img/KALLOR.md">Bildkällor</a></li>
+        <li><a href="index.html">Balans redovisning</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Boka rum – Hotell Sju Gränder, Gamla stan</title>
+<meta name="description" content="Boka rum direkt hos Hotell Sju Gränder. Det tar ungefär två minuter och du betalar när du checkar in.">
+<meta name="theme-color" content="#6B2D5C">
+<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%236B2D5C'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='16' font-weight='700' fill='white' text-anchor='middle'%3E7%3C/text%3E%3C/svg%3E">
+<script src="main.js" defer></script>
+</head>
+<body id="top">
+<a class="ev-skip" href="#innehall">Hoppa till innehållet</a>
+<header class="ev-header">
+  <div class="ev-wrap ev-header__in">
+    <a class="ev-logo" href="index.html"><b>Sju Gränder</b><small>Hotell i Gamla stan</small></a>
+    <nav class="ev-nav" aria-label="Huvudmeny"><ul><li><a href="rum.html">Rummen</a></li><li><a href="index.html#frukost">Frukost och bar</a></li><li><a href="kontakt.html">Hitta hit</a></li><li><a href="boka.html" aria-current="page">Boka rum</a></li></ul></nav>
+    <div class="ev-header__tools">
+      <a class="ev-iconbtn" href="tel:+46100000000" aria-label="Ring receptionen på 010-000 00 00"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 3.6 6.3 4.2A2.3 2.3 0 0 0 4.6 6.6c.5 7 5.8 12.3 12.8 12.8a2.3 2.3 0 0 0 2.4-1.7l.6-2.3a1.5 1.5 0 0 0-.8-1.7l-2.8-1.3a1.5 1.5 0 0 0-1.8.4l-1 1.3a11 11 0 0 1-4.3-4.3l1.3-1a1.5 1.5 0 0 0 .4-1.8L10.3 4.4a1.5 1.5 0 0 0-1.7-.8z"/></svg></a>
+      <button class="ev-iconbtn ev-menubtn" type="button" aria-label="Öppna menyn" aria-expanded="false" aria-haspopup="dialog"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="innehall" tabindex="-1" class="ev-flowpage">
+  <div class="ev-wrap ev-flowgrid" data-booking>
+    <div class="ev-flow">
+      <a class="ev-iconbtn ev-flow__close" href="index.html" aria-label="Avbryt bokningen" data-flow-close><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+
+      <!-- Steg 1: datum och gäster -->
+      <section class="ev-step" data-step="1" aria-labelledby="st1">
+        <h1 id="st1" tabindex="-1">När vill du bo hos oss?</h1>
+        <p class="ev-step__hint">Välj incheckning och sedan utcheckning. Hela bokningen tar ungefär två minuter.</p>
+        <div class="ev-step__body">
+          <div class="ev-cal" data-cal></div>
+          <p class="ev-cal__legend" data-cal-status aria-live="polite"></p>
+          <div class="ev-guests" role="group" aria-label="Gäster">
+            <div class="ev-guest">
+              <div><b id="g-vuxna">Vuxna</b><small>13 år och äldre</small></div>
+              <div class="ev-stepper" data-stepper="adults" data-min="1" data-max="4">
+                <button type="button" data-dec aria-label="Färre vuxna"><svg class="ev-icon ev-icon--20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+                <output aria-labelledby="g-vuxna" aria-live="polite">2</output>
+                <button type="button" data-inc aria-label="Fler vuxna"><svg class="ev-icon ev-icon--20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </div>
+            <div class="ev-guest">
+              <div><b id="g-barn">Barn</b><small>0–12 år. Under sju år bor gratis.</small></div>
+              <div class="ev-stepper" data-stepper="kids" data-min="0" data-max="3">
+                <button type="button" data-dec aria-label="Färre barn"><svg class="ev-icon ev-icon--20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+                <output aria-labelledby="g-barn" aria-live="polite">0</output>
+                <button type="button" data-inc aria-label="Fler barn"><svg class="ev-icon ev-icon--20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Steg 2: rum, går vidare direkt -->
+      <section class="ev-step" data-step="2" aria-labelledby="st2" hidden>
+        <button class="ev-link ev-link--back ev-step__back" type="button" data-back><svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>Tillbaka</button>
+        <h1 id="st2" tabindex="-1">Vilket rum vill du ha?</h1>
+        <p class="ev-step__hint">Välj ett rum så går du vidare. Priset gäller för hela vistelsen.</p>
+        <div class="ev-step__body"><div class="ev-choices" data-rooms></div></div>
+      </section>
+
+      <!-- Steg 3: tillval, flerval -->
+      <section class="ev-step" data-step="3" aria-labelledby="st3" hidden>
+        <button class="ev-link ev-link--back ev-step__back" type="button" data-back><svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>Tillbaka</button>
+        <h1 id="st3" tabindex="-1">Vill du lägga till något?</h1>
+        <p class="ev-step__hint">Allt är frivilligt. Välj så många du vill, eller fortsätt utan.</p>
+        <div class="ev-step__body"><fieldset class="ev-fieldset"><legend class="ev-sr">Tillval</legend><div class="ev-addons" data-addons></div></fieldset></div>
+      </section>
+
+      <!-- Steg 4: uppgifter -->
+      <section class="ev-step" data-step="4" aria-labelledby="st4" hidden>
+        <button class="ev-link ev-link--back ev-step__back" type="button" data-back><svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>Tillbaka</button>
+        <h1 id="st4" tabindex="-1">Dina uppgifter</h1>
+        <p class="ev-step__hint">Vi skickar bekräftelsen och dörrkoden hit.</p>
+        <form class="ev-step__body ev-form" data-details novalidate>
+          <div class="ev-form__row">
+            <div class="ev-field">
+              <label for="b-fornamn">Förnamn</label>
+              <input class="ev-input" id="b-fornamn" name="fornamn" autocomplete="given-name" placeholder="Sara" required data-msg="Skriv ditt förnamn.">
+              <p class="ev-error" id="b-fornamn-fel" hidden></p>
+            </div>
+            <div class="ev-field">
+              <label for="b-efternamn">Efternamn</label>
+              <input class="ev-input" id="b-efternamn" name="efternamn" autocomplete="family-name" placeholder="Lund" required data-msg="Skriv ditt efternamn.">
+              <p class="ev-error" id="b-efternamn-fel" hidden></p>
+            </div>
+          </div>
+          <div class="ev-field">
+            <label for="b-epost">E-post</label>
+            <input class="ev-input" id="b-epost" name="epost" type="email" autocomplete="email" placeholder="sara.lund@exempel.se" required data-msg="Skriv en e-postadress med @, till exempel namn@exempel.se.">
+            <p class="ev-error" id="b-epost-fel" hidden></p>
+          </div>
+          <div class="ev-field">
+            <label for="b-mobil">Mobil</label>
+            <input class="ev-input" id="b-mobil" name="mobil" type="tel" autocomplete="tel" inputmode="tel" placeholder="070-123 45 67" required data-msg="Skriv ett mobilnummer med minst åtta siffror, så kan vi skicka dörrkoden." data-min-digits="8">
+            <p class="ev-error" id="b-mobil-fel" hidden></p>
+          </div>
+          <div class="ev-field">
+            <label for="b-ankomst">Ungefärlig ankomst <span class="ev-opt">(valfritt)</span></label>
+            <select class="ev-input" id="b-ankomst" name="ankomst">
+              <option value="">Vet inte än</option>
+              <option>15.00–18.00</option>
+              <option>18.00–21.00</option>
+              <option>21.00–23.00</option>
+              <option>Efter 23.00 (kod i sms)</option>
+            </select>
+          </div>
+          <div class="ev-field">
+            <label for="b-onskemal">Önskemål <span class="ev-opt">(valfritt)</span></label>
+            <textarea class="ev-input" id="b-onskemal" name="onskemal" placeholder="Till exempel: två enkelsängar, extra kudde eller att vi har med hund"></textarea>
+          </div>
+        </form>
+      </section>
+
+      <!-- Steg 5: bekräfta -->
+      <section class="ev-step" data-step="5" aria-labelledby="st5" hidden>
+        <button class="ev-link ev-link--back ev-step__back" type="button" data-back><svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>Tillbaka</button>
+        <h1 id="st5" tabindex="-1">Stämmer allt?</h1>
+        <p class="ev-step__hint">Du betalar när du checkar in. Ingenting dras nu.</p>
+        <div class="ev-step__body">
+          <dl class="ev-review" data-review></dl>
+          <dl class="ev-total" data-total></dl>
+          <p class="ev-policy"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8h.01"/></svg><span>Fri avbokning till kl. 18 dagen före ankomst. Avbokar du senare betalar du för första natten.</span></p>
+          <label class="ev-check" style="margin-top:20px"><input type="checkbox" data-terms><span>Jag godkänner avbokningsvillkoren ovan.</span></label>
+        </div>
+      </section>
+
+      <!-- Gemensam fot med knapp och stegindikator -->
+      <div class="ev-flow__foot" data-flow-foot>
+        <button class="ev-btn ev-btn--block" type="button" data-next aria-describedby="flow-missing"><span>Fortsätt</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+        <p class="ev-form__missing" id="flow-missing" data-flow-missing aria-live="polite"></p>
+        <div class="ev-steps">
+          <p class="ev-steps__count" data-steps-count>Steg 1 av 5</p>
+          <ol class="ev-steps__list" aria-label="Stegen i bokningen"><li aria-current="step">Datum</li><li>Rum</li><li>Tillval</li><li>Uppgifter</li><li>Bekräfta</li></ol>
+          <span class="ev-steps__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i><i></i></span>
+        </div>
+      </div>
+
+      <!-- Klart -->
+      <section class="ev-confirm" data-confirm hidden aria-labelledby="klar">
+        <svg class="ev-icon ev-icon--48 ev-draw" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M7.8 12.3l2.9 2.9 5.5-5.6"/></svg>
+        <h1 id="klar" tabindex="-1">Rummet är bokat</h1>
+        <p>Bokningsnummer <span class="ev-bookno" data-bookno>SG-00000</span>. Vi har skickat en bekräftelse till <b data-confirm-email>din e-post</b>, och dörrkoden kommer i ett sms klockan 15 på ankomstdagen.</p>
+        <dl class="ev-review" data-confirm-review></dl>
+        <p class="ev-hint">Det här är ett designkoncept. Ingen bokning gjordes och ingenting skickades.</p>
+        <div class="ev-actions"><a class="ev-btn" href="kontakt.html"><span>Se vägen till hotellet</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+      </section>
+    </div>
+
+    <aside class="ev-summary" aria-labelledby="sum-rubrik" data-summary>
+      <h2 id="sum-rubrik">Din bokning</h2>
+      <dl>
+        <div><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><div><dt>Datum</dt><dd data-sum="dates" class="is-empty">Inte valt än</dd></div></div>
+        <div><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.5" r="3.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15.5 5.2a3.5 3.5 0 0 1 0 6.6M17.5 14.4c2 .8 3.5 2.9 3.5 5.6"/></svg><div><dt>Gäster</dt><dd data-sum="guests">2 vuxna</dd></div></div>
+        <div><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19V6M3 15h18M21 19v-6a3 3 0 0 0-3-3h-8v5"/><circle cx="6.5" cy="11.5" r="1.8"/></svg><div><dt>Rum</dt><dd data-sum="room" class="is-empty">Inte valt än</dd></div></div>
+        <div><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><div><dt>Tillval</dt><dd data-sum="addons" class="is-empty">Inga</dd></div></div>
+      </dl>
+      <p class="ev-summary__sum"><span>Totalt</span><span class="ev-price" data-sum="total">–</span></p>
+      <p class="ev-summary__note">Betalas vid incheckning. Fri avbokning till kl. 18 dagen före.</p>
+    </aside>
+  </div>
+</main>
+
+<footer class="ev-footer ev-on-dark">
+  <div class="ev-wrap">
+    <div class="ev-footer__bottom" style="margin-top:0;border-top:0;padding-top:0">
+      <p class="ev-concept">Designkoncept av Elevate Studio. Påhittat företag med exempelinnehåll.</p>
+      <ul class="ev-footer__links">
+        <li><a href="tel:+46100000000">010-000 00 00</a></li>
+        <li><a href="img/KALLOR.md">Bildkällor</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

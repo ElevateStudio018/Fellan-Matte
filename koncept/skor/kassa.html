@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Varukorg och kassa – Klackhuset</title>
+<meta name="description" content="Din varukorg och kassa hos Klackhuset. Betala med kort, Swish eller faktura.">
+<meta name="theme-color" content="#9A4A17">
+<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%239A4A17'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='17' font-weight='700' fill='white' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+<script src="main.js" defer></script>
+</head>
+<body id="top">
+<a class="ev-skip" href="#innehall">Hoppa till innehållet</a>
+<header class="ev-header">
+  <div class="ev-wrap ev-header__in" style="position:relative">
+    <a class="ev-logo" href="index.html">Klackhuset<b>.</b></a>
+    <nav class="ev-nav" aria-label="Huvudmeny"><ul><li><a href="kategori.html">Dam</a></li><li><a href="kategori.html?typ=Herr">Herr</a></li><li><a href="kategori.html?typ=Barn">Barn</a></li><li><a href="kategori.html?q=Vinterk%C3%A4ngor">Vinterkängor</a></li><li><a href="index.html#butiken">Butiken</a></li></ul></nav>
+    <div class="ev-header__tools">
+      <button class="ev-iconbtn" type="button" data-open-search aria-label="Sök" aria-haspopup="dialog"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#search"/></svg><span class="ev-iconbtn__text" aria-hidden="true">Sök</span></button>
+      <button class="ev-iconbtn ev-cartbtn" type="button" aria-expanded="false" aria-controls="minivarukorg" data-cartlabel aria-label="Varukorg"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#cart"/></svg><span class="ev-cartcount is-zero" data-cartcount aria-hidden="true">0</span></button>
+      <button class="ev-iconbtn ev-menubtn" type="button" aria-label="Öppna menyn" aria-expanded="false" aria-haspopup="dialog"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#menu"/></svg></button>
+    </div>
+    <div class="ev-minicart" id="minivarukorg" data-minicart hidden>
+      <div class="ev-minicart__head"><h2>Varukorg</h2><button class="ev-closebtn" type="button" data-minicart-close aria-label="Stäng varukorgen"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#close"/></svg></button></div>
+      <div data-minicart-empty>
+        <p class="ev-minicart__empty">Varukorgen är tom. Lägg till ett par skor så hamnar de här.</p>
+        <a class="ev-link" href="kategori.html">Se alla kängor<svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></a>
+      </div>
+      <div data-minicart-full hidden>
+        <ul class="ev-minicart__list" data-minicart-list></ul>
+        <div class="ev-minicart__sum"><span>Totalt</span><span class="ev-price" data-minicart-sum>0&nbsp;kr</span></div>
+        <p class="ev-minicart__vat" data-minicart-vat></p>
+        <div class="ev-minicart__btns ev-on-white">
+          <a class="ev-btn" href="kassa.html"><span>Till kassan</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></a>
+          <button class="ev-btn ev-btn--secondary" type="button" data-minicart-close-2 onclick="this.closest('[data-minicart]').querySelector('[data-minicart-close]').click()">Fortsätt handla</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<dialog class="ev-menu" id="meny" aria-label="Meny">
+  <div class="ev-menu__top"><a class="ev-logo" href="index.html">Klackhuset<b>.</b></a><button class="ev-closebtn" type="button" data-close aria-label="Stäng menyn"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#close"/></svg></button></div>
+  <nav aria-label="Huvudmeny"><ul><li><a href="kategori.html">Dam<svg class="ev-icon " aria-hidden="true"><use href="icons.svg#chevron-right"/></svg></a></li><li><a href="kategori.html?typ=Herr">Herr<svg class="ev-icon " aria-hidden="true"><use href="icons.svg#chevron-right"/></svg></a></li><li><a href="kategori.html?typ=Barn">Barn<svg class="ev-icon " aria-hidden="true"><use href="icons.svg#chevron-right"/></svg></a></li><li><a href="kategori.html?q=Vinterk%C3%A4ngor">Vinterkängor<svg class="ev-icon " aria-hidden="true"><use href="icons.svg#chevron-right"/></svg></a></li><li><a href="index.html#butiken">Butiken<svg class="ev-icon " aria-hidden="true"><use href="icons.svg#chevron-right"/></svg></a></li></ul></nav>
+  <div class="ev-menu__foot">
+    <p class="ev-iconline"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#phone"/></svg><a class="ev-inline-link" href="tel:+46100000000">010-000 00 00</a></p>
+    <p class="ev-iconline"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#mail"/></svg><a class="ev-inline-link" href="mailto:hej@klackhuset.example">hej@klackhuset.example</a></p>
+  </div>
+</dialog>
+<dialog class="ev-searchdlg" id="sok" aria-label="Sök">
+  <div class="ev-wrap">
+    <div class="ev-searchdlg__top">
+      <form class="ev-search" action="kategori.html" role="search">
+        <label class="ev-sr" for="sok-falt">Sök bland skorna</label>
+        <svg class="ev-icon " aria-hidden="true"><use href="icons.svg#search"/></svg>
+        <input id="sok-falt" name="q" type="search" placeholder="Sök modell, storlek eller material" autocomplete="off">
+        <button class="ev-btn" type="submit">Sök</button>
+      </form>
+      <button class="ev-closebtn" type="button" data-close aria-label="Stäng sökningen"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#close"/></svg></button>
+    </div>
+    <div class="ev-searchdlg__body"><div data-search-left></div><div data-search-right aria-live="polite"></div></div>
+  </div>
+</dialog>
+<main id="innehall" tabindex="-1">
+
+<div class="ev-wrap ev-checkout">
+  <div class="ev-flow" data-checkout>
+    <a class="ev-closebtn ev-flow__close" href="index.html" aria-label="Avbryt köpet och gå tillbaka till butiken" data-close-flow><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#close"/></svg></a>
+    <a class="ev-link ev-link--back ev-flow__back" href="#" data-back hidden><svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="icons.svg#arrow-left"/></svg>Tillbaka</a>
+
+    <section data-step aria-labelledby="s1">
+      <h1 id="s1">Din varukorg</h1>
+      <p class="ev-lead">Det tar ungefär tre minuter att handla klart, och du behöver inget konto.</p>
+      <div class="ev-step__body">
+        <div class="ev-empty" data-cart-empty hidden style="padding:8px 0">
+          <p>Varukorgen är tom. Välj ett par skor och en storlek, så hamnar de här.</p>
+          <a class="ev-link" href="kategori.html">Se alla kängor<svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></a>
+        </div>
+        <ul class="ev-lines" data-lines aria-label="Varor i varukorgen"></ul>
+        <div class="ev-freeship" data-cart-has>
+          <div class="ev-freeship__top"><span data-free-text></span><span data-free-pct>0 %</span></div>
+          <div class="ev-progress" role="progressbar" aria-label="Kvar till fri frakt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i data-free-bar style="width:0"></i></div>
+        </div>
+        <div class="ev-flow__foot ev-on-white" data-cart-has>
+          <button class="ev-btn ev-btn--block" type="button" data-to-checkout><span>Till kassan</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></button>
+          <a class="ev-btn ev-btn--secondary" href="kategori.html">Fortsätt handla</a>
+        </div>
+        <div class="ev-suggestions ev-on-white" data-addons-wrap hidden>
+          <h2>Passar till skorna</h2>
+          <div data-addons></div>
+        </div>
+      </div>
+    </section>
+
+    <section data-step hidden aria-labelledby="s2">
+      <h1 id="s2">Vart ska vi skicka skorna?</h1>
+      <p class="ev-lead">Du handlar som gäst. Har du ett konto? <button class="ev-inline-link" type="button" data-login style="background:none;border:0;padding:0;font:inherit;cursor:pointer">Logga in</button></p>
+      <div class="ev-step__body ev-form">
+        <div class="ev-field"><label for="email">E-post</label><svg class="ev-icon ev-field__icon" aria-hidden="true"><use href="icons.svg#mail"/></svg><input class="ev-input ev-input--icon" id="email" name="email" type="email" placeholder="namn@exempel.se" autocomplete="email" aria-describedby="email-fel" ><p class="ev-error" id="email-fel" hidden><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#error"/></svg><span></span></p></div>
+        <div class="ev-field"><label for="namn">Namn</label><input class="ev-input" id="namn" name="namn" type="text" placeholder="Förnamn Efternamn" autocomplete="name" aria-describedby="namn-fel" ><p class="ev-error" id="namn-fel" hidden><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#error"/></svg><span></span></p></div>
+        <div class="ev-field"><label for="adress">Adress</label><input class="ev-input" id="adress" name="adress" type="text" placeholder="Börja skriva, till exempel Österlånggatan" autocomplete="street-address" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="adress-forslag" aria-describedby="adress-hjalp adress-fel"><ul class="ev-suggest" id="adress-forslag" role="listbox" aria-label="Adressförslag" hidden></ul><p class="ev-help" id="adress-hjalp">Välj ett förslag så fylls postnummer och ort i.</p><p class="ev-error" id="adress-fel" hidden><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#error"/></svg><span></span></p></div>
+        <div class="ev-form__row">
+          <div class="ev-field"><label for="postnr">Postnummer</label><input class="ev-input" id="postnr" name="postnr" type="text" placeholder="503 31" autocomplete="postal-code" aria-describedby="postnr-fel" inputmode="numeric" ><p class="ev-error" id="postnr-fel" hidden><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#error"/></svg><span></span></p></div>
+          <div class="ev-field"><label for="ort">Ort</label><input class="ev-input" id="ort" name="ort" type="text" placeholder="Borås" autocomplete="address-level2" aria-describedby="ort-fel" ><p class="ev-error" id="ort-fel" hidden><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#error"/></svg><span></span></p></div>
+        </div>
+        <div class="ev-field"><label for="tel">Mobilnummer</label><input class="ev-input" id="tel" name="tel" type="tel" placeholder="070-123 45 67" autocomplete="tel" aria-describedby="tel-fel" ><p class="ev-error" id="tel-fel" hidden><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#error"/></svg><span></span></p></div>
+        <div class="ev-flow__foot">
+          <button class="ev-btn ev-btn--block" type="button" data-to-ship aria-disabled="true" aria-describedby="miss-1"><span>Fortsätt</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></button>
+          <p class="ev-buy__missing" id="miss-1" data-miss-1></p>
+        </div>
+      </div>
+    </section>
+
+    <section data-step hidden aria-labelledby="s3">
+      <h1 id="s3">Hur vill du få dem?</h1>
+      <p class="ev-lead">Välj ett alternativ så går du direkt vidare till betalningen.</p>
+      <div class="ev-step__body ev-choices">
+        <button class="ev-choice" type="button" data-ship="ombud" aria-pressed="false"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#store"/></svg><span><b>Till ombud</b><span>Coop Norrby i Borås, 1–3 vardagar</span></span><span class="ev-choice__price">49&nbsp;kr</span></button>
+        <button class="ev-choice" type="button" data-ship="hem" aria-pressed="false"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#truck"/></svg><span><b>Hemleverans</b><span>Kvällstid 17–22, 1–2 vardagar</span></span><span class="ev-choice__price">79&nbsp;kr</span></button>
+        <button class="ev-choice" type="button" data-ship="butik" aria-pressed="false"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#pin"/></svg><span><b>Hämta i butiken</b><span>Österlånggatan 14, klart om två timmar</span></span><span class="ev-choice__price">0&nbsp;kr</span></button>
+      </div>
+    </section>
+
+    <section data-step hidden aria-labelledby="s4">
+      <h1 id="s4">Granska och betala</h1>
+      <p class="ev-lead">Att betala: <b class="ev-price" data-pay-total>0&nbsp;kr</b> inklusive moms och frakt.</p>
+      <div class="ev-step__body">
+        <dl class="ev-review">
+          <div><dt>Varukorg</dt><dd data-r-cart></dd><a class="ev-link" href="#varukorg" data-edit="0">Ändra<span class="ev-sr"> varukorg</span></a></div>
+          <div><dt>Kontakt</dt><dd data-r-contact></dd><a class="ev-link" href="#uppgifter" data-edit="1">Ändra<span class="ev-sr"> kontaktuppgifter</span></a></div>
+          <div><dt>Adress</dt><dd data-r-address></dd><a class="ev-link" href="#uppgifter" data-edit="1">Ändra<span class="ev-sr"> adress</span></a></div>
+          <div><dt>Leverans</dt><dd data-r-ship></dd><a class="ev-link" href="#leverans" data-edit="2">Ändra<span class="ev-sr"> leveranssätt</span></a></div>
+        </dl>
+        <fieldset class="ev-fieldset">
+          <legend>Betalsätt</legend>
+          <div class="ev-pay">
+            <div class="ev-pay__opt">
+              <label class="ev-pay__head"><input type="radio" name="betalsatt" value="kort" checked><span>Kort<small>Visa och Mastercard</small></span><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#card"/></svg></label>
+              <div class="ev-pay__body" data-pay-body="kort">
+                <div class="ev-field"><label for="kort">Kortnummer</label><input class="ev-input" id="kort" name="kort" type="text" placeholder="1234 5678 9012 3456" autocomplete="cc-number" aria-describedby="kort-fel" inputmode="numeric" ><p class="ev-error" id="kort-fel" hidden><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#error"/></svg><span></span></p></div>
+                <div class="ev-form__row">
+                  <div class="ev-field"><label for="giltig">Giltigt till</label><input class="ev-input" id="giltig" name="giltig" type="text" placeholder="MM/ÅÅ" autocomplete="cc-exp" aria-describedby="giltig-fel" inputmode="numeric" ><p class="ev-error" id="giltig-fel" hidden><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#error"/></svg><span></span></p></div>
+                  <div class="ev-field"><label for="cvc">CVC</label><input class="ev-input" id="cvc" name="cvc" type="text" placeholder="123" autocomplete="cc-csc" aria-describedby="cvc-fel" inputmode="numeric" ><p class="ev-error" id="cvc-fel" hidden><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#error"/></svg><span></span></p></div>
+                </div>
+              </div>
+            </div>
+            <div class="ev-pay__opt">
+              <label class="ev-pay__head"><input type="radio" name="betalsatt" value="swish"><span>Swish<small>Godkänn i appen</small></span><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#mobile"/></svg></label>
+              <div class="ev-pay__body" data-pay-body="swish" hidden>
+                <div class="ev-field"><label for="swish">Mobilnummer för Swish</label><input class="ev-input" id="swish" name="swish" type="tel" placeholder="070-123 45 67" autocomplete="tel" aria-describedby="swish-fel" ><p class="ev-error" id="swish-fel" hidden><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#error"/></svg><span></span></p></div>
+              </div>
+            </div>
+            <div class="ev-pay__opt">
+              <label class="ev-pay__head"><input type="radio" name="betalsatt" value="faktura"><span>Faktura<small>Betala inom 30 dagar, ingen avgift</small></span><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#doc"/></svg></label>
+              <div class="ev-pay__body" data-pay-body="faktura" hidden>
+                <div class="ev-field"><label for="pnr">Personnummer</label><input class="ev-input" id="pnr" name="pnr" type="text" placeholder="ÅÅÅÅMMDD-XXXX" autocomplete="off" aria-describedby="pnr-fel" inputmode="numeric" ><p class="ev-error" id="pnr-fel" hidden><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#error"/></svg><span></span></p></div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div class="ev-disclose">
+          <button class="ev-disclose__btn" type="button" data-rabatt-btn aria-expanded="false" aria-controls="rabatt-panel">Har du en rabattkod?<svg class="ev-icon " aria-hidden="true"><use href="icons.svg#plus"/></svg></button>
+          <div class="ev-disclose__panel" id="rabatt-panel" hidden>
+            <div class="ev-field"><label class="ev-sr" for="rabattkod">Rabattkod</label><input class="ev-input" id="rabattkod" type="text" placeholder="Till exempel HÖST10" aria-describedby="rabattkod-fel"><p class="ev-error" id="rabattkod-fel" hidden><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#error"/></svg><span></span></p><p class="ev-help" data-rabatt-ok hidden style="color:var(--ev-ok)">Rabattkoden ger 10 % på varorna.</p></div>
+            <button class="ev-btn ev-btn--sm ev-btn--secondary" type="button" data-rabatt-apply>Använd</button>
+          </div>
+        </div>
+        <div style="margin-top:24px">
+          <label class="ev-check"><input type="checkbox" name="villkor" aria-describedby="villkor-fel"><span>Jag godkänner <a href="#villkor" onclick="return false">köpvillkoren</a> och har läst om 60 dagars öppet köp.</span></label>
+          <p class="ev-error" id="villkor-fel" hidden style="margin-top:6px"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#error"/></svg><span></span></p>
+        </div>
+        <div class="ev-flow__foot">
+          <button class="ev-btn ev-btn--block ev-btn--lg" type="button" data-pay aria-disabled="true" aria-describedby="miss-3"><span>Slutför köp</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></button>
+          <p class="ev-buy__missing" id="miss-3" data-miss-3></p>
+          <p class="ev-secure"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#lock"/></svg>Krypterad betalning. Du kan ångra köpet i 60 dagar.</p>
+        </div>
+      </div>
+    </section>
+
+    <section data-step hidden aria-labelledby="s5">
+      <div class="ev-done">
+        <svg class="ev-icon ev-icon--48 ev-draw" aria-hidden="true" viewBox="0 0 24 24"><circle vector-effect="non-scaling-stroke" cx="12" cy="12" r="9"/><path vector-effect="non-scaling-stroke" d="M7.8 12.4l2.9 2.9 5.5-5.6"/></svg>
+        <h1 id="s5">Tack, ordern är lagd</h1>
+        <p>Ordernummer <b data-order-nr>KH-104582</b>. Du betalar <b data-order-total></b> med <span data-order-pay></span>, Leveranssätt: <span data-order-ship></span>. En bekräftelse går till <b data-order-mail></b>.</p>
+        <p class="ev-hint">Det här är ett designkoncept, så ingenting skickas och inga pengar dras.</p>
+        <div class="ev-actions"><a class="ev-btn" href="index.html"><span>Fortsätt handla</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></a></div>
+        <div class="ev-done__box ev-on-white">
+          <h2>Spara dina uppgifter till nästa gång</h2>
+          <p class="ev-hint">Med ett konto ser du dina ordrar och kan byta storlek med två klick.</p>
+          <button class="ev-btn ev-btn--secondary" type="button" data-account>Skapa konto</button>
+        </div>
+      </div>
+    </section>
+
+    <div data-flow-foot style="margin-top:24px">
+      <div class="ev-steps">
+        <p class="ev-steps__count">Steg 1 av 4</p>
+        <ol class="ev-steps__list"><li aria-current="step">Varukorg</li><li>Uppgifter</li><li>Leverans</li><li>Betalning</li></ol>
+        <span class="ev-steps__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="ev-summary" data-summary aria-labelledby="sum-rubrik">
+    <h2 id="sum-rubrik">Din order</h2>
+    <ul class="ev-summary__items" data-sum-items></ul>
+    <dl>
+      <div><dt>Varor</dt><dd data-sum-sub>0&nbsp;kr</dd></div>
+      <div data-sum-discount-row hidden><dt>Rabatt</dt><dd data-sum-discount></dd></div>
+      <div><dt>Frakt</dt><dd data-sum-ship>från 0&nbsp;kr</dd></div>
+      <div class="ev-total"><dt>Totalt</dt><dd data-sum-total>0&nbsp;kr</dd></div>
+      <div class="ev-vat"><dt>varav moms</dt><dd data-sum-vat>0&nbsp;kr</dd></div>
+    </dl>
+    <ul class="ev-buy__facts" style="font-size:14px;margin-top:16px">
+      <li><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#return"/></svg><span>60 dagars öppet köp och fri retur</span></li>
+      <li><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#phone"/></svg><span>Frågor? Ring <a class="ev-inline-link" href="tel:+46100000000">010-000 00 00</a></span></li>
+    </ul>
+  </aside>
+</div>
+<dialog class="ev-sheet" id="tabort" aria-labelledby="tb-rubrik">
+  <div class="ev-sheet__head"><h2 id="tb-rubrik">Ta bort <span data-remove-name>varan</span>?</h2><button class="ev-closebtn" type="button" data-close aria-label="Stäng"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#close"/></svg></button></div>
+  <div class="ev-sheet__body"><p>Varan försvinner ur varukorgen. Du kan lägga tillbaka den när du vill.</p></div>
+  <div class="ev-sheet__foot ev-sheet__foot--pair" style="border-top:0">
+    <button class="ev-btn ev-btn--secondary" type="button" data-close>Avbryt</button>
+    <button class="ev-btn ev-btn--danger" type="button" data-confirm-remove><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#trash"/></svg><span>Ja, ta bort</span></button>
+  </div>
+</dialog>
+</main>
+<footer class="ev-footer ev-on-dark">
+  <div class="ev-wrap">
+    <div class="ev-footer__grid">
+      <div>
+        <a class="ev-logo" href="index.html">Klackhuset<b>.</b></a>
+        <p style="margin-top:12px;max-width:36ch">Skobutik på Österlånggatan i Borås sedan 1987. Vi säljer kängor och vardagsskor som går att sula om.</p>
+        <p class="ev-iconline"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#phone"/></svg><a href="tel:+46100000000">010-000 00 00</a></p>
+        <p class="ev-iconline"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#mail"/></svg><a href="mailto:hej@klackhuset.example">hej@klackhuset.example</a></p>
+      </div>
+      <div><h2>Handla</h2><ul><li><a href="kategori.html">Dam</a></li><li><a href="kategori.html?typ=Herr">Herr</a></li><li><a href="kategori.html?typ=Barn">Barn</a></li><li><a href="kategori.html?q=Rea">Rea</a></li></ul></div>
+      <div><h2>Kundservice</h2><ul><li><a href="index.html#tryggt">Leverans och retur</a></li><li><a href="index.html#passform">Storleksguide</a></li><li><a href="kassa.html">Varukorg</a></li></ul></div>
+      <div><h2>Butiken</h2><ul><li><a href="index.html#butiken">Österlånggatan 14, Borås</a></li><li><a href="index.html#butiken">Öppettider</a></li></ul></div>
+    </div>
+    <div class="ev-footer__bottom">
+      <p class="ev-concept">Designkoncept av Elevate Studio. Påhittat företag med exempelinnehåll.</p>
+      <ul class="ev-footer__links"><li><a href="img/KALLOR.md">Bildkällor</a></li><li><a href="#top">Till toppen<svg class="ev-icon ev-icon--16" aria-hidden="true"><use href="icons.svg#arrow-up"/></svg></a></li></ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

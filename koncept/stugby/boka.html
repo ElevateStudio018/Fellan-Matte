@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Boka stuga – Lomvikens stugby</title>
+<meta name="description" content="Boka stuga vid sjön Lommen. Välj datum, gäster, stuga och tillval.">
+<meta name="theme-color" content="#2A5B45">
+<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%232A5B45'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='17' font-weight='700' fill='white' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+<script src="main.js" defer></script><script src="flow.js" defer></script>
+</head>
+<body id="top" class="">
+<a class="ev-skip" href="#innehall">Hoppa till innehållet</a>
+<header class="ev-header">
+  <div class="ev-wrap ev-header__in">
+    <a class="ev-logo" href="index.html">Lomviken<b>.</b><small>Stugby vid sjön</small></a>
+    <nav class="ev-nav" aria-label="Huvudmeny"><ul><li><a href="stugor.html">Stugor och priser</a></li><li><a href="upplevelser.html">Upplevelser</a></li><li><a href="boka.html" aria-current="page">Boka</a></li></ul></nav>
+    <div class="ev-header__tools">
+      <a class="ev-iconbtn" href="tel:+46100000000" aria-label="Ring stugbyn på 010-000 00 00"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#telefon"/></svg></a>
+      <button class="ev-iconbtn ev-menubtn" type="button" aria-label="Öppna menyn" aria-haspopup="dialog" aria-controls="meny"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#meny"/></svg></button>
+    </div>
+  </div>
+</header>
+<dialog class="ev-menu" id="meny" aria-label="Meny">
+  <div class="ev-menu__top">
+    <a class="ev-logo" href="index.html">Lomviken<b>.</b></a>
+    <button class="ev-iconbtn" type="button" data-close aria-label="Stäng menyn"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#kryss"/></svg></button>
+  </div>
+  <nav aria-label="Mobilmeny"><ul><li><a href="index.html">Startsida<svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#pil"/></svg></a></li><li><a href="stugor.html">Stugor och priser<svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#pil"/></svg></a></li><li><a href="upplevelser.html">Upplevelser<svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#pil"/></svg></a></li><li><a href="boka.html" aria-current="page">Boka<svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#pil"/></svg></a></li></ul></nav>
+  <div class="ev-menu__foot">
+    <p class="ev-iconline"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#klocka"/></svg><span>Incheckning från 15.00, utcheckning senast 11.00.</span></p>
+    <p class="ev-iconline"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#plats"/></svg><span>Lomviksvägen 40, Torsby</span></p>
+  </div>
+</dialog>
+<main id="innehall" tabindex="-1">
+
+<div class="ev-flowpage">
+  <div class="ev-wrap ev-flowgrid">
+    <div class="ev-flow" data-flow>
+      <a class="ev-flow__close" href="index.html" aria-label="Avbryt bokningen"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#kryss"/></svg></a>
+
+      <!-- Steg 1: datum -->
+      <section class="ev-step" data-step="datum" data-name="Datum" aria-labelledby="s1-h">
+        <div class="ev-step__top"><p class="ev-small ev-muted ev-iconline"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#klocka"/></svg><span>Tar ungefär tre minuter. Ingenting dras när du bokar.</span></p></div>
+        <h1 id="s1-h" tabindex="-1">När vill du komma?</h1>
+        <p class="ev-hint">Du bokar minst två nätter. Incheckning från 15.00, utcheckning senast 11.00.</p>
+        <form data-form="datum" novalidate>
+          <div class="ev-fieldrow">
+            <div class="ev-field">
+              <label class="ev-label" for="f-ankomst">Ankomst</label>
+              <input class="ev-input" id="f-ankomst" name="ankomst" type="date" required aria-describedby="f-ankomst-fel">
+              <p class="ev-error" id="f-ankomst-fel"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#fel"/></svg><span data-msg>Välj vilken dag du kommer.</span></p>
+            </div>
+            <div class="ev-field">
+              <label class="ev-label" for="f-avresa">Avresa</label>
+              <input class="ev-input" id="f-avresa" name="avresa" type="date" required aria-describedby="f-avresa-fel f-natter">
+              <p class="ev-error" id="f-avresa-fel"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#fel"/></svg><span data-msg>Välj vilken dag du åker hem.</span></p>
+            </div>
+          </div>
+          <p class="ev-help sb-nights" id="f-natter" aria-live="polite" data-nights></p>
+          <div class="ev-flow__foot"><button class="ev-btn ev-btn--block" type="submit"><span>Fortsätt</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="img/ikoner.svg#pil"/></svg></button></div>
+        </form>
+      </section>
+
+      <!-- Steg 2: gäster -->
+      <section class="ev-step" data-step="gaster" data-name="Gäster" aria-labelledby="s2-h" hidden>
+        <div class="ev-step__top"><a class="ev-link ev-link--back" href="#" data-back><svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="img/ikoner.svg#pil-v"/></svg>Tillbaka</a></div>
+        <h1 id="s2-h" tabindex="-1">Hur många är ni?</h1>
+        <p class="ev-hint">Vi visar bara stugor som rymmer alla.</p>
+        <form data-form="gaster" novalidate>
+          <div>
+            <div class="ev-qty" data-qty-row="vuxna">
+              <span class="ev-qty__label"><b>Vuxna</b><small>Från 13 år</small></span>
+              <span class="ev-qty__ctrl"><button type="button" data-qty="-1"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#minus"/></svg></button><output aria-live="polite">2</output><button type="button" data-qty="1"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#plus"/></svg></button></span>
+            </div>
+            <div class="ev-qty" data-qty-row="barn">
+              <span class="ev-qty__label"><b>Barn</b><small>0–12 år. Spjälsäng finns att låna</small></span>
+              <span class="ev-qty__ctrl"><button type="button" data-qty="-1"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#minus"/></svg></button><output aria-live="polite">0</output><button type="button" data-qty="1"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#plus"/></svg></button></span>
+            </div>
+          </div>
+          <fieldset class="ev-fs" style="margin-top:28px" aria-describedby="hund-fel">
+            <legend>Tar ni med hund eller annat husdjur?</legend>
+            <div class="ev-yesno" data-yesno="hund">
+              <button type="button" aria-pressed="false" value="ja">Ja</button>
+              <button type="button" aria-pressed="false" value="nej">Nej</button>
+            </div>
+            <p class="ev-error" id="hund-fel" style="margin-top:8px"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#fel"/></svg><span>Välj Ja eller Nej, så visar vi rätt stugor.</span></p>
+          </fieldset>
+          <div class="ev-flow__foot"><button class="ev-btn ev-btn--block" type="submit"><span>Fortsätt</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="img/ikoner.svg#pil"/></svg></button></div>
+        </form>
+      </section>
+
+      <!-- Steg 3: stuga. Val går direkt vidare (ux-flode-auto-vidare). -->
+      <section class="ev-step" data-step="stuga" data-name="Stuga" aria-labelledby="s3-h" hidden>
+        <div class="ev-step__top"><a class="ev-link ev-link--back" href="#" data-back><svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="img/ikoner.svg#pil-v"/></svg>Tillbaka</a></div>
+        <h1 id="s3-h" tabindex="-1">Välj stuga</h1>
+        <p class="ev-hint" data-cabin-hint>Välj en stuga så går du vidare. Priset gäller hela vistelsen.</p>
+        <form class="ev-choices" data-auto="stuga"></form>
+      </section>
+
+      <!-- Steg 4: tillval, flerval med bock -->
+      <section class="ev-step" data-step="tillval" data-name="Tillval" aria-labelledby="s4-h" hidden>
+        <div class="ev-step__top"><a class="ev-link ev-link--back" href="#" data-back><svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="img/ikoner.svg#pil-v"/></svg>Tillbaka</a></div>
+        <h1 id="s4-h" tabindex="-1">Vill du lägga till något?</h1>
+        <p class="ev-hint">Allt är valfritt. Du kan också lägga till på plats.</p>
+        <form data-form="tillval" novalidate>
+          <fieldset class="ev-fs">
+            <legend class="ev-sr">Tillval</legend>
+            <div class="ev-checks">
+              <label class="ev-check"><input type="checkbox" name="tillval" value="kanot"><span class="ev-check__box"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#bock"/></svg></span><span class="ev-check__name"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#kanot"/></svg>Kanot eller sup</span><span class="ev-check__price">450&nbsp;kr</span><span class="ev-check__desc">Hela vistelsen. Flytvästar ingår.</span></label>
+              <label class="ev-check"><input type="checkbox" name="tillval" value="bastu"><span class="ev-check__box"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#bock"/></svg></span><span class="ev-check__name"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#bastu"/></svg>Vedeldad bastu vid sjön</span><span class="ev-check__price">350&nbsp;kr</span><span class="ev-check__desc">En kväll, två timmar. Vi eldar innan du kommer.</span></label>
+              <label class="ev-check"><input type="checkbox" name="tillval" value="linne"><span class="ev-check__box"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#bock"/></svg></span><span class="ev-check__name"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#sang"/></svg>Sänglinne och handdukar</span><span class="ev-check__price" data-linne-price>150&nbsp;kr</span><span class="ev-check__desc" data-linne-desc>150 kr per person.</span></label>
+              <label class="ev-check"><input type="checkbox" name="tillval" value="stad"><span class="ev-check__box"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#bock"/></svg></span><span class="ev-check__name"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#kvast"/></svg>Slutstädning</span><span class="ev-check__price">795&nbsp;kr</span><span class="ev-check__desc">Du packar och åker. Vi städar.</span></label>
+            </div>
+          </fieldset>
+          <div class="ev-flow__foot"><button class="ev-btn ev-btn--block" type="submit"><span>Fortsätt</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="img/ikoner.svg#pil"/></svg></button></div>
+        </form>
+      </section>
+
+      <!-- Steg 5: uppgifter -->
+      <section class="ev-step" data-step="uppgifter" data-name="Uppgifter" aria-labelledby="s5-h" hidden>
+        <div class="ev-step__top"><a class="ev-link ev-link--back" href="#" data-back><svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="img/ikoner.svg#pil-v"/></svg>Tillbaka</a></div>
+        <h1 id="s5-h" tabindex="-1">Vem bokar?</h1>
+        <p class="ev-hint">Bekräftelsen och koden till nyckelskåpet skickas hit.</p>
+        <form data-form="uppgifter" novalidate>
+          <div class="ev-field">
+            <label class="ev-label" for="f-namn">Namn</label>
+            <input class="ev-input" id="f-namn" name="namn" autocomplete="name" placeholder="Till exempel Anna Berg" required aria-describedby="f-namn-fel">
+            <p class="ev-error" id="f-namn-fel"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#fel"/></svg><span>Skriv för- och efternamn.</span></p>
+          </div>
+          <div class="ev-field">
+            <label class="ev-label" for="f-epost">E-post</label>
+            <input class="ev-input" id="f-epost" name="epost" type="email" autocomplete="email" inputmode="email" placeholder="namn@exempel.se" required aria-describedby="f-epost-fel">
+            <p class="ev-error" id="f-epost-fel"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#fel"/></svg><span>Skriv en e-postadress med @, till exempel namn@exempel.se.</span></p>
+          </div>
+          <div class="ev-field">
+            <label class="ev-label" for="f-tel">Mobilnummer</label>
+            <input class="ev-input" id="f-tel" name="telefon" type="tel" autocomplete="tel" inputmode="tel" placeholder="070-123 45 67" required data-type="tel" aria-describedby="f-tel-fel">
+            <p class="ev-error" id="f-tel-fel"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#fel"/></svg><span>Skriv ett mobilnummer med minst åtta siffror, till exempel 070-123 45 67.</span></p>
+          </div>
+          <div class="ev-field">
+            <label class="ev-label" for="f-medd">Meddelande till oss <span class="ev-opt">(valfritt)</span></label>
+            <textarea class="ev-textarea" id="f-medd" name="meddelande" rows="3" placeholder="Till exempel att ni kommer sent eller behöver spjälsäng"></textarea>
+          </div>
+          <div class="ev-flow__foot">
+            <button class="ev-btn ev-btn--block" type="submit" aria-describedby="gate-text"><span>Fortsätt</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="img/ikoner.svg#pil"/></svg></button>
+            <p class="ev-missing" id="gate-text" data-gate-text></p>
+          </div>
+        </form>
+      </section>
+
+      <!-- Steg 6: bekräfta -->
+      <section class="ev-step" data-step="bekrafta" data-name="Bekräfta" aria-labelledby="s6-h" hidden>
+        <div class="ev-step__top"><a class="ev-link ev-link--back" href="#" data-back><svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="img/ikoner.svg#pil-v"/></svg>Tillbaka</a></div>
+        <h1 id="s6-h" tabindex="-1">Stämmer allt?</h1>
+        <p class="ev-hint">Ingenting dras nu. Du får en faktura på 25 procent inom sju dagar.</p>
+        <form data-form="bekrafta" novalidate>
+          <dl class="ev-review" data-review></dl>
+          <p class="ev-notice"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#info"/></svg><span>Avboka gratis fram till 30 dagar före ankomst. Resten betalar du 30 dagar innan.</span></p>
+          <div class="ev-flow__foot"><button class="ev-btn ev-btn--block" type="submit"><span>Bekräfta bokning</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="img/ikoner.svg#pil"/></svg></button></div>
+        </form>
+      </section>
+
+      <!-- Klart -->
+      <section class="ev-step ev-done" data-step="klart" aria-labelledby="s7-h" hidden>
+        <svg class="ev-icon ev-done__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M7.8 12.4l2.9 2.9 5.5-5.6"/></svg>
+        <h1 id="s7-h" tabindex="-1">Bokningen är mottagen</h1>
+        <p class="ev-hint" data-done-text>Bekräftelsen är på väg till din e-post.</p>
+        <dl class="ev-review" data-done-review></dl>
+        <p class="ev-note">Det här är ett designkoncept. Ingenting skickades.</p>
+        <div class="ev-actions"><a class="ev-btn" href="upplevelser.html"><span>Planera vistelsen</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="img/ikoner.svg#pil"/></svg></a><a class="ev-link" href="index.html">Till startsidan<svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="img/ikoner.svg#pil"/></svg></a></div>
+      </section>
+
+      <div class="ev-steps" data-steps>
+        <p class="ev-steps__count" data-steps-count>Steg 1 av 6</p>
+        <ol class="ev-steps__list"><li aria-current="step">Datum</li><li>Gäster</li><li>Stuga</li><li>Tillval</li><li>Uppgifter</li><li>Bekräfta</li></ol>
+        <span class="ev-steps__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+    </div>
+
+    <aside class="ev-summary" aria-labelledby="sum-h" data-summary>
+      <h2 id="sum-h">Din bokning</h2>
+      <p class="ev-summary__empty" data-sum-empty>Välj datum så räknar vi priset.</p>
+      <dl data-sum-list hidden></dl>
+      <p class="ev-iconline"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#plats"/></svg><span>Lomviksvägen 40, Torsby. Incheckning från 15.00.</span></p>
+      <p class="ev-iconline"><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#las"/></svg><span>Ingen betalning nu. Faktura på 25 procent inom sju dagar.</span></p>
+    </aside>
+  </div>
+</div>
+
+</main>
+<footer class="ev-footer ev-on-dark">
+  <div class="ev-wrap">
+    <div class="ev-footer__grid">
+      <div>
+        <a class="ev-logo" href="index.html">Lomviken<b>.</b></a>
+        <p style="margin-top:12px;max-width:36ch">Elva stugor vid sjön Lommen, två mil norr om Torsby i Värmland. Kanot, bastu och vandringsleder från dörren, året runt.</p>
+      </div>
+      <div>
+        <h2>Besök och kontakt</h2>
+        <ul class="ev-contact">
+          <li><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#plats"/></svg><span><b>Adress</b>Lomviksvägen 40, 685 92 Torsby</span></li>
+          <li><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#telefon"/></svg><span><b>Telefon</b><a href="tel:+46100000000">010-000 00 00</a></span></li>
+          <li><svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#mejl"/></svg><span><b>E-post</b><a href="mailto:hej@lomviken.example">hej@lomviken.example</a></span></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Sidor</h2>
+        <ul>
+          <li><a href="stugor.html">Stugor och priser</a></li>
+          <li><a href="upplevelser.html">Upplevelser</a></li>
+          <li><a href="boka.html">Boka stuga</a></li>
+          <li><a href="index.html#hitta-hit">Hitta hit</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ev-footer__bottom">
+      <span>Designkoncept av Elevate Studio. Påhittat företag med exempelinnehåll.</span>
+      <a href="img/KALLOR.md">Bildkällor</a>
+      <a class="ev-link" href="#top">Till toppen<svg class="ev-icon" aria-hidden="true"><use href="img/ikoner.svg#pil-upp"/></svg></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
