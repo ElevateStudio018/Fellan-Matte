@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Meny – Bryggans kök</title>
+<meta name="description" content="Lunch, middag, brunch och dryck på Bryggans kök i Eriksberg. Med allergimärkning.">
+<meta name="theme-color" content="#155E75">
+<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23155E75'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='17' font-weight='700' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+<script src="main.js" defer></script>
+</head>
+<body id="top">
+<a class="ev-skip" href="#innehall">Hoppa till innehållet</a>
+<header class="ev-header">
+  <div class="ev-wrap ev-header__in">
+    <a class="ev-logo" href="index.html">Bryggans kök<b>.</b></a>
+    <nav class="ev-nav" aria-label="Huvudmeny"><ul><li><a href="meny.html" aria-current="page">Meny</a></li><li><a href="sallskap.html">Sällskap</a></li><li><a href="om.html">Om oss</a></li><li><a href="kontakt.html">Hitta hit</a></li><li><a href="#boka" data-boka>Boka bord</a></li></ul></nav>
+    <div class="ev-header__tools">
+      <a class="ev-iconbtn" href="tel:+4631123450" aria-label="Ring oss på 031-12 34 50"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 3.6 6.3 4.2A2.3 2.3 0 0 0 4.6 6.6c.5 7 5.8 12.3 12.8 12.8a2.3 2.3 0 0 0 2.4-1.7l.6-2.3a1.5 1.5 0 0 0-.8-1.7l-2.8-1.3a1.5 1.5 0 0 0-1.8.4l-1 1.3a11 11 0 0 1-4.3-4.3l1.3-1a1.5 1.5 0 0 0 .4-1.8L10.3 4.4a1.5 1.5 0 0 0-1.7-.8z"/></svg></a>
+      <button class="ev-iconbtn ev-menubtn" type="button" aria-label="Öppna menyn" aria-expanded="false" aria-haspopup="dialog"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="innehall" tabindex="-1">
+
+<div class="ev-wrap ev-pagehead">
+  <ol class="ev-crumbs" aria-label="Du är här">
+        <li><a href="index.html"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/><path d="M10 20.5v-5.5h4v5.5"/></svg><span class="ev-sr">Startsidan</span></a></li>
+        <li><span aria-current="page">Meny</span></li>
+      </ol>
+  <h1 class="ev-dot">Meny</h1>
+  <p class="ev-lead">Vi skriver om menyn efter fångst och säsong. Den här gäller i november. Säg till om allergier, så anpassar köket rätten.</p>
+  <ul class="ev-legend" aria-label="Allergimärkning" style="margin-top:20px">
+    <li><span class="ev-mark" aria-hidden="true">G</span>Glutenfri</li>
+    <li><span class="ev-mark" aria-hidden="true">L</span>Laktosfri</li>
+    <li><span class="ev-mark" aria-hidden="true">V</span>Vegetarisk</li>
+  </ul>
+</div>
+
+<div class="ev-menubar">
+  <div class="ev-wrap ev-menubar__in">
+    <div class="ev-chips ev-chips--scroll" role="tablist" aria-label="Del av menyn" data-menu-tabs>
+      <button class="ev-chip" role="tab" id="tab-lunch" aria-controls="panel-lunch" aria-selected="true">Lunch</button>
+      <button class="ev-chip" role="tab" id="tab-middag" aria-controls="panel-middag" aria-selected="false" tabindex="-1">Middag</button>
+      <button class="ev-chip" role="tab" id="tab-brunch" aria-controls="panel-brunch" aria-selected="false" tabindex="-1">Brunch</button>
+      <button class="ev-chip" role="tab" id="tab-dryck" aria-controls="panel-dryck" aria-selected="false" tabindex="-1">Dryck</button>
+    </div>
+    <div class="ev-filter" role="group" aria-labelledby="filter-label">
+      <span class="ev-filter__label" id="filter-label">Visa bara</span>
+      <div class="ev-chips ev-chips--scroll">
+        <button class="ev-chip" type="button" aria-pressed="false" data-filter="V">Vegetariskt</button>
+        <button class="ev-chip" type="button" aria-pressed="false" data-filter="G">Glutenfritt</button>
+        <button class="ev-chip" type="button" aria-pressed="false" data-filter="L">Laktosfritt</button>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="ev-sr" aria-live="polite" data-filter-status></p>
+
+<div class="ev-wrap" style="padding-bottom:var(--ev-section)">
+  <section class="ev-menu-panel" id="panel-lunch" role="tabpanel" aria-labelledby="tab-lunch" tabindex="0">
+    <header>
+      <h2>Veckans lunch</h2>
+      <div class="ev-meta"><span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Måndag–fredag 11.30–14.00</span><span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V11a4 4 0 0 1-1-2.6C4 6 7.6 4 12 4s8 2 8 4.4a4 4 0 0 1-1 2.6v9z"/><path d="M10 9.5l1.5 1.5M13.5 8l1.5 1.5"/></svg>Sallad, bröd och kaffe ingår</span></div>
+      <p class="ev-hint" style="font-size:15px">Alla luncher kostar 145&nbsp;kr. Ta med för 125&nbsp;kr.</p>
+    </header>
+    <div class="ev-menu-cols" data-lunch-week><p>Lunchmenyn visas när sidan har laddat klart.</p></div>
+    <p class="ev-empty" hidden>Ingen lunchrätt passar alla filter du har valt. <button class="ev-link" type="button" data-filter-clear>Visa alla rätter</button></p>
+  </section>
+
+  <section class="ev-menu-panel" id="panel-middag" role="tabpanel" aria-labelledby="tab-middag" tabindex="0" hidden>
+    <header>
+      <h2>Middag</h2>
+      <div class="ev-meta"><span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Tisdag–lördag 17.00–23.00</span><span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8h.01"/></svg>Köket stänger 22.00</span></div>
+      <p class="ev-hint" style="font-size:15px">Kvällens tre rätter: köket väljer förrätt, varmrätt och efterrätt för 595&nbsp;kr. Dryckespaket 445&nbsp;kr.</p>
+    </header>
+    <div class="ev-menu-cols"><section class="ev-menu-group" aria-labelledby="g-forratt">
+            <h3 id="g-forratt">Förrätter</h3>
+            <ul class="ev-dishes"><li class="ev-dish"><span class="ev-dish__name">Råbiff på hjort med svartkål</span><span class="ev-dish__price ev-price">165&nbsp;kr</span><span class="ev-dish__desc">Picklad svamp, rostad lök och äggula.</span><span class="ev-dish__marks">G L</span></li><li class="ev-dish"><span class="ev-dish__name">Toast Skagen</span><span class="ev-dish__price ev-price">175&nbsp;kr</span><span class="ev-dish__desc">Handskalade räkor, löjrom och dill på brynt bröd.</span><span class="ev-dish__marks"></span></li><li class="ev-dish"><span class="ev-dish__name">Gratinerade ostron, tre stycken</span><span class="ev-dish__price ev-price">185&nbsp;kr</span><span class="ev-dish__desc">Ostron från Grebbestad, västerbottenost och brynt smör.</span><span class="ev-dish__marks">G</span></li><li class="ev-dish"><span class="ev-dish__name">Rostad jordärtskocka</span><span class="ev-dish__price ev-price">135&nbsp;kr</span><span class="ev-dish__desc">Hasselnötter, brynt smör och syrad grädde.</span><span class="ev-dish__marks">V G</span></li></ul>
+          </section><section class="ev-menu-group" aria-labelledby="g-varmratt">
+            <h3 id="g-varmratt">Varmrätter</h3>
+            <ul class="ev-dishes"><li class="ev-dish"><span class="ev-dish__name">Halstrad torsk med brynt smör</span><span class="ev-dish__price ev-price">295&nbsp;kr</span><span class="ev-dish__desc">Musslor, purjolök, pepparrotsskum och mandelpotatis.</span><span class="ev-dish__marks">G</span></li><li class="ev-dish"><span class="ev-dish__name">Bouillabaisse från västkusten</span><span class="ev-dish__price ev-price">285&nbsp;kr</span><span class="ev-dish__desc">Dagens fisk och skaldjur, saffran, rouille och grillat bröd.</span><span class="ev-dish__marks">L</span></li><li class="ev-dish"><span class="ev-dish__name">Helstekt kalvinnanlår</span><span class="ev-dish__price ev-price">315&nbsp;kr</span><span class="ev-dish__desc">Kantarellsky, rotselleri och syltade lingon.</span><span class="ev-dish__marks">G</span></li><li class="ev-dish"><span class="ev-dish__name">Svamprisotto med västerbottenost</span><span class="ev-dish__price ev-price">235&nbsp;kr</span><span class="ev-dish__desc">Trattkantareller, krasse och citron.</span><span class="ev-dish__marks">V G</span></li><li class="ev-dish"><span class="ev-dish__name">Pumpa, linser och getost</span><span class="ev-dish__price ev-price">225&nbsp;kr</span><span class="ev-dish__desc">Rostad pumpa, belugalinser, salvia och hasselnötter.</span><span class="ev-dish__marks">V G</span></li></ul>
+          </section></div>
+    <div class="ev-menu-cols"><section class="ev-menu-group" aria-labelledby="g-efterratt">
+            <h3 id="g-efterratt">Efterrätter</h3>
+            <ul class="ev-dishes"><li class="ev-dish"><span class="ev-dish__name">Brynt smörglass med havtorn</span><span class="ev-dish__price ev-price">115&nbsp;kr</span><span class="ev-dish__desc">Havtornscurd och kardemummasmul.</span><span class="ev-dish__marks"></span></li><li class="ev-dish"><span class="ev-dish__name">Chokladtryffel med havssalt</span><span class="ev-dish__price ev-price">45&nbsp;kr</span><span class="ev-dish__desc">Mörk choklad, en bit.</span><span class="ev-dish__marks">G V</span></li><li class="ev-dish"><span class="ev-dish__name">Kardemummabulle och kaffe</span><span class="ev-dish__price ev-price">65&nbsp;kr</span><span class="ev-dish__desc">Bakas i huset varje morgon.</span><span class="ev-dish__marks">V</span></li><li class="ev-dish"><span class="ev-dish__name">Äppelkaka med vaniljsås</span><span class="ev-dish__price ev-price">105&nbsp;kr</span><span class="ev-dish__desc">Äpplen från Halland, havresmul och vaniljsås.</span><span class="ev-dish__marks">V</span></li></ul>
+          </section></div>
+    <p class="ev-empty" hidden>Ingen middagsrätt passar alla filter du har valt. <button class="ev-link" type="button" data-filter-clear>Visa alla rätter</button></p>
+  </section>
+
+  <section class="ev-menu-panel" id="panel-brunch" role="tabpanel" aria-labelledby="tab-brunch" tabindex="0" hidden>
+    <header>
+      <h2>Helgbrunch</h2>
+      <div class="ev-meta"><span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Lördag 10.00–14.00, söndag 10.00–15.00</span></div>
+      <p class="ev-hint" style="font-size:15px">Barn under 12 år äter halva priset.</p>
+    </header>
+    <div class="ev-menu-cols">
+      <section class="ev-menu-group" aria-labelledby="g-brunch">
+            <h3 id="g-brunch">Brickor och varmt</h3>
+            <ul class="ev-dishes"><li class="ev-dish"><span class="ev-dish__name">Brunchbrickan</span><span class="ev-dish__price ev-price">245&nbsp;kr</span><span class="ev-dish__desc">Surdegsbröd, ägg från Tjörn, gravad lax, ost, yoghurt med havtorn och en kardemummabulle.</span><span class="ev-dish__marks"></span></li><li class="ev-dish"><span class="ev-dish__name">Gröna brickan</span><span class="ev-dish__price ev-price">225&nbsp;kr</span><span class="ev-dish__desc">Surdegsbröd, ägg, rostade rotfrukter, hummus och havtornsyoghurt.</span><span class="ev-dish__marks">V</span></li><li class="ev-dish"><span class="ev-dish__name">Shakshuka med fetaost</span><span class="ev-dish__price ev-price">165&nbsp;kr</span><span class="ev-dish__desc">Bakade ägg i tomat och paprika, grillat bröd.</span><span class="ev-dish__marks">V</span></li><li class="ev-dish"><span class="ev-dish__name">Räksmörgås på surdeg</span><span class="ev-dish__price ev-price">195&nbsp;kr</span><span class="ev-dish__desc">Handskalade räkor, ägg, majonnäs och dill.</span><span class="ev-dish__marks">L</span></li></ul>
+          </section>
+      <section class="ev-menu-group" aria-labelledby="g-brunch-sott">
+            <h3 id="g-brunch-sott">Litet och sött</h3>
+            <ul class="ev-dishes"><li class="ev-dish"><span class="ev-dish__name">Havregrynsgröt med äppelkompott</span><span class="ev-dish__price ev-price">75&nbsp;kr</span><span class="ev-dish__desc">Kokad på havredryck, med rostade frön.</span><span class="ev-dish__marks">V L</span></li><li class="ev-dish"><span class="ev-dish__name">Våfflor med hjortron och grädde</span><span class="ev-dish__price ev-price">95&nbsp;kr</span><span class="ev-dish__desc">Två våfflor, gräddade när du beställer.</span><span class="ev-dish__marks">V</span></li><li class="ev-dish"><span class="ev-dish__name">Croissant med smör och marmelad</span><span class="ev-dish__price ev-price">45&nbsp;kr</span><span class="ev-dish__desc">Bakad i huset.</span><span class="ev-dish__marks">V</span></li></ul>
+          </section>
+    </div>
+    <p class="ev-empty" hidden>Ingen brunchrätt passar alla filter du har valt. <button class="ev-link" type="button" data-filter-clear>Visa alla rätter</button></p>
+  </section>
+
+  <section class="ev-menu-panel" id="panel-dryck" role="tabpanel" aria-labelledby="tab-dryck" tabindex="0" hidden>
+    <header>
+      <h2>Dryck</h2>
+      <p class="ev-hint" style="font-size:15px">Pris för glas och flaska. Fråga om dagens vin på glas, vi öppnar gärna något nytt.</p>
+    </header>
+    <div class="ev-menu-cols">
+      <section class="ev-menu-group" aria-labelledby="g-vin">
+            <h3 id="g-vin">Vin</h3>
+            <ul class="ev-dishes"><li class="ev-dish" data-nofilter><span class="ev-dish__name">Mousserande, Crémant de Loire</span><span class="ev-dish__price ev-price">125 / 595&nbsp;kr</span><span class="ev-dish__desc">Torrt och friskt. Passar till ostron.</span></li><li class="ev-dish" data-nofilter><span class="ev-dish__name">Vitt, Grüner Veltliner</span><span class="ev-dish__price ev-price">115 / 545&nbsp;kr</span><span class="ev-dish__desc">Österrike. Pepprigt och mineraliskt.</span></li><li class="ev-dish" data-nofilter><span class="ev-dish__name">Vitt, Chablis</span><span class="ev-dish__price ev-price">145 / 695&nbsp;kr</span><span class="ev-dish__desc">Frankrike. Klassikern till fisk och skaldjur.</span></li><li class="ev-dish" data-nofilter><span class="ev-dish__name">Rött, Gamay</span><span class="ev-dish__price ev-price">125 / 595&nbsp;kr</span><span class="ev-dish__desc">Beaujolais. Lätt och bärigt, serveras svalt.</span></li><li class="ev-dish" data-nofilter><span class="ev-dish__name">Orange, Pinot Grigio</span><span class="ev-dish__price ev-price">135 / 645&nbsp;kr</span><span class="ev-dish__desc">Italien. Skalkontakt, torrt och kryddigt.</span></li></ul>
+          </section>
+      <section class="ev-menu-group" aria-labelledby="g-ovrigt">
+            <h3 id="g-ovrigt">Öl, cider och alkoholfritt</h3>
+            <ul class="ev-dishes"><li class="ev-dish" data-nofilter><span class="ev-dish__name">Ljus lager från fat, 40 cl</span><span class="ev-dish__price ev-price">79&nbsp;kr</span><span class="ev-dish__desc">Bryggd i Göteborg.</span></li><li class="ev-dish" data-nofilter><span class="ev-dish__name">Pale ale, 33 cl</span><span class="ev-dish__price ev-price">85&nbsp;kr</span></li><li class="ev-dish" data-nofilter><span class="ev-dish__name">Äppelcider från Halland, 33 cl</span><span class="ev-dish__price ev-price">75&nbsp;kr</span></li><li class="ev-dish" data-nofilter><span class="ev-dish__name">Alkoholfritt mousserande</span><span class="ev-dish__price ev-price">75 / 345&nbsp;kr</span><span class="ev-dish__desc">Svartvinbär och fläder.</span></li><li class="ev-dish" data-nofilter><span class="ev-dish__name">Husets saft: havtorn eller rabarber</span><span class="ev-dish__price ev-price">45&nbsp;kr</span></li><li class="ev-dish" data-nofilter><span class="ev-dish__name">Kaffe, te eller chaga</span><span class="ev-dish__price ev-price">35&nbsp;kr</span><span class="ev-dish__desc">Påtår ingår.</span></li></ul>
+          </section>
+    </div>
+  </section>
+</div>
+
+<section class="ev-section ev-section--grey" aria-labelledby="allergi-rubrik">
+  <div class="ev-wrap ev-split">
+    <div>
+      <h2 id="allergi-rubrik" class="ev-dot">Allergier och specialkost</h2>
+      <p class="ev-lead" style="margin-top:16px">Skriv det när du bokar eller säg det till oss vid bordet. Köket kan göra de flesta rätter glutenfria eller laktosfria, och det finns alltid minst två vegetariska varmrätter.</p>
+      <div class="ev-actions"><a class="ev-btn " href="#boka" data-boka><span>Boka bord</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a><a class="ev-link" href="kontakt.html#fragor">Fler frågor och svar<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <img class="ev-photo" src="img/restaurang-ratt.jpg" alt="Kocken häller sås över en upplagd fiskrätt" loading="lazy" width="1400" height="1400">
+  </div>
+</section>
+</main>
+<div class="ev-stickybar" inert>
+  <div class="ev-wrap ev-stickybar__in">
+    <p><b>Bord i kväll?</b> Det tar en minut att boka. Vi sparar alltid några bord för den som kommer förbi.</p>
+    <a class="ev-btn " href="#boka" data-boka><span>Boka bord</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+  </div>
+</div>
+<footer class="ev-footer ev-on-dark">
+  <div class="ev-wrap">
+    <div class="ev-footer__grid">
+      <div>
+        <a class="ev-logo" href="index.html">Bryggans kök<b>.</b></a>
+        <p style="margin-top:12px;max-width:34ch">Säsongsmat från västkusten på kajen i Eriksberg, Göteborg. Lunch, middag, helgbrunch och privata sällskap.</p>
+      </div>
+      <div>
+        <h2>Besök och kontakt</h2>
+        <p class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>Varvskajen 4<br>417 64 Göteborg</span></p>
+        <p class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 3.6 6.3 4.2A2.3 2.3 0 0 0 4.6 6.6c.5 7 5.8 12.3 12.8 12.8a2.3 2.3 0 0 0 2.4-1.7l.6-2.3a1.5 1.5 0 0 0-.8-1.7l-2.8-1.3a1.5 1.5 0 0 0-1.8.4l-1 1.3a11 11 0 0 1-4.3-4.3l1.3-1a1.5 1.5 0 0 0 .4-1.8L10.3 4.4a1.5 1.5 0 0 0-1.7-.8z"/></svg><span><a href="tel:+4631123450">031-12 34 50</a></span></p>
+        <p class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="3"/><path d="M3.8 7.5 12 13.2l8.2-5.7"/></svg><span><a href="mailto:hej@bryggans-kok.example">hej@bryggans-kok.example</a></span></p>
+      </div>
+      <div>
+        <h2>Öppet</h2>
+        <p>Lunch mån–fre 11.30–14.00<br>Middag tis–lör 17.00–23.00<br>Brunch lör 10.00–14.00<br>Brunch sön 10.00–15.00</p>
+      </div>
+      <div>
+        <h2>Sidor</h2>
+        <ul>
+          <li><a href="meny.html">Meny</a></li>
+          <li><a href="sallskap.html">Privata sällskap</a></li>
+          <li><a href="om.html">Om oss</a></li>
+          <li><a href="kontakt.html">Hitta hit och kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ev-footer__bottom">
+      <p class="ev-concept">Designkoncept av Elevate Studio. Påhittad restaurang med exempelinnehåll.</p>
+      <ul class="ev-footer__links">
+        <li><a href="img/KALLOR.md">Bildkällor</a></li>
+        <li><a href="#top">Till toppen<svg class="ev-icon ev-icon--16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4M6 10l6-6 6 6"/></svg></a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
