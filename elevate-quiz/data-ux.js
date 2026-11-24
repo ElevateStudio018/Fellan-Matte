@@ -92,6 +92,35 @@ const S = `<style>
 .uxk-rel{position:relative}
 .uxk-ellip{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .uxk-tg{display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:var(--brand);color:#fff;font-size:10px;font-weight:700}
+.uxk-toast{display:flex;align-items:center;gap:10px;background:#1A1C1E;color:#fff;border-radius:8px;padding:9px 12px;font-size:12.5px;min-width:0;box-shadow:0 8px 24px rgba(26,28,30,.2)}
+.uxk-toast>u{color:#fff;font-weight:700;text-underline-offset:2px;white-space:nowrap}
+.uxk-dlg{position:absolute;z-index:4;left:50%;top:50%;transform:translate(-50%,-50%);width:86%;max-width:250px;background:var(--box);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:9px;box-shadow:0 12px 32px rgba(26,28,30,.25)}
+.uxk-seg{display:flex;border:1px solid var(--sline);border-radius:7px;overflow:hidden;min-width:0}
+.uxk-seg>span{flex:1 1 0;min-width:0;text-align:center;padding:7px 4px;font-size:12.5px;font-weight:500;border-left:1px solid var(--sline);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.uxk-seg>span:first-child{border-left:0}
+.uxk-seg>span.on{background:var(--brand);color:#fff;font-weight:600}
+.uxk-step{display:inline-flex;align-items:center;border:1px solid var(--sline);border-radius:7px;height:30px;overflow:hidden;flex:0 0 auto}
+.uxk-step>span{display:grid;place-items:center;width:28px;height:100%}
+.uxk-step>b{min-width:26px;text-align:center;font-size:13px}
+.uxk-pg{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.uxk-pg>span{display:grid;place-items:center;min-width:28px;height:28px;padding:0 6px;border-radius:6px;font-size:12.5px;font-weight:500}
+.uxk-pg>span.on{background:var(--brand);color:#fff;font-weight:700}
+.uxk-pg>span.bd{border:1px solid var(--sline)}
+.uxk-spin{width:20px;height:20px;border-radius:50%;border:2.5px solid var(--sline);border-top-color:var(--brand);animation:uxk-rot 1s linear infinite}
+@keyframes uxk-rot{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.uxk-spin{animation:none}}
+.uxk-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.uxk-tbl th{text-align:left;font-weight:600;color:var(--smuted);font-size:11px;padding:5px 6px;border-bottom:1px solid var(--sline);white-space:nowrap}
+.uxk-tbl td{padding:7px 6px;border-bottom:1px solid var(--sline);white-space:nowrap}
+.uxk-hot{outline:2px dashed var(--brand);outline-offset:3px;border-radius:6px}
+.uxk-strike{text-decoration:line-through;color:var(--smuted)}
+.uxk-cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px;font-size:11px;text-align:center}
+.uxk-cal>span{padding:4px 0;border-radius:5px}
+.uxk-cal>span.on{background:var(--brand);color:#fff;font-weight:700}
+.uxk-cal>span.x{color:rgba(26,28,30,.3)}
+.uxk-cal>b{font-size:10px;color:var(--smuted);font-weight:600}
+.uxk-badge{position:absolute;top:-6px;right:-8px;min-width:15px;height:15px;padding:0 4px;border-radius:999px;background:var(--brand);color:#fff;font-size:9.5px;font-weight:700;display:grid;place-items:center;line-height:1}
+.uxk-ico-w{position:relative;display:inline-flex}
 </style>`;
 
 const W = (inner, cls = 'uxk-pad') => S + `<div class="uxk ${cls}">${inner}</div>`;
@@ -475,6 +504,424 @@ Q('ux-filter-noll-traffar', 'Hur ska filterval som ger noll träffar visas?', 'g
 Q('ux-filter-snabbval', 'Ska de vanligaste filtren ligga som snabbval ovanför listan?', 'grid', [
   ['Ja, en rad med snabbval', W(SCR(`${ROW(`<span class="uxk-c">${ic('sliders', 12)}Alla filter</span>` + C('Nyheter') + C('Rea', true) + C('I lager'))}<div class="uxk-g3">${rep(3, () => CARD('495 kr', '1/1', 70))}</div>`))],
   ['Nej, bara i filterpanelen', W(SCR(`${ROW(`<span class="uxk-c">${ic('sliders', 12)}Alla filter</span>`)}<div class="uxk-g3">${rep(3, () => CARD('495 kr', '1/1', 70))}</div>`))]
+]);
+
+/* ---- Fler byggstenar (omgång 2) ---- */
+const SEL = (t, v = true, c = '') => `<span class="uxk-i${v ? ' v' : ''}${c ? ' ' + c : ''}"><span>${t}</span>${ic('chevD', 13)}</span>`;
+const TOAST = (t, act = '', icon = '') => `<div class="uxk-toast">${icon ? ic(icon, 15) : ''}<span class="uxk-sp">${t}</span>${act ? `<u>${act}</u>` : ''}</div>`;
+const SEG = (items, on = 0) => `<div class="uxk-seg">${items.map((t, i) => `<span class="${i === on ? 'on' : ''}">${t}</span>`).join('')}</div>`;
+const STEPPER = (n = 1) => `<span class="uxk-step"><span>${ic('minus', 13)}</span><b>${n}</b><span>${ic('plus', 13)}</span></span>`;
+const PRICES = ['495 kr', '1 290 kr', '249 kr', '890 kr', '349 kr', '1 090 kr', '590 kr', '790 kr'];
+const grid = (n, cols, r = '4/3', w = 75) => `<div style="display:grid;grid-template-columns:repeat(${cols},minmax(0,1fr));gap:8px">${rep(n, i => CARD(PRICES[i % 8], r, w))}</div>`;
+const CARTICON = (n = 2) => `<span class="uxk-ico-w">${ic('cart', 16)}${n ? `<span class="uxk-badge">${n}</span>` : ''}</span>`;
+const LINE = (opts = {}) => {
+  const { qty = STEPPER(1), rm = T('Ta bort', 'uxk-xs uxk-m" style="text-decoration:underline'), price = '495 kr', x = false } = opts;
+  return `<div class="uxk-row uxk-nw" style="align-items:flex-start;position:relative"><span style="width:46px;flex:0 0 46px">${IMG('1/1', 12)}</span><div class="uxk-col uxk-g4 uxk-sp">${ML(70)}${L(45)}<div class="uxk-row" style="gap:10px">${qty}${rm}</div></div><span class="uxk-pr">${price}</span>${x ? `<span style="position:absolute;top:-2px;right:-2px" class="uxk-m">${ic('x', 13)}</span>` : ''}</div>`;
+};
+const TOTALS = (rows = [['Delsumma', '1 245 kr'], ['Frakt', '49 kr']]) => `<div class="uxk-col uxk-g4">${rows.map(([k, v]) => ROW(T(k, 'uxk-s uxk-m') + SP + T(v, 'uxk-s'), 'uxk-nw')).join('')}${ROW(T('Totalt', 'uxk-b6') + SP + T('1 295 kr', 'uxk-pr" style="font-size:14px'), 'uxk-nw')}</div>`;
+
+/* ======================= SORTERING ======================= */
+grp('sortering', 'Sortering');
+
+const listTop = (ctrl, left = T('24 produkter', 'uxk-xs uxk-m')) => SCR(`${ROW(left + SP + ctrl)}${grid(3, 3, '1/1', 70)}`);
+Q('ux-sort-kontroll', 'Hur ska man välja sortering?', 'grid', [
+  ['Rullgardin', W(listTop(`<span style="width:150px">${SEL('Sortera: Populärast')}</span>`))],
+  ['Knappar i rad', W(SCR(`${ROW(C('Populärast', true) + C('Nyast') + C('Pris'))}${grid(3, 3, '1/1', 70)}`))],
+  ['Ikon som öppnar en meny', W(listTop(`<span class="uxk-b uxk-b2 uxk-bs" style="width:30px;padding:0">${ic('sort', 14)}</span>`))],
+  ['Textlänk med pil', W(listTop(`<span class="uxk-row uxk-s uxk-nw" style="gap:3px"><span class="uxk-m">Sortera:</span><b>Populärast</b>${ic('chevD', 12)}</span>`))]
+]);
+
+Q('ux-sort-placering', 'Var ska sorteringen sitta?', 'grid', [
+  ['Höger, mitt emot antal träffar', W(SCR(`${ROW(T('24 produkter', 'uxk-xs uxk-m') + SP + `<span style="width:120px">${SEL('Populärast')}</span>`)}${grid(3, 3, '1/1', 70)}`))],
+  ['Vänster, bredvid Filter', W(SCR(`${ROW(`<span class="uxk-b uxk-b2 uxk-bs">${ic('sliders', 13)}Filter</span><span style="width:120px">${SEL('Populärast')}</span>`)}${grid(3, 3, '1/1', 70)}`))],
+  ['Inne i filterpanelen', W(SCR(`${T('Filter', 'uxk-s uxk-b6')}${T('Sortera efter', 'uxk-xs uxk-b6')}${COL(CB('Populärast', true, '', true, 'uxk-xs') + CB('Nyast', false, '', true, 'uxk-xs') + CB('Pris: lägst först', false, '', true, 'uxk-xs'), 'uxk-g4')}${HR}${fGroup('Kategori', '', false)}${HR}${fGroup('Storlek', '', false)}`))]
+]);
+
+Q('ux-sort-etikett', 'Hur ska sorteringsvalet märkas?', 'grid', [
+  ['Sortera: Populärast', W(`<span style="max-width:200px;display:block">${SEL('Sortera: Populärast')}</span>`)],
+  ['Bara värdet: Populärast', W(`<span style="max-width:200px;display:block">${SEL('Populärast')}</span>`)],
+  ['Etikett ovanför fältet', W(`<div class="uxk-f" style="max-width:200px"><b>Sortera efter</b>${SEL('Populärast')}</div>`)],
+  ['Ikon och värde', W(`<span style="max-width:200px;display:block"><span class="uxk-i v">${ic('sort', 14)}<span>Populärast</span>${ic('chevD', 13)}</span></span>`)]
+]);
+
+const sortList = (items) => `<div class="uxk-rel" style="padding-bottom:${items.length * 30 + 14}px;max-width:220px">${SEL('Sortera: Populärast')}<div class="uxk-dd">${items.map((t, i) => `<span class="${i ? '' : 'hi'}">${i ? '' : ic('check', 12, 2.6)}<span style="${i ? 'padding-left:20px' : ''}">${t}</span></span>`).join('')}</div></div>`;
+Q('ux-sort-pris-text', 'Hur ska prissorteringen formuleras?', 'grid', [
+  ['Pris: lägst först / högst först', W(sortList(['Populärast', 'Nyast', 'Pris: lägst först', 'Pris: högst först']))],
+  ['Pris stigande / fallande', W(sortList(['Populärast', 'Nyast', 'Pris stigande', 'Pris fallande']))],
+  ['Billigast / Dyrast', W(sortList(['Populärast', 'Nyast', 'Billigast', 'Dyrast']))],
+  ['Pris ↑ / Pris ↓', W(sortList(['Populärast', 'Nyast', 'Pris ↑', 'Pris ↓']))]
+]);
+
+Q('ux-sort-mobil', 'Hur ska filter och sortering visas på mobil?', 'grid', [
+  ['Två knappar: Filter och Sortera', W(PH(`<div class="uxk-g2">${`<span class="uxk-b uxk-b2 uxk-bs">${ic('sliders', 13)}Filter</span>`}${`<span class="uxk-b uxk-b2 uxk-bs">${ic('sort', 13)}Sortera</span>`}</div>${grid(4, 2, '1/1', 70)}`))],
+  ['En knapp för båda', W(PH(`<span class="uxk-b uxk-b2 uxk-bs uxk-bw">${ic('sliders', 13)}Filter och sortering</span>${grid(4, 2, '1/1', 70)}`))],
+  ['Sortering som första chip', W(PH(`<div class="uxk-row uxk-nw" style="overflow:hidden;margin-right:-10px"><span class="uxk-c">${ic('sort', 12)}Populärast${ic('chevD', 11)}</span><span class="uxk-c">${ic('sliders', 12)}Filter</span>${C('Storlek')}</div>${grid(4, 2, '1/1', 70)}`))],
+  ['Antal till vänster, sortering till höger', W(PH(`${ROW(T('24 st', 'uxk-xs uxk-m') + SP + `<span class="uxk-row uxk-xs uxk-b6 uxk-nw" style="gap:3px">Populärast${ic('chevD', 11)}</span>`, 'uxk-nw')}${grid(4, 2, '1/1', 70)}`))]
+]);
+
+/* ======================= LISTOR OCH RUTNÄT ======================= */
+grp('listor', 'Listor och rutnät');
+
+const vToggle = (on = 0) => `<span class="uxk-row uxk-nw" style="gap:2px">${['grid', 'list'].map((n, i) => `<span style="display:grid;place-items:center;width:26px;height:26px;border-radius:6px;${i === on ? 'background:var(--tint);color:var(--brand)' : 'color:var(--smuted)'}">${ic(n, 14)}</span>`).join('')}</span>`;
+Q('ux-lista-vaxla-vy', 'Ska man kunna växla mellan rutnät och lista?', 'grid', [
+  ['Ja, med två ikonknappar', W(SCR(`${ROW(T('24 produkter', 'uxk-xs uxk-m') + SP + vToggle(0), 'uxk-nw')}${grid(6, 3, '1/1', 70)}`))],
+  ['Nej, bara rutnät', W(SCR(`${ROW(T('24 produkter', 'uxk-xs uxk-m'))}${grid(6, 3, '1/1', 70)}`))],
+  ['Nej, bara lista', W(SCR(`${ROW(T('24 produkter', 'uxk-xs uxk-m'))}${rep(3, i => `<div class="uxk-row uxk-nw"><span style="width:40px;flex:0 0 40px">${IMG('1/1', 11)}</span><div class="uxk-col uxk-g4 uxk-sp">${ML([60, 48, 66][i])}${L(40)}</div><span class="uxk-pr">${PRICES[i]}</span></div>`)}`))]
+]);
+
+Q('ux-lista-per-rad', 'Hur många kort per rad på desktop?', 'stack', [
+  ['Två per rad', WS(SCR(grid(2, 2, '16/9', 60)))],
+  ['Tre per rad', WS(SCR(grid(3, 3, '4/3', 70)))],
+  ['Fyra per rad', WS(SCR(grid(4, 4, '1/1', 75)))],
+  ['Fem per rad', WS(SCR(grid(5, 5, '1/1', 80)))]
+]);
+
+Q('ux-lista-per-rad-mobil', 'Hur många kort per rad på mobil?', 'grid', [
+  ['Ett per rad', W(PH(grid(2, 1, '16/10', 60)))],
+  ['Två per rad', W(PH(grid(6, 2, '1/1', 75)))],
+  ['Lista med bild till vänster', W(PH(rep(5, i => `<div class="uxk-row uxk-nw"><span style="width:44px;flex:0 0 44px">${IMG('1/1', 11)}</span><div class="uxk-col uxk-g4 uxk-sp">${ML([70, 55, 64, 50, 66][i])}<span class="uxk-pr">${PRICES[i]}</span></div></div>`)))]
+]);
+
+const infoCard = (lvl) => `<div class="uxk-card" style="gap:6px">${IMG('4/3')}${lvl > 2 ? ROW(`<span class="uxk-tag tag" style="font-size:10px;padding:0 7px">Nyhet</span>`) : ''}${ML(80)}${lvl > 1 ? `<div class="uxk-col uxk-g4">${L(100)}${L(70)}</div>` : ''}${lvl > 2 ? `<span class="uxk-row uxk-xs uxk-m" style="gap:3px;color:var(--sink)">${ic('star', 11)}4,6 <span class="uxk-m">(128)</span></span>` : ''}<span class="uxk-pr">495 kr</span>${lvl > 2 ? B('Lägg i varukorg', '', 'uxk-bs uxk-bw') : ''}</div>`;
+Q('ux-lista-info-mangd', 'Hur mycket information ska ett kort i en lista visa?', 'grid', [
+  ['Bild, namn och pris', W(SCR(`<div class="uxk-g2" style="align-items:start">${infoCard(1)}${infoCard(1)}</div>`))],
+  ['Plus en kort beskrivning', W(SCR(`<div class="uxk-g2" style="align-items:start">${infoCard(2)}${infoCard(2)}</div>`))],
+  ['Plus betyg, etikett och knapp', W(SCR(`<div class="uxk-g2" style="align-items:start">${infoCard(3)}${infoCard(3)}</div>`))]
+]);
+
+const buyCard = (kind) => `<div class="uxk-card" style="gap:6px"><div style="position:relative">${IMG('1/1')}${kind === 'plus' ? `<span class="uxk-b" style="position:absolute;right:6px;bottom:6px;width:28px;height:28px;padding:0;border-radius:50%">${ic('plus', 14)}</span>` : ''}${kind === 'hover' ? `<span class="uxk-b uxk-bs" style="position:absolute;left:6px;right:6px;bottom:6px">Lägg i varukorg</span>` : ''}</div>${ML(80)}<span class="uxk-pr">495 kr</span>${kind === 'btn' ? B('Köp', '', 'uxk-bs uxk-bw') : ''}</div>`;
+Q('ux-lista-kop-pa-kort', 'Ska korten i en lista ha en köpknapp?', 'grid', [
+  ['Ja, knapp under priset', W(SCR(`<div class="uxk-g2" style="align-items:start">${buyCard('btn')}${buyCard('btn')}</div>`))],
+  ['Ja, rund plusknapp på bilden', W(SCR(`<div class="uxk-g2" style="align-items:start">${buyCard('plus')}${buyCard('plus')}</div>`))],
+  ['Knapp som syns vid hovring', W(SCR(`<div class="uxk-g2" style="align-items:start">${buyCard('hover')}${buyCard('')}</div>`))],
+  ['Nej, hela kortet är en länk', W(SCR(`<div class="uxk-g2" style="align-items:start">${buyCard('')}${buyCard('')}</div>`))]
+]);
+
+const artCard = (hot) => `<div class="uxk-card${hot === 'all' ? ' uxk-hot' : ''}" style="gap:6px">${hot === 'img' ? `<div class="uxk-hot">${IMG('16/10')}</div>` : IMG('16/10')}<span class="${hot === 'img' ? 'uxk-hot' : ''}" style="display:block">${T('Rubrik som är två rader lång', 'uxk-s uxk-b6')}</span>${para(2, 60)}${hot === 'link' ? `<span class="uxk-hot" style="align-self:flex-start">${T('Läs mer', 'uxk-s uxk-b6 uxk-br" style="text-decoration:underline')}</span>` : ''}</div>`;
+Q('ux-lista-klickyta', 'Vad ska gå att klicka på i ett kort?', 'grid', [
+  ['Hela kortet', W(SCR(`<div class="uxk-g2" style="align-items:start">${artCard('all')}${artCard('all')}</div>${ANN('Streckat = klickbart')}`))],
+  ['Bild och rubrik', W(SCR(`<div class="uxk-g2" style="align-items:start">${artCard('img')}${artCard('img')}</div>${ANN('Streckat = klickbart')}`))],
+  ['Bara en Läs mer-länk', W(SCR(`<div class="uxk-g2" style="align-items:start">${artCard('link')}${artCard('link')}</div>${ANN('Streckat = klickbart')}`))]
+]);
+
+Q('ux-lista-antal', 'Ska antal objekt visas ovanför listan?', 'grid', [
+  ['Ja: 24 produkter', W(SCR(`${T('24 produkter', 'uxk-xs uxk-m')}${grid(3, 3, '1/1', 70)}`))],
+  ['Ja: Visar 1–12 av 24', W(SCR(`${T('Visar 1–12 av 24', 'uxk-xs uxk-m')}${grid(3, 3, '1/1', 70)}`))],
+  ['Ja, i rubriken: Alla (24)', W(SCR(`${T('Alla <span class="uxk-m" style="font-weight:400">(24)</span>', 'uxk-h')}${grid(3, 3, '1/1', 70)}`))],
+  ['Nej', W(SCR(grid(3, 3, '1/1', 70)))]
+]);
+
+const tRows = [['12 maj', '10:00', '3 kvar'], ['14 maj', '13:30', '8 kvar'], ['19 maj', '09:00', 'Fullt']];
+Q('ux-lista-tabell', 'Hur ska rader med jämförbara uppgifter visas?', 'grid', [
+  ['Tabell med kolumner', W(SCR(`<table class="uxk-tbl"><tr><th>Datum</th><th>Tid</th><th>Platser</th><th></th></tr>${tRows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td style="text-align:right">${r[2] === 'Fullt' ? '' : T('Välj', 'uxk-b6 uxk-br')}</td></tr>`).join('')}</table>`))],
+  ['Kort i rutnät', W(SCR(`<div class="uxk-g2">${tRows.slice(0, 2).map(r => `<div class="uxk-box uxk-col uxk-g4">${T(r[0], 'uxk-s uxk-b6')}${T(r[1] + ' · ' + r[2], 'uxk-xs uxk-m')}${B('Välj', '2', 'uxk-bs')}</div>`).join('')}</div>`))],
+  ['Lista med en rad per post', W(SCR(tRows.map((r, i) => `${ROW(`<span class="uxk-col" style="gap:1px">${T(r[0] + ', ' + r[1], 'uxk-s uxk-b6')}${T(r[2], 'uxk-xs uxk-m')}</span>${SP}${r[2] === 'Fullt' ? '' : ic('chevR', 14)}`, 'uxk-nw')}${i < 2 ? HR : ''}`).join('')))]
+]);
+
+Q('ux-lista-tabell-mobil', 'Hur ska en bred tabell visas på mobil?', 'grid', [
+  ['Rulla i sidled', W(PH(`<div style="overflow:hidden;margin-right:-10px"><table class="uxk-tbl" style="width:280px"><tr><th>Datum</th><th>Tid</th><th>Platser</th><th>Pris</th></tr>${tRows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>495 kr</td></tr>`).join('')}</table></div>${ANN('Svep i sidled', 'arrR')}`))],
+  ['Varje rad blir ett kort', W(PH(tRows.map(r => `<div class="uxk-box uxk-col" style="gap:3px;padding:8px">${ROW(T('Datum', 'uxk-xs uxk-m') + SP + T(r[0], 'uxk-xs uxk-b6'), 'uxk-nw')}${ROW(T('Tid', 'uxk-xs uxk-m') + SP + T(r[1], 'uxk-xs'), 'uxk-nw')}${ROW(T('Platser', 'uxk-xs uxk-m') + SP + T(r[2], 'uxk-xs'), 'uxk-nw')}</div>`).join('')))],
+  ['Färre kolumner, mer vid tryck', W(PH(`<table class="uxk-tbl"><tr><th>Datum</th><th>Tid</th><th></th></tr>${tRows.map((r, i) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td style="text-align:right">${ic(i === 0 ? 'chevU' : 'chevD', 12)}</td></tr>${i === 0 ? `<tr><td colspan="3" class="uxk-m" style="font-size:11px;background:var(--ground)">Platser: 3 kvar · Pris: 495 kr</td></tr>` : ''}`).join('')}</table>`))]
+]);
+
+/* ======================= SIDNUMRERING ======================= */
+grp('sidnumrering', 'Sidnumrering och mer innehåll');
+
+const pgNums = (cur = 2) => `<div class="uxk-pg" style="justify-content:center"><span>${ic('chevL', 14)}</span>${[1, 2, 3].map(n => `<span class="${n === cur ? 'on' : ''}">${n}</span>`).join('')}<span>…</span><span>8</span><span>${ic('chevR', 14)}</span></div>`;
+const listBlock = grid(6, 3, '1/1', 70);
+Q('ux-sid-typ', 'Hur ska man komma åt fler objekt i en lång lista?', 'grid', [
+  ['Sidnumrering', W(SCR(`${listBlock}${pgNums()}`))],
+  ['Knappen Visa fler', W(SCR(`${listBlock}<div class="uxk-row" style="justify-content:center">${B('Visa fler', '2')}</div>`))],
+  ['Oändlig scroll', W(SCR(`${listBlock}<div class="uxk-row" style="justify-content:center;padding:4px 0"><span class="uxk-spin"></span></div>${ANN('Mer laddas när man scrollar ner')}`))],
+  ['Visa fler och hur många kvar', W(SCR(`${listBlock}<div class="uxk-col uxk-c0" style="gap:6px">${T('Du har sett 12 av 48', 'uxk-xs uxk-m')}<div style="width:120px">${bar(25)}</div>${B('Visa fler', '2')}</div>`))]
+]);
+
+Q('ux-sid-stil', 'Hur ska sidnumreringen se ut?', 'grid', [
+  ['Siffror med pilar', W(SCR(`${grid(3, 3, '1/1', 70)}${pgNums()}`))],
+  ['Siffror i rutor', W(SCR(`${grid(3, 3, '1/1', 70)}<div class="uxk-pg" style="justify-content:center"><span class="bd">${ic('chevL', 14)}</span>${[1, 2, 3].map(n => `<span class="${n === 2 ? 'on' : 'bd'}">${n}</span>`).join('')}<span>…</span><span class="bd">8</span><span class="bd">${ic('chevR', 14)}</span></div>`))],
+  ['Föregående och Nästa', W(SCR(`${grid(3, 3, '1/1', 70)}${ROW(T('‹ Föregående', 'uxk-s uxk-b6 uxk-br') + SP + T('Nästa ›', 'uxk-s uxk-b6 uxk-br'), 'uxk-nw')}`))],
+  ['Sida 2 av 8 med pilar', W(SCR(`${grid(3, 3, '1/1', 70)}<div class="uxk-row" style="justify-content:center;gap:12px"><span class="uxk-b uxk-b2 uxk-bs" style="width:30px;padding:0">${ic('chevL', 14)}</span>${T('Sida 2 av 8', 'uxk-s')}<span class="uxk-b uxk-b2 uxk-bs" style="width:30px;padding:0">${ic('chevR', 14)}</span></div>`))]
+]);
+
+Q('ux-sid-mobil', 'Hur ska man bläddra vidare på mobil?', 'grid', [
+  ['Kompakt: ‹ 2 / 8 ›', W(PH(`${grid(4, 2, '1/1', 70)}<div class="uxk-row" style="justify-content:center;gap:14px">${ic('chevL', 15)}${T('2 / 8', 'uxk-s uxk-b6')}${ic('chevR', 15)}</div>`))],
+  ['Siffror som på desktop', W(PH(`${grid(4, 2, '1/1', 70)}${pgNums()}`))],
+  ['Visa fler-knapp', W(PH(`${grid(4, 2, '1/1', 70)}${B('Visa fler', '2', 'uxk-bw')}`))],
+  ['Oändlig scroll', W(PH(`${grid(4, 2, '1/1', 70)}<div class="uxk-row" style="justify-content:center"><span class="uxk-spin"></span></div>`))]
+]);
+
+Q('ux-sid-visa-fler-text', 'Vad ska Visa fler-knappen säga?', 'grid', [
+  ['Visa fler', W(SCR(`${grid(3, 3, '1/1', 70)}<div class="uxk-row" style="justify-content:center">${B('Visa fler', '2')}</div>`))],
+  ['Visa 12 till', W(SCR(`${grid(3, 3, '1/1', 70)}<div class="uxk-row" style="justify-content:center">${B('Visa 12 till', '2')}</div>`))],
+  ['Visa fler (36 kvar)', W(SCR(`${grid(3, 3, '1/1', 70)}<div class="uxk-row" style="justify-content:center">${B('Visa fler (36 kvar)', '2')}</div>`))],
+  ['Ladda fler produkter', W(SCR(`${grid(3, 3, '1/1', 70)}<div class="uxk-row" style="justify-content:center">${B('Ladda fler produkter', '2')}</div>`))]
+]);
+
+Q('ux-sid-placering', 'Var ska sidnumreringen sitta?', 'grid', [
+  ['Centrerad under listan', W(SCR(`${grid(6, 3, '1/1', 70)}${pgNums()}`))],
+  ['Till höger under listan', W(SCR(`${grid(6, 3, '1/1', 70)}${pgNums().replace('justify-content:center', 'justify-content:flex-end')}`))],
+  ['Både ovanför och under', W(SCR(`${ROW(T('24 produkter', 'uxk-xs uxk-m') + SP + `<span class="uxk-row uxk-xs uxk-nw" style="gap:6px">${ic('chevL', 12)}Sida 2 av 8${ic('chevR', 12)}</span>`, 'uxk-nw')}${grid(6, 3, '1/1', 70)}${pgNums()}`))]
+]);
+
+Q('ux-sid-per-sida', 'Ska man kunna välja hur många som visas per sida?', 'grid', [
+  ['Ja, rullgardin: Visa 24', W(SCR(`${ROW(T('24 produkter', 'uxk-xs uxk-m') + SP + T('Visa', 'uxk-xs uxk-m') + `<span style="width:64px">${SEL('24', true, 'uxk-bs" style="height:28px')}</span>`, 'uxk-nw')}${grid(6, 3, '1/1', 70)}${pgNums()}`))],
+  ['Ja, länkar: 12 · 24 · 48', W(SCR(`${ROW(T('24 produkter', 'uxk-xs uxk-m') + SP + `<span class="uxk-row uxk-xs uxk-nw" style="gap:6px"><span class="uxk-m">Visa</span><b>12</b><span class="uxk-br" style="text-decoration:underline">24</span><span class="uxk-br" style="text-decoration:underline">48</span></span>`, 'uxk-nw')}${grid(6, 3, '1/1', 70)}${pgNums()}`))],
+  ['Nej, fast antal', W(SCR(`${ROW(T('24 produkter', 'uxk-xs uxk-m'))}${grid(6, 3, '1/1', 70)}${pgNums()}`))]
+]);
+
+Q('ux-sid-till-toppen', 'Ska långa sidor ha en Till toppen-knapp?', 'grid', [
+  ['Rund knapp nere till höger', W(PH(`${grid(6, 2, '1/1', 70)}`, PHT(), `<span class="uxk-b uxk-b2" style="position:absolute;right:10px;bottom:12px;width:34px;height:34px;padding:0;border-radius:50%;background:var(--box);z-index:2;box-shadow:0 4px 12px rgba(26,28,30,.15)">${ic('chevU', 15)}</span>`))],
+  ['Textlänk i slutet av sidan', W(PH(`${grid(4, 2, '1/1', 70)}<div class="uxk-row" style="justify-content:center;gap:4px">${T('Till toppen', 'uxk-xs uxk-b6 uxk-br')}<span class="uxk-br">${ic('chevU', 12)}</span></div>`))],
+  ['Nej', W(PH(grid(6, 2, '1/1', 70)))]
+]);
+
+/* ======================= VAL ======================= */
+grp('val', 'Val och alternativ');
+
+Q('ux-val-fa-alternativ', 'Hur ska man välja bland två till fyra alternativ?', 'grid', [
+  ['Segmentknappar', W(COL(`${T('Leverans', 'uxk-s uxk-b6')}${SEG(['Hämta', 'Hem', 'Ombud'])}`))],
+  ['Radioknappar', W(COL(`${T('Leverans', 'uxk-s uxk-b6')}${CB('Hämta själv', true, '', true)}${CB('Hemleverans', false, '', true)}${CB('Till ombud', false, '', true)}`))],
+  ['Rullgardin', W(COL(`${T('Leverans', 'uxk-s uxk-b6')}${SEL('Hämta själv')}`))],
+  ['Kort med radioknapp', W(COL(`${T('Leverans', 'uxk-s uxk-b6')}${COL(OC('Hämta själv', true) + OC('Hemleverans') + OC('Till ombud'), 'uxk-g4')}`))]
+]);
+
+const many = ['Alternativ 1', 'Alternativ 2', 'Alternativ 3', 'Alternativ 4', 'Alternativ 5', 'Alternativ 6', 'Alternativ 7', 'Alternativ 8', 'Alternativ 9', 'Alternativ 10', 'Alternativ 11', 'Alternativ 12'];
+Q('ux-val-manga-alternativ', 'Hur ska man välja bland tolv eller fler alternativ?', 'grid', [
+  ['Rullgardin', W(`<div class="uxk-rel" style="padding-bottom:160px">${SEL('Välj …', false)}<div class="uxk-dd" style="max-height:150px;overflow:hidden">${many.slice(0, 6).map((t, i) => `<span class="${i === 1 ? 'hi' : ''}">${t}</span>`).join('')}</div></div>`)],
+  ['Sökbar lista', W(`<div class="uxk-rel" style="padding-bottom:160px"><span class="uxk-i v" style="border-color:var(--brand);box-shadow:0 0 0 1px var(--brand)">${ic('search', 14)}<span>alt 1</span></span><div class="uxk-dd">${['Alternativ 1', 'Alternativ 10', 'Alternativ 11', 'Alternativ 12'].map((t, i) => `<span class="${i ? '' : 'hi'}"><b>Alt</b>${t.slice(3)}</span>`).join('')}</div></div>`)],
+  ['Rutnät med knappar', W(`<div class="uxk-g3" style="gap:5px">${many.map((t, i) => `<span class="uxk-oc${i === 4 ? ' on' : ''}" style="justify-content:center;padding:6px 2px;font-size:11px">${t.replace('Alternativ ', 'Alt ')}</span>`).join('')}</div>`)],
+  ['Lång lista med radioknappar', W(COL(many.slice(0, 8).map((t, i) => CB(t, i === 1, '', true, 'uxk-xs')).join('') + T('+ 4 till', 'uxk-xs uxk-m'), 'uxk-g4'))]
+]);
+
+Q('ux-val-forvalt', 'Ska ett alternativ vara förvalt?', 'grid', [
+  ['Ja, det vanligaste är förvalt', W(COL(`${T('Leverans', 'uxk-s uxk-b6')}${COL(OC('Hemleverans', true, T('49 kr', 'uxk-s uxk-m')) + OC('Hämta själv', false, T('0 kr', 'uxk-s uxk-m')), 'uxk-g4')}${ROW(SP + B('Fortsätt'))}`))],
+  ['Nej, man måste välja själv', W(COL(`${T('Leverans', 'uxk-s uxk-b6')}${COL(OC('Hemleverans', false, T('49 kr', 'uxk-s uxk-m')) + OC('Hämta själv', false, T('0 kr', 'uxk-s uxk-m')), 'uxk-g4')}${ROW(SP + B('Fortsätt'))}`))]
+]);
+
+Q('ux-val-rullgardin-start', 'Vad ska en rullgardin visa innan man valt?', 'grid', [
+  ['Uppmaning: Välj …', W(`<div class="uxk-f" style="max-width:220px"><b>Land</b>${SEL('Välj land', false)}</div>`)],
+  ['Det vanligaste värdet', W(`<div class="uxk-f" style="max-width:220px"><b>Land</b>${SEL('Sverige')}</div>`)],
+  ['Tomt', W(`<div class="uxk-f" style="max-width:220px"><b>Land</b>${SEL('&nbsp;')}</div>`)]
+]);
+
+Q('ux-val-antal', 'Hur ska man välja antal?', 'grid', [
+  ['Minus och plus', W(ROW(T('Antal', 'uxk-s uxk-b6') + SP + STEPPER(1), 'uxk-nw'))],
+  ['Rullgardin', W(ROW(T('Antal', 'uxk-s uxk-b6') + SP + `<span style="width:70px">${SEL('1')}</span>`, 'uxk-nw'))],
+  ['Sifferfält', W(ROW(T('Antal', 'uxk-s uxk-b6') + SP + `<span style="width:60px">${I('1', true)}</span>`, 'uxk-nw'))],
+  ['Knappar 1–4 och fler', W(COL(T('Antal', 'uxk-s uxk-b6') + `<div class="uxk-row" style="gap:5px">${['1', '2', '3', '4', '5+'].map((t, i) => `<span class="uxk-oc${i ? '' : ' on'}" style="width:36px;justify-content:center;padding:6px 0">${t}</span>`).join('')}</div>`))]
+]);
+
+const calDays = () => `<div class="uxk-cal">${['M', 'T', 'O', 'T', 'F', 'L', 'S'].map(d => `<b>${d}</b>`).join('')}${rep(3, () => '<span></span>')}${rep(25, i => `<span class="${i + 1 === 12 ? 'on' : (i % 7 === 3 || i % 7 === 4) ? 'x' : ''}">${i + 1}</span>`)}</div>`;
+Q('ux-val-dag', 'Hur ska man välja dag i en bokning?', 'grid', [
+  ['Kalender som syns direkt', W(COL(`${ROW(ic('chevL', 13) + SP + T('Maj', 'uxk-s uxk-b6') + SP + ic('chevR', 13), 'uxk-nw')}${calDays()}`))],
+  ['Fält som öppnar en kalender', W(`<div class="uxk-rel" style="padding-bottom:190px"><div class="uxk-f"><b>Datum</b><span class="uxk-i">${ic('clock', 14).replace(P.clock, '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>')}<span>Välj datum</span></span></div><div class="uxk-dd" style="top:58px;padding:8px">${calDays()}</div></div>`)],
+  ['Rad med närmaste dagarna', W(COL(`${T('Välj dag', 'uxk-s uxk-b6')}<div class="uxk-row uxk-nw" style="gap:5px;overflow:hidden">${['Mån 10', 'Tis 11', 'Ons 12', 'Tor 13', 'Fre 14'].map((d, i) => `<span class="uxk-oc${i === 2 ? ' on' : ''}" style="flex-direction:column;gap:0;padding:6px 8px;flex:0 0 auto;font-size:11px;text-align:center"><span class="uxk-m">${d.split(' ')[0]}</span><b style="font-size:14px">${d.split(' ')[1]}</b></span>`).join('')}</div>${T('Fler datum', 'uxk-xs uxk-b6 uxk-br')}`))]
+]);
+
+const times = ['09:00', '09:30', '10:00', '11:00', '13:30', '14:00', '15:00', '16:30'];
+Q('ux-val-tid', 'Hur ska man välja tid?', 'grid', [
+  ['Rutnät med lediga tider', W(COL(`${T('Lediga tider ons 12 maj', 'uxk-s uxk-b6')}<div class="uxk-g4c" style="gap:5px">${times.map((t, i) => `<span class="uxk-oc${i === 2 ? ' on' : ''}" style="justify-content:center;padding:6px 0;font-size:12px">${t}</span>`).join('')}</div>`))],
+  ['Lista med tider', W(COL(`${T('Lediga tider ons 12 maj', 'uxk-s uxk-b6')}${times.slice(0, 4).map((t, i) => `${ROW(T(t, 'uxk-s' + (i === 2 ? ' uxk-b6' : '')) + SP + (i === 2 ? `<span class="uxk-br">${ic('check', 14, 2.6)}</span>` : T('Välj', 'uxk-xs uxk-br uxk-b6')), 'uxk-nw')}${i < 3 ? HR : ''}`).join('')}`))],
+  ['Rullgardin', W(COL(`<div class="uxk-f"><b>Tid</b>${SEL('10:00')}</div>`))],
+  ['Uppdelat: förmiddag, eftermiddag', W(COL(`${T('Förmiddag', 'uxk-xs uxk-m uxk-b6')}<div class="uxk-g4c" style="gap:5px">${times.slice(0, 4).map((t, i) => `<span class="uxk-oc${i === 2 ? ' on' : ''}" style="justify-content:center;padding:6px 0;font-size:12px">${t}</span>`).join('')}</div>${T('Eftermiddag', 'uxk-xs uxk-m uxk-b6')}<div class="uxk-g4c" style="gap:5px">${times.slice(4).map(t => `<span class="uxk-oc" style="justify-content:center;padding:6px 0;font-size:12px">${t}</span>`).join('')}</div>`))]
+]);
+
+const sw = (on) => `<span style="display:inline-block;width:34px;height:20px;border-radius:999px;background:${on ? 'var(--brand)' : 'var(--sline)'};position:relative;flex:0 0 auto"><i style="position:absolute;top:2px;${on ? 'right' : 'left'}:2px;width:16px;height:16px;border-radius:50%;background:#fff"></i></span>`;
+Q('ux-val-ja-nej', 'Hur ska en ja/nej-fråga besvaras?', 'grid', [
+  ['Två knappar: Ja och Nej', W(COL(`${T('Vill du ha leverans till dörren?', 'uxk-s uxk-b6')}<div class="uxk-g2">${`<span class="uxk-oc on" style="justify-content:center">Ja</span><span class="uxk-oc" style="justify-content:center">Nej</span>`}</div>`))],
+  ['Radioknappar Ja / Nej', W(COL(`${T('Vill du ha leverans till dörren?', 'uxk-s uxk-b6')}${ROW(CB('Ja', true, '', true) + CB('Nej', false, '', true), 'uxk-g16')}`))],
+  ['Kryssruta', W(COL(`${CB('Jag vill ha leverans till dörren', true)}`))],
+  ['Reglage', W(ROW(T('Leverans till dörren', 'uxk-s') + SP + sw(true), 'uxk-nw'))]
+]);
+
+Q('ux-val-flerval', 'Hur ska man välja flera saker samtidigt?', 'grid', [
+  ['Kryssrutor', W(COL(`${T('Vad är du intresserad av?', 'uxk-s uxk-b6')}${CB('Alternativ A', true)}${CB('Alternativ B')}${CB('Alternativ C', true)}${CB('Alternativ D')}`))],
+  ['Chips', W(COL(`${T('Vad är du intresserad av?', 'uxk-s uxk-b6')}${ROW(C('Alternativ A', true) + C('Alternativ B') + C('Alternativ C', true) + C('Alternativ D'), 'uxk-g4" style="gap:6px')}`))],
+  ['Kort med bock', W(COL(`${T('Vad är du intresserad av?', 'uxk-s uxk-b6')}<div class="uxk-g2" style="gap:6px">${['A', 'B', 'C', 'D'].map((t, i) => `<span class="uxk-oc${i % 2 ? '' : ' on'}" style="flex-direction:column;align-items:flex-start;gap:6px;position:relative">${ic('img', 16, 1.6)}<span class="uxk-s">Alternativ ${t}</span>${i % 2 ? '' : `<span style="position:absolute;top:6px;right:6px" class="uxk-br">${ic('ok', 15)}</span>`}</span>`).join('')}</div>`))]
+]);
+
+const sizes = ['XS', 'S', 'M', 'L', 'XL'];
+Q('ux-val-variant', 'Hur ska man välja variant, till exempel storlek?', 'grid', [
+  ['Rutor med alla storlekar', W(COL(`${ROW(T('Storlek', 'uxk-s uxk-b6') + SP + T('Storleksguide', 'uxk-xs uxk-br" style="text-decoration:underline'), 'uxk-nw')}<div class="uxk-row" style="gap:5px">${sizes.map((s, i) => `<span class="uxk-oc${i === 2 ? ' on' : ''}" style="width:38px;justify-content:center;padding:7px 0">${s}</span>`).join('')}</div>${B('Lägg i varukorg', '', 'uxk-bw')}`))],
+  ['Rullgardin', W(COL(`${ROW(T('Storlek', 'uxk-s uxk-b6') + SP + T('Storleksguide', 'uxk-xs uxk-br" style="text-decoration:underline'), 'uxk-nw')}${SEL('M')}${B('Lägg i varukorg', '', 'uxk-bw')}`))],
+  ['Lista med radioknappar', W(COL(`${ROW(T('Storlek', 'uxk-s uxk-b6') + SP + T('Storleksguide', 'uxk-xs uxk-br" style="text-decoration:underline'), 'uxk-nw')}${ROW(sizes.map((s, i) => CB(s, i === 2, '', true)).join(''), 'uxk-g12')}${B('Lägg i varukorg', '', 'uxk-bw')}`))]
+]);
+
+const sizeRow = (mode) => `<div class="uxk-row" style="gap:5px">${sizes.map((s, i) => {
+  const out = i === 1 || i === 4;
+  if (out && mode === 'hide') return '';
+  const st = out ? (mode === 'strike' ? 'text-decoration:line-through;color:var(--smuted);background:var(--ground)' : mode === 'grey' ? 'opacity:.38' : '') : '';
+  return `<span class="uxk-oc${i === 2 ? ' on' : ''}" style="min-width:38px;justify-content:center;padding:7px 4px;flex-direction:column;gap:0;${st}">${s}${out && mode === 'text' ? '<small style="font-size:9px;color:var(--smuted);line-height:1">Slut</small>' : ''}</span>`;
+}).join('')}</div>`;
+Q('ux-val-slutsalt', 'Hur ska ett slutsålt alternativ visas?', 'grid', [
+  ['Överstruket', W(COL(T('Storlek', 'uxk-s uxk-b6') + sizeRow('strike')))],
+  ['Gråat', W(COL(T('Storlek', 'uxk-s uxk-b6') + sizeRow('grey')))],
+  ['Med texten Slut', W(COL(T('Storlek', 'uxk-s uxk-b6') + sizeRow('text')))],
+  ['Dolt', W(COL(T('Storlek', 'uxk-s uxk-b6') + sizeRow('hide')))]
+]);
+
+/* ======================= BEKRÄFTELSER ======================= */
+grp('bekraftelser', 'Bekräftelser och ångra');
+
+const rowsList = (n = 3, del = -1, inline = false) => rep(n, i => `${ROW(`<span style="width:32px;flex:0 0 32px">${IMG('1/1', 10)}</span><div class="uxk-col uxk-g4 uxk-sp">${ML([60, 50, 66][i])}${L(35)}</div>${i === del && inline ? `<span class="uxk-row uxk-nw uxk-xs" style="gap:6px"><span class="uxk-m">Ta bort?</span><b style="color:var(--bad)">Ja</b><span class="uxk-br uxk-b6">Nej</span></span>` : `<span class="uxk-m">${ic('trash', 14)}</span>`}`, 'uxk-nw')}${i < n - 1 ? HR : ''}`);
+Q('ux-bekr-ta-bort', 'Vad ska hända när man tar bort något?', 'grid', [
+  ['Tas bort direkt, Ångra i notis', W(SCR(`${rowsList(2)}<div style="margin-top:4px">${TOAST('Raden togs bort', 'Ångra')}</div>`))],
+  ['Fråga först i en dialog', W(`<div class="uxk-scr" style="min-height:200px"><div class="uxk-body">${rowsList(3)}</div><div class="uxk-dim"></div><div class="uxk-dlg">${T('Ta bort raden?', 'uxk-h')}${T('Det går inte att ångra.', 'uxk-s uxk-m')}${ROW(SP + B('Avbryt', '2', 'uxk-bs') + B('Ta bort', '', 'uxk-bs'))}</div></div>`)],
+  ['Fråga direkt i raden', W(SCR(rowsList(3, 1, true)))]
+]);
+
+const dlgBox = (btns, title = 'Ta bort raden?') => `<div class="uxk-scr" style="min-height:190px"><div class="uxk-body">${rowsList(3)}</div><div class="uxk-dim"></div><div class="uxk-dlg">${T(title, 'uxk-h')}${T('Det går inte att ångra.', 'uxk-s uxk-m')}${btns}</div></div>`;
+Q('ux-bekr-knappordning', 'Hur ska knapparna i en bekräftelsedialog ordnas?', 'grid', [
+  ['Avbryt vänster, Ta bort höger', W(dlgBox(ROW(SP + B('Avbryt', '2', 'uxk-bs') + B('Ta bort', '', 'uxk-bs'))))],
+  ['Ta bort vänster, Avbryt höger', W(dlgBox(ROW(SP + B('Ta bort', '', 'uxk-bs') + B('Avbryt', '2', 'uxk-bs'))))],
+  ['Staplade, Ta bort överst', W(dlgBox(COL(B('Ta bort', '', 'uxk-bs uxk-bw') + B('Avbryt', '2', 'uxk-bs uxk-bw'), 'uxk-g4')))],
+  ['Lika breda bredvid varandra', W(dlgBox(`<div class="uxk-g2">${B('Avbryt', '2', 'uxk-bs')}${B('Ta bort', '', 'uxk-bs')}</div>`))]
+]);
+
+Q('ux-bekr-knapptext', 'Vad ska stå på knappen som bekräftar?', 'grid', [
+  ['Ta bort', W(dlgBox(ROW(SP + B('Avbryt', '2', 'uxk-bs') + B('Ta bort', '', 'uxk-bs'))))],
+  ['Ja, ta bort', W(dlgBox(ROW(SP + B('Avbryt', '2', 'uxk-bs') + B('Ja, ta bort', '', 'uxk-bs'))))],
+  ['Ja', W(dlgBox(ROW(SP + B('Nej', '2', 'uxk-bs') + B('Ja', '', 'uxk-bs'))))],
+  ['OK', W(dlgBox(ROW(SP + B('Avbryt', '2', 'uxk-bs') + B('OK', '', 'uxk-bs'))))]
+]);
+
+Q('ux-bekr-farlig-knapp', 'Hur ska knappen för något som inte går att ångra se ut?', 'grid', [
+  ['Röd fylld knapp', W(dlgBox(ROW(SP + B('Avbryt', '2', 'uxk-bs') + `<span class="uxk-b uxk-bs" style="background:var(--bad);border-color:var(--bad)">Ta bort</span>`)))],
+  ['Vanlig primärknapp', W(dlgBox(ROW(SP + B('Avbryt', '2', 'uxk-bs') + B('Ta bort', '', 'uxk-bs'))))],
+  ['Röd kant och text', W(dlgBox(ROW(SP + B('Avbryt', '2', 'uxk-bs') + `<span class="uxk-b uxk-b2 uxk-bs" style="color:var(--bad);border-color:var(--bad)">Ta bort</span>`)))],
+  ['Röd knapp med ikon', W(dlgBox(ROW(SP + B('Avbryt', '2', 'uxk-bs') + `<span class="uxk-b uxk-bs" style="background:var(--bad);border-color:var(--bad)">${ic('trash', 13)}Ta bort</span>`)))]
+]);
+
+Q('ux-bekr-stort-beslut', 'Hur ska man bekräfta något stort, till exempel att radera kontot?', 'grid', [
+  ['Skriv RADERA för att bekräfta', W(SCR(`<p class="uxk-h">Radera kontot</p>${T('All information tas bort för gott.', 'uxk-s uxk-m')}<div class="uxk-f"><b>Skriv RADERA för att bekräfta</b>${I('RADERA', true)}</div>${ROW(SP + `<span class="uxk-b uxk-bs" style="background:var(--bad);border-color:var(--bad)">Radera kontot</span>`)}`))],
+  ['Kryssruta: Jag förstår', W(SCR(`<p class="uxk-h">Radera kontot</p>${T('All information tas bort för gott.', 'uxk-s uxk-m')}${CB('Jag förstår att det inte går att ångra', true, '', false, 'uxk-xs')}${ROW(SP + `<span class="uxk-b uxk-bs" style="background:var(--bad);border-color:var(--bad)">Radera kontot</span>`)}`))],
+  ['Vanlig dialog räcker', W(SCR(`<p class="uxk-h">Radera kontot?</p>${T('All information tas bort för gott.', 'uxk-s uxk-m')}${ROW(SP + B('Avbryt', '2', 'uxk-bs') + `<span class="uxk-b uxk-bs" style="background:var(--bad);border-color:var(--bad)">Radera</span>`)}`))],
+  ['Kod skickas till e-posten', W(SCR(`<p class="uxk-h">Radera kontot</p>${T('Vi har skickat en kod till n***@exempel.se.', 'uxk-s uxk-m')}<div class="uxk-f"><b>Kod</b>${I('6 siffror')}</div>${ROW(SP + `<span class="uxk-b uxk-bs" style="background:var(--bad);border-color:var(--bad)">Radera kontot</span>`)}`))]
+]);
+
+Q('ux-bekr-angra-tid', 'Hur länge ska Ångra-notisen synas?', 'grid', [
+  ['Cirka 5 sekunder', W(COL(`${TOAST('Raden togs bort', 'Ångra')}${ANN('Försvinner efter 5 s', 'clock')}`))],
+  ['Cirka 10 sekunder med nedräkning', W(COL(`<div class="uxk-toast" style="flex-direction:column;align-items:stretch;gap:7px"><div class="uxk-row uxk-nw"><span class="uxk-sp">Raden togs bort</span><u>Ångra</u></div><i style="height:2px;border-radius:1px;background:rgba(255,255,255,.25);display:block"><i style="display:block;height:100%;width:60%;background:#fff;border-radius:1px"></i></i></div>${ANN('Försvinner efter 10 s', 'clock')}`))],
+  ['Tills man stänger den', W(COL(`<div class="uxk-toast"><span class="uxk-sp">Raden togs bort</span><u>Ångra</u>${ic('x', 14)}</div>${ANN('Ligger kvar tills man stänger')}`))]
+]);
+
+Q('ux-bekr-lamna-sida', 'Vad ska hända om man lämnar en sida med osparade ändringar?', 'grid', [
+  ['Varning i en dialog', W(`<div class="uxk-scr" style="min-height:190px"><div class="uxk-body">${F('Namn', 'Förnamn Efternamn', true)}${F('E-post', 'namn@exempel.se', true)}</div><div class="uxk-dim"></div><div class="uxk-dlg">${T('Lämna utan att spara?', 'uxk-h')}${T('Dina ändringar försvinner.', 'uxk-s uxk-m')}${ROW(SP + B('Stanna', '2', 'uxk-bs') + B('Lämna', '', 'uxk-bs'))}</div></div>`)],
+  ['Sparas automatiskt', W(SCR(`${ROW(SP + `<span class="uxk-row uxk-xs uxk-m" style="gap:4px">${ic('check', 12, 2.6)}Sparat</span>`)}${F('Namn', 'Förnamn Efternamn', true)}${F('E-post', 'namn@exempel.se', true)}`))],
+  ['Ingen varning', W(SCR(`${F('Namn', 'Förnamn Efternamn', true)}${F('E-post', 'namn@exempel.se', true)}${ROW(SP + B('Spara'))}`))]
+]);
+
+/* ======================= KUNDVAGN ======================= */
+grp('kundvagn', 'Varukorg');
+
+const pdp = `<div class="uxk-g2" style="gap:12px;align-items:start">${IMG('1/1')}<div class="uxk-col">${HL(80)}${T('495 kr', 'uxk-pr" style="font-size:14px')}${para(2, 60)}${B('Lägg i varukorg', '', 'uxk-bw uxk-bs')}</div></div>`;
+Q('ux-vagn-lagg-till', 'Vad ska hända när man lägger något i varukorgen?', 'grid', [
+  ['Utdragslåda öppnas', W(`<div class="uxk-scr" style="min-height:210px">${HD(CARTICON(1), 0)}<div class="uxk-body">${pdp}</div><div class="uxk-dim"></div><div class="uxk-ov" style="top:0;bottom:0;right:0;width:62%">${ROW(T('Varukorg', 'uxk-s uxk-b6') + SP + ic('x', 13), 'uxk-nw')}${LINE({ qty: T('1 st', 'uxk-xs uxk-m'), rm: '' })}<span class="uxk-sp"></span>${B('Till kassan', '', 'uxk-bw uxk-bs')}</div></div>`)],
+  ['Notis och siffra på ikonen', W(`<div class="uxk-scr" style="min-height:210px">${HD(CARTICON(1), 0)}<div class="uxk-body">${pdp}<div style="position:absolute;left:12px;right:12px;bottom:12px">${TOAST('Tillagd i varukorgen', 'Visa', 'check')}</div></div></div>`)],
+  ['Ruta under varukorgsikonen', W(`<div class="uxk-scr" style="min-height:210px">${HD(CARTICON(1), 0)}<div class="uxk-body">${pdp}</div><div class="uxk-ov uxk-pop" style="top:34px;right:8px;width:62%;border:1px solid var(--sline);border-radius:8px">${ROW(`<span class="uxk-row uxk-xs uxk-b6" style="gap:4px;color:var(--ok)">${ic('check', 12, 2.6)}Tillagd</span>` + SP + ic('x', 12), 'uxk-nw')}${ROW(`<span style="width:32px">${IMG('1/1', 10)}</span>` + `<span class="uxk-col uxk-g4 uxk-sp">${ML(80)}${T('495 kr', 'uxk-pr')}</span>`, 'uxk-nw')}${B('Till kassan', '', 'uxk-bw uxk-bs')}</div></div>`)],
+  ['Går direkt till varukorgen', W(SCR(`<p class="uxk-h">Varukorg</p>${LINE()}${HR}${TOTALS()}${B('Till kassan', '', 'uxk-bw')}`, HD(CARTICON(1), 0)))]
+]);
+
+Q('ux-vagn-typ', 'Var ska man se sin varukorg?', 'grid', [
+  ['Utdragslåda från höger', W(`<div class="uxk-scr" style="min-height:230px">${HD(CARTICON(2), 2)}<div class="uxk-body">${grid(3, 3, '1/1', 70)}</div><div class="uxk-dim"></div><div class="uxk-ov" style="top:0;bottom:0;right:0;width:66%">${ROW(T('Varukorg (2)', 'uxk-s uxk-b6') + SP + ic('x', 13), 'uxk-nw')}${LINE({ rm: '' })}${LINE({ rm: '', price: '249 kr' })}<span class="uxk-sp"></span>${ROW(T('Totalt', 'uxk-s uxk-b6') + SP + T('744 kr', 'uxk-pr'), 'uxk-nw')}${B('Till kassan', '', 'uxk-bw uxk-bs')}</div></div>`)],
+  ['Egen sida', W(SCR(`<p class="uxk-h">Varukorg</p><div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;align-items:start">${COL(LINE({ rm: '' }) + HR + LINE({ rm: '', price: '249 kr' }))}<div class="uxk-box uxk-gr uxk-col">${TOTALS([['Delsumma', '744 kr']])}${B('Till kassan', '', 'uxk-bw uxk-bs')}</div></div>`, HD(CARTICON(2), 2)))],
+  ['Ruta under ikonen', W(`<div class="uxk-scr" style="min-height:230px">${HD(CARTICON(2), 2)}<div class="uxk-body">${grid(3, 3, '1/1', 70)}</div><div class="uxk-ov uxk-pop" style="top:34px;right:8px;width:70%;border:1px solid var(--sline);border-radius:8px">${LINE({ qty: T('1 st', 'uxk-xs uxk-m'), rm: '' })}${LINE({ qty: T('1 st', 'uxk-xs uxk-m'), rm: '', price: '249 kr' })}${HR}${ROW(T('Totalt', 'uxk-s uxk-b6') + SP + T('744 kr', 'uxk-pr'), 'uxk-nw')}${B('Till kassan', '', 'uxk-bw uxk-bs')}</div></div>`)]
+]);
+
+const drawer = (foot) => `<div class="uxk-scr" style="min-height:250px">${HD(CARTICON(1), 2)}<div class="uxk-body">${grid(3, 3, '1/1', 70)}</div><div class="uxk-dim"></div><div class="uxk-ov" style="top:0;bottom:0;right:0;width:70%">${ROW(T('Varukorg', 'uxk-s uxk-b6') + SP + ic('x', 13), 'uxk-nw')}${LINE({ rm: '' })}<span class="uxk-sp"></span>${ROW(T('Totalt', 'uxk-s uxk-b6') + SP + T('495 kr', 'uxk-pr'), 'uxk-nw')}${foot}</div></div>`;
+Q('ux-vagn-fortsatt-handla', 'Hur ska man kunna fortsätta handla från varukorgen?', 'grid', [
+  ['Textlänk under Till kassan', W(drawer(B('Till kassan', '', 'uxk-bw uxk-bs') + `<div class="uxk-row" style="justify-content:center">${T('Fortsätt handla', 'uxk-xs uxk-b6 uxk-br" style="text-decoration:underline')}</div>`))],
+  ['Sekundärknapp under', W(drawer(COL(B('Till kassan', '', 'uxk-bw uxk-bs') + B('Fortsätt handla', '2', 'uxk-bw uxk-bs'), 'uxk-g4')))],
+  ['Bara stäng-krysset', W(drawer(B('Till kassan', '', 'uxk-bw uxk-bs')))]
+]);
+
+Q('ux-vagn-ta-bort', 'Hur ska man ta bort en vara ur varukorgen?', 'grid', [
+  ['Papperskorgsikon', W(SCR(`${LINE({ rm: `<span class="uxk-m">${ic('trash', 14)}</span>` })}${HR}${LINE({ rm: `<span class="uxk-m">${ic('trash', 14)}</span>`, price: '249 kr' })}`))],
+  ['Textlänk Ta bort', W(SCR(`${LINE()}${HR}${LINE({ price: '249 kr' })}`))],
+  ['Kryss uppe till höger', W(SCR(`${LINE({ rm: '', x: true })}${HR}${LINE({ rm: '', x: true, price: '249 kr' })}`))],
+  ['Minska antalet till noll', W(SCR(`${LINE({ rm: '' })}${HR}${LINE({ rm: '', price: '249 kr' })}${ANN('Minus vid 1 tar bort varan')}`))]
+]);
+
+Q('ux-vagn-fri-frakt', 'Ska varukorgen visa hur mycket som är kvar till fri frakt?', 'grid', [
+  ['Ja, med förloppslinje', W(SCR(`<div class="uxk-col uxk-g4">${T('Handla för 255 kr till för fri frakt', 'uxk-xs uxk-b6')}${bar(66)}</div>${LINE()}${HR}${TOTALS()}`))],
+  ['Ja, bara text', W(SCR(`${T('Handla för 255 kr till för fri frakt', 'uxk-xs uxk-m')}${LINE()}${HR}${TOTALS()}`))],
+  ['Nej', W(SCR(`${LINE()}${HR}${TOTALS()}`))]
+]);
+
+Q('ux-vagn-forslag', 'Ska varukorgen visa förslag på fler produkter?', 'grid', [
+  ['Ja, en rad med förslag', W(SCR(`${LINE({ rm: '' })}${HR}${T('Passar bra med', 'uxk-xs uxk-b6')}${grid(3, 3, '1/1', 70)}${B('Till kassan', '', 'uxk-bw uxk-bs')}`))],
+  ['Ja, efter knappen Till kassan', W(SCR(`${LINE({ rm: '' })}${B('Till kassan', '', 'uxk-bw uxk-bs')}${HR}${T('Passar bra med', 'uxk-xs uxk-b6')}${grid(3, 3, '1/1', 70)}`))],
+  ['Nej, bara varorna', W(SCR(`${LINE({ rm: '' })}${HR}${TOTALS()}${B('Till kassan', '', 'uxk-bw uxk-bs')}`))]
+]);
+
+Q('ux-vagn-summering', 'Hur detaljerad ska summeringen i varukorgen vara?', 'grid', [
+  ['Delsumma, frakt och totalt', W(SCR(`${LINE({ rm: '' })}${HR}${TOTALS()}`))],
+  ['Bara totalt', W(SCR(`${LINE({ rm: '' })}${HR}${TOTALS([])}`))],
+  ['Totalt och moms', W(SCR(`${LINE({ rm: '' })}${HR}${TOTALS([['Delsumma', '1 245 kr'], ['Frakt', '49 kr']])}${T('Varav moms 259 kr', 'uxk-xs uxk-m')}`))],
+  ['Totalt, frakt räknas i kassan', W(SCR(`${LINE({ rm: '' })}${HR}${TOTALS([])}${T('Frakt räknas ut i kassan', 'uxk-xs uxk-m')}`))]
+]);
+
+/* ======================= KASSA ======================= */
+grp('kassa', 'Kassa');
+
+const sec = (n, title, body, open = true, done = false) => `<div class="uxk-col" style="gap:7px">${ROW(`<span class="uxk-d${open ? ' on' : done ? ' ok' : ''}" style="width:20px;height:20px;font-size:10px">${done ? ic('check', 10, 3) : n}</span>${T(title, 'uxk-s uxk-b6' + (open || done ? '' : ' uxk-m'))}${SP}${done ? T('Ändra', 'uxk-xs uxk-br uxk-b6') : ''}`, 'uxk-nw')}${open ? body : ''}</div>`;
+Q('ux-kassa-uppbyggnad', 'Hur ska kassan vara uppbyggd?', 'grid', [
+  ['Allt på en sida', W(SCR(`${sec(1, 'Kontakt', F('E-post', 'namn@exempel.se'))}${HR}${sec(2, 'Leverans', COL(OC('Hemleverans', true) + OC('Hämta själv'), 'uxk-g4'))}${HR}${sec(3, 'Betalning', COL(OC('Kort', true) + OC('Faktura'), 'uxk-g4'))}${B('Slutför köp', '', 'uxk-bw')}`))],
+  ['Flera steg, ett i taget', W(SCR(`${dotsNamed(1, ['Kontakt', 'Leverans', 'Betalning'])}<p class="uxk-h">Leverans</p>${COL(OC('Hemleverans', true) + OC('Hämta själv'), 'uxk-g4')}${ROW(B('Tillbaka', '2') + SP + B('Fortsätt'))}`))],
+  ['En sida där avsnitt öppnas i tur', W(SCR(`${sec(1, 'Kontakt', '', false, true)}${T('namn@exempel.se', 'uxk-xs uxk-m" style="padding-left:28px')}${HR}${sec(2, 'Leverans', COL(OC('Hemleverans', true) + OC('Hämta själv'), 'uxk-g4') + B('Fortsätt', '', 'uxk-bs'))}${HR}${sec(3, 'Betalning', '', false)}`))]
+]);
+
+Q('ux-kassa-gast', 'Hur ska gästköp och konto erbjudas i kassan?', 'grid', [
+  ['Gäst direkt, inloggning som länk', W(SCR(`${ROW(T('Kassa', 'uxk-h') + SP + T('Har du konto? <u class="uxk-br uxk-b6">Logga in</u>', 'uxk-xs uxk-m'), 'uxk-nw')}${F('E-post', 'namn@exempel.se')}${F('Namn', 'Förnamn Efternamn')}${B('Fortsätt', '', 'uxk-bw')}`))],
+  ['Välj: logga in eller gäst', W(SCR(`<p class="uxk-h">Hur vill du handla?</p><div class="uxk-g2" style="align-items:stretch"><div class="uxk-box uxk-col">${T('Har konto', 'uxk-s uxk-b6')}${T('Snabbare med sparade uppgifter', 'uxk-xs uxk-m')}${B('Logga in', '2', 'uxk-bs')}</div><div class="uxk-box uxk-col">${T('Ny kund', 'uxk-s uxk-b6')}${T('Inget konto behövs', 'uxk-xs uxk-m')}${B('Som gäst', '', 'uxk-bs')}</div></div>`))],
+  ['Konto krävs', W(SCR(`<p class="uxk-h">Logga in för att handla</p>${F('E-post', 'namn@exempel.se')}${F('Lösenord', '••••••••')}${B('Logga in', '', 'uxk-bw')}${T('Ny här? <u class="uxk-br uxk-b6">Skapa konto</u>', 'uxk-xs uxk-m')}`))]
+]);
+
+Q('ux-kassa-skapa-konto', 'När ska man erbjudas att skapa konto?', 'grid', [
+  ['Kryssruta i kassan', W(SCR(`${F('E-post', 'namn@exempel.se', true)}${CB('Skapa konto med mina uppgifter', false, '', false, 'uxk-xs')}${B('Slutför köp', '', 'uxk-bw')}`))],
+  ['På tack-sidan efter köpet', W(SCR(`<div class="uxk-col uxk-c0"><span style="color:var(--ok)">${ic('ok', 26, 1.8)}</span><p class="uxk-h">Tack för din beställning</p></div><div class="uxk-box uxk-gr uxk-col">${T('Spara dina uppgifter till nästa gång', 'uxk-s uxk-b6')}${F('Välj lösenord', '••••••••')}${B('Skapa konto', '2', 'uxk-bs')}</div>`))],
+  ['Före kassan', W(SCR(`<p class="uxk-h">Skapa konto eller fortsätt</p>${F('E-post', 'namn@exempel.se')}${B('Skapa konto', '', 'uxk-bw')}${T('Fortsätt som gäst', 'uxk-xs uxk-b6 uxk-br" style="text-align:center;text-decoration:underline')}`))],
+  ['Aldrig, bara gästköp', W(SCR(`${F('E-post', 'namn@exempel.se', true)}${F('Namn', 'Förnamn Efternamn', true)}${B('Slutför köp', '', 'uxk-bw')}`))]
+]);
+
+Q('ux-kassa-adress', 'Hur ska man fylla i sin adress?', 'grid', [
+  ['Ett fält med adressförslag', W(`<div class="uxk-rel" style="padding-bottom:110px"><div class="uxk-f"><b>Adress</b><span class="uxk-i v" style="border-color:var(--brand);box-shadow:0 0 0 1px var(--brand)">${ic('search', 14)}<span>Storgatan 1</span></span></div><div class="uxk-dd" style="top:56px">${['Storgatan 1, 111 22 Staden', 'Storgatan 12, 111 23 Staden', 'Storgatan 1A, 222 33 Byn'].map((t, i) => `<span class="${i ? '' : 'hi'}">${t}</span>`).join('')}</div></div>`)],
+  ['Separata fält', W(COL(`${F('Gatuadress', 'Storgatan 1', true)}<div class="uxk-row uxk-nw">${F('Postnummer', '111 22', true)}${F('Ort', 'Staden', true)}</div>`))],
+  ['Postnummer först, ort fylls i', W(COL(`<div class="uxk-row uxk-nw">${F('Postnummer', '111 22', true)}<div class="uxk-f"><b>Ort</b><span class="uxk-i v" style="background:var(--ground)"><span>Staden</span>${ic('check', 13, 2.6)}</span></div></div>${F('Gatuadress', 'Gatuadress')}`))],
+  ['Hämta med personnummer', W(COL(`<div class="uxk-f"><b>Personnummer</b><span class="uxk-row uxk-nw">${`<span class="uxk-sp">${I('ÅÅÅÅMMDD-XXXX')}</span>`}${B('Hämta', '2', 'uxk-bs')}</span></div>${ANN('Adressen fylls i automatiskt')}`))]
+]);
+
+const payLogo = (t) => `<span style="width:30px;height:20px;border-radius:4px;background:var(--accent);display:grid;place-items:center;font-size:8px;font-weight:700;color:var(--brand)">${t}</span>`;
+Q('ux-kassa-betalsatt', 'Hur ska betalsätten visas?', 'grid', [
+  ['Lista med radioknappar', W(COL(`${T('Betalning', 'uxk-s uxk-b6')}${COL(OC('Kort', true, payLogo('KORT')) + OC('Faktura', false, payLogo('FAKT')) + OC('Delbetalning', false, payLogo('DEL')) + OC('Mobilbetalning', false, payLogo('MOB')), 'uxk-g4')}`))],
+  ['Flikar', W(COL(`${T('Betalning', 'uxk-s uxk-b6')}${SEG(['Kort', 'Faktura', 'Mobil'])}${F('Kortnummer', '0000 0000 0000 0000')}`))],
+  ['Stora knappar i rutnät', W(COL(`${T('Betalning', 'uxk-s uxk-b6')}<div class="uxk-g2" style="gap:6px">${['Kort', 'Faktura', 'Delbetalning', 'Mobil'].map((t, i) => `<span class="uxk-oc${i ? '' : ' on'}" style="flex-direction:column;gap:5px;padding:10px 6px">${payLogo(t.slice(0, 4).toUpperCase())}<span class="uxk-s">${t}</span></span>`).join('')}</div>`))],
+  ['Ett val öppet, resten hopfällda', W(COL(`${T('Betalning', 'uxk-s uxk-b6')}<div class="uxk-oc on" style="flex-direction:column;align-items:stretch">${ROW(CB('Kort', true, '', true) + SP + payLogo('KORT'), 'uxk-nw')}${I('Kortnummer')}</div>${OC('Faktura', false, payLogo('FAKT'))}${OC('Mobilbetalning', false, payLogo('MOB'))}`))]
+]);
+
+Q('ux-kassa-trygghet', 'Ska kassan visa trygghetsinfo vid köpknappen?', 'grid', [
+  ['Ja, rad med lås under knappen', W(SCR(`${TOTALS()}${B('Slutför köp', '', 'uxk-bw')}<div class="uxk-row uxk-xs uxk-m" style="justify-content:center;gap:5px">${ic('lock', 12)}Säker betalning</div>`))],
+  ['Ja, kort lista med fördelar', W(SCR(`${TOTALS()}${B('Slutför köp', '', 'uxk-bw')}${COL(['Fri retur i 30 dagar', 'Leverans 1–3 dagar', 'Säker betalning'].map(t => ROW(`<span style="color:var(--ok)">${ic('check', 12, 2.6)}</span>` + T(t, 'uxk-xs'), 'uxk-nw" style="gap:6px')).join(''), 'uxk-g4')}`))],
+  ['Nej, bara knappen', W(SCR(`${TOTALS()}${B('Slutför köp', '', 'uxk-bw')}`))]
+]);
+
+Q('ux-kassa-kopknapp', 'Vad ska stå på köpknappen i kassan?', 'grid', [
+  ['Slutför köp', W(SCR(`${TOTALS([])}${B('Slutför köp', '', 'uxk-bw')}`))],
+  ['Betala 1 295 kr', W(SCR(`${TOTALS([])}${B('Betala 1 295 kr', '', 'uxk-bw')}`))],
+  ['Lägg beställning', W(SCR(`${TOTALS([])}${B('Lägg beställning', '', 'uxk-bw')}`))],
+  ['Köp nu', W(SCR(`${TOTALS([])}${B('Köp nu', '', 'uxk-bw')}`))]
+]);
+
+Q('ux-kassa-rabattkod', 'Hur ska fältet för rabattkod visas?', 'grid', [
+  ['Hopfällt: Har du en rabattkod?', W(SCR(`${LINE({ rm: '' })}${HR}${ROW(T('Har du en rabattkod?', 'uxk-xs uxk-b6 uxk-br') + ic('chevD', 12), 'uxk-br" style="gap:3px')}${TOTALS()}`))],
+  ['Fält alltid synligt', W(SCR(`${LINE({ rm: '' })}${HR}${ROW(`<span class="uxk-sp">${I('Rabattkod')}</span>${B('Använd', '2', 'uxk-bs')}`, 'uxk-nw')}${TOTALS()}`))],
+  ['Inget fält', W(SCR(`${LINE({ rm: '' })}${HR}${TOTALS()}`))]
+]);
+
+Q('ux-kassa-villkor', 'Hur ska man godkänna köpvillkoren?', 'grid', [
+  ['Kryssruta före knappen', W(SCR(`${TOTALS([])}${CB('Jag godkänner <u class="uxk-br">köpvillkoren</u>', false, '', false, 'uxk-xs')}${B('Slutför köp', '', 'uxk-bw')}`))],
+  ['Text under knappen', W(SCR(`${TOTALS([])}${B('Slutför köp', '', 'uxk-bw')}${T('Genom att slutföra köpet godkänner du <u class="uxk-br">köpvillkoren</u>.', 'uxk-xs uxk-m" style="text-align:center')}`))],
+  ['Text ovanför knappen', W(SCR(`${TOTALS([])}${T('Genom att slutföra köpet godkänner du <u class="uxk-br">köpvillkoren</u>.', 'uxk-xs uxk-m')}${B('Slutför köp', '', 'uxk-bw')}`))]
 ]);
 
 /* ---------------- Registrera ---------------- */

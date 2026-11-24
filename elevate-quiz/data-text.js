@@ -501,7 +501,7 @@
     ]),
     Q('tx-stora-tal', 'Hur ska stora tal skrivas i statistik?', [
       ['1 200 000', stat({ items: [['1&#8239;200&#8239;000', '', 'Genomförda']] })],
-      ['1,2 miljoner', stat({ items: [['1,2&nbsp;milj.', '', 'Genomförda']] })],
+      ['1,2 milj.', stat({ items: [['1,2&nbsp;milj.', '', 'Genomförda']] })],
       ['1,2 M', stat({ items: [['1,2&nbsp;M', '', 'Genomförda']] })],
     ]),
     Q('tx-intervall-streck', 'Vilket streck ska stå i intervall och minustal?', [
@@ -513,6 +513,375 @@
       ['Med siffror (3 steg)', pad(p('Processen tar 3 steg och ungefär 5 minuter att gå igenom från början till slut.', 'font-size:16px;max-width:44ch'))],
     ]),
   ]);
+
+  // ---------- Listor ----------
+  const ITEMS = ['Första punkten i listan', 'En andra punkt som är lite längre och därför bryts över två rader', 'Tredje punkten'];
+  const mk = x => `<span style="height:1.5em;display:flex;align-items:center;justify-content:center;flex:0 0 auto;min-width:10px">${x}</span>`;
+  const DOT = (s = 6, c = 'currentColor') => `<span style="width:${s}px;height:${s}px;border-radius:50%;background:${c}"></span>`;
+  const DASH = c => `<span style="width:10px;height:2px;background:${c || 'currentColor'}"></span>`;
+  const CHECK = c => `<svg class="ico" style="width:18px;height:18px;color:${c || 'var(--brand)'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`;
+  const CHECKC = `<span style="width:20px;height:20px;border-radius:50%;background:var(--brand);color:#fff;display:inline-grid;place-items:center"><svg viewBox="0 0 24 24" style="width:13px;height:13px" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>`;
+  const CHECKB = `<span style="width:18px;height:18px;border-radius:4px;border:1.5px solid var(--brand);color:var(--brand);display:inline-grid;place-items:center"><svg viewBox="0 0 24 24" style="width:12px;height:12px" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>`;
+  const list = (marker, o = {}) => `<div style="display:flex;flex-direction:column;gap:${o.gap === undefined ? 8 : o.gap}px;font-size:${o.fs || 16}px;line-height:1.5;padding-left:${o.indent || 0}px;max-width:340px">${ITEMS.map((t, i) => `${o.div && i ? '<div class="divider"></div>' : ''}<div style="display:flex;gap:${o.mgap || 12}px">${mk(typeof marker === 'function' ? marker(i) : marker)}<span style="min-width:0">${o.text ? o.text(t, i) : t}</span></div>`).join('')}</div>`;
+  const nm = (fn) => i => fn(i + 1);
+  const li = (m, t) => `<div style="display:flex;gap:12px">${mk(m)}<span style="min-width:0">${t}</span></div>`;
+  const nested = sub => `<div style="display:flex;flex-direction:column;gap:8px;font-size:16px;line-height:1.5;max-width:340px">${li(DOT(), 'Första punkten i listan')}${li(DOT(), 'Andra punkten, som har underpunkter')}<div style="display:flex;flex-direction:column;gap:6px;padding-left:22px">${li(sub, 'En underpunkt')}${li(sub, 'En till underpunkt')}</div>${li(DOT(), 'Tredje punkten')}</div>`;
+  G('listor', 'Listor', [
+    Q('tx-lista-punkt', 'Vilken punkt ska en vanlig punktlista ha?', [
+      ['Prick', pad(list(DOT()))],
+      ['Streck', pad(list(DASH()))],
+      ['Bock', pad(list(CHECK()))],
+      ['Bock i fylld cirkel', pad(list(CHECKC))],
+    ]),
+    Q('tx-lista-punktfarg', 'Vilken färg ska punkterna ha?', [
+      ['Samma som texten', pad(list(DOT(6, 'var(--sink)')))],
+      ['Varumärkesfärg', pad(list(DOT(6, 'var(--brand)')))],
+      ['Grå', pad(list(DOT(6, '#9A9EA3')))],
+    ]),
+    Q('tx-lista-punktstorlek', 'Hur stor ska pricken vara?', [4, 6, 8].map(s => [`Prick ${s} px`, pad(list(DOT(s)))])),
+    Q('tx-lista-bock', 'Hur ska bockar i en lista se ut?', [
+      ['Ren bock', pad(list(CHECK()))],
+      ['Bock i fylld cirkel', pad(list(CHECKC))],
+      ['Bock i ruta', pad(list(CHECKB))],
+    ]),
+    Q('tx-lista-nummer', 'Hur ska numrerade listor numreras?', [
+      ['1.', pad(list(nm(n => `<span style="font-variant-numeric:tabular-nums">${n}.</span>`)))],
+      ['1)', pad(list(nm(n => `<span style="font-variant-numeric:tabular-nums">${n})</span>`)))],
+      ['Siffra i cirkel', pad(list(nm(n => `<span style="width:22px;height:22px;border-radius:50%;background:var(--tint);color:var(--brand);font-size:12px;font-weight:700;display:inline-grid;place-items:center">${n}</span>`)))],
+      ['01, 02, 03', pad(list(nm(n => `<span style="font-variant-numeric:tabular-nums">0${n}</span>`)))],
+    ]),
+    Q('tx-lista-nummerstil', 'Hur ska siffrorna i en numrerad lista se ut?', [
+      ['Som texten', pad(list(nm(n => `${n}.`)))],
+      ['Fet', pad(list(nm(n => `<b style="font-weight:700">${n}.</b>`)))],
+      ['Fet i varumärkesfärg', pad(list(nm(n => `<b style="font-weight:700;color:var(--brand)">${n}.</b>`)))],
+      ['Grå', pad(list(nm(n => `<span style="color:var(--smuted)">${n}.</span>`)))],
+    ]),
+    Q('tx-lista-indrag', 'Hur mycket ska en lista dras in jämfört med texten ovanför?', [0, 16, 28].map(v => [v ? `${v} px indrag` : 'Inget indrag', pad(p('Ett stycke text som står ovanför listan.', 'font-size:16px;margin-bottom:10px') + list(DOT(), { indent: v }))])),
+    Q('tx-lista-avstand', 'Hur långt ska det vara mellan punkterna?', [2, 6, 10, 16].map(g => [`${g} px mellan punkter`, pad(list(DOT(), { gap: g }))])),
+    Q('tx-lista-radbrytning', 'Var ska andra raden i en punkt börja?', [
+      ['Indragen under texten', pad(list(DOT()))],
+      ['Under punkten', pad(`<ul style="list-style:disc inside;padding:0;margin:0;font-size:16px;line-height:1.5;max-width:340px;display:flex;flex-direction:column;gap:8px">${ITEMS.map(t => `<li>${t}</li>`).join('')}</ul>`)],
+    ]),
+    Q('tx-lista-linjer', 'Ska punkterna skiljas åt med linjer?', [
+      ['Utan linjer', pad(list(CHECK(), { gap: 10 }))],
+      ['Tunn linje mellan', pad(list(CHECK(), { gap: 10, div: true }))],
+    ]),
+    Q('tx-lista-rubrik', 'Hur ska punkter med en egen rubrik se ut?', [
+      ['Fet början på samma rad', pad(list(DOT(), { text: t => `<b style="font-weight:600">Rubrik.</b> ${t}` }))],
+      ['Fet rad, text under', pad(list(DOT(), { gap: 12, text: t => `<b style="font-weight:600;display:block">Rubrik</b><span class="muted">${t}</span>` }))],
+      ['Fet med tankstreck', pad(list(DOT(), { text: t => `<b style="font-weight:600">Rubrik</b> – ${t}` }))],
+    ]),
+    Q('tx-lista-niva', 'Hur ska en underlista markeras?', [
+      ['Prick, sedan ring', pad(nested(`<span style="width:6px;height:6px;border-radius:50%;border:1.5px solid currentColor"></span>`))],
+      ['Prick, sedan streck', pad(nested(DASH()))],
+      ['Prick, sedan mindre grå prick', pad(nested(DOT(4, 'var(--smuted)')))],
+    ]),
+    Q('tx-lista-storlek', 'Hur stor ska listtexten vara jämfört med brödtexten?', [
+      ['Samma som brödtexten', pad(p('Ett stycke brödtext ovanför listan.', 'font-size:16px;margin-bottom:10px') + list(DOT(), { fs: 16 }))],
+      ['Något mindre', pad(p('Ett stycke brödtext ovanför listan.', 'font-size:16px;margin-bottom:10px') + list(DOT(), { fs: 15 }))],
+    ]),
+  ]);
+
+  // ---------- Citat ----------
+  const QT = 'Det här är ett citat som är två eller tre rader långt och visar hur stilen fungerar.';
+  const who = '<div style="margin-top:12px;font-size:14px"><b style="font-weight:600">Förnamn Efternamn</b><span class="muted">, titel</span></div>';
+  const qmark = (c, s) => `<div aria-hidden="true" style="font-size:${s || 64}px;line-height:1;height:${(s || 64) * 0.45}px;color:${c || 'var(--brand)'};font-weight:700;font-family:Georgia,serif">”</div>`;
+  const quote = (o = {}) => pad(`<div style="max-width:380px;${o.box || ''}">${o.pre || ''}<p style="font-size:${o.fs || 20}px;line-height:1.4;font-weight:${o.w || 500};font-style:${o.it ? 'italic' : 'normal'};${o.st || ''}">${o.q ? o.q[0] : ''}${QT}${o.q ? o.q[1] : ''}</p>${o.who === undefined ? who : o.who}</div>`);
+  const SVQ = ['”', '”'];
+  G('citat', 'Citat', [
+    Q('tx-citat-stil', 'Hur ska ett citat markeras?', [
+      ['Stort citattecken ovanför', quote({ pre: qmark() })],
+      ['Linje till vänster', quote({ box: 'border-left:3px solid var(--brand);padding-left:18px', q: SVQ })],
+      ['Bara kursiv text', quote({ it: true, q: SVQ })],
+      ['Ljus platta bakom', quote({ box: 'background:var(--box);border-radius:12px;padding:20px', q: SVQ })],
+    ]),
+    Q('tx-citattecken', 'Vilka citattecken ska användas?', [
+      ['Svenska ”…”', quote({ q: ['”', '”'] })],
+      ['Raka "…"', quote({ q: ['"', '"'] })],
+      ['Franska »…«', quote({ q: ['»', '«'] })],
+      ['Engelska “…”', quote({ q: ['“', '”'] })],
+    ]),
+    Q('tx-citat-kursiv', 'Ska citattexten vara kursiv?', [
+      ['Rak', quote({ q: SVQ })],
+      ['Kursiv', quote({ q: SVQ, it: true })],
+    ]),
+    Q('tx-citat-storlek', 'Hur stor ska citattexten vara?', [17, 20, 24, 30].map(px => [`Citat ${px} px`, quote({ q: SVQ, fs: px })])),
+    Q('tx-citat-vikt', 'Hur tung ska citattexten vara?', [[400, 'Normal (400)'], [500, 'Medium (500)'], [600, 'Halvfet (600)']].map(([w, l]) => [l, quote({ q: SVQ, w })])),
+    Q('tx-citat-avsandare', 'Hur ska avsändaren av ett citat visas?', [
+      ['— Namn, titel på en rad', quote({ q: SVQ, who: '<div style="margin-top:12px;font-size:14px" class="muted">— Förnamn Efternamn, titel</div>' })],
+      ['Namn fet, titel grå under', quote({ q: SVQ, who: '<div style="margin-top:12px;font-size:14px"><div style="font-weight:600">Förnamn Efternamn</div><div class="muted">Titel</div></div>' })],
+      ['Med porträtt', quote({ q: SVQ, who: '<div style="margin-top:12px;font-size:14px;display:flex;gap:10px;align-items:center"><img src="img/portratt-1.jpg" alt="Porträtt" style="width:40px;height:40px;border-radius:50%;object-fit:cover"><div><div style="font-weight:600">Förnamn Efternamn</div><div class="muted">Titel</div></div></div>' })],
+    ]),
+    Q('tx-citat-tecken-farg', 'Hur ska det stora citattecknet se ut?', [
+      ['Stort, varumärkesfärg', quote({ pre: qmark('var(--brand)', 64) })],
+      ['Stort, ljusgrått', quote({ pre: qmark('#C9CCD0', 64) })],
+      ['Mindre, varumärkesfärg', quote({ pre: qmark('var(--brand)', 40) })],
+    ]),
+    Q('tx-citat-linje', 'Hur ska linjen till vänster om ett citat se ut?', [
+      ['2 px, varumärkesfärg', quote({ q: SVQ, box: 'border-left:2px solid var(--brand);padding-left:18px' })],
+      ['4 px, varumärkesfärg', quote({ q: SVQ, box: 'border-left:4px solid var(--brand);padding-left:18px' })],
+      ['2 px, grå', quote({ q: SVQ, box: 'border-left:2px solid var(--sline);padding-left:18px' })],
+    ]),
+    Q('tx-citat-hangande', 'Var ska det inledande citattecknet stå?', [
+      ['Hängande i marginalen', quote({ q: ['<span style="margin-left:-0.42em">”</span>', '”'], box: 'padding-left:8px' })],
+      ['I textflödet', quote({ q: SVQ, box: 'padding-left:8px' })],
+    ]),
+    Q('tx-citat-justering', 'Hur ska ett fristående citat ställas?', [
+      ['Vänsterställt', quote({ pre: qmark(), box: 'text-align:left' })],
+      ['Centrerat', quote({ pre: qmark(), box: 'text-align:center;margin:0 auto' })],
+    ]),
+  ]);
+
+  // ---------- Betoning ----------
+  const EMP = (open, close, st) => pad(`<p style="font-size:16px;line-height:1.6;max-width:44ch;${st || ''}">Det här är ett stycke där ${open}en viktig del${close} av meningen ska betonas för läsaren.</p>`);
+  G('betoning', 'Betoning', [
+    Q('tx-betoning-vikt', 'Hur fet ska betonad text i ett stycke vara?', [[500, 'Medium (500)'], [600, 'Halvfet (600)'], [700, 'Fet (700)'], [800, 'Extrafet (800)']].map(([w, l]) => [l, EMP(`<b style="font-weight:${w}">`, '</b>')])),
+    Q('tx-betoning-satt', 'Hur ska ord betonas i brödtext?', [
+      ['Fetstil', EMP('<b style="font-weight:600">', '</b>')],
+      ['Kursiv', EMP('<i>', '</i>')],
+      ['Fet och kursiv', EMP('<b style="font-weight:600;font-style:italic">', '</b>')],
+    ]),
+    Q('tx-markering', 'Hur ska text markeras med bakgrund?', [
+      ['Hel bakgrund bakom ordet', EMP('<mark style="background:#FFF1A8;color:inherit;padding:0 2px;border-radius:2px">', '</mark>')],
+      ['Överstrykning nedtill', EMP('<mark style="background:linear-gradient(transparent 58%, #FFE36E 58%);color:inherit;padding:0 1px">', '</mark>')],
+      ['Tjock linje under', EMP('<span style="text-decoration:underline;text-decoration-color:#FFD43B;text-decoration-thickness:4px;text-underline-offset:2px">', '</span>')],
+      ['Ingen markering', EMP('', '')],
+    ]),
+    Q('tx-markering-farg', 'Vilken färg ska en markering med bakgrund ha?', [
+      ['Gul', EMP('<mark style="background:#FFF1A8;color:inherit;padding:0 2px;border-radius:2px">', '</mark>')],
+      ['Ljus varumärkeston', EMP('<mark style="background:var(--tint);color:inherit;padding:0 2px;border-radius:2px">', '</mark>')],
+      ['Ljusgrön', EMP('<mark style="background:#D9F2E1;color:inherit;padding:0 2px;border-radius:2px">', '</mark>')],
+    ]),
+    Q('tx-betoning-farg', 'Ska betonad text få en annan färg?', [
+      ['Samma färg, bara fet', EMP('<b style="font-weight:600">', '</b>')],
+      ['Fet i varumärkesfärg', EMP('<b style="font-weight:600;color:var(--brand)">', '</b>')],
+      ['Fet och svart, resten grå', EMP('<b style="font-weight:600;color:#000">', '</b>', 'color:var(--smuted)')],
+    ]),
+    Q('tx-rubrik-betonat-ord', 'Hur ska ett betonat ord i en rubrik markeras?', [
+      ['Varumärkesfärg', pad(hd(1, '', 'En rubrik med <span style="color:var(--brand)">ett ord</span> som sticker ut'))],
+      ['Kursiv', pad(hd(1, '', 'En rubrik med <em>ett ord</em> som sticker ut'))],
+      ['Understruket', pad(hd(1, '', 'En rubrik med <span style="text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:6px;text-decoration-color:var(--brand)">ett ord</span> som sticker ut'))],
+      ['Ingen betoning', pad(hd(1, '', 'En rubrik med ett ord som sticker ut'))],
+    ]),
+    Q('tx-rubrik-tva-vikter', 'Ska en rubrik kunna blanda två vikter?', [
+      ['En vikt i hela rubriken', pad(hd(1, '', 'En rubrik med två delar som hör ihop'))],
+      ['Första delen fet, resten lätt', pad(hd(1, '', 'En rubrik med två delar <span style="font-weight:400">som hör ihop</span>'))],
+      ['Andra delen grå', pad(hd(1, '', 'En rubrik med två delar <span style="color:var(--smuted)">som hör ihop</span>'))],
+    ]),
+    Q('tx-forkortning', 'Hur ska förkortningar i versaler sättas?', [
+      ['Vanliga versaler (SMS, PDF)', pad(p('Du får en bekräftelse via SMS och kvittot som PDF direkt efter bokningen.', 'font-size:16px;max-width:42ch'))],
+      ['Mindre versaler, lätt spärrade', pad(p('Du får en bekräftelse via <span style="font-size:0.86em;letter-spacing:0.04em">SMS</span> och kvittot som <span style="font-size:0.86em;letter-spacing:0.04em">PDF</span> direkt efter bokningen.', 'font-size:16px;max-width:42ch'))],
+      ['Gemener (sms, pdf)', pad(p('Du får en bekräftelse via sms och kvittot som pdf direkt efter bokningen.', 'font-size:16px;max-width:42ch'))],
+    ]),
+  ]);
+
+  // ---------- Text på foto ----------
+  const photo = (o = {}) => `<div style="position:relative;min-height:260px;display:flex;flex-direction:column;justify-content:${o.top ? 'flex-start' : 'flex-end'};color:${o.color || '#fff'};overflow:hidden"><img src="img/${o.img || 'stadsgata'}.jpg" alt="${{ stadsgata: 'Gata i en stad', 'skog-sjo': 'Skog vid en sjö', vardagsrum: 'Vardagsrum' }[o.img || 'stadsgata']}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none">${o.sh ? `<div style="position:absolute;inset:0;background:${o.sh}"></div>` : ''}<div style="position:relative;padding:22px;min-width:0;${o.box || ''}"><div style="${o.boxIn || ''}"><div class="h" style="font-size:28px;color:inherit;font-weight:${o.w || 700};${o.ts ? 'text-shadow:' + o.ts : ''}">Rubrik på ett foto</div><p style="margin-top:8px;font-size:15px;max-width:34ch;${o.ts ? 'text-shadow:' + o.ts : ''}">En kort text som ska gå att läsa ovanpå bilden.</p></div></div></div>`;
+  G('foto', 'Text på foto', [
+    Q('tx-foto-metod', 'Hur ska text på ett foto bli läsbar?', [
+      ['Textskugga', photo({ ts: '0 1px 3px rgba(0,0,0,.55), 0 0 18px rgba(0,0,0,.35)' })],
+      ['Jämn mörkläggning', photo({ sh: 'rgba(0,0,0,.45)' })],
+      ['Toning nedifrån', photo({ sh: 'linear-gradient(to top, rgba(0,0,0,.7), rgba(0,0,0,0) 65%)' })],
+      ['Platta bakom texten', photo({ color: 'var(--sink)', boxIn: 'background:#fff;padding:16px;border-radius:10px;max-width:300px' })],
+    ]),
+    Q('tx-foto-morklaggning', 'Hur mörk ska en jämn mörkläggning vara?', [20, 35, 50, 65].map(v => [`Mörkläggning ${v} %`, photo({ sh: `rgba(0,0,0,.${v})` })])),
+    Q('tx-foto-toning', 'Hur ska en toning bakom texten gå?', [
+      ['Nedifrån och upp', photo({ sh: 'linear-gradient(to top, rgba(0,0,0,.7), rgba(0,0,0,0) 65%)' })],
+      ['Från vänster', photo({ sh: 'linear-gradient(to right, rgba(0,0,0,.7), rgba(0,0,0,0) 80%)' })],
+      ['Uppifrån, text överst', photo({ top: true, sh: 'linear-gradient(to bottom, rgba(0,0,0,.7), rgba(0,0,0,0) 65%)' })],
+    ]),
+    Q('tx-foto-platta', 'Hur ska en platta bakom texten se ut?', [
+      ['Vit platta', photo({ color: 'var(--sink)', boxIn: 'background:#fff;padding:16px;border-radius:10px;max-width:300px' })],
+      ['Mörk, halvgenomskinlig', photo({ boxIn: 'background:rgba(20,22,24,.72);padding:16px;border-radius:10px;max-width:300px' })],
+      ['Suddig, frostat glas', photo({ boxIn: 'background:rgba(255,255,255,.18);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:16px;border-radius:10px;max-width:300px;text-shadow:0 1px 2px rgba(0,0,0,.4)' })],
+      ['Platta i varumärkesfärg', photo({ boxIn: 'background:var(--brand);padding:16px;border-radius:10px;max-width:300px' })],
+    ]),
+    Q('tx-foto-skugga', 'Hur stark ska textskuggan vara?', [
+      ['Mjuk och diskret', photo({ img: 'skog-sjo', ts: '0 1px 2px rgba(0,0,0,.35)' })],
+      ['Tydlig', photo({ img: 'skog-sjo', ts: '0 1px 3px rgba(0,0,0,.6), 0 0 16px rgba(0,0,0,.4)' })],
+      ['Bred glöd', photo({ img: 'skog-sjo', ts: '0 0 28px rgba(0,0,0,.65), 0 0 8px rgba(0,0,0,.4)' })],
+    ]),
+    Q('tx-foto-textfarg', 'Vilken färg ska text på mörklagt foto ha?', [
+      ['Helvit', photo({ sh: 'rgba(0,0,0,.45)', color: '#FFFFFF' })],
+      ['Bruten vit', photo({ sh: 'rgba(0,0,0,.45)', color: '#F1EEE8' })],
+    ]),
+    Q('tx-foto-vikt', 'Hur tung ska en rubrik på foto vara?', [[600, 'Halvfet (600)'], [700, 'Fet (700)'], [800, 'Extrafet (800)']].map(([w, l]) => [l, photo({ sh: 'rgba(0,0,0,.4)', w })])),
+    Q('tx-foto-kort', 'Hur ska rubriken sitta i ett kort med foto?', [
+      ['Över fotot, med toning', pad(`<div style="max-width:300px;border-radius:12px;overflow:hidden">${photo({ img: 'vardagsrum', sh: 'linear-gradient(to top, rgba(0,0,0,.7), rgba(0,0,0,0) 65%)' }).replace('min-height:260px', 'min-height:220px')}</div>`)],
+      ['Under fotot', pad(`<div style="max-width:300px;border-radius:12px;overflow:hidden;background:var(--box)"><img src="img/vardagsrum.jpg" alt="Vardagsrum" style="width:100%;aspect-ratio:16/10;object-fit:cover"><div style="padding:16px"><div class="h" style="font-size:22px">Rubrik på ett foto</div><p style="margin-top:6px;font-size:15px">En kort text som ska gå att läsa ovanpå bilden.</p></div></div>`)],
+    ]),
+  ]);
+
+  // ---------- Avstånd ----------
+  const BTN = '<span class="sb">Läs mer</span>';
+  G('avstand', 'Avstånd i text', [
+    Q('tx-avstand-rubrik-text', 'Hur långt ska det vara mellan en rubrik och texten under?', [4, 8, 12, 16, 24].map(g => [`${g} px under rubriken`, pad(hd(2, '', H2T) + p(P, `margin-top:${g}px;font-size:16px;max-width:52ch`))])),
+    Q('tx-avstand-text-knapp', 'Hur långt ska det vara mellan text och knapp?', [16, 24, 32, 40].map(g => [`${g} px till knappen`, pad(hd(2, '', H2T) + p(PS, 'margin-top:12px;font-size:16px;max-width:52ch') + `<div style="margin-top:${g}px">${BTN}</div>`)])),
+    Q('tx-avstand-kort', 'Hur långt ska det vara mellan rubrik och text i ett kort?', [4, 6, 10, 14].map(g => [`${g} px i kortet`, pad(`<div class="panel" style="max-width:280px">${hd(3, '', 'En rubrik i ett kort')}${p(PS, `margin-top:${g}px`)}</div>`)])),
+    Q('tx-avstand-ingress-brod', 'Hur långt ska det vara mellan ingress och brödtext?', [12, 20, 32].map(g => [`${g} px efter ingressen`, pad(hd(2, '', H2T) + `<p style="margin-top:12px;font-size:19px;line-height:1.45;max-width:52ch">${LEAD}</p>` + p(P, `margin-top:${g}px;font-size:16px;max-width:60ch`))])),
+    Q('tx-avstand-fore-mellanrubrik', 'Hur mycket luft ska det vara ovanför en rubrik mitt i en text?', [24, 32, 48, 64].map(g => [`${g} px ovanför rubriken`, pad(p(P, 'font-size:16px;max-width:60ch') + hd(3, `margin-top:${g}px;font-size:21px`, 'En mellanrubrik i texten') + p(P2, 'margin-top:8px;font-size:16px;max-width:60ch'))])),
+    Q('tx-avstand-h1-ingress', 'Hur långt ska det vara mellan en stor rubrik och ingressen?', [8, 16, 24].map(g => [`${g} px under H1`, pad(hd(1, 'font-size:44px', H1T) + `<p style="margin-top:${g}px;font-size:19px;line-height:1.45;max-width:46ch">${LEAD}</p>`)]), 'stack'),
+    Q('tx-avstand-lista', 'Hur mycket luft ska det vara runt en lista i löptext?', [6, 12, 20].map(g => [`${g} px före och efter`, pad(p('Ett stycke text som leder in i listan.', 'font-size:16px') + `<div style="margin:${g}px 0">${list(DOT(), { gap: 6 })}</div>` + p('Ett stycke text som följer efter listan.', 'font-size:16px'))])),
+    Q('tx-avstand-pris-knapp', 'Hur långt ska det vara mellan pris och knapp i ett kort?', [8, 16, 24].map(g => [`${g} px till knappen`, card(pr('495 kr') + `<div style="margin-top:${g}px"><span class="sb" style="width:100%">Boka tid</span></div>`)])),
+    Q('tx-avstand-knapp-finstilt', 'Hur långt ska det vara mellan en knapp och finstilt under den?', [6, 10, 16].map(g => [`${g} px under knappen`, pad(`<div style="max-width:280px"><span class="sb" style="width:100%">Fortsätt</span><p style="margin-top:${g}px;font-size:12px;color:var(--smuted);text-align:center">Ingen bindningstid. Avsluta när du vill.</p></div>`)])),
+  ]);
+
+  // ---------- Centrerat eller vänsterställt ----------
+  const ICON = '<svg class="ico" style="width:28px;height:28px;color:var(--brand)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+  const STATS = ['98&nbsp;%|Andel som svarat', '2&#8239;400|Genomförda', '24&nbsp;h|Svarstid'];
+  G('justering', 'Centrerat eller vänsterställt', [
+    Q('tx-just-sektionsintro', 'Hur ska en sektions rubrik och ingress ställas?', [
+      ['Vänsterställt', pad(hd(2, '', H2T) + `<p style="margin-top:12px;font-size:18px;line-height:1.45;max-width:52ch">${LEAD}</p>`)],
+      ['Centrerat', pad(`<div style="text-align:center">${hd(2, '', H2T)}<p style="margin:12px auto 0;font-size:18px;line-height:1.45;max-width:52ch">${LEAD}</p></div>`)],
+    ], 'stack'),
+    Q('tx-just-hero', 'Hur ska en stor rubrik med ingress och knapp ställas (utan bild)?', [
+      ['Vänsterställt', pad(hd(1, 'font-size:44px;max-width:16ch', H1T) + `<p style="margin-top:14px;font-size:19px;line-height:1.45;max-width:46ch">${LEAD}</p><div style="margin-top:24px">${BTN}</div>`, 'padding:36px 24px')],
+      ['Centrerat', pad(`<div style="text-align:center">${hd(1, 'font-size:44px;max-width:16ch;margin:0 auto', H1T)}<p style="margin:14px auto 0;font-size:19px;line-height:1.45;max-width:46ch">${LEAD}</p><div style="margin-top:24px">${BTN}</div></div>`, 'padding:36px 24px')],
+    ], 'stack'),
+    Q('tx-just-kort', 'Hur ska text i ett kort med ikon ställas?', [
+      ['Vänsterställt', pad(`<div class="panel" style="max-width:280px">${ICON}${hd(3, 'margin-top:12px', 'En rubrik i ett kort')}${p(PS, 'margin-top:6px')}</div>`)],
+      ['Centrerat', pad(`<div class="panel" style="max-width:280px;text-align:center"><div style="display:flex;justify-content:center">${ICON}</div>${hd(3, 'margin-top:12px', 'En rubrik i ett kort')}${p(PS, 'margin-top:6px')}</div>`)],
+    ]),
+    Q('tx-just-statistik', 'Hur ska en rad med statistiksiffror ställas?', [
+      ['Vänsterställt', pad(`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:20px">${STATS.map(s => { const [n, l] = s.split('|'); return `<div><div style="font-size:36px;font-weight:700;line-height:1;letter-spacing:-0.02em">${n}</div><div class="small muted" style="margin-top:6px">${l}</div></div>`; }).join('')}</div>`)],
+      ['Centrerat', pad(`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:20px;text-align:center">${STATS.map(s => { const [n, l] = s.split('|'); return `<div><div style="font-size:36px;font-weight:700;line-height:1;letter-spacing:-0.02em">${n}</div><div class="small muted" style="margin-top:6px">${l}</div></div>`; }).join('')}</div>`)],
+    ], 'stack'),
+    Q('tx-just-cta', 'Hur ska ett avslutande block med rubrik och knapp ställas?', [
+      ['Vänsterställt', pad(`<div class="panel" style="padding:28px">${hd(2, '', 'En avslutande uppmaning')}${p(PS, 'margin-top:10px;font-size:16px')}<div style="margin-top:20px">${BTN}</div></div>`)],
+      ['Centrerat', pad(`<div class="panel" style="padding:28px;text-align:center">${hd(2, '', 'En avslutande uppmaning')}${p(PS, 'margin-top:10px;font-size:16px')}<div style="margin-top:20px">${BTN}</div></div>`)],
+      ['Text vänster, knapp höger', pad(`<div class="panel" style="padding:28px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between"><div style="min-width:0;flex:1 1 240px">${hd(2, '', 'En avslutande uppmaning')}${p(PS, 'margin-top:10px;font-size:16px')}</div>${BTN}</div>`)],
+    ], 'stack'),
+    Q('tx-just-mobil', 'Hur ska rubrik och ingress ställas på mobil?', [
+      ['Vänsterställt på mobil', pad(mob(hd(1, 'font-size:32px', H1T) + `<p style="margin-top:12px;font-size:17px;line-height:1.45">${LEAD}</p><div style="margin-top:20px">${BTN}</div>`))],
+      ['Centrerat på mobil', pad(mob(`<div style="text-align:center">${hd(1, 'font-size:32px', H1T)}<p style="margin-top:12px;font-size:17px;line-height:1.45">${LEAD}</p><div style="margin-top:20px">${BTN}</div></div>`))],
+    ]),
+    Q('tx-just-bredd', 'Hur bred får centrerad text bli?', [['40 tecken', '40ch'], ['55 tecken', '55ch'], ['70 tecken', '70ch']].map(([l, v]) => [`Max ${l}`, pad(`<div style="text-align:center">${hd(2, '', H2T)}<p style="margin:12px auto 0;font-size:17px;line-height:1.5;max-width:${v}">${P} ${P2}</p></div>`)]), 'stack'),
+  ]);
+
+  // ---------- Avstavning och långa ord ----------
+  const LONG = 'Bokningsbekräftelsen skickas av kundtjänstmedarbetarna tillsammans med försäkringsvillkoren och en sammanfattning.';
+  const LONGS = 'Bok&shy;nings&shy;be&shy;kräf&shy;tel&shy;sen skickas av kund&shy;tjänst&shy;med&shy;ar&shy;be&shy;tar&shy;na tillsammans med för&shy;säk&shy;rings&shy;vill&shy;ko&shy;ren och en sam&shy;man&shy;fatt&shy;ning.';
+  const narrow = (txt, st) => pad(`<p lang="sv" style="width:190px;max-width:100%;font-size:16px;line-height:1.5;${st || ''}">${txt}</p>`);
+  const ORPH = 'Det här är ett kort stycke som slutar med ett ord på egen rad i';
+  G('avstavning', 'Avstavning och långa ord', [
+    Q('tx-avstavning-smal', 'Hur ska långa ord hanteras i en smal spalt?', [
+      ['Avstavas med bindestreck', narrow(LONGS, 'hyphens:manual')],
+      ['Ingen avstavning', narrow(LONG, 'hyphens:none')],
+      ['Marginaljusterat och avstavat', narrow(LONGS, 'hyphens:manual;text-align:justify')],
+    ]),
+    Q('tx-langt-ord-rubrik', 'Vad ska hända när ett långt ord inte får plats i en rubrik på mobil?', [
+      ['Ordet avstavas', pad(`<div class="h h1" lang="sv" style="font-size:32px;width:240px;max-width:100%;hyphens:manual">Boknings&shy;bekräftelsen kommer strax</div>`)],
+      ['Ordet bryts utan streck', pad(`<div class="h h1" style="font-size:32px;width:240px;max-width:100%;overflow-wrap:anywhere;hyphens:none">Bokningsbekräftelsen kommer strax</div>`)],
+      ['Rubriken blir mindre', pad(`<div class="h h1" style="font-size:24px;width:240px;max-width:100%">Bokningsbekräftelsen kommer strax</div>`)],
+    ]),
+    Q('tx-lang-adress', 'Hur ska en lång e-postadress eller länk brytas?', [
+      ['Bryts var som helst', narrow('Skriv till <span class="link" style="overflow-wrap:anywhere">fornamn.efternamn@exempeladressen.se</span> så svarar vi.')],
+      ['Bryts vid @ och punkt', narrow('Skriv till <span class="link">fornamn.<wbr>efternamn<wbr>@exempeladressen.<wbr>se</span> så svarar vi.')],
+      ['Kortas med …', narrow('Skriv till <span class="link" style="display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom">fornamn.efternamn@exempeladressen.se</span> så svarar vi.')],
+    ]),
+    Q('tx-trunkering', 'Hur ska för lång text i ett kort kortas?', [
+      ['Två rader och …', pad(`<div class="panel" style="max-width:280px">${hd(3, '', 'En rubrik i ett kort')}<p style="margin-top:6px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden">${P} ${P2}</p></div>`)],
+      ['Tre rader och …', pad(`<div class="panel" style="max-width:280px">${hd(3, '', 'En rubrik i ett kort')}<p style="margin-top:6px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden">${P} ${P2}</p></div>`)],
+      ['Hela texten visas', pad(`<div class="panel" style="max-width:280px">${hd(3, '', 'En rubrik i ett kort')}<p style="margin-top:6px">${P} ${P2}</p></div>`)],
+    ]),
+    Q('tx-ensamt-ord', 'Får sista raden i ett stycke bestå av ett enda ord?', [
+      ['Ett ord på sista raden går bra', pad(`<p style="width:240px;max-width:100%;font-size:16px;line-height:1.5;text-wrap:wrap">${ORPH} slutet.</p>`)],
+      ['Minst två ord på sista raden', pad(`<p style="width:240px;max-width:100%;font-size:16px;line-height:1.5;text-wrap:wrap">${ORPH.replace(/ i$/, '')} i&nbsp;slutet.</p>`)],
+    ]),
+  ]);
+
+  // ---------- Hela textblock ----------
+  const block = (h1, lead, body) => pad(hd(1, `font-size:${h1}px`, H1T) + `<p style="margin-top:14px;font-size:${lead}px;line-height:1.45;max-width:52ch">${LEAD}</p><p style="margin-top:16px;font-size:${body}px;line-height:1.6;max-width:62ch">${P} ${P2}</p>`);
+  const scale = (a, b, c) => pad(hd(1, `font-size:${a}px`, 'Sidans rubrik') + p(PS, 'margin-top:10px;font-size:16px') + hd(2, `margin-top:24px;font-size:${b}px`, 'En sektionsrubrik') + p(PS, 'margin-top:8px;font-size:16px') + hd(3, `margin-top:18px;font-size:${c}px`, 'En mindre rubrik') + p(PS, 'margin-top:6px;font-size:16px'));
+  const darkB = a => `<div class="pad" style="background:#1A1C1E;color:#fff">${hd(2, 'color:#fff', H2T)}<p style="margin-top:12px;font-size:16px;line-height:1.6;max-width:56ch;color:rgba(255,255,255,${a})">${P}</p></div>`;
+  G('textblock', 'Hela textblock', [
+    Q('tx-block-kontrast', 'Hur stor skillnad ska det vara mellan rubrik, ingress och brödtext?', [
+      ['Liten skillnad', block(30, 17, 16)],
+      ['Mellanstor skillnad', block(42, 19, 16)],
+      ['Stor skillnad', block(58, 21, 16)],
+    ], 'stack'),
+    Q('tx-block-skala', 'Vilken storleksskala ska rubriknivåerna följa?', [
+      ['Tät skala: 30 / 23 / 19 px', scale(30, 23, 19)],
+      ['Mellan: 36 / 25 / 20 px', scale(36, 25, 20)],
+      ['Tydlig: 44 / 28 / 21 px', scale(44, 28, 21)],
+      ['Dramatisk: 60 / 36 / 24 px', scale(60, 36, 24)],
+    ], 'stack'),
+    Q('tx-block-hierarki', 'Hur ska rubrik och metadata skiljas åt i ett kort?', [
+      ['Med storlek', pad(`<div class="panel" style="max-width:280px"><div style="font-size:19px;font-weight:600;line-height:1.25">En rubrik i ett kort</div><div style="margin-top:4px;font-size:13px">24 nov · 5 min</div></div>`)],
+      ['Med vikt', pad(`<div class="panel" style="max-width:280px"><div style="font-size:16px;font-weight:700;line-height:1.25">En rubrik i ett kort</div><div style="margin-top:4px;font-size:16px;font-weight:400">24 nov · 5 min</div></div>`)],
+      ['Med färg', pad(`<div class="panel" style="max-width:280px"><div style="font-size:16px;font-weight:500;line-height:1.25">En rubrik i ett kort</div><div style="margin-top:4px;font-size:16px;color:var(--smuted)">24 nov · 5 min</div></div>`)],
+      ['Med storlek, vikt och färg', pad(`<div class="panel" style="max-width:280px"><div style="font-size:19px;font-weight:700;line-height:1.25">En rubrik i ett kort</div><div style="margin-top:4px;font-size:13px;color:var(--smuted)">24 nov · 5 min</div></div>`)],
+    ]),
+    Q('tx-block-mellanrubrik', 'Hur ska en liten mellanrubrik i löptext se ut?', [
+      ['Fet, brödtextens storlek', pad(p(P, 'font-size:16px;max-width:56ch') + `<div style="margin-top:22px;font-size:16px;font-weight:700">En liten mellanrubrik</div>` + p(P2, 'margin-top:4px;font-size:16px;max-width:56ch'))],
+      ['Lite större, halvfet', pad(p(P, 'font-size:16px;max-width:56ch') + `<div style="margin-top:22px;font-size:19px;font-weight:600">En liten mellanrubrik</div>` + p(P2, 'margin-top:4px;font-size:16px;max-width:56ch'))],
+      ['Små versaler, spärrade', pad(p(P, 'font-size:16px;max-width:56ch') + `<div style="margin-top:22px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em">En liten mellanrubrik</div>` + p(P2, 'margin-top:6px;font-size:16px;max-width:56ch'))],
+    ]),
+    Q('tx-block-mork-yta', 'Hur ljus ska brödtexten vara på mörk yta?', [
+      ['70 % vit', darkB(0.7)],
+      ['85 % vit', darkB(0.85)],
+      ['Helvit', darkB(1)],
+    ]),
+    Q('tx-block-faq', 'Hur ska fråga och svar ställas upp i text?', [
+      ['Fråga halvfet, svar under', pad(`<div class="stack" style="gap:18px;max-width:420px">${[0, 1].map(() => `<div><div style="font-size:17px;font-weight:600">Hur lång tid tar det?</div><p style="margin-top:4px">${PS}</p></div>`).join('')}</div>`)],
+      ['Fråga större, svar grå', pad(`<div class="stack" style="gap:18px;max-width:420px">${[0, 1].map(() => `<div><div style="font-size:19px;font-weight:600">Hur lång tid tar det?</div><p style="margin-top:4px;color:var(--smuted)">${PS}</p></div>`).join('')}</div>`)],
+      ['Med linje mellan', pad(`<div class="stack" style="gap:14px;max-width:420px">${[0, 1].map(i => `${i ? '<div class="divider"></div>' : ''}<div><div style="font-size:17px;font-weight:600">Hur lång tid tar det?</div><p style="margin-top:4px">${PS}</p></div>`).join('')}</div>`)],
+    ]),
+    Q('tx-block-anfang', 'Ska långa texter börja med en stor första bokstav (anfang)?', [
+      ['Ingen anfang', pad(`<p style="font-size:16px;line-height:1.6;max-width:56ch">${P} ${P2}</p>`)],
+      ['Anfang över tre rader', pad(`<p style="font-size:16px;line-height:1.6;max-width:56ch"><span style="float:left;font-size:62px;line-height:0.85;font-weight:700;margin:4px 8px 0 0;color:var(--brand)">D</span>${(P + ' ' + P2).slice(1)}</p>`)],
+      ['Första raden i versaler', pad(`<p style="font-size:16px;line-height:1.6;max-width:56ch"><span style="text-transform:uppercase;letter-spacing:0.06em;font-weight:600;font-size:14px">Det här är brödtext</span>${P.slice('Det här är brödtext'.length)} ${P2}</p>`)],
+    ]),
+  ]);
+
+  // ---------- Fler frågor i befintliga grupper ----------
+  const tbl = st => `<div style="max-width:320px;font-size:15px"><div style="display:flex;justify-content:space-between;padding:0 0 8px;border-bottom:1px solid var(--sline);${st}"><span>Beskrivning</span><span>Belopp</span></div>${['Första raden|495 kr', 'Andra raden|1&#8239;295 kr', 'Tredje raden|90 kr'].map(r => { const [a, b] = r.split('|'); return `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--sline)"><span>${a}</span><span style="font-variant-numeric:tabular-nums">${b}</span></div>`; }).join('')}</div>`;
+  const gq = k => groups.find(g => g.key === k).questions;
+  gq('brodtext').push(
+    Q('tx-brod-kort-storlek', 'Hur stor ska texten i kort och listor vara?', [14, 15, 16].map(px => [`Korttext ${px} px`, pad(`<div class="panel" style="max-width:280px">${hd(3, '', 'En rubrik i ett kort')}<p style="margin-top:6px;font-size:${px}px">${PS} Den har en mening till.</p></div>`)])),
+    Q('tx-brod-kort-radavstand', 'Vilket radavstånd ska kort text i kort ha?', [1.35, 1.45, 1.6].map(v => [`Radavstånd ${fmt(v)} i kort`, pad(`<div class="panel" style="max-width:280px">${hd(3, '', 'En rubrik i ett kort')}<p style="margin-top:6px;line-height:${v}">${PS} Den har en mening till.</p></div>`)])),
+  );
+  gq('bildtext').push(
+    Q('tx-bildtext-justering', 'Hur ska bildtexten ställas?', [
+      ['Vänsterställd', fig('text-align:left')],
+      ['Centrerad', fig('text-align:center')],
+    ]),
+  );
+  gq('etiketter').push(
+    Q('tx-tabellhuvud', 'Hur ska kolumnrubriker i en tabell se ut?', [
+      ['Små versaler, grå', pad(tbl('font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--smuted);font-weight:600'))],
+      ['Meningsform, halvfet', pad(tbl('font-size:14px;font-weight:600'))],
+      ['Meningsform, grå', pad(tbl('font-size:13px;color:var(--smuted);font-weight:500'))],
+    ]),
+  );
+  gq('siffror').push(
+    Q('tx-belopp-justering', 'Hur ska belopp i en tabell ställas?', [
+      ['Högerställda', numTable('font-variant-numeric:tabular-nums')],
+      ['Vänsterställda', numTable('font-variant-numeric:tabular-nums').replace(/justify-content:space-between/g, 'justify-content:flex-start;gap:0').replace(/<span>(Januari|Februari|Mars|April)<\/span>/g, '<span style="width:110px">$1</span>')],
+    ]),
+    Q('tx-datum-relativ', 'Hur ska en nyligen inträffad tidpunkt skrivas?', [
+      ['Relativt (för 2 timmar sedan)', dt('För 2 timmar sedan')],
+      ['Idag 07.30', dt('Idag 07.30')],
+      ['Datum och tid (24 nov 07.30)', dt('24 nov 07.30')],
+    ]),
+  );
+
+  gq('etiketter').push(
+    Q('tx-etikett-kolon', 'Ska etiketter avslutas med kolon?', [
+      ['Utan kolon', pad(`<div class="stack">${fld()}${fld({ label: 'Telefon' })}</div>`)],
+      ['Med kolon', pad(`<div class="stack">${fld({ label: 'E-post:' })}${fld({ label: 'Telefon:' })}</div>`)],
+    ]),
+  );
+  gq('siffror').push(
+    Q('tx-postnummer', 'Hur ska postnummer skrivas?', [
+      ['Med mellanrum (123 45)', dt('123&nbsp;45 Ort')],
+      ['Utan mellanrum (12345)', dt('12345 Ort')],
+    ]),
+    Q('tx-ellips', 'Vilket tecken ska användas för uteslutning (…)?', [
+      ['Ellipstecken …', pad(p('Läs mer om hur det går till…', 'font-size:20px'))],
+      ['Tre punkter ...', pad(p('Läs mer om hur det går till...', 'font-size:20px'))],
+    ]),
+  );
 
   /*NEXT*/
 

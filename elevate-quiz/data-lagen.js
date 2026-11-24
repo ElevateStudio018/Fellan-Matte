@@ -420,8 +420,8 @@
     ['Ingen bock, bara tonad rad', '& .tk{display:none}& .on{background:var(--tint);font-weight:600}']
   ]);
 
-  const hdr = `<div class="hd"><span class="lg">Logo</span><span class="nv"><span>Tjänster</span><span class="on">Om oss</span><span>Kontakt</span></span></div>`;
-  const hdrCss = '& .hd{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--box);border-radius:10px;height:56px;padding:0 14px;border:1px solid var(--sline)}& .lg{font-weight:800}& .nv{display:flex;gap:14px;font-size:14px;font-weight:500;height:100%;align-items:center;white-space:nowrap}& .nv span{display:flex;align-items:center;height:100%;position:relative}';
+  const hdr = `<div class="hd"><span class="nv"><span>Tjänster</span><span class="on">Om oss</span><span>Kontakt</span></span></div>`;
+  const hdrCss = '& .hd{display:flex;align-items:center;justify-content:flex-start;gap:12px;background:var(--box);border-radius:10px;height:56px;padding:0 16px;overflow:hidden;border:1px solid var(--sline)}& .lg{font-weight:800}& .nv{display:flex;gap:18px;font-size:14px;font-weight:500;height:100%;align-items:center;white-space:nowrap}& .nv span{display:flex;align-items:center;height:100%;position:relative}';
   QC('val-meny-aktiv', 'Hur ska den aktiva sidan visas i menyn?', `<div class="lx-cap" style="margin-bottom:10px">Du är på ”Om oss”</div>${hdr}`, [
     ['Linje under', hdrCss + '& .on::after{content:"";position:absolute;left:0;right:0;bottom:12px;height:2px;background:var(--sink)}'],
     ['Fet text', hdrCss + '& .nv span{color:var(--smuted)}& .nv .on{color:var(--sink);font-weight:700}'],
@@ -523,9 +523,9 @@
   QC('val-bottennav', 'Hur ska det aktiva valet i en bottenmeny på mobil se ut?', `<div class="lx-cap" style="margin-bottom:10px">”Hem” är aktivt</div>${bn}`, [
     ['Färgad ikon och text', '& .on{color:var(--brand);font-weight:700}'],
     ['Platta bakom ikonen', '& .on{color:var(--sink);font-weight:700}& .on .bi{background:var(--tint)}'],
-    ['Prick under texten', '& .on{color:var(--sink);font-weight:700;position:relative}& .on::after{content:"";position:absolute;bottom:-1px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--sink)}'],
+    ['Prick under texten', '& .on{color:var(--sink);font-weight:700;position:relative}& .on::after{content:"";position:absolute;bottom:3px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--sink)}'],
     ['Linje överst', '& .on{color:var(--sink);font-weight:700;box-shadow:inset 0 2px 0 var(--sink)}']
-  ], { css: '& .bn{display:flex;background:#fff;border:1px solid var(--sline);border-radius:12px;overflow:hidden}& .b{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px 9px;font-size:11px;color:var(--smuted);min-width:0}& .bi{display:grid;place-items:center;width:48px;height:28px;border-radius:999px}' });
+  ], { css: '& .bn{display:flex;background:#fff;border:1px solid var(--sline);border-radius:12px;overflow:hidden}& .b{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px 12px;font-size:11px;color:var(--smuted);min-width:0}& .bi{display:grid;place-items:center;width:48px;height:28px;border-radius:999px}' });
 
   const tr = (on, t, d) => `<div class="tr${on ? ' on' : ''}"><span class="bx">${on ? ico('check', 12, 3.2) : ''}</span><span class="nm">${t}</span><span class="dt">${d}</span></div>`;
   QC('val-tabellrad', 'Hur ska en markerad rad i en tabell se ut?', `<div class="lx-cap" style="margin-bottom:8px">Andra raden är markerad</div><div class="tb">${tr(0, 'Offert', '12 mars')}${tr(1, 'Faktura', '14 mars')}${tr(0, 'Kvitto', '20 mars')}</div>`, [
@@ -609,6 +609,508 @@
   ], { css: '& .tabs{display:flex;gap:2px;border-bottom:1px solid var(--sline);font-size:14px;font-weight:600}& .t{padding:9px 12px;color:var(--smuted);white-space:nowrap}& .on{color:var(--sink);box-shadow:inset 0 -2px 0 var(--sink)}' });
 
   QT('ina-markor', 'Vilken muspekare ska inaktiva knappar ha?', ['Förbudsskylt (not-allowed)', 'Vanlig pil', 'Hand som vanligt']);
+
+  /* =====================================================================
+     LADDNING: SPINNER, PUNKTER, PROGRESS
+     ===================================================================== */
+  grp('laddning', 'Laddning');
+
+  const spinCss = (s = 32, t = 3, col = 'var(--brand)', track = '#E1E4E8', dur = .8) =>
+    `& .sp{display:inline-block;width:${s}px;height:${s}px;border-radius:50%;border:${t}px solid ${track};border-top-color:${col};animation:&&k ${dur}s linear infinite;flex:0 0 auto}@keyframes &&k{to{transform:rotate(360deg)}}`;
+  const SP = '<span class="sp" role="img" aria-label="Laddar"></span>';
+  const stage = (inner, t = 'Laddar') => `<div class="stg"><div class="lx-cap">${t}</div><div class="row" style="justify-content:center;min-height:70px">${inner}</div></div>`;
+  const stgCss = '& .stg{display:flex;flex-direction:column;gap:8px}';
+
+  const dots8 = `<span class="d8" role="img" aria-label="Laddar">${Array.from({ length: 8 }, (_, k) => `<i style="transform:rotate(${k * 45}deg);opacity:${((k + 1) / 8).toFixed(2)}"></i>`).join('')}</span>`;
+  const bars12 = `<span class="b12" role="img" aria-label="Laddar">${Array.from({ length: 12 }, (_, k) => `<i style="transform:rotate(${k * 30}deg);opacity:${((k + 1) / 12).toFixed(2)}"></i>`).join('')}</span>`;
+  Q('lad-spinner-stil', 'Vilken stil ska spinnern ha?', [
+    ['Ring med spår och båge', stage(SP), stgCss + spinCss()],
+    ['Båge utan spår', stage(SP), stgCss + spinCss(32, 3, 'var(--brand)', 'transparent') + '& .sp{border-right-color:var(--brand);border-bottom-color:var(--brand)}'],
+    ['Prickar i cirkel', stage(dots8), stgCss + '& .d8{position:relative;width:32px;height:32px;animation:&&k .9s steps(8) infinite}& .d8 i{position:absolute;left:13px;top:0;width:6px;height:6px;border-radius:50%;background:var(--brand);transform-origin:3px 16px}@keyframes &&k{to{transform:rotate(360deg)}}'],
+    ['Streck i cirkel', stage(bars12), stgCss + '& .b12{position:relative;width:32px;height:32px;animation:&&k 1s steps(12) infinite}& .b12 i{position:absolute;left:14.5px;top:0;width:3px;height:9px;border-radius:2px;background:var(--brand);transform-origin:1.5px 16px}@keyframes &&k{to{transform:rotate(360deg)}}']
+  ]);
+
+  Q('lad-spinner-tjocklek', 'Hur tjock ska spinnerns linje vara?', [2, 3, 4, 6].map(t => [`${t} px`, stage(SP), stgCss + spinCss(36, t)]));
+
+  const spc = (s) => `<div class="lx-card" style="align-items:center;justify-content:center;min-height:130px;gap:10px"><span class="sp" role="img" aria-label="Laddar"></span></div>`;
+  Q('lad-spinner-storlek', 'Hur stor ska spinnern vara när en yta laddar?', [20, 32, 48].map(s => [`${s} px`, `<div class="lx-cap" style="margin-bottom:8px">Ett kort laddar</div>${spc(s)}`, spinCss(s, s > 40 ? 4 : 3)]));
+
+  Q('lad-spinner-fart', 'Hur snabbt ska spinnern snurra?', [
+    ['Snabbt (0,6 s per varv)', stage(SP), stgCss + spinCss(32, 3, 'var(--brand)', '#E1E4E8', .6)],
+    ['Medel (1 s per varv)', stage(SP), stgCss + spinCss(32, 3, 'var(--brand)', '#E1E4E8', 1)],
+    ['Lugnt (1,6 s per varv)', stage(SP), stgCss + spinCss(32, 3, 'var(--brand)', '#E1E4E8', 1.6)]
+  ]);
+
+  Q('lad-spinner-farg', 'Vilken färg ska spinnern ha?', [
+    ['Märkesfärg', stage(SP), stgCss + spinCss()],
+    ['Mörkgrå', stage(SP), stgCss + spinCss(32, 3, '#3F4348')],
+    ['Ljusgrå', stage(SP), stgCss + spinCss(32, 3, '#9AA0A6', '#ECEDEE')]
+  ]);
+
+  Q('lad-spinner-text', 'Ska spinnern ha text bredvid sig?', [
+    ['Bara spinner', stage(SP), stgCss + spinCss(28)],
+    ['Text under: ”Laddar…”', stage(`<div class="stack" style="align-items:center;gap:10px">${SP}<span class="small muted">Laddar…</span></div>`), stgCss + spinCss(28)],
+    ['Text bredvid: ”Laddar…”', stage(`<div class="row" style="gap:10px">${SP}<span class="small muted">Laddar…</span></div>`), stgCss + spinCss(22, 2.5)]
+  ]);
+
+  const d3 = `<span class="d3" role="img" aria-label="Laddar"><i></i><i style="animation-delay:.15s"></i><i style="animation-delay:.3s"></i></span>`;
+  const d3Css = '& .d3{display:inline-flex;gap:6px;align-items:center;height:24px}& .d3 i{width:9px;height:9px;border-radius:50%;background:var(--brand);display:block;animation:&&k 1s infinite ease-in-out}';
+  Q('lad-punkter', 'Hur ska tre laddpunkter röra sig?', [
+    ['Pulserar (tonar)', stage(d3), stgCss + d3Css + '@keyframes &&k{0%,80%,100%{opacity:.25}40%{opacity:1}}'],
+    ['Studsar', stage(d3), stgCss + d3Css + '@keyframes &&k{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-7px)}}'],
+    ['Växer och krymper', stage(d3), stgCss + d3Css + '@keyframes &&k{0%,80%,100%{transform:scale(.55)}40%{transform:scale(1)}}']
+  ]);
+
+  const smallCtx = (ind) => `<div class="lx-cap" style="margin-bottom:10px">Liten yta laddar</div><div class="lx-card" style="flex-direction:row;align-items:center;gap:10px"><span style="flex:1;font-size:14px">Leveranstid</span>${ind}</div>`;
+  Q('lad-liten', 'Vilken indikator ska användas när en liten del laddar?', [
+    ['Liten spinner', smallCtx(SP), spinCss(18, 2.5)],
+    ['Tre punkter', smallCtx(d3), d3Css.replace('width:9px;height:9px', 'width:6px;height:6px').replace('gap:6px', 'gap:4px') + '@keyframes &&k{0%,80%,100%{opacity:.25}40%{opacity:1}}'],
+    ['Texten ”Laddar…”', smallCtx('<span class="small muted">Laddar…</span>'), ''],
+    ['Grått skelettblock', smallCtx('<span style="display:block;width:64px;height:12px;border-radius:4px;background:#E3E5E7"></span>'), '']
+  ]);
+
+  const pbar = (w = 62) => `<div class="pb"><i style="width:${w}%"></i></div>`;
+  const pCtx = (bar, extra = '') => `<div class="stack" style="gap:8px"><div class="row" style="justify-content:space-between"><span style="font-size:14px;font-weight:600">Laddar upp</span>${extra}</div>${bar}</div>`;
+  Q('lad-progress-stil', 'Hur ska en progressbar se ut?', [
+    ['Tunn linje (2 px)', pCtx(pbar()), '& .pb{height:2px;background:#E3E5E7}& .pb i{display:block;height:100%;background:var(--brand)}'],
+    ['Rundad stapel (6 px)', pCtx(pbar()), '& .pb{height:6px;background:#E3E5E7;border-radius:999px;overflow:hidden}& .pb i{display:block;height:100%;background:var(--brand);border-radius:999px}'],
+    ['Tjock stapel med procent', pCtx(pbar(), '<span class="small" style="font-variant-numeric:tabular-nums">62 %</span>'), '& .pb{height:10px;background:#E3E5E7;border-radius:999px;overflow:hidden}& .pb i{display:block;height:100%;background:var(--brand);border-radius:999px}'],
+    ['Segmenterad i steg', pCtx('<div class="sg"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>'), '& .sg{display:flex;gap:4px}& .sg i{flex:1;height:6px;border-radius:3px;background:#E3E5E7;display:block}& .sg i.on{background:var(--brand)}']
+  ]);
+
+  Q('lad-progress-hojd', 'Hur hög ska en progressbar vara?', [2, 4, 8].map(h => [`${h} px`, pCtx(pbar()), `& .pb{height:${h}px;background:#E3E5E7;border-radius:999px;overflow:hidden}& .pb i{display:block;height:100%;background:var(--brand);border-radius:999px}`]));
+
+  Q('lad-progress-ande', 'Ska progressbarens ändar vara runda eller raka?', [
+    ['Runda ändar', pCtx(pbar()), '& .pb{height:8px;background:#E3E5E7;border-radius:999px;overflow:hidden}& .pb i{display:block;height:100%;background:var(--brand);border-radius:999px}'],
+    ['Raka ändar', pCtx(pbar()), '& .pb{height:8px;background:#E3E5E7;overflow:hidden}& .pb i{display:block;height:100%;background:var(--brand)}']
+  ]);
+
+  const pbI = `<div class="pb"><i></i></div>`;
+  const pbIB = '& .pb{position:relative;height:6px;background:#E3E5E7;border-radius:999px;overflow:hidden}& .pb i{position:absolute;top:0;bottom:0;display:block;background:var(--brand);border-radius:999px}';
+  Q('lad-progress-obestamd', 'Hur ska en progressbar se ut när tiden är okänd?', [
+    ['En bit glider fram och tillbaka', pCtx(pbI), pbIB + '& .pb i{width:35%;animation:&&k 1.4s infinite ease-in-out alternate}@keyframes &&k{from{left:0}to{left:65%}}'],
+    ['En bit sveper i en riktning', pCtx(pbI), pbIB + '& .pb i{width:35%;animation:&&k 1.3s infinite cubic-bezier(.4,0,.2,1)}@keyframes &&k{from{left:-35%}to{left:100%}}'],
+    ['Hela stapeln pulserar', pCtx(pbI), pbIB + '& .pb i{left:0;right:0;animation:&&k 1.4s infinite ease-in-out}@keyframes &&k{0%,100%{opacity:.25}50%{opacity:.9}}'],
+    ['Randig stapel som rör sig', pCtx(pbI), pbIB + '& .pb i{left:0;right:0;background:repeating-linear-gradient(-45deg,var(--brand) 0 8px,#4B6A8C 8px 16px);background-size:22.6px 100%;animation:&&k .8s linear infinite}@keyframes &&k{to{background-position:22.6px 0}}']
+  ]);
+
+  Q('lad-progress-text', 'Vilken text ska stå vid en progressbar?', [
+    ['Procent', pCtx(pbar(), '<span class="small" style="font-variant-numeric:tabular-nums">62 %</span>'), ''],
+    ['Antal: ”3 av 5 filer”', pCtx(pbar(), '<span class="small" style="font-variant-numeric:tabular-nums">3 av 5 filer</span>'), ''],
+    ['Tid kvar: ”ca 20 s kvar”', pCtx(pbar(), '<span class="small" style="font-variant-numeric:tabular-nums">ca 20 s kvar</span>'), ''],
+    ['Ingen text', pCtx(pbar()), '']
+  ], { css: '& .pb{height:6px;background:#E3E5E7;border-radius:999px;overflow:hidden}& .pb i{display:block;height:100%;background:var(--brand);border-radius:999px}' });
+
+  const skl = '<div class="sk"><i style="width:40%;height:14px"></i><i></i><i style="width:85%"></i><div class="sr"><i></i><i></i></div></div>';
+  const sklCss = '& .sk{padding:12px;display:flex;flex-direction:column;gap:9px}& .sk i{display:block;height:8px;border-radius:4px;background:#E6E7E8}& .sr{display:flex;gap:8px}& .sr i{flex:1;height:44px!important;border-radius:6px!important}';
+  Q('lad-sida', 'Hur ska en hel sida visa att den laddar?', [
+    ['Tunn linje överst', `<div class="lx-scr" style="height:170px">${fake(4)}<div class="tl"><i></i></div></div>`, '& .lx-fake{opacity:.5}& .tl{position:absolute;top:0;left:0;right:0;height:3px}& .tl i{display:block;height:100%;width:60%;background:var(--brand);animation:&&k 2s infinite ease-out}@keyframes &&k{from{width:5%}to{width:85%}}'],
+    ['Spinner i mitten', `<div class="lx-scr" style="height:170px;display:grid;place-items:center">${SP}</div>`, spinCss(32)],
+    ['Skelett av innehållet', `<div class="lx-scr" style="height:170px">${skl}</div>`, sklCss + '& .sk i{animation:&&k 1.4s infinite ease-in-out}@keyframes &&k{0%,100%{opacity:1}50%{opacity:.5}}']
+  ]);
+
+  QT('lad-fordrojning', 'När ska en laddindikator dyka upp?', ['Direkt', 'Först efter cirka 0,3 s', 'Först efter cirka 1 s']);
+
+  /* =====================================================================
+     SKELETT
+     ===================================================================== */
+  grp('skelett', 'Skelett');
+
+  const skCard = `<div class="skc"><span class="im"></span><span class="ln" style="width:70%;height:12px"></span><span class="ln"></span><span class="ln" style="width:55%"></span></div>`;
+  const skBase = (bg = '#E6E7E8', r = 4) => `& .skc{background:var(--box);border:1px solid var(--sline);border-radius:var(--rc);padding:12px;display:flex;flex-direction:column;gap:9px;max-width:240px}& .skc span{display:block;background:${bg};border-radius:${r}px;position:relative;overflow:hidden}& .im{aspect-ratio:16/9;border-radius:8px!important}& .ln{height:9px}`;
+  const shimmer = (dur = 1.6) => `& .skc span::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);transform:translateX(-100%);animation:&&k ${dur}s infinite}@keyframes &&k{to{transform:translateX(100%)}}`;
+  Q('ske-anim', 'Hur ska ett skelett röra sig medan det laddar?', [
+    ['Glans som sveper över', skCard, skBase() + shimmer()],
+    ['Pulserar (tonar)', skCard, skBase() + '& .skc span{animation:&&k 1.4s infinite ease-in-out}@keyframes &&k{0%,100%{opacity:1}50%{opacity:.45}}'],
+    ['Står still', skCard, skBase()]
+  ]);
+
+  Q('ske-fart', 'Hur snabbt ska glansen svepa över skelettet?', [
+    ['Snabbt (1 s)', skCard, skBase() + shimmer(1)],
+    ['Medel (1,6 s)', skCard, skBase() + shimmer(1.6)],
+    ['Lugnt (2,4 s)', skCard, skBase() + shimmer(2.4)]
+  ]);
+
+  Q('ske-ton', 'Vilken ton ska skelettblocken ha?', [
+    ['Ljusgrå', skCard, skBase('#E6E7E8')],
+    ['Mycket ljus grå', skCard, skBase('#F0F0EF')],
+    ['Tonad märkesfärg', skCard, skBase('#E3E9EF')],
+    ['Mörkare grå', skCard, skBase('#D5D7DA')]
+  ]);
+
+  Q('ske-rundning', 'Hur runda ska skelettets textrader vara?', [
+    ['Nästan raka (2 px)', skCard, skBase('#E6E7E8', 2)],
+    ['Lätt rundade (4 px)', skCard, skBase('#E6E7E8', 4)],
+    ['Helt runda', skCard, skBase('#E6E7E8', 999)]
+  ]);
+
+  Q('ske-form', 'Hur noga ska skelettet likna innehållet som kommer?', [
+    ['Exakt som det riktiga kortet', skCard, skBase()],
+    ['Ett enda block per kort', '<div class="skc"><span class="one"></span></div>', skBase() + '& .one{height:170px;border-radius:8px!important}'],
+    ['Bara textrader', '<div class="skc"><span class="ln" style="width:70%;height:12px"></span><span class="ln"></span><span class="ln"></span><span class="ln" style="width:55%"></span></div>', skBase()]
+  ]);
+
+  Q('ske-rader', 'Ska skelettets textrader vara olika långa?', [
+    ['Olika långa, som riktig text', '<div class="skc"><span class="ln" style="width:92%"></span><span class="ln" style="width:100%"></span><span class="ln" style="width:78%"></span><span class="ln" style="width:48%"></span></div>', skBase()],
+    ['Alla lika långa', '<div class="skc"><span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span></div>', skBase()]
+  ]);
+
+  Q('ske-bild', 'Hur ska en bild se ut innan den har laddat?', [
+    ['Grått block', '<div class="bw"><span class="g"></span></div>', '& .g{display:block;aspect-ratio:4/3;background:#E6E7E8;border-radius:var(--rc)}& .bw{max-width:240px}'],
+    ['Grått block med bildikon', `<div class="bw"><span class="g">${ico('image', 28, 1.6)}</span></div>`, '& .g{display:grid;place-items:center;aspect-ratio:4/3;background:#E6E7E8;border-radius:var(--rc);color:#9AA0A6}& .bw{max-width:240px}'],
+    ['Suddig förhandsbild', '<div class="bw"><span class="g"><img src="img/skog-sjo.jpg" alt="Skog och sjö, suddig förhandsbild"></span></div>', '& .g{display:block;aspect-ratio:4/3;border-radius:var(--rc);overflow:hidden}& .g img{width:100%;height:100%;object-fit:cover;filter:blur(10px);transform:scale(1.15)}& .bw{max-width:240px}']
+  ]);
+
+  Q('ske-avatar', 'Vilken form ska skelettet ha för en profilbild?', [
+    ['Rund', '<div class="ar"><span class="av"></span><div class="tx"><span style="width:70%"></span><span style="width:45%"></span></div></div>', '& .av{border-radius:50%}'],
+    ['Rundad fyrkant', '<div class="ar"><span class="av"></span><div class="tx"><span style="width:70%"></span><span style="width:45%"></span></div></div>', '& .av{border-radius:10px}']
+  ], { css: '& .ar{display:flex;gap:12px;align-items:center}& .av{width:48px;height:48px;background:#E6E7E8;flex:0 0 auto}& .tx{flex:1;display:flex;flex-direction:column;gap:8px}& .tx span{display:block;height:9px;border-radius:4px;background:#E6E7E8}' });
+
+  /* =====================================================================
+     LADDNING I KNAPP, KORT OCH SIDA
+     ===================================================================== */
+  grp('laddplats', 'Laddning i knapp, kort och lista');
+
+  const lb = (inner) => `<div class="row" style="gap:16px">${cap('Vila', '<span class="sb">Skicka</span>')}${cap('Laddar', inner)}</div>`;
+  const wsp = (s = 18) => spinCss(s, 2.5, '#fff', 'rgba(255,255,255,.35)');
+  Q('ladk-knapp', 'Hur ska en knapp visa att den arbetar efter klick?', [
+    ['Spinner ersätter texten', lb(`<span class="sb" style="min-width:104px">${SP}</span>`), wsp()],
+    ['Spinner före ”Skickar…”', lb(`<span class="sb">${SP}Skickar…</span>`), wsp(16)],
+    ['Bara texten ändras: ”Skickar…”', lb('<span class="sb">Skickar…</span>'), ''],
+    ['Tunn stapel i knappens nederkant', lb('<span class="sb bb">Skicka<i></i></span>'), '& .bb{position:relative;overflow:hidden}& .bb i{position:absolute;left:0;bottom:0;height:3px;width:40%;background:rgba(255,255,255,.8);animation:&&k 1.2s infinite ease-in-out alternate}@keyframes &&k{from{left:-10%}to{left:70%}}']
+  ]);
+
+  Q('ladk-bredd', 'Ska knappen behålla sin bredd när den laddar?', [
+    ['Behåller bredden', lb(`<span class="sb" style="width:104px;padding:0">${SP}</span>`), wsp()],
+    ['Krymper till en rund knapp', lb(`<span class="sb" style="width:48px;padding:0;border-radius:999px">${SP}</span>`), wsp()]
+  ]);
+
+  Q('ladk-ton', 'Ska knappen blekna medan den laddar?', [
+    ['Behåller full färg', lb(`<span class="sb">${SP}Skickar…</span>`), wsp(16)],
+    ['Bleknar lite', lb(`<span class="sb" style="opacity:.7">${SP}Skickar…</span>`), wsp(16)]
+  ]);
+
+  const kc = (inner) => `<div class="lx-cap" style="margin-bottom:8px">Kortet uppdateras</div><div class="kc">${inner}</div>`;
+  const kcCss = '& .kc{position:relative;background:var(--box);border:1px solid var(--sline);border-radius:var(--rc);padding:14px;display:flex;flex-direction:column;gap:6px;min-height:120px;max-width:260px}& .big{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}';
+  const kcContent = '<span class="lx-cs">Bokningar i dag</span><span class="big">128</span><span class="lx-cs">+12 jämfört med i går</span>';
+  Q('ladk-kort', 'Hur ska ett kort som uppdateras visa laddning?', [
+    ['Skelett i stället för innehållet', kc('<span class="s" style="width:50%"></span><span class="s" style="width:35%;height:26px"></span><span class="s" style="width:70%"></span>'), kcCss + '& .s{display:block;height:10px;border-radius:4px;background:#E6E7E8;animation:&&k 1.4s infinite ease-in-out}@keyframes &&k{0%,100%{opacity:1}50%{opacity:.5}}'],
+    ['Spinner i mitten', kc(`<div style="flex:1;display:grid;place-items:center">${SP}</div>`), kcCss + spinCss(26)],
+    ['Gammalt innehåll blekt med spinner', kc(`<div class="ol">${kcContent}</div><span class="cs">${SP}</span>`), kcCss + spinCss(26) + '& .ol{display:flex;flex-direction:column;gap:6px;opacity:.35}& .cs{position:absolute;inset:0;display:grid;place-items:center}'],
+    ['Liten spinner i hörnet', kc(`${kcContent}<span class="cs">${SP}</span>`), kcCss + spinCss(16, 2) + '& .cs{position:absolute;top:12px;right:12px}']
+  ]);
+
+  const lst = (end) => `<div class="ls"><div class="r"></div><div class="r"></div><div class="r"></div>${end}</div>`;
+  const lstCss = '& .ls{display:flex;flex-direction:column;gap:8px;align-items:center}& .r{width:100%;height:30px;border-radius:8px;background:var(--box);border:1px solid var(--sline)}';
+  Q('ladk-fler', 'Hur ska fler resultat laddas längst ned i en lista?', [
+    ['Knapp ”Visa fler”', lst('<span class="sb2 lx-btnsm" style="margin-top:4px">Visa fler</span>'), lstCss],
+    ['Laddar automatiskt med spinner', lst(`<span style="padding:8px">${SP}</span>`), lstCss + spinCss(22, 2.5)],
+    ['Knapp som visar spinner när den klickats', lst(`<span class="sb2 lx-btnsm" style="margin-top:4px">${SP}Laddar…</span>`), lstCss + spinCss(14, 2)],
+    ['Sidnummer under listan', lst('<span class="small" style="display:flex;gap:12px;margin-top:6px;font-weight:600"><b style="text-decoration:underline">1</b><span>2</span><span>3</span><span>Nästa</span></span>'), lstCss]
+  ]);
+
+  const ff = '<div class="stack" style="gap:10px"><div class="fld"><span class="lbl">Namn</span><span class="inp">Alex Andersson</span></div><div class="fld"><span class="lbl">E-post</span><span class="inp">alex@exempel.se</span></div></div>';
+  Q('ladk-las', 'Ska formuläret låsas medan det sparas?', [
+    ['Vit slöja över formuläret', `<div class="fw">${ff}<div class="veil">${SP}</div></div><div style="margin-top:12px"><span class="sb lx-btnsm">Sparar…</span></div>`, spinCss(26) + '& .fw{position:relative}& .veil{position:absolute;inset:-6px;background:rgba(255,255,255,.65);display:grid;place-items:center;border-radius:8px}'],
+    ['Bara knappen visar laddning', `<div class="fw">${ff}</div><div style="margin-top:12px"><span class="sb lx-btnsm">${SP}Sparar…</span></div>`, spinCss(14, 2, '#fff', 'rgba(255,255,255,.35)')],
+    ['Fälten blir grå medan det sparas', `<div class="fw g">${ff}</div><div style="margin-top:12px"><span class="sb lx-btnsm">${SP}Sparar…</span></div>`, spinCss(14, 2, '#fff', 'rgba(255,255,255,.35)') + '& .g .inp{background:#EEEFEF;color:#7A7F85;border-color:transparent}']
+  ]);
+
+  const up = (bar) => `<div class="uf"><span class="fi">${ico('file', 20)}</span><div class="tx"><span class="nm">Rapport.pdf</span>${bar}</div><span class="x">${ico('x', 16)}</span></div>`;
+  const upCss = '& .uf{display:flex;align-items:center;gap:12px;background:var(--box);border:1px solid var(--sline);border-radius:10px;padding:12px}& .fi{color:var(--smuted);display:flex}& .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}& .nm{font-size:14px;font-weight:600}& .x{color:var(--smuted);display:flex}';
+  Q('ladk-uppladdning', 'Hur ska en fil som laddas upp visa förloppet?', [
+    ['Stapel under filnamnet', up('<div class="pb"><i style="width:62%"></i></div>'), upCss + '& .pb{height:4px;background:#E3E5E7;border-radius:999px;overflow:hidden}& .pb i{display:block;height:100%;background:var(--brand)}'],
+    ['Cirkel med procent', up('<span class="lx-cs">2,4 av 3,9 MB</span>').replace(`<span class="x">${ico('x', 16)}</span>`, '<span class="ci"><b>62</b></span>'), upCss + '& .ci{width:34px;height:34px;border-radius:50%;background:conic-gradient(var(--brand) 62%,#E3E5E7 0);display:grid;place-items:center}& .ci b{width:26px;height:26px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:10px;font-variant-numeric:tabular-nums}'],
+    ['Bara procent i text', up('<span class="lx-cs" style="font-variant-numeric:tabular-nums">Laddar upp … 62 %</span>'), upCss],
+    ['Raden fylls som bakgrund', up('<span class="lx-cs" style="font-variant-numeric:tabular-nums">62 %</span>'), upCss + '& .uf{background:linear-gradient(90deg,var(--tint) 62%,var(--box) 62%)}']
+  ]);
+
+  Q('ladk-langsam', 'Vad ska visas om laddningen tar ovanligt lång tid?', [
+    ['Bara spinnern som vanligt', `<div class="lx-card" style="align-items:center;min-height:130px;justify-content:center;gap:10px">${SP}</div>`, spinCss(28)],
+    ['Spinner och lugnande text', `<div class="lx-card" style="align-items:center;min-height:130px;justify-content:center;gap:10px;text-align:center">${SP}<span class="small muted">Det tar lite längre tid än vanligt …</span></div>`, spinCss(28)],
+    ['Spinner, text och avbryt-länk', `<div class="lx-card" style="align-items:center;min-height:130px;justify-content:center;gap:8px;text-align:center">${SP}<span class="small muted">Det tar lite längre tid än vanligt …</span><span class="link small">Avbryt</span></div>`, spinCss(28)]
+  ]);
+
+  Q('ladk-bild', 'Hur ska en bild dyka upp när den har laddat?', [
+    ['Tonar in mjukt', '<div class="lx-cap" style="margin-bottom:8px">Laddning upprepas</div><div class="bw"><img src="img/stugor-sjo.jpg" alt="Stugor vid en sjö"></div>', '& img{animation:&&k 3s infinite ease-out}@keyframes &&k{0%,25%{opacity:0}45%,100%{opacity:1}}'],
+    ['Dyker upp direkt', '<div class="lx-cap" style="margin-bottom:8px">Laddning upprepas</div><div class="bw"><img src="img/stugor-sjo.jpg" alt="Stugor vid en sjö"></div>', '& img{animation:&&k 3s infinite steps(1)}@keyframes &&k{0%,25%{opacity:0}26%,100%{opacity:1}}'],
+    ['Går från suddig till skarp', '<div class="lx-cap" style="margin-bottom:8px">Laddning upprepas</div><div class="bw"><img src="img/stugor-sjo.jpg" alt="Stugor vid en sjö"></div>', '& img{animation:&&k 3s infinite ease-out}@keyframes &&k{0%,25%{filter:blur(12px);transform:scale(1.1)}50%,100%{filter:blur(0);transform:scale(1)}}']
+  ], { css: '& .bw{aspect-ratio:4/3;max-width:240px;background:#E6E7E8;border-radius:var(--rc);overflow:hidden}& .bw img{width:100%;height:100%;object-fit:cover}' });
+
+  /* =====================================================================
+     LYCKAT
+     ===================================================================== */
+  grp('lyckat', 'Lyckat');
+
+  const OK = { fg: '#1E7A45', bg: '#E7F4EC', bd: '#1E7A45' };
+  const toastBox = (t, st = '') => `<div class="lx-tst" style="${st}">${t}</div>`;
+  const tstCss = '& .lx-tst{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;display:flex;align-items:center;gap:8px;background:#1F2225;color:#fff;font-size:13px;font-weight:500;padding:9px 12px;border-radius:8px;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.2)}';
+  Q('lyc-typ', 'Hur ska man bekräfta att något har sparats?', [
+    ['Text vid knappen', `<div class="stack" style="gap:10px"><div class="fld"><span class="lbl">Visningsnamn</span><span class="inp">Alex</span></div><div class="row" style="gap:10px"><span class="sb lx-btnsm">Spara</span><span class="okt">${ico('check', 16, 2.6)}Sparat</span></div></div>`, '& .okt{display:inline-flex;align-items:center;gap:5px;color:#1E7A45;font-size:14px;font-weight:600}'],
+    ['Toast som försvinner', scr(toastBox(`${ico('check', 16, 2.6)}Ändringarna är sparade`)), tstCss],
+    ['Egen bekräftelsesida', `<div class="lx-scr" style="height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:12px"><span class="cc">${ico('check', 22, 2.6)}</span><b style="font-size:15px">Ändringarna är sparade</b><span class="link small">Tillbaka</span></div>`, '& .cc{width:40px;height:40px;border-radius:50%;background:#1E7A45;color:#fff;display:grid;place-items:center}']
+  ]);
+
+  const okBan = (c) => `<div class="ob" style="background:${c.bg};color:${c.fg}">${ico('checkc', 20)}<span>Dina ändringar är sparade.</span></div>`;
+  Q('lyc-farg', 'Vilken färg ska en lyckad bekräftelse ha?', [
+    ['Grön', okBan(OK)],
+    ['Neutral grå', okBan({ bg: '#EEEFEF', fg: '#1A1C1E' })],
+    ['Märkesfärg', okBan({ bg: '#E6EBF0', fg: '#24405E' })],
+    ['Mörk platta', okBan({ bg: '#1F2225', fg: '#fff' })]
+  ], { css: '& .ob{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:10px;font-size:14px;font-weight:500}' });
+
+  const drawCheck = `<svg class="dc" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" fill="#1E7A45"/><path d="M15 27l7 7 15-16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const okPage = (icon) => `<div class="lx-cap" style="margin-bottom:8px">Upprepas</div><div class="op">${icon}<b>Bokningen är klar</b><span class="small muted">Bekräftelse skickas via e-post.</span></div>`;
+  const opCss = '& .op{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;background:var(--box);border-radius:12px;padding:20px 12px;border:1px solid var(--sline)}& .op b{font-size:16px}& .dc{width:52px;height:52px;margin-bottom:4px}';
+  Q('lyc-bock-anim', 'Ska bocken i en bekräftelse animeras?', [
+    ['Ja, bocken ritas fram', okPage(drawCheck), opCss + '& .dc path{stroke-dasharray:40;animation:&&k 3s infinite ease-out}& .dc circle{animation:&&c 3s infinite ease-out;transform-origin:center}@keyframes &&k{0%,20%{stroke-dashoffset:40}45%,100%{stroke-dashoffset:0}}@keyframes &&c{0%{transform:scale(.6);opacity:0}15%,100%{transform:scale(1);opacity:1}}'],
+    ['Nej, bocken står still', okPage(drawCheck), opCss],
+    ['Ingen bock alls', okPage(''), opCss]
+  ]);
+
+  const ck = (k) => k === 'fill' ? `<span class="ck f">${ico('check', 26, 3)}</span>` : k === 'ring' ? `<span class="ck r">${ico('check', 26, 2.6)}</span>` : k === 'tint' ? `<span class="ck t">${ico('check', 26, 2.8)}</span>` : `<span class="ck b">${ico('check', 40, 2.6)}</span>`;
+  const ckCss = '& .ck{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;color:#1E7A45}& .ck.f{background:#1E7A45;color:#fff}& .ck.r{border:2.5px solid #1E7A45}& .ck.t{background:#E7F4EC}';
+  Q('lyc-bock-stil', 'Hur ska bocken i en bekräftelse se ut?', [
+    ['Bock i fylld cirkel', okPage(ck('fill')).replace('<div class="lx-cap" style="margin-bottom:8px">Upprepas</div>', ''), opCss + ckCss],
+    ['Bock i tonad cirkel', okPage(ck('tint')).replace('<div class="lx-cap" style="margin-bottom:8px">Upprepas</div>', ''), opCss + ckCss],
+    ['Bock i ring', okPage(ck('ring')).replace('<div class="lx-cap" style="margin-bottom:8px">Upprepas</div>', ''), opCss + ckCss],
+    ['Bara bocken', okPage(ck('bare')).replace('<div class="lx-cap" style="margin-bottom:8px">Upprepas</div>', ''), opCss + ckCss]
+  ]);
+
+  Q('lyc-bock-storlek', 'Hur stor ska bocken vara på en bekräftelsesida?', [40, 64, 96].map(s => [`${s} px`, `<div class="op"><span class="ck f" style="width:${s}px;height:${s}px">${ico('check', Math.round(s * .5), 3)}</span><b>Bokningen är klar</b><span class="small muted">Bekräftelse skickas via e-post.</span></div>`, opCss + ckCss]));
+
+  const okMsg = `<div class="om">${ico('checkc', 18)}<span>Tack! Vi har tagit emot ditt meddelande.</span></div>`;
+  Q('lyc-ruta', 'Hur ska ett lyckat meddelande på sidan se ut?', [
+    ['Bara grön text med ikon', okMsg, '& .om{color:#1E7A45;padding:0}'],
+    ['Tonad grön ruta', okMsg, '& .om{background:#E7F4EC;color:#14532D;border-radius:10px}& .om svg{color:#1E7A45}'],
+    ['Kant till vänster', okMsg, '& .om{background:#F4FAF6;color:#14532D;border-left:4px solid #1E7A45;border-radius:4px}& .om svg{color:#1E7A45}'],
+    ['Kant runt om', okMsg, '& .om{background:#fff;color:#14532D;border:1px solid #9BCDB0;border-radius:10px}& .om svg{color:#1E7A45}']
+  ], { css: '& .om{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;font-size:14px;font-weight:500;line-height:1.4}& .om svg{margin-top:1px}' });
+
+  Q('lyc-helsida', 'Hur ska en bekräftelsesida vara upplagd?', [
+    ['Centrerad: ikon, rubrik, knapp', `<div class="lx-scr pg c">${ck('fill')}<b class="h3 h">Bokningen är klar</b><span class="small muted">Bekräftelse skickas via e-post.</span><span class="sb lx-btnsm">Till startsidan</span></div>`, ckCss],
+    ['Vänsterställd', `<div class="lx-scr pg l">${ck('fill')}<b class="h3 h">Bokningen är klar</b><span class="small muted">Bekräftelse skickas via e-post.</span><span class="sb lx-btnsm">Till startsidan</span></div>`, ckCss],
+    ['Med sammanfattning under', `<div class="lx-scr pg c"><b class="h3 h">${ico('checkc', 20, 2.2, 'color:#1E7A45;vertical-align:-3px;margin-right:6px')}Bokningen är klar</b><div class="sum"><span>Datum</span><b>14 mars</b><span>Tid</span><b>10.00</b><span>Pris</span><b>495 kr</b></div><span class="sb lx-btnsm">Till startsidan</span></div>`, ckCss + '& .sum{display:grid;grid-template-columns:auto auto;gap:4px 18px;font-size:13px;text-align:left;background:var(--ground);padding:10px 14px;border-radius:8px}& .sum span{color:var(--smuted)}']
+  ], { css: '& .pg{min-height:220px;display:flex;flex-direction:column;gap:8px;padding:18px;justify-content:center}& .pg.c{align-items:center;text-align:center}& .pg.l{align-items:flex-start}& .pg .ck{width:44px;height:44px}& .pg .sb{margin-top:6px}' });
+
+  const sv = (inner) => `<div class="row" style="gap:16px">${cap('Före', '<span class="sb">Spara</span>')}${cap('Efter klick', inner)}</div>`;
+  Q('lyc-knappbyte', 'Ska knappen själv visa att det lyckades?', [
+    ['Blir grön: ”Sparat ✓”', sv(`<span class="sb" style="background:#1E7A45;border-color:#1E7A45">${ico('check', 18, 2.6)}Sparat</span>`)],
+    ['Samma färg: ”Sparat ✓”', sv(`<span class="sb">${ico('check', 18, 2.6)}Sparat</span>`)],
+    ['Oförändrad, text bredvid', sv(`<span class="row" style="gap:8px;flex-wrap:nowrap"><span class="sb">Spara</span><span style="color:#1E7A45;font-size:13px;font-weight:600">Sparat</span></span>`)]
+  ]);
+
+  const asv = (inner) => `<div class="ed"><span class="et">Namnlöst dokument</span>${inner}</div>`;
+  Q('lyc-autospar', 'Hur ska automatisk sparning visas?', [
+    ['Grå text ”Sparat”', asv('<span class="as">Sparat</span>')],
+    ['Ikon och ”Sparat”', asv(`<span class="as">${ico('checkc', 15)}Sparat</span>`)],
+    ['Tid: ”Sparat 14.32”', asv('<span class="as">Sparat 14.32</span>')],
+    ['Bara en liten bock', asv(`<span class="as">${ico('check', 16, 2.4)}</span>`)]
+  ], { css: '& .ed{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--box);border:1px solid var(--sline);border-radius:10px;padding:12px 14px}& .et{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}& .as{display:inline-flex;align-items:center;gap:5px;color:var(--smuted);font-size:13px;white-space:nowrap}' });
+
+  const vf = `<div class="fld" style="max-width:240px"><span class="lbl">E-post</span><span class="inp v">alex@exempel.se<span class="vk">${ico('check', 18, 2.6)}</span></span></div>`;
+  Q('lyc-falt', 'Ska ett korrekt ifyllt fält markeras?', [
+    ['Grön kant och bock', vf, '& .v{border-color:#1E7A45}& .vk{color:#1E7A45}'],
+    ['Bara en grön bock', vf, '& .vk{color:#1E7A45}'],
+    ['Ingen markering', vf, '& .vk{display:none}']
+  ], { css: '& .vk{margin-left:auto;display:flex}' });
+
+  const okp = (t, s) => `<div class="op">${ck('fill')}<b>${t}</b><span class="small muted">${s}</span></div>`;
+  Q('lyc-rubrik', 'Vad ska rubriken på en bekräftelse säga?', [
+    ['Kort tack: ”Tack!”', okp('Tack!', 'Vi hör av oss snart.')],
+    ['Vad som hänt: ”Bokningen är klar”', okp('Bokningen är klar', 'Vi hör av oss snart.')],
+    ['Med detalj: ”Vi ses 14 mars kl. 10”', okp('Vi ses 14 mars kl. 10', 'Bokningen är klar.')]
+  ], { css: opCss + ckCss + '& .op .ck{width:44px;height:44px}' });
+
+  Q('lyc-firande', 'Ska en stor bekräftelse ha en extra effekt?', [
+    ['Ingen extra effekt', okPage(ck('fill')), opCss + ckCss],
+    ['Bocken studsar in', okPage(ck('fill')), opCss + ckCss + '& .ck{animation:&&k 3s infinite}@keyframes &&k{0%{transform:scale(0)}12%{transform:scale(1.15)}20%,100%{transform:scale(1)}}'],
+    ['Konfetti runt bocken', okPage(`<span class="cf">${ck('fill')}${Array.from({ length: 10 }, (_, k) => `<i style="--a:${k * 36}deg;background:${['#1E7A45', '#24405E', '#E0A100', '#D23F3F', '#2F6FB5'][k % 5]}"></i>`).join('')}</span>`), opCss + ckCss + '& .cf{position:relative;display:grid;place-items:center}& .cf i{position:absolute;width:6px;height:6px;border-radius:1px;left:25px;top:25px;transform:rotate(var(--a)) translateY(-40px);animation:&&k 3s infinite ease-out}@keyframes &&k{0%{transform:rotate(var(--a)) translateY(0);opacity:0}10%{opacity:1}40%{transform:rotate(var(--a)) translateY(-42px);opacity:1}60%,100%{transform:rotate(var(--a)) translateY(-46px);opacity:0}}']
+  ]);
+
+  QT('lyc-tid', 'Hur länge ska en kort bekräftelse som ”Sparat” synas?', ['Cirka 2 sekunder', 'Cirka 4 sekunder', 'Tills nästa ändring görs']);
+
+  /* =====================================================================
+     FEL
+     ===================================================================== */
+  grp('fel', 'Fel');
+
+  const R = '#B3261E';
+  const errFld = (msg = 'Skriv e-post som namn@exempel.se') => `<div class="fld" style="max-width:250px"><span class="lbl">E-post</span><span class="inp e">alex@exempel</span><span class="em">${msg}</span></div>`;
+  const efCss = (c = R) => `& .e{border-color:${c}}& .em{color:${c};font-size:13px;display:flex;align-items:flex-start;gap:5px;line-height:1.35}`;
+  Q('fel-typ', 'Hur ska ett fel i ett formulär visas?', [
+    ['Under fältet', `<div class="stack" style="gap:12px">${errFld()}<span class="sb lx-btnsm" style="align-self:flex-start">Skicka</span></div>`, efCss()],
+    ['Ruta överst i formuläret', `<div class="stack" style="gap:12px"><div class="bx">${ico('alert', 18)}<span>E-postadressen är inte komplett.</span></div><div class="fld" style="max-width:250px"><span class="lbl">E-post</span><span class="inp">alex@exempel</span></div><span class="sb lx-btnsm" style="align-self:flex-start">Skicka</span></div>`, '& .bx{display:flex;gap:8px;align-items:flex-start;background:#FCEBEA;color:#8C1D18;padding:10px 12px;border-radius:8px;font-size:13px;font-weight:500}'],
+    ['Toast nederst', `<div class="lx-scr" style="height:200px;padding:14px"><div class="fld" style="max-width:250px"><span class="lbl">E-post</span><span class="inp">alex@exempel</span></div>${toastBox(`${ico('alert', 16)}E-postadressen är inte komplett`)}</div>`, tstCss + '& .lx-tst svg{color:#FF8A80}'],
+    ['Under fältet och ruta överst', `<div class="stack" style="gap:12px"><div class="bx">${ico('alert', 18)}<span>Ett fält behöver rättas.</span></div>${errFld()}</div>`, efCss() + '& .bx{display:flex;gap:8px;align-items:flex-start;background:#FCEBEA;color:#8C1D18;padding:10px 12px;border-radius:8px;font-size:13px;font-weight:500}']
+  ]);
+
+  Q('fel-ikon', 'Ska felmeddelandet under ett fält ha en ikon?', [
+    ['Med ikon', errFld(`${ico('alert', 15)}<span>Skriv e-post som namn@exempel.se</span>`), efCss()],
+    ['Utan ikon', errFld(), efCss()]
+  ]);
+
+  Q('fel-ikonform', 'Vilken ikon ska användas för fel?', [
+    ['Utropstecken i cirkel', errFld(`${ico('alert', 15)}<span>Skriv e-post som namn@exempel.se</span>`), efCss()],
+    ['Varningstriangel', errFld(`${ico('tri', 15)}<span>Skriv e-post som namn@exempel.se</span>`), efCss()],
+    ['Kryss i cirkel', errFld(`${ico('xc', 15)}<span>Skriv e-post som namn@exempel.se</span>`), efCss()],
+    ['Fylld cirkel med utropstecken', errFld(`<svg class="ico" style="width:15px;height:15px" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M12 6.5v7M12 17.2h.01" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg><span>Skriv e-post som namn@exempel.se</span>`), efCss()]
+  ], { css: '& .em svg{margin-top:2px}' });
+
+  Q('fel-rod', 'Vilken röd ton ska fel ha?', [
+    ['Mörkröd (#9B1C1C)', errFld(`${ico('alert', 15)}<span>Skriv e-post som namn@exempel.se</span>`), efCss('#9B1C1C')],
+    ['Djupröd (#B3261E)', errFld(`${ico('alert', 15)}<span>Skriv e-post som namn@exempel.se</span>`), efCss('#B3261E')],
+    ['Klarröd (#D92D20)', errFld(`${ico('alert', 15)}<span>Skriv e-post som namn@exempel.se</span>`), efCss('#D92D20')],
+    ['Korallröd (#E5484D)', errFld(`${ico('alert', 15)}<span>Skriv e-post som namn@exempel.se</span>`), efCss('#E5484D')]
+  ], { css: '& .em svg{margin-top:2px}' });
+
+  Q('fel-falt', 'Hur ska själva fältet se ut när det har ett fel?', [
+    ['Röd kant', errFld(), efCss()],
+    ['Röd kant och tonad bakgrund', errFld(), efCss() + '& .e{background:#FDF3F2}'],
+    ['Tjock röd kant (2 px)', errFld(), efCss() + '& .e{border-width:2px;padding:0 13px}'],
+    ['Vanligt fält, bara röd text', errFld(), efCss() + '& .e{border-color:var(--sline)}']
+  ]);
+
+  Q('fel-plats', 'Var ska felmeddelandet sitta i förhållande till fältet?', [
+    ['Under fältet', errFld('Skriv e-post som namn@exempel.se'), efCss()],
+    ['Mellan etikett och fält', '<div class="fld" style="max-width:250px"><span class="lbl">E-post</span><span class="em">Skriv e-post som namn@exempel.se</span><span class="inp e">alex@exempel</span></div>', efCss()],
+    ['Bredvid etiketten', '<div class="fld" style="max-width:250px"><span class="lbl" style="display:flex;justify-content:space-between;gap:8px">E-post<span class="em" style="font-weight:500">Inte komplett</span></span><span class="inp e">alex@exempel</span></div>', efCss()]
+  ]);
+
+  Q('fel-text-farg', 'Vilken färg ska texten i ett felmeddelande ha?', [
+    ['Röd text', errFld(`${ico('alert', 15)}<span>Skriv e-post som namn@exempel.se</span>`), efCss()],
+    ['Mörk text, röd ikon', errFld(`${ico('alert', 15)}<span>Skriv e-post som namn@exempel.se</span>`), efCss() + '& .em{color:var(--sink)}& .em svg{color:#B3261E}']
+  ], { css: '& .em svg{margin-top:2px}' });
+
+  Q('fel-falt-ikon', 'Ska ett fält med fel ha en ikon inne i fältet?', [
+    ['Ja, ikon till höger i fältet', `<div class="fld" style="max-width:250px"><span class="lbl">E-post</span><span class="inp e">alex@exempel<span style="margin-left:auto;display:flex;color:${R}">${ico('alert', 18)}</span></span><span class="em">Skriv e-post som namn@exempel.se</span></div>`, efCss()],
+    ['Nej, bara kant och text', errFld(), efCss()]
+  ]);
+
+  const sum = `<div class="es"><b>${ico('alert', 18)}Två saker behöver rättas</b><span class="link">E-post är inte komplett</span><span class="link">Telefon saknas</span></div>`;
+  Q('fel-sammanfattning', 'Ska ett långt formulär samla alla fel i en lista överst?', [
+    ['Ja, lista med länkar till fälten', `<div class="stack" style="gap:12px">${sum}${errFld()}</div>`, efCss() + '& .es{display:flex;flex-direction:column;gap:4px;border:2px solid #B3261E;border-radius:10px;padding:12px 14px;font-size:13px}& .es b{display:flex;gap:7px;align-items:center;color:#8C1D18;font-size:14px;margin-bottom:2px}& .es .link{color:#8C1D18;font-weight:500}'],
+    ['Nej, bara fel vid varje fält', `<div class="stack" style="gap:12px">${errFld()}</div>`, efCss()]
+  ]);
+
+  const eb = `<div class="eb">${ico('alert', 20)}<div><b>Betalningen gick inte igenom</b><span>Kontrollera kortuppgifterna och försök igen.</span></div></div>`;
+  Q('fel-ruta-stil', 'Hur ska en felruta på sidan se ut?', [
+    ['Fylld röd', eb, '& .eb{background:#B3261E;color:#fff}'],
+    ['Tonad röd', eb, '& .eb{background:#FCEBEA;color:#8C1D18}'],
+    ['Kant till vänster', eb, '& .eb{background:#FDF5F4;color:#8C1D18;border-left:4px solid #B3261E;border-radius:4px}'],
+    ['Kant runt om', eb, '& .eb{background:#fff;color:#8C1D18;border:1px solid #E8A9A5}']
+  ], { css: '& .eb{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.4}& .eb b{display:block;font-size:14px;margin-bottom:2px}& .eb svg{margin-top:1px}' });
+
+  Q('fel-skak', 'Ska fältet skaka till när man försöker skicka med fel?', [
+    ['Ja, en kort skakning', `<div class="lx-cap" style="margin-bottom:8px">Upprepas</div>${errFld()}`, efCss() + '& .e{animation:&&k 2.4s infinite}@keyframes &&k{0%,30%{transform:none}33%{transform:translateX(-6px)}36%{transform:translateX(6px)}39%{transform:translateX(-4px)}42%{transform:translateX(3px)}45%,100%{transform:none}}'],
+    ['Nej, ingen rörelse', `<div class="lx-cap" style="margin-bottom:8px">Upprepas</div>${errFld()}`, efCss()]
+  ]);
+
+  QT('fel-validering', 'När ska ett fält kontrolleras och visa fel?', ['När man lämnar fältet', 'Först när man skickar', 'Medan man skriver']);
+
+  Q('fel-ordval', 'Hur ska felmeddelandet vara formulerat?', [
+    ['Kort: ”Ogiltig e-post”', errFld('Ogiltig e-post'), efCss()],
+    ['Hur man rättar: ”Skriv som namn@exempel.se”', errFld('Skriv e-post som namn@exempel.se'), efCss()],
+    ['Vad som saknas: ”Domän saknas efter @”', errFld('Det saknas en domän efter @, till exempel .se'), efCss()]
+  ]);
+
+  const etst = (st, ic) => `<div class="et" style="${st}">${ic}<span>Kunde inte spara. Försök igen.</span></div>`;
+  Q('fel-toast', 'Hur ska en fel-toast se ut?', [
+    ['Fylld röd', etst('background:#B3261E;color:#fff', ico('alert', 18))],
+    ['Mörk med röd ikon', etst('background:#1F2225;color:#fff', ico('alert', 18, 2, 'color:#FF8A80'))],
+    ['Ljus med röd kant till vänster', etst('background:#fff;color:var(--sink);border-left:4px solid #B3261E', ico('alert', 18, 2, 'color:#B3261E'))],
+    ['Tonad röd', etst('background:#FCEBEA;color:#8C1D18', ico('alert', 18))]
+  ], { css: '& .et{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:10px;font-size:14px;font-weight:500;box-shadow:0 8px 22px rgba(0,0,0,.16)}' });
+
+  const p404 = (top) => `<div class="lx-scr f4">${top}<b class="h h3">Sidan finns inte</b><span class="small muted">Länken kan vara fel eller sidan flyttad.</span><span class="sb lx-btnsm">Till startsidan</span></div>`;
+  Q('fel-404-stil', 'Hur ska en 404-sida se ut?', [
+    ['Stor siffra 404', p404('<span class="big">404</span>')],
+    ['Ikon i cirkel', p404(`<span class="ic">${ico('searchx', 28, 1.8)}</span>`)],
+    ['Bara text', p404('<span class="small muted" style="font-weight:600">Fel 404</span>')]
+  ], { css: '& .f4{min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:18px}& .big{font-size:64px;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--sink)}& .ic{width:60px;height:60px;border-radius:50%;background:var(--tint);color:var(--brand);display:grid;place-items:center}& .f4 .sb{margin-top:6px}' });
+
+  const f4b = (inner) => `<div class="lx-scr f4"><b class="h h3">Sidan finns inte</b><span class="small muted">Länken kan vara fel eller sidan flyttad.</span>${inner}</div>`;
+  Q('fel-404-hjalp', 'Vad ska en 404-sida erbjuda för att komma vidare?', [
+    ['En knapp till startsidan', f4b('<span class="sb lx-btnsm">Till startsidan</span>')],
+    ['Ett sökfält', f4b(`<span class="inp ph" style="width:100%;max-width:240px;gap:8px">${ico('search', 18)}Sök på sidan</span>`)],
+    ['Populära länkar', f4b('<span class="ls"><span class="link">Tjänster</span><span class="link">Priser</span><span class="link">Kontakt</span></span>')],
+    ['Knapp och sökfält', f4b(`<span class="inp ph" style="width:100%;max-width:240px;gap:8px">${ico('search', 18)}Sök på sidan</span><span class="sb lx-btnsm">Till startsidan</span>`)]
+  ], { css: '& .f4{min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:18px}& .ls{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-size:14px}' });
+
+  const p500 = (inner) => `<div class="lx-scr f4"><span class="ic">${ico('tri', 26, 1.8)}</span><b class="h h3">Något gick fel</b><span class="small muted">Det är inte ditt fel. Vi tittar på det.</span>${inner}</div>`;
+  Q('fel-500', 'Vad ska finnas på en sida för tekniskt fel?', [
+    ['Knappen ”Försök igen”', p500(`<span class="sb lx-btnsm">${ico('refresh', 16)}Försök igen</span>`)],
+    ['Försök igen och felkod', p500(`<span class="sb lx-btnsm">${ico('refresh', 16)}Försök igen</span><span class="lx-note">Felkod 500 · 14.32</span>`)],
+    ['Bara länk till startsidan', p500('<span class="link small">Till startsidan</span>')]
+  ], { css: '& .f4{min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:18px}& .ic{width:52px;height:52px;border-radius:50%;background:#FCEBEA;color:#B3261E;display:grid;place-items:center}' });
+
+  /* =====================================================================
+     VARNINGAR OCH INFO
+     ===================================================================== */
+  grp('varningar', 'Varningar och info');
+
+  const WN = { fg: '#6B4100', bg: '#FFF4E0', bd: '#C77700', ic: '#B26A00' };
+  const IN = { fg: '#163F6E', bg: '#E8F1FB', bd: '#2F6FB5', ic: '#2F6FB5' };
+  const ban = (icon = 'tri', title = 'Din session går ut snart', text = 'Spara ditt arbete för att inte förlora något.', x = true) =>
+    `<div class="bn"><span class="bi">${ico(icon, 20)}</span><div class="bt">${title ? `<b>${title}</b>` : ''}<span>${text}</span></div>${x ? `<span class="bx">${ico('x', 18)}</span>` : ''}</div>`;
+  const banCss = (c) => `& .bn{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.4;color:${c.fg}}& .bt{flex:1;min-width:0}& .bt b{display:block;font-size:14px;margin-bottom:1px}& .bi{display:flex;color:${c.ic};margin-top:1px}& .bx{display:flex;opacity:.7;margin-top:1px}`;
+  Q('var-stil', 'Hur ska en varningsbanner se ut?', [
+    ['Fylld', ban(), banCss(WN) + `& .bn{background:${WN.bd};color:#fff}& .bi{color:#fff}`],
+    ['Tonad', ban(), banCss(WN) + `& .bn{background:${WN.bg}}`],
+    ['Kant till vänster', ban(), banCss(WN) + `& .bn{background:#FFFAF0;border-left:4px solid ${WN.bd};border-radius:4px}`],
+    ['Kant runt om', ban(), banCss(WN) + `& .bn{background:#fff;border:1px solid #EBC58A}`]
+  ]);
+
+  Q('var-ikon', 'Ska varnings- och infobanners ha en ikon?', [
+    ['Med ikon', ban(), banCss(WN) + `& .bn{background:${WN.bg}}`],
+    ['Utan ikon', ban(), banCss(WN) + `& .bn{background:${WN.bg}}& .bi{display:none}`]
+  ]);
+
+  Q('var-ikonstil', 'Ska ikonen i en banner vara linje eller fylld?', [
+    ['Linjeikon', ban(), banCss(WN) + `& .bn{background:${WN.bg}}`],
+    ['Fylld ikon', ban().replace(ico('tri', 20), `<svg class="ico" style="width:20px;height:20px" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" fill="currentColor"/><path d="M12 9v4M12 17h.01" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>`), banCss(WN) + `& .bn{background:${WN.bg}}`]
+  ]);
+
+  Q('var-stang', 'Hur ska man kunna stänga en banner?', [
+    ['Kryss till höger', ban(), banCss(IN) + `& .bn{background:${IN.bg}}`],
+    ['Textlänk ”Stäng”', ban('info', 'Nya öppettider från 1 juni', 'Vi har öppet längre på torsdagar.', false).replace('</span></div></div>', '</span></div><span class="tl">Stäng</span></div>'), banCss(IN) + `& .bn{background:${IN.bg}}& .tl{font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}`],
+    ['Går inte att stänga', ban('info', 'Nya öppettider från 1 juni', 'Vi har öppet längre på torsdagar.', false), banCss(IN) + `& .bn{background:${IN.bg}}`]
+  ], { css: '' });
+
+  Q('var-farg', 'Vilken ton ska en varning ha?', [
+    ['Bärnsten', ban(), banCss(WN) + `& .bn{background:${WN.bg}}`],
+    ['Gul', ban(), banCss({ fg: '#5C4A00', ic: '#8A6D00' }) + '& .bn{background:#FEF7C3}'],
+    ['Orange', ban(), banCss({ fg: '#7A2E0B', ic: '#C2410C' }) + '& .bn{background:#FFEDD5}']
+  ]);
+
+  const ib2 = ban('info', 'Nya öppettider från 1 juni', 'Vi har öppet längre på torsdagar.');
+  Q('info-farg', 'Vilken ton ska en informationsbanner ha?', [
+    ['Blå', ib2, banCss(IN) + `& .bn{background:${IN.bg}}`],
+    ['Neutral grå', ib2, banCss({ fg: '#1A1C1E', ic: '#5D6166' }) + '& .bn{background:#EEEFEF}'],
+    ['Märkesfärg tonad', ib2, banCss({ fg: '#1A3049', ic: '#24405E' }) + '& .bn{background:#E6EBF0}']
+  ]);
+
+  Q('var-rundning', 'Hur rund ska en banner vara?', [0, 6, 12].map(r => [`${r} px`, ban(), banCss(WN) + `& .bn{background:${WN.bg};border-radius:${r}px}`]));
+
+  Q('var-kanttjocklek', 'Hur tjock ska kanten till vänster vara på en banner?', [3, 4, 6].map(t => [`${t} px`, ban(), banCss(WN) + `& .bn{background:#FFFAF0;border-left:${t}px solid ${WN.bd};border-radius:4px}`]));
+
+  Q('var-rubrik', 'Ska en banner ha både rubrik och text?', [
+    ['Rubrik och text', ban(), banCss(WN) + `& .bn{background:${WN.bg}}`],
+    ['En rad, fet början', ban('tri', '', '<b style="display:inline;font-size:13px">Sessionen går ut snart.</b> Spara ditt arbete.'), banCss(WN) + `& .bn{background:${WN.bg}}`],
+    ['En rad, bara text', ban('tri', '', 'Din session går ut snart. Spara ditt arbete.'), banCss(WN) + `& .bn{background:${WN.bg}}`]
+  ]);
+
+  Q('var-atgard', 'Hur ska en åtgärd i en banner se ut?', [
+    ['Länk i texten', ban('tri', 'Din session går ut snart', 'Spara ditt arbete. <u style="font-weight:600;text-underline-offset:3px">Förläng sessionen</u>'), banCss(WN) + `& .bn{background:${WN.bg}}`],
+    ['Liten knapp under texten', ban('tri', 'Din session går ut snart', 'Spara ditt arbete.<span style="display:block;margin-top:8px"><span class="sb2 lx-btnsm" style="height:32px;border-color:#6B4100;color:#6B4100">Förläng</span></span>'), banCss(WN) + `& .bn{background:${WN.bg}}`],
+    ['Knapp till höger', ban('tri', 'Din session går ut snart', 'Spara ditt arbete.', false).replace('</span></div></div>', '</span></div><span class="sb lx-btnsm" style="height:32px;padding:0 12px;background:#6B4100;border-color:#6B4100">Förläng</span></div>'), banCss(WN) + `& .bn{background:${WN.bg};align-items:center}`]
+  ]);
+
+  Q('var-sidbanner', 'Hur ska en viktig banner överst på hela sajten se ut?', [
+    ['Mörk rad över hela bredden', scr('<div class="tb">Vi har stängt 24–26 dec. <u>Läs mer</u><span class="x">×</span></div>', 150), '& .tb{position:absolute;left:0;right:0;top:0;background:#1A1C1E;color:#fff}'],
+    ['Tonad rad över hela bredden', scr('<div class="tb">Vi har stängt 24–26 dec. <u>Läs mer</u><span class="x">×</span></div>', 150), `& .tb{position:absolute;left:0;right:0;top:0;background:${WN.bg};color:${WN.fg}}`],
+    ['Flytande ruta under headern', scr('<div class="tb">Vi har stängt 24–26 dec. <u>Läs mer</u><span class="x">×</span></div>', 150), `& .tb{position:absolute;left:10px;right:10px;top:34px;background:#fff;color:var(--sink);border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.14)}`]
+  ], { css: '& .tb{font-size:12px;padding:8px 28px 8px 12px;text-align:center;line-height:1.35}& .tb u{font-weight:600}& .x{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:15px}' });
 
   // SLUT-PÅ-GRUPPER
 

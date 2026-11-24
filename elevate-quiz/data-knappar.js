@@ -521,6 +521,278 @@
     ]);
   }
 
+  /* ===================== Primär och sekundär bredvid varandra ===================== */
+  group('par', 'Primär och sekundär bredvid varandra');
+  {
+    const P = (st = '') => B('Boka tid', st);
+    const Sk = (st = '') => B('Läs mer', 'border-width:1.5px;' + st, 'sb2');
+    const TL = (st = '') => `<span style="display:inline-flex;align-items:center;gap:6px;color:var(--brand);font-weight:600;padding:0 6px;${st}">${T('Läs mer')}${svg('arrow', 18)}</span>`;
+    q('kn-par-ordning', 'I vilken ordning ska primär och sekundär stå?', [
+      ['Primär först, sekundär efter', C(P() + Sk(), '', 'gap:10px')],
+      ['Sekundär först, primär sist', C(Sk() + P(), '', 'gap:10px')]
+    ]);
+    q('kn-par-avstand', 'Hur stort avstånd mellan knapparna?', [
+      ['8 px', C(P() + Sk(), '', 'gap:8px')],
+      ['12 px', C(P() + Sk(), '', 'gap:12px')],
+      ['16 px', C(P() + Sk(), '', 'gap:16px')],
+      ['24 px', C(P() + Sk(), '', 'gap:24px')]
+    ]);
+    q('kn-par-storlek', 'Hur ska storleken på sekundären förhålla sig till primären?', [
+      ['Lika stora', C(P() + Sk(), '', 'gap:10px')],
+      ['Sekundären mindre', C(P() + Sk('height:40px;padding:0 16px;font-size:14px'), '', 'gap:10px')],
+      ['Sekundären som textlänk', C(P() + TL(), '', 'gap:14px')]
+    ]);
+    q('kn-par-bredd', 'Ska två knappar bredvid varandra vara lika breda?', [
+      ['Bredd efter innehållet', C(B('Lägg i varukorgen') + Sk(), '', 'gap:10px')],
+      ['Lika breda', C(B('Lägg i varukorgen', 'flex:1 1 0;min-width:0') + Sk('flex:1 1 0;min-width:0'), '', 'gap:10px;flex-wrap:nowrap')]
+    ]);
+    const dlg = foot => `<div class="pad"><div class="panel stack" style="gap:10px;box-shadow:0 10px 30px -10px rgba(16,24,40,.3)"><p class="h h3">Spara ändringarna?</p><p class="muted small">Du har ändringar som inte är sparade.</p>${foot}</div></div>`;
+    const A = (st = '') => B('Avbryt', 'border:1.5px solid rgba(26,28,30,.22);color:var(--sink);' + st, 'sb2');
+    q('kn-par-dialog', 'Hur ska knapparna stå i en dialogruta?', [
+      ['Höger: Avbryt, sedan Spara', dlg(`<div class="row" style="justify-content:flex-end;gap:8px;margin-top:6px">${A()}${B('Spara')}</div>`)],
+      ['Vänster: Spara, sedan Avbryt', dlg(`<div class="row" style="justify-content:flex-start;gap:8px;margin-top:6px">${B('Spara')}${A()}</div>`)],
+      ['Delad bredd, lika stora', dlg(`<div style="display:flex;gap:8px;margin-top:6px">${A('flex:1 1 0;min-width:0;padding:0 10px')}${B('Spara', 'flex:1 1 0;min-width:0;padding:0 10px')}</div>`)],
+      ['Staplade, Spara överst', dlg(`<div class="stack" style="gap:8px;margin-top:6px">${B('Spara', 'width:100%')}${A('width:100%')}</div>`)]
+    ]);
+    q('kn-par-tredje', 'Hur ska en tredje handling visas?', [
+      ['Tre knappar i rad', C(P('padding:0 18px') + Sk('padding:0 18px') + B('Dela', 'border:1.5px solid rgba(26,28,30,.22);color:var(--sink);padding:0 18px', 'sb2'), '', 'gap:8px')],
+      ['Tredje som textlänk', C(P() + Sk() + `<span style="color:var(--sink);font-weight:600;text-decoration:underline;text-underline-offset:4px;padding:0 4px">Dela</span>`, '', 'gap:10px')],
+      ['Tredje i en meny (…)', C(P() + Sk() + B(svg('more'), 'width:48px;padding:0;border:1.5px solid rgba(26,28,30,.22);color:var(--sink)', 'sb2'), '', 'gap:8px')]
+    ]);
+    q('kn-par-ikon', 'Vilka knappar i paret ska ha pil?', [
+      ['Ingen av dem', C(P() + Sk(), '', 'gap:10px')],
+      ['Bara primären', C(B(T('Boka tid') + svg('arrow', 18)) + Sk(), '', 'gap:10px')],
+      ['Båda', C(B(T('Boka tid') + svg('arrow', 18)) + B(T('Läs mer') + svg('arrow', 18), 'border-width:1.5px', 'sb2'), '', 'gap:10px')]
+    ]);
+    q('kn-par-eller', 'Ska det stå något mellan knapparna?', [
+      ['Bara mellanrum', C(P() + Sk(), '', 'gap:12px')],
+      ['Ordet "eller" mellan', C(P() + '<span class="small muted">eller</span>' + Sk(), '', 'gap:12px')]
+    ]);
+    const txt = gap => `<div class="pad"><div class="panel"><p class="h h3">Rubrik som är kort</p><p class="muted small" style="margin-top:8px">En kort rad text som förklarar vad som händer härnäst.</p><div class="row" style="margin-top:${gap}px;gap:10px">${P()}${Sk()}</div></div></div>`;
+    q('kn-par-avstand-text', 'Hur stort avstånd mellan texten och knapparna?', [
+      ['16 px', txt(16)],
+      ['24 px', txt(24)],
+      ['32 px', txt(32)]
+    ]);
+  }
+
+  /* ===================== Stapling på mobil ===================== */
+  group('mobil', 'Stapling på mobil');
+  {
+    const P = (st = '') => B('Boka tid', st);
+    const Sk = (st = '') => B('Läs mer', 'border-width:1.5px;' + st, 'sb2');
+    const foot = (inner, st = '') => phone(phoneText + `<div style="padding:16px 14px 18px;${st}">${inner}</div>`);
+    q('kn-mob-stapling', 'Hur ska två knappar stå på mobil?', [
+      ['Bredvid varandra, halva bredden', foot(`<div style="display:flex;gap:8px">${P('flex:1 1 0;min-width:0;padding:0 8px')}${Sk('flex:1 1 0;min-width:0;padding:0 8px')}</div>`)],
+      ['Staplade, full bredd', foot(`<div class="stack" style="gap:10px">${P('width:100%')}${Sk('width:100%')}</div>`)],
+      ['Primär full bredd, textlänk under', foot(`<div class="stack" style="gap:12px;align-items:center">${P('width:100%')}<span style="color:var(--brand);font-weight:600;text-decoration:underline;text-underline-offset:4px">Läs mer</span></div>`)],
+      ['Bredvid varandra, efter innehåll', foot(`<div style="display:flex;gap:8px;flex-wrap:wrap">${P('padding:0 18px')}${Sk('padding:0 18px')}</div>`)]
+    ]);
+    q('kn-mob-ordning', 'Om knapparna staplas: vilken ska stå överst?', [
+      ['Primären överst', foot(`<div class="stack" style="gap:10px">${P('width:100%')}${Sk('width:100%')}</div>`)],
+      ['Primären underst', foot(`<div class="stack" style="gap:10px">${Sk('width:100%')}${P('width:100%')}</div>`)]
+    ]);
+    q('kn-mob-avstand', 'Hur stort avstånd mellan staplade knappar?', [
+      ['8 px', foot(`<div class="stack" style="gap:8px">${P('width:100%')}${Sk('width:100%')}</div>`)],
+      ['12 px', foot(`<div class="stack" style="gap:12px">${P('width:100%')}${Sk('width:100%')}</div>`)],
+      ['16 px', foot(`<div class="stack" style="gap:16px">${P('width:100%')}${Sk('width:100%')}</div>`)]
+    ]);
+    q('kn-mob-justering', 'Om knappen inte har full bredd på mobil: var ska den stå?', [
+      ['Vänsterställd', foot(`<div style="display:flex;justify-content:flex-start">${P()}</div>`)],
+      ['Centrerad', foot(`<div style="display:flex;justify-content:center">${P()}</div>`)]
+    ]);
+    const mdlg = inner => phone(`<div style="background:rgba(16,24,40,.45);padding:120px 0 0;min-height:330px;display:flex;flex-direction:column;justify-content:flex-end"><div style="background:var(--box);border-radius:18px 18px 0 0;padding:18px 14px"><p class="h h3" style="font-size:17px">Spara ändringarna?</p><p class="muted small" style="margin:6px 0 14px">Du har ändringar som inte är sparade.</p>${inner}</div></div>`);
+    const A = (st = '') => B('Avbryt', 'border:1.5px solid rgba(26,28,30,.22);color:var(--sink);' + st, 'sb2');
+    q('kn-mob-dialog', 'Hur ska knapparna stå i en dialog på mobil?', [
+      ['Staplade, Spara överst', mdlg(`<div class="stack" style="gap:8px">${B('Spara', 'width:100%')}${A('width:100%')}</div>`)],
+      ['Bredvid varandra, lika breda', mdlg(`<div style="display:flex;gap:8px">${A('flex:1 1 0;min-width:0;padding:0 8px')}${B('Spara', 'flex:1 1 0;min-width:0;padding:0 8px')}</div>`)]
+    ]);
+  }
+
+  /* ===================== Hover ===================== */
+  group('hover', 'Hover');
+  // Visar Normal och Hover statiskt. Normal-knappen reagerar också när musen är över rutan.
+  const TR = 'transition:background-color .18s ease,box-shadow .18s ease,transform .18s ease,color .18s ease,border-color .18s ease,text-decoration-color .18s ease';
+  const hov = (cls, mk, hovInline, hovRule, extra = '') =>
+    css(cls, `.${cls}-l{${TR}}.${cls}-l svg{transition:transform .18s ease}.opt:hover .${cls}-l{${hovRule}}${extra}`) +
+    states([['Normal', mk(`${cls}-l`, '')], ['Hover', mk('', hovInline)]]);
+  {
+    const P = (c, st) => B('Boka tid', st, 'sb ' + c);
+    q('kn-hover-typ', 'Vad ska hända med primärknappen vid hover?', [
+      ['Blir mörkare', hov('kn-hv1a', P, 'background:#13253A;border-color:#13253A', 'background:#13253A;border-color:#13253A')],
+      ['Blir ljusare', hov('kn-hv1b', P, 'background:#3A5F86;border-color:#3A5F86', 'background:#3A5F86;border-color:#3A5F86')],
+      ['Lyfts med skugga', hov('kn-hv1c', P, 'transform:translateY(-2px);box-shadow:0 8px 16px -6px rgba(16,24,40,.45)', 'transform:translateY(-2px);box-shadow:0 8px 16px -6px rgba(16,24,40,.45)')],
+      ['Tonas lätt (90 %)', hov('kn-hv1d', P, 'opacity:.88', 'opacity:.88')]
+    ]);
+    q('kn-hover-styrka', 'Om knappen blir mörkare vid hover: hur mycket?', [
+      ['Lite mörkare', hov('kn-hv2a', P, 'background:#1D3650;border-color:#1D3650', 'background:#1D3650;border-color:#1D3650')],
+      ['Tydligt mörkare', hov('kn-hv2b', P, 'background:#10202F;border-color:#10202F', 'background:#10202F;border-color:#10202F')]
+    ]);
+    const PA = (c, st) => B(T('Fortsätt') + svg('arrow', 18, 2, st), '', 'sb ' + c);
+    q('kn-hover-pil', 'Ska pilen röra sig vid hover?', [
+      ['Pilen flyttar sig 3 px', hov('kn-hv3a', PA, 'transform:translateX(3px)', '', `.opt:hover .kn-hv3a-l svg{transform:translateX(3px)}`)],
+      ['Pilen flyttar sig 6 px', hov('kn-hv3b', PA, 'transform:translateX(6px)', '', `.opt:hover .kn-hv3b-l svg{transform:translateX(6px)}`)],
+      ['Pilen står still', hov('kn-hv3c', PA, '', '')]
+    ]);
+    const SK = (c, st) => B('Läs mer', 'border-width:1.5px;' + st, 'sb2 ' + c);
+    q('kn-hover-sek', 'Vad ska hända med konturknappen vid hover?', [
+      ['Fylls helt', hov('kn-hv4a', SK, 'background:var(--brand);color:#fff', 'background:var(--brand);color:#fff')],
+      ['Får en tonad yta', hov('kn-hv4b', SK, 'background:var(--tint)', 'background:var(--tint)')],
+      ['Kanten blir mörkare', hov('kn-hv4c', SK, 'border-color:#0F1E30;color:#0F1E30', 'border-color:#0F1E30;color:#0F1E30')]
+    ]);
+    const TX = (c, st, ist = '') => `<span class="${c}" style="display:inline-flex;align-items:center;gap:6px;color:var(--brand);font-weight:600;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:4px;${st}">${T('Läs mer')}${svg('arrow', 18, 2, ist)}</span>`;
+    q('kn-hover-text', 'Vad ska hända med en textlänkknapp vid hover?', [
+      ['Understrykning visas', hov('kn-hv5a', TX, 'text-decoration-color:currentColor', 'text-decoration-color:currentColor')],
+      ['Färgen mörknar', hov('kn-hv5b', TX, 'color:#0F1E30', 'color:#0F1E30')],
+      ['Pilen flyttar sig', hov('kn-hv5c', (c, st) => TX(c, st, c ? '' : 'transform:translateX(4px)'), '', '', '.opt:hover .kn-hv5c-l svg{transform:translateX(4px)}')],
+      ['Tonad bakgrund visas', hov('kn-hv5d', TX, 'background:var(--tint);border-radius:6px', 'background:var(--tint)', '.kn-hv5d-l{padding:6px 8px;margin:-6px -8px;border-radius:6px}')]
+    ]);
+    // Fart: spelas upp i loop så att skillnaden syns utan mus.
+    const loop = (cls, ms) => {
+      const c = 2600, t = (ms / c) * 100, a = 30, b = 75;
+      return css(cls, `.${cls}{animation:${cls}-k ${c}ms linear infinite}@keyframes ${cls}-k{0%,${a}%{background:#24405E;border-color:#24405E}${(a + t).toFixed(1)}%,${b}%{background:#10202F;border-color:#10202F}${(b + t).toFixed(1)}%,100%{background:#24405E;border-color:#24405E}}`) +
+        S(fig(B('Boka tid', '', 'sb ' + cls), 'Spelas upp i loop'));
+    };
+    q('kn-hover-fart', 'Hur snabbt ska knappen byta läge vid hover?', [
+      ['Snabbt (100 ms)', loop('kn-hv6a', 100)],
+      ['Mellan (200 ms)', loop('kn-hv6b', 200)],
+      ['Långsamt (350 ms)', loop('kn-hv6c', 350)]
+    ]);
+    const sweep = (cls, kind) => {
+      const c = 2800;
+      let k;
+      if (kind === 'fade') k = `@keyframes ${cls}-k{0%,30%{background-color:transparent;color:var(--brand)}40%,80%{background-color:var(--brand);color:#fff}90%,100%{background-color:transparent;color:var(--brand)}}.${cls}{animation:${cls}-k ${c}ms ease infinite}`;
+      else if (kind === 'sweep') k = `@keyframes ${cls}-k{0%,30%{background-size:0% 100%;color:var(--brand)}42%,80%{background-size:100% 100%;color:#fff}92%,100%{background-size:0% 100%;color:var(--brand)}}.${cls}{background-image:linear-gradient(var(--brand),var(--brand));background-repeat:no-repeat;background-position:left center;animation:${cls}-k ${c}ms ease infinite}`;
+      else k = `@keyframes ${cls}-k{0%,34.9%{background-color:transparent;color:var(--brand)}35%,84.9%{background-color:var(--brand);color:#fff}85%,100%{background-color:transparent;color:var(--brand)}}.${cls}{animation:${cls}-k ${c}ms linear infinite}`;
+      return css(cls, k) + S(fig(B('Läs mer', 'border-width:1.5px', 'sb2 ' + cls), 'Spelas upp i loop'));
+    };
+    q('kn-hover-fyllning', 'Om konturknappen fylls vid hover: hur?', [
+      ['Fyllningen tonar in', sweep('kn-hv7a', 'fade')],
+      ['Fyllningen sveper in från vänster', sweep('kn-hv7b', 'sweep')],
+      ['Direkt, utan övergång', sweep('kn-hv7c', 'snap')]
+    ]);
+    q('kn-hover-lyft', 'Om knappen lyfts vid hover: hur mycket?', [
+      ['1 px', hov('kn-hv8a', P, 'transform:translateY(-1px);box-shadow:0 4px 10px -4px rgba(16,24,40,.4)', 'transform:translateY(-1px);box-shadow:0 4px 10px -4px rgba(16,24,40,.4)')],
+      ['2 px', hov('kn-hv8b', P, 'transform:translateY(-2px);box-shadow:0 8px 16px -6px rgba(16,24,40,.45)', 'transform:translateY(-2px);box-shadow:0 8px 16px -6px rgba(16,24,40,.45)')],
+      ['4 px', hov('kn-hv8c', P, 'transform:translateY(-4px);box-shadow:0 12px 22px -8px rgba(16,24,40,.5)', 'transform:translateY(-4px);box-shadow:0 12px 22px -8px rgba(16,24,40,.5)')]
+    ]);
+    const IK = (c, st) => `<span class="${c}" style="display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;color:var(--smuted);${st}">${svg('heart', 22)}</span>`;
+    q('kn-hover-ikonknapp', 'Vad ska hända med en ikonknapp vid hover?', [
+      ['Grå rund bakgrund visas', hov('kn-hv9a', IK, 'background:rgba(26,28,30,.08);color:var(--sink)', 'background:rgba(26,28,30,.08);color:var(--sink)')],
+      ['Ikonen mörknar', hov('kn-hv9b', IK, 'color:var(--sink)', 'color:var(--sink)')],
+      ['Ikonen får knappfärg', hov('kn-hv9c', IK, 'color:var(--brand);background:var(--tint)', 'color:var(--brand);background:var(--tint)')]
+    ]);
+    const GH = (c, st) => B('Läs mer', 'border:1.5px solid #fff;color:#fff;background:transparent;' + st, 'sb2 ' + c);
+    const phov = (cls, hin, hr) => css(cls, `.${cls}-l{${TR}}.opt:hover .${cls}-l{${hr}}`) + photo(fig(GH(`${cls}-l`, ''), '<span style="color:#fff">Normal</span>') + fig(GH('', hin), '<span style="color:#fff">Hover</span>'));
+    q('kn-hover-foto', 'Vad ska hända med en spökknapp på foto vid hover?', [
+      ['Fylls vit, texten blir mörk', phov('kn-hv10a', 'background:#fff;color:var(--sink)', 'background:#fff;color:var(--sink)')],
+      ['Får en halvgenomskinlig vit yta', phov('kn-hv10b', 'background:rgba(255,255,255,.2)', 'background:rgba(255,255,255,.2)')],
+      ['Får en mörk yta', phov('kn-hv10c', 'background:rgba(0,0,0,.4)', 'background:rgba(0,0,0,.4)')]
+    ]);
+  }
+
+  /* ===================== Tryck och aktivt läge ===================== */
+  group('tryck', 'Tryck och aktivt läge');
+  {
+    const pr = (cls, mk, inl, rule) => css(cls, `.${cls}-l{transition:transform .1s ease,box-shadow .1s ease,background-color .1s ease}.opt:active .${cls}-l{${rule}}`) +
+      states([['Normal', mk(`${cls}-l`, '')], ['Nedtryckt', mk('', inl)]]);
+    const P = (c, st) => B('Boka tid', st, 'sb ' + c);
+    q('kn-tryck-typ', 'Hur ska knappen se ut när den trycks ner?', [
+      ['Krymper lite', pr('kn-pr1a', P, 'transform:scale(.96)', 'transform:scale(.96)')],
+      ['Blir ännu mörkare', pr('kn-pr1b', P, 'background:#0C1825;border-color:#0C1825', 'background:#0C1825;border-color:#0C1825')],
+      ['Ser intryckt ut (innerskugga)', pr('kn-pr1c', P, 'box-shadow:inset 0 3px 6px rgba(0,0,0,.35)', 'box-shadow:inset 0 3px 6px rgba(0,0,0,.35)')],
+      ['Ingen synlig skillnad', pr('kn-pr1d', P, '', '')]
+    ]);
+    q('kn-tryck-skala', 'Om knappen krymper vid tryck: hur mycket?', [
+      ['Nästan inget (98 %)', pr('kn-pr2a', P, 'transform:scale(.98)', 'transform:scale(.98)')],
+      ['Lite (96 %)', pr('kn-pr2b', P, 'transform:scale(.96)', 'transform:scale(.96)')],
+      ['Tydligt (92 %)', pr('kn-pr2c', P, 'transform:scale(.92)', 'transform:scale(.92)')]
+    ]);
+    const P3 = (c, st) => B('Boka tid', 'box-shadow:0 4px 0 #0F1E30;' + st, 'sb ' + c);
+    q('kn-tryck-3d', 'Om knappen har 3D-skugga: hur långt trycks den ner?', [
+      ['Halvvägs (2 px)', pr('kn-pr3a', P3, 'transform:translateY(2px);box-shadow:0 2px 0 #0F1E30', 'transform:translateY(2px);box-shadow:0 2px 0 #0F1E30')],
+      ['Hela vägen (4 px)', pr('kn-pr3b', P3, 'transform:translateY(4px);box-shadow:0 0 0 #0F1E30', 'transform:translateY(4px);box-shadow:0 0 0 #0F1E30')]
+    ]);
+    q('kn-aktiv-toggle', 'Hur ska en av/på-knapp som "Spara" se ut när den är vald?', [
+      ['Fylls när den är vald', states([['Av', B(svg('heart', 18) + T('Spara'), 'border-width:1.5px', 'sb2')], ['På', B(svg('heart', 18, 2, 'fill:currentColor') + T('Sparad'))]])],
+      ['Bara ikonen fylls', states([['Av', B(svg('heart', 18) + T('Spara'), 'border-width:1.5px', 'sb2')], ['På', B(svg('heart', 18, 2, 'fill:currentColor') + T('Sparad'), 'border-width:1.5px', 'sb2')]])],
+      ['Tonad yta och bock', states([['Av', B(svg('heart', 18) + T('Spara'), 'border-width:1.5px', 'sb2')], ['På', B(svg('check', 18) + T('Sparad'), 'border-width:1.5px;background:var(--tint)', 'sb2')]])]
+    ]);
+    const chip = (t, on, mode) => {
+      const base = 'height:38px;padding:0 14px;font-size:14px;border-radius:999px;';
+      if (!on) return B(t, base + 'border:1px solid rgba(26,28,30,.2);color:var(--sink);background:#fff', 'sb2');
+      if (mode === 'fill') return B(t, base + 'background:var(--sink);border:1px solid var(--sink);color:#fff', 'sb2');
+      if (mode === 'tint') return B(t, base + 'background:var(--tint);border:1px solid var(--brand);color:var(--brand)', 'sb2');
+      return B(svg('check', 16) + T(t), base + 'border:1px solid rgba(26,28,30,.2);color:var(--sink);background:#fff;gap:6px;padding-left:10px', 'sb2');
+    };
+    const row = mode => S(chip('Alla', false, mode) + chip('Lediga', true, mode) + chip('Idag', false, mode), 'gap:8px');
+    q('kn-aktiv-filter', 'Hur ska den valda knappen i en rad filterknappar se ut?', [
+      ['Mörk fylld', row('fill')],
+      ['Tonad med kant', row('tint')],
+      ['Bock före texten', row('check')]
+    ]);
+  }
+
+  /* ===================== Fokusring ===================== */
+  group('fokus', 'Fokusring');
+  {
+    const P = st => S(fig(B('Skicka', st), 'Fokus (tangentbord)'));
+    const ring = (col, w = 2, off = 2, bg = 'var(--ground)') => `box-shadow:0 0 0 ${off}px ${bg},0 0 0 ${off + w}px ${col}`;
+    q('kn-fokus-typ', 'Hur ska fokusringen på en knapp se ut?', [
+      ['Ring med glapp', P(ring('var(--brand)', 2, 3))],
+      ['Ring direkt mot kanten', P('box-shadow:0 0 0 3px #7C9CC0')],
+      ['Inre vit ring', P('box-shadow:inset 0 0 0 2px #fff,0 0 0 2px var(--brand)')],
+      ['Mjuk glöd', P('box-shadow:0 0 0 4px rgba(36,64,94,.3)')]
+    ]);
+    q('kn-fokus-farg', 'Vilken färg ska fokusringen ha?', [
+      ['Samma som knappen', P(ring('var(--brand)', 2, 3))],
+      ['Svart', P(ring('#000', 2, 3))],
+      ['Klarblå', P(ring('#2563EB', 2, 3))],
+      ['Gul/orange', P(ring('#E59A00', 2, 3))]
+    ]);
+    q('kn-fokus-tjocklek', 'Hur tjock ska fokusringen vara?', [
+      ['2 px', P(ring('var(--brand)', 2, 3))],
+      ['3 px', P(ring('var(--brand)', 3, 3))],
+      ['4 px', P(ring('var(--brand)', 4, 3))]
+    ]);
+    q('kn-fokus-avstand', 'Hur stort glapp mellan knapp och fokusring?', [
+      ['Inget glapp', P(ring('#7C9CC0', 3, 0))],
+      ['2 px glapp', P(ring('var(--brand)', 2, 2))],
+      ['4 px glapp', P(ring('var(--brand)', 2, 4))]
+    ]);
+    q('kn-fokus-form', 'Ska fokusringen följa knappens form?', [
+      ['Följer knappens rundning', P(ring('var(--brand)', 2, 3))],
+      ['Rak rektangel runt knappen', S(fig(`<span style="display:inline-flex;outline:2px solid var(--brand);outline-offset:3px;border-radius:0">${B('Skicka')}</span>`, 'Fokus (tangentbord)'))]
+    ]);
+    const SK = st => S(fig(B('Läs mer', 'border-width:1.5px;' + st, 'sb2'), 'Fokus (tangentbord)'));
+    q('kn-fokus-sek', 'Hur ska en konturknapp visa fokus?', [
+      ['Ring utanför kanten', SK(ring('var(--brand)', 2, 3))],
+      ['Kanten blir tjockare', SK('border-width:3px')],
+      ['Tonad yta och ring', SK('background:var(--tint);' + ring('var(--brand)', 2, 3))]
+    ]);
+    const DK = st => dark(fig(B('Skicka', 'background:#fff;border-color:#fff;color:var(--sink);' + st), '<span style="color:#C9CDD2">Fokus på mörk yta</span>'));
+    q('kn-fokus-mork', 'Vilken fokusring på mörk yta?', [
+      ['Vit ring', DK(ring('#fff', 2, 3, DARK))],
+      ['Ljusblå ring', DK(ring('#7FB2FF', 2, 3, DARK))],
+      ['Gul ring', DK(ring('#FFC94A', 2, 3, DARK))]
+    ]);
+    q('kn-fokus-dubbel', 'Ska fokusringen vara enkel eller dubbel?', [
+      ['Enkel ring', P(ring('var(--brand)', 2, 3))],
+      ['Dubbel ring (vit och mörk)', P('box-shadow:0 0 0 2px #fff,0 0 0 4px #1A1C1E')]
+    ]);
+    const TL = st => S(fig(`<span style="display:inline-flex;align-items:center;gap:6px;color:var(--brand);font-weight:600;${st}">${T('Läs mer')}${svg('arrow', 18)}</span>`, 'Fokus (tangentbord)'));
+    q('kn-fokus-textlank', 'Hur ska en textlänkknapp visa fokus?', [
+      ['Ring runt texten', TL('outline:2px solid var(--brand);outline-offset:4px;border-radius:4px')],
+      ['Tjock understrykning', TL('text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:5px')],
+      ['Markerad bakgrund', TL('background:#FFE58A;color:var(--sink);padding:2px 6px;margin:-2px -6px;border-radius:4px')]
+    ]);
+    q('kn-fokus-synlig', 'När ska fokusringen synas?', [
+      ['Bara vid tangentbord'],
+      ['Även vid klick med mus'],
+      ['Även vid tryck på mobil']
+    ]);
+  }
+
   // --- FLER GRUPPER ---
 
   window.QZ.part({ key: 'knappar', groups: G });

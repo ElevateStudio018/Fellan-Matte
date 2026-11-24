@@ -81,8 +81,19 @@
 .nvb-mb .h{font-size:19px}
 .nvb-two{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px}
 .nvb-fr{border:1px solid var(--sline);border-radius:10px;overflow:hidden;background:#fff;min-width:0;display:flex;flex-direction:column}
+.nvb-one{grid-template-columns:1fr}
 .nvb-cap{font-size:12px;font-weight:600;color:var(--smuted);padding:0 2px 6px}
-@container (max-width:680px){.nvb-h{padding:10px 16px;gap:10px 18px}.nvb-lc,.nvb-cl{display:flex}.nvb-m{order:9;flex-basis:100%}.nvb-sp{display:none}.nvb-r{margin-left:auto}.nvb-l{margin-left:0}.nvb-cl>.nvb-logo{order:-1}.nvb-cl>.nvb-l{order:2;flex-basis:100%}.nvb-cl .nvb-m{order:0;flex-basis:auto}.nvb-pg,.nvb-ht{padding-inline:16px}.nvb-ur,.nvb-un{padding-inline:16px}.nvb-ul{padding:0}.nvb-two{grid-template-columns:1fr}}`;
+.nvb-dd{position:absolute;left:-14px;top:var(--ddt,calc(100% + (var(--hh,72px) - 22px) / 2 + var(--ddg,8px)));min-width:210px;background:#fff;border-radius:var(--ddr,10px);box-shadow:var(--dds,0 8px 28px rgba(20,22,24,.12));border:var(--ddb,1px solid var(--sline));padding:6px;display:flex;flex-direction:column;font-weight:400;font-size:15px;color:var(--sink);z-index:6;text-align:left}
+.nvb-ddi{position:relative;display:flex;align-items:center;gap:10px;min-height:var(--ddh,40px);padding:0 12px;border-radius:6px;white-space:nowrap}
+.nvb-nub{position:absolute;top:-7px;left:28px;width:12px;height:12px;background:#fff;border-left:var(--ddb,1px solid var(--sline));border-top:var(--ddb,1px solid var(--sline));transform:rotate(45deg)}
+.nvb-dim{position:absolute;inset:0;background:rgba(20,22,24,.45);z-index:3}
+.nvb-pan{position:absolute;top:0;bottom:0;background:#fff;z-index:4;display:flex;flex-direction:column;color:var(--sink);overflow:hidden}
+.nvb-pb{display:flex;align-items:center;gap:10px;height:var(--mhh,56px);padding:0 14px 0 18px;flex:0 0 auto}
+.nvb-ml{display:flex;flex-direction:column;padding:6px 18px 10px}
+.nvb-ml>span{display:flex;align-items:center;min-height:var(--mvh,52px);font-size:var(--mvs,18px);font-weight:var(--mvw,600);color:var(--sink);border-bottom:1px solid var(--sline);line-height:1.2}
+.nvb-mx{display:flex;flex-direction:column;gap:8px;padding:10px 18px;font-size:13px;color:var(--smuted)}
+.nvb-mx>span{display:inline-flex;align-items:center;gap:8px}
+@container (max-width:680px){.nvb>*{--hp:16px}.nvb-h{padding:10px 16px;gap:10px 18px}.nvb-lc,.nvb-cl{display:flex}.nvb-m{order:9;flex-basis:100%}.nvb-sp{display:none}.nvb-r{margin-left:auto}.nvb-l{margin-left:0}.nvb-cl>.nvb-logo{order:-1}.nvb-cl>.nvb-l{order:2;flex-basis:100%}.nvb-cl .nvb-m{order:0;flex-basis:auto}.nvb-pg,.nvb-ht{padding-inline:16px}.nvb-ur,.nvb-un{padding-inline:16px}.nvb-ul{padding:0}.nvb-two{grid-template-columns:1fr}}`;
 
   // Ett alternativ: unik klass, egen CSS där & byts mot klassen.
   const opt = (inner, css = '', vars = '', cls = '') => {
@@ -346,6 +357,487 @@
   q('mt-ikoner', 'Ska menyvalen ha ikoner?', S, [
     ['Bara text', H({})],
     ['Liten ikon före texten', H({ pre: (i) => ic(['grid', 'tag', 'info', 'chat'][i], 17), vars: '--mg:28px', css: '& .nvb-m a{gap:7px}' })]
+  ]);
+
+  /* ===== Aktiv sida ===== */
+  group('aktiv-sida', 'Aktiv sida i menyn');
+  const ON = 1; // "Priser" är aktiv sida
+  const ul = (t = 2, o = 6, c = 'var(--brand)', ex = '') => `& .nvb-m a.on::after{content:"";position:absolute;left:0;right:0;bottom:-${o + t}px;height:${t}px;background:${c};border-radius:${t > 2 ? t : 0}px;${ex}}`;
+  const AH = (css, vars = '', x = {}) => H({ on: ON, css, vars, ...x });
+  const PILL = '& .nvb-m{--mg:4px}& .nvb-m a{padding:7px 12px;border-radius:999px}';
+  q('as-markering', 'Hur ska menyn visa vilken sida man är på?', S, [
+    ['Understrykning', AH(ul())],
+    ['Fetstil', AH('& .nvb-m a.on{font-weight:700}')],
+    ['Ljus pill-bakgrund', AH(PILL + '& .nvb-m a.on{background:var(--tint);color:var(--brand);font-weight:600}')],
+    ['Liten prick under', AH('& .nvb-m a.on::after{content:"";position:absolute;left:50%;bottom:-10px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--brand)}')],
+    ['Huvudfärgen på texten', AH('& .nvb-m a.on{color:var(--brand);font-weight:600}')]
+  ]);
+  q('as-tjocklek', 'Hur tjock ska understrykningen för aktiv sida vara?', S, [1, 2, 3, 4].map(t => [`${t} px`, AH(ul(t))]));
+  q('as-avstand', 'Hur långt under texten ska understrykningen sitta?', S, [
+    ['2 px under texten', AH(ul(2, 2))],
+    ['6 px under texten', AH(ul(2, 6))],
+    ['10 px under texten', AH(ul(2, 10))],
+    ['I headerns underkant', AH(`& .nvb-m a.on::after{content:"";position:absolute;left:0;right:0;height:2px;background:var(--brand);bottom:calc((var(--hh,72px) - 22px) / -2)}@container (max-width:680px){& .nvb-m a.on::after{bottom:-8px}}`)]
+  ]);
+  q('as-bredd', 'Hur bred ska understrykningen vara?', S, [
+    ['Lika bred som ordet', AH(ul())],
+    ['Kort streck i mitten', AH(ul(2, 6, 'var(--brand)', 'left:50%;right:auto;width:16px;margin-left:-8px'))],
+    ['Lite bredare än ordet', AH(ul(2, 6, 'var(--brand)', 'left:-8px;right:-8px'))]
+  ]);
+  q('as-farg', 'Vilken färg ska markeringen för aktiv sida ha?', S, [
+    ['Huvudfärgen', AH(ul())],
+    ['Svart som texten', AH(ul(2, 6, 'var(--sink)'))]
+  ]);
+  q('as-pill', 'Hur ska en pill-markering för aktiv sida se ut?', S, [
+    ['Ljust tonad, färgad text', AH(PILL + '& .nvb-m a.on{background:var(--tint);color:var(--brand)}')],
+    ['Fylld i huvudfärgen, vit text', AH(PILL + '& .nvb-m a.on{background:var(--brand);color:#fff}')],
+    ['Tunn kontur', AH(PILL + '& .nvb-m a{border:1px solid transparent}& .nvb-m a.on{border-color:var(--sline)}')],
+    ['Ljusgrå', AH(PILL + '& .nvb-m a.on{background:#ECEDEE}')]
+  ]);
+  q('as-pillform', 'Hur rund ska pill-markeringen vara?', S, [
+    ['6 px rundning', AH(PILL + '& .nvb-m a{border-radius:6px}& .nvb-m a.on{background:var(--tint);color:var(--brand)}')],
+    ['Helt rund', AH(PILL + '& .nvb-m a.on{background:var(--tint);color:var(--brand)}')]
+  ]);
+  q('as-prick', 'Var ska prickarna för aktiv sida sitta?', S, [
+    ['Under texten', AH('& .nvb-m a.on::after{content:"";position:absolute;left:50%;bottom:-10px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--brand)}')],
+    ['Före texten', AH('& .nvb-m a.on::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand);margin-right:4px}')]
+  ]);
+  q('as-grad', 'Hur ska övriga menyval se ut bredvid den aktiva?', S, [
+    ['Alla svarta, aktiv understruken', AH(ul())],
+    ['Övriga grå, aktiv svart och understruken', AH(ul(2, 6, 'var(--sink)') + '& .nvb-m a{color:var(--smuted)}& .nvb-m a.on{color:var(--sink)}')],
+    ['Övriga grå, bara aktiv svart', AH('& .nvb-m a{color:var(--smuted)}& .nvb-m a.on{color:var(--sink);font-weight:600}')]
+  ]);
+  q('as-kombo', 'Ska understrykningen kombineras med fetstil?', S, [
+    ['Bara understrykning', AH(ul())],
+    ['Understrykning och halvfet text', AH(ul() + '& .nvb-m a.on{font-weight:650}')]
+  ]);
+  q('as-forelder', 'Ska huvudvalet vara markerat när man står på en undersida?', S, [
+    ['Ja, huvudvalet markeras', H({ on: 0, css: ul(), page: '<div class="nvb-pg"><p class="small muted">Tjänster › Undersida</p><p class="h">Undersida</p></div>' })],
+    ['Nej, ingen markering i menyn', H({ page: '<div class="nvb-pg"><p class="small muted">Tjänster › Undersida</p><p class="h">Undersida</p></div>' })]
+  ]);
+
+  /* ===== Hover ===== */
+  group('hover', 'Hover på menyval');
+  const CUR = cursor('left:calc(100% - 6px);top:calc(100% - 2px)');
+  const HV = (css, x = {}) => H({ post: (i) => (i === 1 ? CUR : ''), css: '& .nvb-m a:nth-child(2){}' + css, ...x });
+  const hv = (r) => `& .nvb-m a:nth-child(2){${r}}`;
+  q('ho-typ', 'Vad ska hända när man pekar på ett menyval?', S, [
+    ['Understrykning visas', HV('& .nvb-m a:nth-child(2)::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--brand)}')],
+    ['Texten byter till huvudfärgen', HV(hv('color:var(--brand)'))],
+    ['Ljus platta bakom', HV(PILL + '& .nvb-m a{border-radius:8px}' + hv('background:var(--tint)'))],
+    ['Övriga menyval tonas ner', HV('& .nvb-m a{opacity:.45}' + hv('opacity:1'))]
+  ]);
+  const anim = (k, from, to, dur = 1800) => `@keyframes ${k}{0%,8%{${from}}${Math.round(8 + 300 / dur * 100)}%,70%{${to}}${Math.round(70 + 300 / dur * 100)}%,100%{${from}}}`;
+  const hvAnim = (name, base, from, to, ms) => {
+    const k = 'nvk' + (++N);
+    const grow = Math.round(ms / 2400 * 100);
+    return `& .nvb-m a:nth-child(2)::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--brand);${base};animation:${k} 2.4s infinite}@keyframes ${k}{0%,15%{${from}}${15 + grow}%,70%{${to}}${70 + grow}%,100%{${from}}}@media (prefers-reduced-motion:reduce){& .nvb-m a:nth-child(2)::after{animation:none;${to}}}`;
+  };
+  q('ho-rorelse', 'Hur ska understrykningen dyka upp vid hover?', S, [
+    ['Växer fram från vänster', HV(hvAnim('l', 'transform-origin:left', 'transform:scaleX(0)', 'transform:scaleX(1)', 250))],
+    ['Växer fram från mitten', HV(hvAnim('c', 'transform-origin:center', 'transform:scaleX(0)', 'transform:scaleX(1)', 250))],
+    ['Tonar in', HV(hvAnim('f', '', 'opacity:0', 'opacity:1', 250))],
+    ['Syns direkt utan rörelse', HV('& .nvb-m a:nth-child(2)::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--brand)}')]
+  ]);
+  q('ho-fart', 'Hur snabb ska hover-övergången i menyn vara?', S, [[120, 'Snabb (120 ms)'], [250, 'Mellan (250 ms)'], [450, 'Lugn (450 ms)']].map(([ms, l]) => [l, HV(hvAnim('s', 'transform-origin:left', 'transform:scaleX(0)', 'transform:scaleX(1)', ms))]));
+  q('ho-platta', 'Hur rund ska hover-plattan bakom menyvalet vara?', S, [
+    ['Raka hörn', HV(PILL + '& .nvb-m a{border-radius:2px}' + hv('background:var(--tint)'))],
+    ['6 px rundning', HV(PILL + '& .nvb-m a{border-radius:6px}' + hv('background:var(--tint)'))],
+    ['Helt rund', HV(PILL + hv('background:var(--tint)'))]
+  ]);
+  q('ho-cta', 'Vad ska hända med headerns knapp vid hover?', S, [
+    ['Blir mörkare', H({ cta: `<span class="sb nvb-cta" style="background:var(--brand-d);border-color:var(--brand-d);position:relative">Boka tid${cursor('right:6px;top:22px')}</span>` })],
+    ['Lyfts med en skugga', H({ cta: `<span class="sb nvb-cta" style="position:relative;transform:translateY(-2px);box-shadow:0 6px 16px rgba(20,22,24,.22)">Boka tid${cursor('right:6px;top:22px')}</span>` })],
+    ['Blir en konturknapp', H({ cta: `<span class="sb2 nvb-cta" style="position:relative">Boka tid${cursor('right:6px;top:22px')}</span>` })]
+  ]);
+  q('ho-mork', 'Hur ska hover synas i en mörk header?', S, [
+    ['Svag vit platta', HV(PILL + '& .nvb-m a{border-radius:8px}' + hv('background:rgba(255,255,255,.14)'), { vars: '--hbg:var(--sink);--hc:#fff;--hbd:0', cta: wbtn })],
+    ['Vit understrykning', HV('& .nvb-m a:nth-child(2)::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;background:#fff}', { vars: '--hbg:var(--sink);--hc:#fff;--hbd:0', cta: wbtn })],
+    ['Övriga tonas ner', HV('& .nvb-m a{opacity:.55}' + hv('opacity:1'), { vars: '--hbg:var(--sink);--hc:#fff;--hbd:0', cta: wbtn })]
+  ]);
+
+  /* ===== Dropdown ===== */
+  group('dropdown', 'Dropdown och megameny');
+  const DDI = ['Översikt', 'Undersida ett', 'Undersida två', 'Undersida tre'];
+  const DDP = '<div class="nvb-pg" style="min-height:250px"><p class="h">Rubrik på sidan</p><p class="muted">Kort text som visar var sidan börjar.</p></div>';
+  const ddList = (o = {}) => `<span class="nvb-dd"${o.st ? ` style="${o.st}"` : ''}>${o.nub ? '<span class="nvb-nub"></span>' : ''}${(o.items || DDI).map((t, i) => `<span class="nvb-ddi${i === o.hov ? ' hv' : ''}">${o.ico ? o.ico(i) : ''}${o.desc ? `<span style="display:flex;flex-direction:column;line-height:1.3;padding:4px 0"><b style="font-weight:600">${t}</b><span class="small muted">Kort beskrivning av sidan</span></span>` : t}${i === o.hov ? cursor('left:70%;top:55%') : ''}</span>`).join('')}</span>`;
+  const chev = (i, k = 'chev') => (i === 0 || i === 2 ? (k === 'chev' ? ic('chevD', 16) : k === 'up' && i === 0 ? ic('chevU', 16) : k === 'up' ? ic('chevD', 16) : k === 'tri' ? caret(11) : k === 'plus' ? ic('plus', 14) : '') : '');
+  const DD = (o = {}) => H({ lay: 'll', page: DDP, on: o.on, post: (i) => chev(i, o.arrow || (o.open === false ? 'chev' : 'up')) + (i === 0 && o.open !== false ? (o.panel || ddList(o)) : ''), css: (o.css || ''), vars: o.vars || '' });
+  const MEGA = (o = {}) => {
+    const col = (t, items) => `<div class="nvb-mc"><p class="nvb-mt">${t}</p>${items.map((x, i) => o.desc ? `<span class="nvb-mi"><b>${x}</b><span class="small muted">Kort beskrivning av sidan</span></span>` : `<span class="nvb-mi">${x}</span>`).join('')}</div>`;
+    const cols = col('Grupp ett', ['Undersida ett', 'Undersida två', 'Undersida tre']) + col('Grupp två', ['Undersida fyra', 'Undersida fem', 'Undersida sex']) + (o.img ? '' : col('Grupp tre', ['Undersida sju', 'Undersida åtta', 'Undersida nio']));
+    const img = o.img ? `<div class="nvb-mc"><img src="img/kontor-team.jpg" alt="Personer i ett möte" style="width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px"><span class="small" style="font-weight:600">Utvald undersida</span></div>` : '';
+    const foot = o.foot === 'link' ? `<div class="nvb-mf"><span class="link" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">Se alla tjänster ${ic('arrowR', 16)}</span></div>` : o.foot === 'box' ? `<div class="nvb-mf" style="background:var(--ground);display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:space-between"><span><b>Osäker på vad du behöver?</b> <span class="muted">Vi hjälper dig att välja.</span></span><span class="sb" style="height:40px;font-size:14px;padding:0 18px">Kontakta oss</span></div>` : '';
+    return `<div class="nvb-mega"><div class="nvb-mg">${cols}${img}</div>${foot}</div>`;
+  };
+  const MEGACSS = '& .nvb-mega{position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--sline);box-shadow:0 12px 28px rgba(20,22,24,.1);z-index:6;font-weight:400}& .nvb-mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px 32px;padding:24px var(--hp,32px)}& .nvb-mc{display:flex;flex-direction:column;gap:10px;min-width:0}& .nvb-mt{font-size:13px;font-weight:600;color:var(--smuted)}& .nvb-mi{display:flex;flex-direction:column;font-size:15px;line-height:1.35}& .nvb-mi b{font-weight:600}& .nvb-mf{padding:14px var(--hp,32px);border-top:1px solid var(--sline);font-size:14px}@container (max-width:680px){& .nvb-mc:nth-child(n+3){display:none}& .nvb-mg{padding:18px 16px}}';
+  const MH = (o = {}) => H({ lay: 'll', page: '<div class="nvb-pg" style="min-height:' + (o.h || 190) + 'px"><p class="h">Rubrik på sidan</p></div>', post: (i) => chev(i, i === 0 ? 'up' : 'chev'), extra: '', css: MEGACSS, hstyle: 'position:relative', nav: undefined, ...o, top: '' }).replace('</header>', MEGA(o) + '</header>');
+  q('dd-typ', 'Hur ska en undermeny med många sidor visas?', S, [
+    ['Enkel lista under menyvalet', DD({})],
+    ['Megameny med kolumner', MH({})],
+    ['Megameny med beskrivningar', MH({ desc: true, h: 240 })]
+  ]);
+  q('dd-pil', 'Hur ska menyval med undermeny märkas?', S, [
+    ['Liten chevron', DD({ open: false, arrow: 'chev' })],
+    ['Fylld liten triangel', DD({ open: false, arrow: 'tri' })],
+    ['Plustecken', DD({ open: false, arrow: 'plus' })],
+    ['Ingen markering', DD({ open: false, arrow: 'none' })]
+  ].map(([l, h]) => [l, h.replace('min-height:250px', 'min-height:0')]));
+  q('dd-pil-oppen', 'Vad ska pilen göra när undermenyn är öppen?', S, [
+    ['Vänds uppåt', DD({})],
+    ['Står still', DD({ arrow: 'chev' })]
+  ]);
+  q('dd-skugga', 'Hur ska undermenyn skiljas från sidan bakom?', S, [
+    ['Bara tunn kant', DD({ vars: '--dds:none' })],
+    ['Mjuk skugga utan kant', DD({ vars: '--ddb:0;--dds:0 8px 28px rgba(20,22,24,.12)' })],
+    ['Tydlig skugga utan kant', DD({ vars: '--ddb:0;--dds:0 12px 36px rgba(20,22,24,.24)' })],
+    ['Kant och mjuk skugga', DD({})]
+  ]);
+  q('dd-rundning', 'Hur runda ska undermenyns hörn vara?', S, [[0, 'Raka hörn'], [6, '6 px rundning'], [12, '12 px rundning'], [18, '18 px rundning']].map(([r, l]) => [l, DD({ vars: `--ddr:${r}px` })]));
+  q('dd-pekare', 'Ska undermenyn ha en liten pekare upptill?', S, [
+    ['Utan pekare', DD({})],
+    ['Med pekare mot menyvalet', DD({ nub: true })]
+  ]);
+  q('dd-avstand', 'Var ska undermenyn börja?', S, [
+    ['Tätt under menyvalet', DD({ vars: '--ddt:calc(100% + 10px)' })],
+    ['Precis vid headerns kant', DD({ vars: '--ddg:0px;--ddr:0 0 10px 10px' })],
+    ['En bit under headern', DD({ vars: '--ddg:10px' })]
+  ]);
+  q('dd-radhojd', 'Hur höga ska raderna i undermenyn vara?', S, [32, 40, 48].map(h => [`${h} px per rad`, DD({ vars: `--ddh:${h}px` })]));
+  q('dd-beskrivning', 'Ska valen i undermenyn ha en kort beskrivning?', S, [
+    ['Bara namnet', DD({})],
+    ['Namn och kort beskrivning', DD({ desc: true }).replace('min-height:250px', 'min-height:340px')]
+  ]);
+  q('dd-ikoner', 'Ska valen i undermenyn ha ikoner?', S, [
+    ['Utan ikoner', DD({})],
+    ['Ikon före namnet', DD({ ico: (i) => ic(['grid', 'doc', 'star', 'clock'][i], 18) })],
+    ['Ikon i ljus platta', DD({ ico: (i) => `<span class="nvb-btn" style="width:30px;height:30px;border-radius:8px;background:var(--tint);color:var(--brand)">${ic(['grid', 'doc', 'star', 'clock'][i], 16)}</span>`, vars: '--ddh:46px' })]
+  ]);
+  q('dd-linjer', 'Ska det vara linjer mellan valen i undermenyn?', S, [
+    ['Inga linjer', DD({})],
+    ['Tunna linjer mellan valen', DD({ css: '& .nvb-ddi+.nvb-ddi{border-top:1px solid var(--sline);border-radius:0}' })]
+  ]);
+  q('dd-hover', 'Hur ska ett val i undermenyn se ut när man pekar på det?', S, [
+    ['Ljus platta', DD({ hov: 2, css: '& .nvb-ddi.hv{background:var(--tint)}' })],
+    ['Texten blir färgad', DD({ hov: 2, css: '& .nvb-ddi.hv{color:var(--brand);font-weight:500}' })],
+    ['Streck till vänster', DD({ hov: 2, css: '& .nvb-ddi{border-radius:0}& .nvb-ddi.hv{box-shadow:inset 3px 0 0 var(--brand);background:var(--ground)}' })]
+  ]);
+  q('dd-megabild', 'Ska megamenyn ha en bild?', S, [
+    ['Bara länkar', MH({})],
+    ['Länkar och en bild', MH({ img: true, h: 290 })]
+  ]);
+  q('dd-megafot', 'Vad ska finnas längst ner i megamenyn?', S, [
+    ['Ingenting extra', MH({})],
+    ['Länken "Se alla tjänster →"', MH({ foot: 'link', h: 240 })],
+    ['Ljus rad med knapp', MH({ foot: 'box', h: 260 })]
+  ]);
+  q('dd-oppna', 'Hur ska undermenyer öppnas på dator?', GR, [
+    ['När man pekar på menyvalet'],
+    ['När man klickar på menyvalet']
+  ]);
+
+  /* ===== Antal menyval ===== */
+  group('antal-menyval', 'Antal menyval och menytexter');
+  const ALL = ['Tjänster', 'Priser', 'Om oss', 'Vanliga frågor', 'Nyheter', 'Jobb', 'Kontakt'];
+  const pick = (n) => ({ 3: ['Tjänster', 'Om oss', 'Kontakt'], 4: NAV, 5: ['Tjänster', 'Priser', 'Om oss', 'Vanliga frågor', 'Kontakt'], 6: ['Tjänster', 'Priser', 'Om oss', 'Vanliga frågor', 'Nyheter', 'Kontakt'], 7: ALL }[n]);
+  q('am-antal', 'Hur många menyval ska headern ha som mest?', S, [3, 4, 5, 6, 7].map(n => [`${n} menyval`, H({ items: pick(n) })]));
+  q('am-form', 'Hur ska menytexterna vara formulerade?', S, [
+    ['Korta ord', H({})],
+    ['Längre fraser', H({ items: ['Våra tjänster', 'Se priser', 'Om företaget', 'Kontakta oss'] })],
+    ['Uppmaningar med verb', H({ items: ['Se tjänster', 'Jämför priser', 'Lär känna oss', 'Hör av dig'] })]
+  ]);
+  q('am-kontakt', 'Hur ska "Kontakt" finnas i headern?', S, [
+    ['Som vanligt menyval', H({ cta: false })],
+    ['Som knapp', H({ items: NAV.slice(0, 3), cta: '<span class="sb nvb-cta">Kontakt</span>' })],
+    ['Menyval och en annan knapp', H({})]
+  ]);
+  q('am-hem', 'Ska menyn ha ett "Hem"-val?', S, [
+    ['Nej, logon leder hem', H({})],
+    ['Ja, "Hem" först i menyn', H({ items: ['Hem', ...NAV] })]
+  ]);
+  q('am-mer', 'Hur ska många menyval hanteras?', S, [
+    ['Alla syns i headern', H({ items: ALL, vars: '--mg:24px' })],
+    ['Några syns, resten under "Mer"', H({ items: ['Tjänster', 'Priser', 'Om oss', 'Kontakt', 'Mer'], post: (i) => (i === 4 ? ic('chevD', 16) : '') })]
+  ]);
+  q('am-sekundar', 'Var ska mindre viktiga länkar som "Hjälp" och "Jobb" ligga?', S, [
+    ['I ett smalt fält ovanför headern', H({ top: '<div style="background:var(--ground);border-bottom:1px solid var(--sline);font-size:13px;display:flex;justify-content:flex-end;align-items:center;gap:20px;min-height:34px;padding:0 var(--hp,32px)"><span>Hjälp</span><span>Jobb</span><span>Logga in</span></div>' })],
+    ['I huvudmenyn med de andra', H({ items: ['Tjänster', 'Priser', 'Om oss', 'Kontakt', 'Hjälp', 'Jobb'] })],
+    ['Bara i sidfoten', H({ page: '<div class="nvb-pg"><p class="h">Rubrik på sidan</p><p class="muted">Hjälp och Jobb finns längst ner i sidfoten.</p></div>' })]
+  ]);
+
+  /* ===== Sticky-header ===== */
+  group('sticky', 'Sticky-header och scroll');
+  const states = (caps, frames) => `<div class="nvb-two">${frames.map((f, i) => `<div><p class="nvb-cap">${caps[i]}</p><div class="nvb-fr">${f}</div></div>`).join('')}</div>`;
+  const FH = (o = {}) => head({ items: NAV.slice(0, 3), ...o });
+  const CONT = '<div class="nvb-sc" style="display:flex;flex-direction:column;gap:8px"><i style="display:block;height:8px;border-radius:4px;background:#E2E4E6;width:80%"></i><i style="display:block;height:8px;border-radius:4px;background:#E2E4E6;width:65%"></i><i style="display:block;height:8px;border-radius:4px;background:#E2E4E6;width:72%"></i><i style="display:block;height:8px;border-radius:4px;background:#E2E4E6;width:50%"></i></div>';
+  const SF = (frames, caps = ['Överst på sidan', 'Efter scroll'], css = '') => opt(states(caps, frames), FRAMECSS + css, W);
+  const DOWNUP = ['Scrollar nedåt', 'Scrollar uppåt'];
+  q('st-sticky', 'Ska headern följa med när man scrollar?', S, [
+    ['Följer alltid med', SF([FH() + CONT, FH() + CONT], DOWNUP)],
+    ['Scrollar bort med sidan', SF([CONT + CONT, CONT + CONT], DOWNUP)],
+    ['Visas igen när man scrollar uppåt', SF([CONT + CONT, FH() + CONT], DOWNUP)]
+  ]);
+  q('st-krympt', 'Ska en sticky-header krympa när man scrollar?', S, [
+    ['Samma höjd hela tiden', SF([FH({ hstyle: 'min-height:64px' }) + PAGE, FH({ hstyle: 'min-height:64px' }) + CONT])],
+    ['Krymper i höjd', SF([FH({ hstyle: 'min-height:64px' }) + PAGE, FH({ hstyle: 'min-height:46px' }) + CONT])],
+    ['Krymper och logon blir mindre', SF([FH({ hstyle: 'min-height:64px' }) + PAGE, FH({ hstyle: 'min-height:46px', logo: '<span class="nvb-logo" style="font-size:13px">Företaget</span>' }) + CONT])]
+  ]);
+  const MINIHERO = (o = {}) => `<div class="nvb-hero" style="min-height:170px"><img class="nvb-bg" src="img/stadsgata.jpg" alt="Gata i en stad"><div class="nvb-sh"></div>${o.h || ''}<div class="nvb-ht" style="padding:14px 16px"><p class="h" style="font-size:18px">Rubrik på sidan</p></div></div>`;
+  q('st-transparent', 'Hur ska en header över bild bete sig vid scroll?', S, [
+    ['Genomskinlig överst, vit efter scroll', SF([MINIHERO({ h: FH({ hstyle: 'background:transparent;color:#fff;border-bottom:0' }) }), FH() + CONT])],
+    ['Vit hela tiden', SF([FH() + MINIHERO(), FH() + CONT])]
+  ]);
+  q('st-knapp', 'Ska knappen i headern synas hela tiden?', S, [
+    ['Knappen syns alltid', SF([FH() + PAGE, FH() + CONT])],
+    ['Knappen dyker upp efter scroll', SF([FH({ cta: false }) + PAGE, FH() + CONT])]
+  ]);
+  q('st-progress', 'Ska headern visa hur långt man har läst på långa sidor?', S, [
+    ['Ingen läsindikator', SF([FH() + CONT])].map(x => x)[0],
+    ['Tunn linje som fylls på', SF([FH({ hstyle: 'box-shadow:inset 0 -3px 0 0 transparent' }).replace('</header>', '<span style="position:absolute;left:0;bottom:-1px;height:3px;width:42%;background:var(--brand)"></span></header>') + CONT])]
+  ].map(([l, h]) => [l, h.replace('nvb-two', 'nvb-two nvb-one')]), );
+  q('st-toppfalt', 'Vad ska hända med toppfältet när man scrollar?', S, [
+    ['Följer med headern', SF([TOPF() + FH() + PAGE, TOPF() + FH() + CONT])],
+    ['Scrollar bort, headern stannar', SF([TOPF() + FH() + PAGE, FH() + CONT])]
+  ]);
+
+  /* ===== Toppfält ===== */
+  group('toppfalt', 'Toppfält ovanför headern');
+  function TOPF(o = {}) {
+    const c = o.kind || 'kontakt';
+    const icn = o.icons === false ? () => '' : (k) => ic(k, 13);
+    let inner;
+    if (c === 'kontakt') inner = `<span style="display:inline-flex;gap:18px;flex-wrap:wrap"><span style="display:inline-flex;align-items:center;gap:6px">${icn('phone')}${TEL}</span><span style="display:inline-flex;align-items:center;gap:6px">${icn('mail')}info@foretaget.se</span></span><span class="nvb-sp"></span><span style="display:inline-flex;gap:18px"><span>Hjälp</span><span>Logga in</span></span>`;
+    else if (c === 'right') inner = `<span class="nvb-sp"></span><span style="display:inline-flex;gap:18px;flex-wrap:wrap"><span style="display:inline-flex;align-items:center;gap:6px">${icn('phone')}${TEL}</span><span>Hjälp</span><span>Logga in</span></span>`;
+    else inner = `<span style="flex:1;text-align:center">Nya öppettider från 1 december${o.link === 'arrow' ? ` <b style="display:inline-flex;align-items:center;gap:4px;margin-left:6px">Läs mer ${ic('arrowR', 13)}</b>` : o.link === 'ul' ? ' <u style="margin-left:6px;text-underline-offset:3px">Läs mer</u>' : ''}</span>${o.close ? `<span class="nvb-btn" style="position:absolute;right:var(--hp,32px)">${ic('x', 15)}</span>` : ''}`;
+    return `<div class="nvb-tb" style="position:relative;display:flex;align-items:center;flex-wrap:wrap;gap:4px 18px;min-height:${o.h || 36}px;padding:4px var(--hp,32px);font-size:${o.fs || 13}px;line-height:1.3;${o.st || 'background:var(--sink);color:#fff'}">${inner}</div>`;
+  }
+  const TF = (o = {}) => H({ top: TOPF(o), css: '@container (max-width:680px){& .nvb-tb{padding-inline:16px}}' });
+  q('tf-finns', 'Ska det finnas ett smalt fält ovanför headern?', S, [
+    ['Inget toppfält', H({})],
+    ['Toppfält med kontaktuppgifter', TF({})],
+    ['Toppfält med ett kort meddelande', TF({ kind: 'msg', link: 'arrow' })]
+  ]);
+  q('tf-stil', 'Hur ska toppfältet se ut?', S, [
+    ['Mörkt', TF({})],
+    ['Huvudfärgen', TF({ st: 'background:var(--brand);color:#fff' })],
+    ['Ljusgrått', TF({ st: 'background:#ECEDEE;color:var(--sink)' })],
+    ['Vitt med linje under', TF({ st: 'background:#fff;color:var(--smuted);border-bottom:1px solid var(--sline)' })]
+  ]);
+  q('tf-hojd', 'Hur högt ska toppfältet vara?', S, [28, 36, 44].map(h => [`${h} px`, TF({ h })]));
+  q('tf-text', 'Hur stor ska texten i toppfältet vara?', S, [12, 13, 14].map(f => [`${f} px`, TF({ fs: f })]));
+  q('tf-innehall', 'Hur ska innehållet i toppfältet placeras?', S, [
+    ['Kontakt vänster, länkar höger', TF({})],
+    ['Allt samlat till höger', TF({ kind: 'right' })],
+    ['Ett meddelande i mitten', TF({ kind: 'msg', link: 'arrow' })]
+  ]);
+  q('tf-stang', 'Ska ett meddelande i toppfältet gå att stänga?', S, [
+    ['Utan stängknapp', TF({ kind: 'msg', link: 'arrow' })],
+    ['Med kryss till höger', TF({ kind: 'msg', link: 'arrow', close: true })]
+  ]);
+  q('tf-ikoner', 'Ska kontaktuppgifterna i toppfältet ha ikoner?', S, [
+    ['Bara text', TF({ icons: false })],
+    ['Små ikoner framför', TF({})]
+  ]);
+  q('tf-lank', 'Hur ska länken i ett toppfältsmeddelande se ut?', S, [
+    ['Fet text med pil', TF({ kind: 'msg', link: 'arrow' })],
+    ['Understruken text', TF({ kind: 'msg', link: 'ul' })],
+    ['Ingen länk, hela fältet klickbart', TF({ kind: 'msg' })]
+  ]);
+
+  /* ===== Mobilmeny: knappen ===== */
+  group('mobil-knapp', 'Mobilmeny: knappen');
+  const mtxt = (t, k, after) => `<span class="nvb-btn" style="font-weight:600;font-size:14px;gap:6px">${after ? '' : (k ? ic(k, 22) : '')}${t}${after && k ? ic(k, 22) : ''}</span>`;
+  q('mk-typ', 'Hur ska menyknappen i mobilen se ut?', GR, [
+    ['Tre streck', M({})],
+    ['Två streck', M({ btn: burger('menu2') })],
+    ['Ordet "Meny"', M({ btn: mtxt('Meny') })],
+    ['Streck och ordet "Meny"', M({ btn: mtxt('Meny', 'menu') })]
+  ]);
+  q('mk-plats', 'Var ska menyknappen sitta i mobilen?', GR, [
+    ['Till höger', M({})],
+    ['Till vänster', M({ leftBtn: true })]
+  ]);
+  q('mk-streck', 'Hur ska strecken i menyknappen vara?', GR, [
+    ['Lika långa', M({})],
+    ['Nedersta kortare', M({ btn: burger('menuS') })],
+    ['Mittersta kortare', M({ btn: `<span class="nvb-btn"><svg class="ico" style="width:24px;height:24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M10 12h10M4 18h16"/></svg></span>` })]
+  ]);
+  q('mk-tjocklek', 'Hur tjocka ska strecken i menyknappen vara?', GR, [[1.5, '1,5 px'], [2, '2 px'], [2.5, '2,5 px']].map(([w, l]) => [l, M({ btn: burger('menu', 24, w) })]));
+  q('mk-platta', 'Ska menyknappen ha en ram eller platta?', GR, [
+    ['Fri ikon', M({})],
+    ['Ruta med tunn kant', M({ btn: `<span class="nvb-btn" style="width:38px;height:38px;border:1px solid var(--sline);border-radius:8px">${ic('menu', 20)}</span>` })],
+    ['Fylld rund knapp', M({ btn: `<span class="nvb-btn" style="width:38px;height:38px;border-radius:999px;background:var(--brand);color:#fff">${ic('menu', 20)}</span>` })]
+  ]);
+  q('mk-storlek', 'Hur stor ska menyikonen vara?', GR, [20, 24, 28].map(s => [`${s} px`, M({ btn: burger('menu', s) })]));
+  q('mk-ordning', 'Var ska ordet "Meny" stå i förhållande till ikonen?', GR, [
+    ['Ikon före ordet', M({ btn: mtxt('Meny', 'menu') })],
+    ['Ikon efter ordet', M({ btn: mtxt('Meny', 'menu', true) })]
+  ]);
+  q('mk-andar', 'Ska strecken i menyknappen ha rundade ändar?', GR, [
+    ['Rundade ändar', M({ btn: burger('menu', 26, 2.5) })],
+    ['Raka ändar', M({ btn: `<span class="nvb-btn"><svg class="ico" style="width:26px;height:26px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt" aria-hidden="true">${P.menu}</svg></span>` })]
+  ]);
+
+  /* ===== Mobilmeny: typ ===== */
+  group('mobilmeny-typ', 'Mobilmeny: typ och uppbyggnad');
+  const MI = ['Tjänster', 'Priser', 'Om oss', 'Kontakt'];
+  const XB = (s = 24) => `<span class="nvb-btn">${ic('x', s)}</span>`;
+  const MM = (o = {}) => {
+    const t = o.type || 'full';
+    const li = o.li || ((x, i) => `<span${i === o.on ? ' class="on"' : ''}>${o.pre ? o.pre(i) : ''}<span style="flex:1">${x}</span>${o.post ? o.post(i) : ''}</span>`);
+    const list = `${o.before || ''}<div class="nvb-ml">${(o.items || MI).map(li).join('')}</div>${o.after || ''}`;
+    const close = o.close !== undefined ? o.close : XB();
+    const bar = `<div class="nvb-pb">${o.logoIn === false ? '' : '<span class="nvb-logo" style="font-size:17px">Företaget</span>'}<span class="nvb-msp"></span>${close}</div>`;
+    let ov;
+    if (t === 'full') ov = `<div class="nvb-pan" style="inset:0;${o.pst || ''}">${o.bar !== undefined ? o.bar : bar}${list}</div>`;
+    else if (t === 'right' || t === 'left') ov = `<div class="nvb-dim"${o.dim ? ` style="${o.dim}"` : ''}></div><div class="nvb-pan" style="${t}:0;width:${o.w || '82%'};${o.pst || ''}">${o.bar !== undefined ? o.bar : `<div class="nvb-pb">${t === 'left' ? '<span class="nvb-logo" style="font-size:17px">Företaget</span><span class="nvb-msp"></span>' + close : '<span class="nvb-msp"></span>' + close}</div>`}${list}</div>`;
+    else if (t === 'down') ov = `<div class="nvb-dim" style="top:var(--mhh,56px);${o.dim || ''}"></div><div class="nvb-pan" style="top:var(--mhh,56px);left:0;right:0;bottom:auto;border-bottom:1px solid var(--sline);box-shadow:0 10px 24px rgba(20,22,24,.12);${o.pst || ''}">${list}</div>`;
+    else if (t === 'sheet') ov = `<div class="nvb-dim"${o.dim ? ` style="${o.dim}"` : ''}></div><div class="nvb-pan" style="top:auto;bottom:0;left:0;right:0;border-radius:18px 18px 0 0;padding-top:${o.handle === false ? 12 : 6}px;${o.pst || ''}">${o.handle === false ? '' : '<span style="align-self:center;width:36px;height:4px;border-radius:2px;background:#C9CDD2;margin:4px 0 6px"></span>'}${list}<div style="height:12px"></div></div>`;
+    const hd = t === 'down' ? mhead({ btn: close }) : mhead({});
+    return phone(hd + MBODY + ov, o.css || '', o.vars || '');
+  };
+  q('mm-typ', 'Hur ska mobilmenyn öppnas?', GR, [
+    ['Helskärm', MM({})],
+    ['Låda från höger', MM({ type: 'right' })],
+    ['Låda från vänster', MM({ type: 'left' })],
+    ['Fälls ner under headern', MM({ type: 'down' })],
+    ['Bottenark nerifrån', MM({ type: 'sheet' })]
+  ]);
+  q('mm-bredd', 'Hur bred ska en utdragslåda vara?', GR, [['75 %', '75%'], ['85 %', '85%'], ['Hela bredden', '100%']].map(([l, w]) => [l, MM({ type: 'right', w })]));
+  q('mm-bakom', 'Hur ska sidan bakom en öppen låda se ut?', GR, [
+    ['Mörkt tonad', MM({ type: 'right' })],
+    ['Oförändrad', MM({ type: 'right', dim: 'background:transparent', pst: 'box-shadow:-8px 0 24px rgba(20,22,24,.14)' })],
+    ['Suddig och ljust tonad', MM({ type: 'right', dim: 'background:rgba(246,246,244,.4);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)', pst: 'box-shadow:-8px 0 24px rgba(20,22,24,.1)' })]
+  ]);
+  q('mm-ton', 'Vilken bakgrund ska en helskärmsmeny ha?', GR, [
+    ['Vit', MM({})],
+    ['Huvudfärgen', MM({ pst: 'background:var(--brand);color:#fff', css: '& .nvb-ml>span{color:#fff;border-color:rgba(255,255,255,.2)}' })],
+    ['Mörk', MM({ pst: 'background:var(--sink);color:#fff', css: '& .nvb-ml>span{color:#fff;border-color:rgba(255,255,255,.2)}' })]
+  ]);
+  q('mm-justering', 'Hur ska menyvalen ställas i en helskärmsmeny?', GR, [
+    ['Vänsterställda', MM({})],
+    ['Centrerade', MM({ css: '& .nvb-ml>span{justify-content:center;text-align:center}' })]
+  ]);
+  const subLi = (post) => (x, i) => `<span${i === 0 ? ' style="border-bottom:0"' : ''}><span style="flex:1">${x}</span>${post(i)}</span>${i === 0 ? '<span class="nvb-sub">Undersida ett</span><span class="nvb-sub">Undersida två</span><span class="nvb-sub" style="border-bottom:1px solid var(--sline);padding-bottom:10px;min-height:38px">Undersida tre</span>' : ''}`;
+  const SUBCSS = '& .nvb-ml>span.nvb-sub{min-height:30px;font-size:15px;font-weight:400;color:var(--smuted);padding-left:12px;border-bottom:0}';
+  q('mm-under', 'Hur ska undersidor visas i mobilmenyn?', GR, [
+    ['Fälls ut, chevron till höger', MM({ li: subLi((i) => (i === 0 ? ic('chevU', 18) : i === 2 ? ic('chevD', 18) : '')), css: SUBCSS })],
+    ['Fälls ut, plus och minus', MM({ li: subLi((i) => (i === 0 ? ic('minus', 18) : i === 2 ? ic('plus', 18) : '')), css: SUBCSS })],
+    ['Ny panel med "Tillbaka"', MM({ bar: `<div class="nvb-pb"><span class="nvb-btn" style="font-weight:600;font-size:14px;gap:4px">${ic('chevL', 18)}Tillbaka</span><span class="nvb-msp"></span>${XB()}</div><p style="padding:6px 18px 0;font-size:13px;font-weight:600;color:var(--smuted)">Tjänster</p>`, items: ['Översikt', 'Undersida ett', 'Undersida två', 'Undersida tre'] })]
+  ]);
+  q('mm-handtag', 'Ska ett bottenark ha ett litet handtag upptill?', GR, [
+    ['Med handtag', MM({ type: 'sheet' })],
+    ['Utan handtag', MM({ type: 'sheet', handle: false })]
+  ]);
+  q('mm-logo', 'Vad ska synas överst i en öppen helskärmsmeny?', GR, [
+    ['Logo och stängknapp', MM({})],
+    ['Bara stängknapp', MM({ logoIn: false })]
+  ]);
+  const CONTACT = `<div class="nvb-mx"><span>${ic('phone', 15)}${TEL}</span><span>${ic('mail', 15)}info@foretaget.se</span></div>`;
+  const SOME = `<div class="nvb-mx" style="flex-direction:row;gap:14px">${['camera', 'play', 'bubble'].map(k => ic(k, 20)).join('')}</div>`;
+  q('mm-extra', 'Vad ska finnas längst ner i mobilmenyn?', GR, [
+    ['Inget mer', MM({})],
+    ['Kontaktuppgifter', MM({ after: CONTACT })],
+    ['Sociala ikoner', MM({ after: SOME })]
+  ]);
+  q('mm-sok', 'Ska mobilmenyn ha ett sökfält?', GR, [
+    ['Utan sökfält', MM({})],
+    ['Sökfält överst i menyn', MM({ before: `<div style="padding:4px 18px 0"><span class="inp ph" style="height:40px;gap:8px;font-size:14px">${ic('search', 16)}Sök</span></div>` })]
+  ]);
+
+  /* ===== Mobilmeny: menyvalen ===== */
+  group('mobilmeny-val', 'Mobilmeny: menyvalen');
+  q('mv-storlek', 'Hur stor ska texten i mobilmenyn vara?', GR, [16, 18, 22, 26].map(s => [`${s} px`, MM({ vars: `--mvs:${s}px` })]));
+  q('mv-vikt', 'Hur tung ska texten i mobilmenyn vara?', GR, [[400, 'Normal (400)'], [500, 'Medium (500)'], [600, 'Halvfet (600)'], [700, 'Fet (700)']].map(([w, l]) => [l, MM({ vars: `--mvw:${w}` })]));
+  q('mv-avgr', 'Hur ska menyvalen i mobilmenyn skiljas åt?', GR, [
+    ['Tunna linjer', MM({})],
+    ['Inga linjer', MM({ css: '& .nvb-ml>span{border-bottom:0}' })],
+    ['Varje val i egen ruta', MM({ css: '& .nvb-ml{gap:8px}& .nvb-ml>span{border:0;background:var(--ground);border-radius:10px;padding:0 14px}' })]
+  ]);
+  q('mv-hojd', 'Hur hög ska varje rad i mobilmenyn vara?', GR, [44, 52, 60].map(h => [`${h} px`, MM({ vars: `--mvh:${h}px` })]));
+  q('mv-chevron', 'Ska menyvalen i mobilmenyn ha en pil till höger?', GR, [
+    ['Utan pil', MM({})],
+    ['Chevron till höger', MM({ post: () => `<span style="color:var(--smuted);display:inline-flex">${ic('chevR', 18)}</span>` })]
+  ]);
+  q('mv-ikoner', 'Ska menyvalen i mobilmenyn ha ikoner?', GR, [
+    ['Bara text', MM({})],
+    ['Ikon före texten', MM({ pre: (i) => `<span style="display:inline-flex;margin-right:12px;color:var(--smuted)">${ic(['grid', 'tag', 'info', 'chat'][i], 20)}</span>` })]
+  ]);
+  q('mv-aktiv', 'Hur ska aktiv sida visas i mobilmenyn?', GR, [
+    ['Fetstil', MM({ on: 1, vars: '--mvw:500', css: '& .nvb-ml>span.on{font-weight:800}' })],
+    ['Streck till vänster', MM({ on: 1, css: '& .nvb-ml>span.on{box-shadow:inset 3px 0 0 var(--brand);padding-left:12px;margin-left:-12px}' })],
+    ['Ljus platta', MM({ on: 1, css: '& .nvb-ml>span.on{background:var(--tint);border-radius:8px;padding:0 10px;margin:0 -10px;border-color:transparent}' })],
+    ['Färgad text', MM({ on: 1, css: '& .nvb-ml>span.on{color:var(--brand)}' })]
+  ]);
+  const MCTA = '<div style="padding:4px 18px"><span class="sb" style="width:100%;height:46px">Boka tid</span></div>';
+  q('mv-cta', 'Ska mobilmenyn ha en knapp?', GR, [
+    ['Ingen knapp', MM({})],
+    ['Knapp direkt efter menyvalen', MM({ after: MCTA })],
+    ['Knapp fast längst ner', MM({ after: '<div style="margin-top:auto;padding:14px 18px 18px;border-top:1px solid var(--sline)"><span class="sb" style="width:100%;height:46px">Boka tid</span></div>' })]
+  ]);
+  q('mv-cta-stil', 'Hur ska knappen i mobilmenyn se ut?', GR, [
+    ['En fylld knapp', MM({ after: MCTA })],
+    ['Fylld och konturknapp', MM({ after: '<div style="padding:4px 18px;display:flex;flex-direction:column;gap:8px"><span class="sb" style="width:100%;height:44px">Boka tid</span><span class="sb2" style="width:100%;height:44px">Ring oss</span></div>' })],
+    ['En konturknapp', MM({ after: '<div style="padding:4px 18px"><span class="sb2" style="width:100%;height:46px">Boka tid</span></div>' })]
+  ]);
+  q('mv-sekundar', 'Hur ska mindre viktiga länkar visas i mobilmenyn?', GR, [
+    ['Samma stil som övriga', MM({ items: [...MI, 'Hjälp', 'Logga in'], vars: '--mvh:44px' })],
+    ['Mindre och grå under', MM({ vars: '--mvh:44px', after: '<div class="nvb-mx" style="gap:10px;font-size:14px"><span>Hjälp</span><span>Logga in</span></div>' })]
+  ]);
+
+  /* ===== Mobilmeny: stäng ===== */
+  group('mobil-stang', 'Mobilmeny: stängknappen');
+  q('ms-ikon', 'Hur ska stängknappen i mobilmenyn se ut?', GR, [
+    ['Kryss', MM({})],
+    ['Ordet "Stäng"', MM({ close: '<span class="nvb-btn" style="font-weight:600;font-size:14px">Stäng</span>' })],
+    ['Kryss och "Stäng"', MM({ close: `<span class="nvb-btn" style="font-weight:600;font-size:14px">Stäng${ic('x', 20)}</span>` })]
+  ]);
+  q('ms-plats', 'Var ska stängknappen sitta?', GR, [
+    ['Där menyknappen satt', MM({})],
+    ['Uppe till vänster', MM({ bar: `<div class="nvb-pb">${XB()}<span class="nvb-msp"></span><span class="nvb-logo" style="font-size:17px">Företaget</span></div>` })],
+    ['Rund knapp längst ner', MM({ close: '', after: `<span class="nvb-btn" style="margin:auto auto 22px;width:48px;height:48px;border-radius:999px;border:1px solid var(--sline)">${ic('x', 22)}</span>` })]
+  ]);
+  q('ms-platta', 'Ska stängknappen ha en platta?', GR, [
+    ['Fritt kryss', MM({})],
+    ['Ljus rund platta', MM({ close: `<span class="nvb-btn" style="width:38px;height:38px;border-radius:999px;background:var(--tint)">${ic('x', 20)}</span>` })],
+    ['Rund kontur', MM({ close: `<span class="nvb-btn" style="width:38px;height:38px;border-radius:999px;border:1px solid var(--sline)">${ic('x', 20)}</span>` })]
+  ]);
+  q('ms-storlek', 'Hur stort ska krysset vara?', GR, [20, 24, 28].map(s => [`${s} px`, MM({ close: XB(s) })]));
+
+  /* ===== Bottennavigering ===== */
+  group('bottennav', 'Bottennavigering i mobilen');
+  const BNI = [['home', 'Hem'], ['grid', 'Tjänster'], ['cal', 'Boka'], ['chat', 'Kontakt'], ['user', 'Konto']];
+  const BN = (o = {}) => {
+    const items = BNI.slice(0, o.n || 4);
+    const it = items.map(([k, t], i) => `<span class="nvb-bi${i === 0 ? ' on' : ''}">${o.lab === 'text' ? '' : `<span class="nvb-bk">${ic(k, 22)}</span>`}${o.lab === 'icon' ? '' : `<span>${t}</span>`}</span>`);
+    if (o.mid) it.splice(2, 0, `<span class="nvb-bi"><span class="nvb-btn" style="width:48px;height:48px;border-radius:999px;background:var(--brand);color:#fff;margin-top:-22px;box-shadow:0 4px 12px rgba(20,22,24,.2)">${ic('plus', 24)}</span><span>Boka</span></span>`);
+    const nav = `<div class="nvb-bn" style="${o.st || ''}">${it.join('')}</div>`;
+    return phone(mhead({}) + MBODY + nav, '& .nvb-bn{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-around;align-items:center;background:#fff;border-top:1px solid var(--sline);padding:8px 4px 12px;z-index:3}& .nvb-bi{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:500;color:var(--smuted);min-width:0;flex:1}& .nvb-bi.on{color:var(--brand)}& .nvb-bk{display:inline-grid;place-items:center;position:relative}' + (o.css || ''));
+  };
+  q('bn-finns', 'Ska mobilen ha en meny längst ner på skärmen?', GR, [
+    ['Ingen bottenmeny', M({})],
+    ['Bottenmeny med ikoner och text', BN({})]
+  ]);
+  q('bn-etikett', 'Hur ska valen i bottenmenyn visas?', GR, [
+    ['Ikon och text', BN({})],
+    ['Bara ikoner', BN({ lab: 'icon' })],
+    ['Bara text', BN({ lab: 'text', css: '& .nvb-bi{font-size:13px;padding:6px 0}' })]
+  ]);
+  q('bn-aktiv', 'Hur ska det aktiva valet i bottenmenyn markeras?', GR, [
+    ['Färgad ikon och text', BN({})],
+    ['Ljus pill bakom ikonen', BN({ css: '& .nvb-bi.on .nvb-bk{background:var(--tint);border-radius:999px;padding:3px 16px}' })],
+    ['Streck ovanför', BN({ css: '& .nvb-bi.on{position:relative}& .nvb-bi.on::before{content:"";position:absolute;top:-9px;width:28px;height:3px;border-radius:2px;background:var(--brand)}' })],
+    ['Prick under texten', BN({ css: '& .nvb-bi.on::after{content:"";width:4px;height:4px;border-radius:50%;background:var(--brand)}& .nvb-bi::after{content:"";height:4px}' })]
+  ]);
+  q('bn-antal', 'Hur många val ska bottenmenyn ha?', GR, [3, 4, 5].map(n => [`${n} val`, BN({ n })]));
+  q('bn-stil', 'Hur ska bottenmenyn se ut?', GR, [
+    ['Vit med linje ovanför', BN({})],
+    ['Vit med skugga', BN({ st: 'border-top:0;box-shadow:0 -4px 16px rgba(20,22,24,.08)' })],
+    ['Flytande rundad list', BN({ st: 'left:10px;right:10px;bottom:10px;border:1px solid var(--sline);border-radius:18px;box-shadow:0 6px 18px rgba(20,22,24,.12);padding:8px 2px' })]
+  ]);
+  q('bn-mitt', 'Ska bottenmenyn ha en upphöjd knapp i mitten?', GR, [
+    ['Alla val lika', BN({})],
+    ['Upphöjd rund knapp i mitten', BN({ mid: true })]
   ]);
 
   /*SLUT*/
