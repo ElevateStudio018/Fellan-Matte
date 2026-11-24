@@ -27,33 +27,18 @@
 </header>
 <main id="innehall" tabindex="-1">
 
-<section class="ev-hero ev-hero--value" aria-labelledby="hero-rubrik">
+<section class="ev-hero ev-hero--center ev-on-photo" aria-labelledby="hero-rubrik">
   <img class="ev-hero__img" src="img/villa.jpg" alt="Rött trähus med vita knutar och gul dörr i en grönskande trädgård" fetchpriority="high" width="1400" height="933">
-  <div class="ev-wrap ev-hero__in ev-on-photo">
+  <div class="ev-wrap ev-hero__in">
     <h1 id="hero-rubrik" class="ev-dot">Vi säljer hem i hela Kalmar län</h1>
-    <p class="ev-hero__lead">Lokala mäklare sedan 1998. Vi kommer hem till dig och värderar, och det kostar ingenting.</p>
-    <form class="ev-value" data-addr-form action="#vardering" novalidate>
-      <label class="ev-value__q" for="h-adress">Vad är din bostad värd?</label>
-      <div class="ev-value__box">
-        <div class="ev-value__field">
-          <svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-          <input id="h-adress" name="adress" autocomplete="street-address" placeholder="Till exempel Ekbacksvägen 7, Kalmar">
-        </div>
+    <p class="ev-hero__lead">Lokala mäklare sedan 1998. Skriv din adress, så kommer vi hem till dig och värderar bostaden. Det kostar ingenting.</p>
+    <form class="ev-addr" data-addr-form action="#vardering" novalidate>
+      <label for="h-adress">Din adress</label>
+      <div class="ev-addr__row">
+        <input class="ev-input" id="h-adress" name="adress" autocomplete="street-address" placeholder="Till exempel Ekbacksvägen 7, Kalmar">
         <button class="ev-btn" type="submit" data-sticky-anchor><span>Boka värdering</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
       </div>
     </form>
-  </div>
-  <div class="ev-ticker" data-ticker>
-    <div class="ev-wrap ev-ticker__in">
-      <h2 class="ev-ticker__title" id="ticker-rubrik">Nyligen sålt</h2>
-      <div class="ev-ticker__view">
-        <div class="ev-ticker__track">
-          <ul aria-labelledby="ticker-rubrik"><li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/><path d="M9.5 20.5v-5.5h5v5.5"/></svg><b>Villa, Berga</b><span class="ev-ticker__meta">5 rum, 141 m²</span><span class="ev-ticker__price">4&nbsp;725&nbsp;000&nbsp;kr</span><span class="ev-ticker__diff"><span class="ev-sr">mot utgångspris </span>+8&nbsp;%</span></li><li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/><path d="M9.5 20.5v-5.5h5v5.5"/></svg><b>Lägenhet, Kvarnholmen</b><span class="ev-ticker__meta">2 rum, 61 m²</span><span class="ev-ticker__price">2&nbsp;310&nbsp;000&nbsp;kr</span><span class="ev-ticker__diff"><span class="ev-sr">mot utgångspris </span>+5&nbsp;%</span></li><li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/><path d="M9.5 20.5v-5.5h5v5.5"/></svg><b>Radhus, Lindsdal</b><span class="ev-ticker__meta">4 rum, 108 m²</span><span class="ev-ticker__price">3&nbsp;050&nbsp;000&nbsp;kr</span><span class="ev-ticker__diff"><span class="ev-sr">mot utgångspris </span>±0&nbsp;%</span></li><li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/><path d="M9.5 20.5v-5.5h5v5.5"/></svg><b>Fritidshus, Färjestaden</b><span class="ev-ticker__meta">3 rum, 58 m²</span><span class="ev-ticker__price">1&nbsp;640&nbsp;000&nbsp;kr</span><span class="ev-ticker__diff"><span class="ev-sr">mot utgångspris </span>+3&nbsp;%</span></li><li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/><path d="M9.5 20.5v-5.5h5v5.5"/></svg><b>Lägenhet, Stensö</b><span class="ev-ticker__meta">3 rum, 74 m²</span><span class="ev-ticker__price">2&nbsp;480&nbsp;000&nbsp;kr</span><span class="ev-ticker__diff"><span class="ev-sr">mot utgångspris </span>+6&nbsp;%</span></li><li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/><path d="M9.5 20.5v-5.5h5v5.5"/></svg><b>Villa, Ljungbyholm</b><span class="ev-ticker__meta">6 rum, 172 m²</span><span class="ev-ticker__price">3&nbsp;975&nbsp;000&nbsp;kr</span><span class="ev-ticker__diff"><span class="ev-sr">mot utgångspris </span>+4&nbsp;%</span></li></ul>
-          <ul aria-hidden="true"><li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/><path d="M9.5 20.5v-5.5h5v5.5"/></svg><b>Villa, Berga</b><span class="ev-ticker__meta">5 rum, 141 m²</span><span class="ev-ticker__price">4&nbsp;725&nbsp;000&nbsp;kr</span><span class="ev-ticker__diff"><span class="ev-sr">mot utgångspris </span>+8&nbsp;%</span></li><li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/><path d="M9.5 20.5v-5.5h5v5.5"/></svg><b>Lägenhet, Kvarnholmen</b><span class="ev-ticker__meta">2 rum, 61 m²</span><span class="ev-ticker__price">2&nbsp;310&nbsp;000&nbsp;kr</span><span class="ev-ticker__diff"><span class="ev-sr">mot utgångspris </span>+5&nbsp;%</span></li><li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/><path d="M9.5 20.5v-5.5h5v5.5"/></svg><b>Radhus, Lindsdal</b><span class="ev-ticker__meta">4 rum, 108 m²</span><span class="ev-ticker__price">3&nbsp;050&nbsp;000&nbsp;kr</span><span class="ev-ticker__diff"><span class="ev-sr">mot utgångspris </span>±0&nbsp;%</span></li><li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/><path d="M9.5 20.5v-5.5h5v5.5"/></svg><b>Fritidshus, Färjestaden</b><span class="ev-ticker__meta">3 rum, 58 m²</span><span class="ev-ticker__price">1&nbsp;640&nbsp;000&nbsp;kr</span><span class="ev-ticker__diff"><span class="ev-sr">mot utgångspris </span>+3&nbsp;%</span></li><li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/><path d="M9.5 20.5v-5.5h5v5.5"/></svg><b>Lägenhet, Stensö</b><span class="ev-ticker__meta">3 rum, 74 m²</span><span class="ev-ticker__price">2&nbsp;480&nbsp;000&nbsp;kr</span><span class="ev-ticker__diff"><span class="ev-sr">mot utgångspris </span>+6&nbsp;%</span></li><li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19z"/><path d="M9.5 20.5v-5.5h5v5.5"/></svg><b>Villa, Ljungbyholm</b><span class="ev-ticker__meta">6 rum, 172 m²</span><span class="ev-ticker__price">3&nbsp;975&nbsp;000&nbsp;kr</span><span class="ev-ticker__diff"><span class="ev-sr">mot utgångspris </span>+4&nbsp;%</span></li></ul>
-        </div>
-      </div>
-      <button class="ev-ticker__pause" type="button" data-ticker-toggle><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg><span>Pausa</span></button>
-    </div>
   </div>
 </section>
 

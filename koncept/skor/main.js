@@ -794,14 +794,3 @@ if (flow) {
 
 renderCartUI();
 })();
-
-/* ---------- Hero (ny): färgprickarna byter yta ---------- */
-(() => {
-  const hero = document.querySelector('[data-skhero]');
-  if (!hero) return;
-  const sw = [...hero.querySelectorAll('.sk-swatch')];
-  sw.forEach(b => b.addEventListener('click', () => {
-    hero.style.setProperty('--sk-bg', b.dataset.bg);
-    sw.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-  }));
-})();

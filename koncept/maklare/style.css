@@ -204,7 +204,28 @@ main:focus { outline: none; }
 .ev-menu__foot { padding: 24px var(--ev-pad); display: grid; gap: 12px; }
 .ev-menu__foot a { color: inherit; }
 
-/* Hero: se "Hero (ny)" längre ned */
+/* ---------- Hero med bokningsruta (ux-hero-*) ---------- */
+.ev-hero { position: relative; min-height: calc(100svh - var(--ev-header-h)); display: flex; flex-direction: column; justify-content: flex-end;
+  color: #fff; overflow: hidden; background: var(--ev-brand-dark); }
+.ev-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+.ev-hero::after { content: ""; position: absolute; inset: 0; background: rgba(10, 18, 36, .5); }
+.ev-hero__in { position: relative; z-index: 1; padding-top: 48px; padding-bottom: 24px; }
+.ev-hero h1 { max-width: 14ch; text-shadow: 0 1px 18px rgba(0, 0, 0, .35); }
+.ev-hero__lead { font-size: 19px; line-height: 1.5; max-width: 42ch; margin-top: 16px; text-shadow: 0 1px 14px rgba(0, 0, 0, .4); }
+.ev-search { margin-top: 28px; background: #fff; color: var(--ev-ink); border-radius: var(--ev-r-card); padding: 16px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; box-shadow: 0 12px 40px rgba(0,0,0,.18); }
+.ev-search .ev-field--guests, .ev-search .ev-search__go { grid-column: 1 / -1; }
+.ev-search__go .ev-btn { width: 100%; }
+.ev-search__note { grid-column: 1 / -1; margin: 0; font-size: 14px; color: var(--ev-ink-2); display: flex; gap: 8px; align-items: flex-start; }
+.ev-search__note .ev-icon { width: 20px; height: 20px; --ev-stroke: 2px; color: var(--ev-ok); }
+@media (min-width: 900px) {
+  .ev-hero__in { padding-bottom: 56px; }
+  .ev-hero__lead { font-size: 20px; }
+  .ev-search { grid-template-columns: 1fr 1fr 1fr auto; align-items: end; padding: 20px 20px 18px; max-width: 980px; }
+  .ev-search .ev-field--guests, .ev-search .ev-search__go { grid-column: auto; }
+  .ev-search .ev-input { height: 56px; }
+  .ev-search__go { padding-bottom: 2px; }
+}
 
 /* Sidhuvud på undersidor */
 .ev-pagehead { padding-top: 32px; padding-bottom: 32px; }
@@ -575,77 +596,18 @@ select.ev-input { appearance: none; padding-right: 48px;
 
 /* =================== Strand & Holm: egna komponenter =================== */
 
-/* Hero (ny) ---------- Foto av en bostad, stort värderingsfält och en rullande rad med sålda bostäder nertill.
-   Mörkningen är en gradient från vänster (desktop) eller nerifrån (mobil), aldrig en jämn hinna (19b). */
-.ev-hero--value { position: relative; isolation: isolate; display: flex; flex-direction: column;
-  min-height: calc(100svh - var(--ev-header-h)); color: #fff; overflow: hidden; background: var(--ev-brand-dark); }
-.ev-hero--value .ev-hero__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
-.ev-hero--value::before { content: ""; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(to top, rgba(10, 20, 44, .9) 0%, rgba(10, 20, 44, .74) 38%, rgba(10, 20, 44, .2) 62%, rgba(10, 20, 44, 0) 76%); }
-.ev-hero--value .ev-hero__in { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding-top: 160px; padding-bottom: 28px; }
-.ev-hero--value h1 { max-width: 15ch; text-shadow: 0 1px 20px rgba(10, 20, 44, .4); }
-.ev-hero--value .ev-hero__lead { font-size: 17px; line-height: 1.5; max-width: 40ch; margin-top: 12px; }
-
-/* Värderingsfältet: på mobil fält och knapp under varandra, på desktop knappen inne i en stor vit pill */
-.ev-value { margin-top: 28px; max-width: 640px; display: grid; gap: 10px; }
-.ev-value__q { font-size: 22px; line-height: 1.25; font-weight: 600; }
-.ev-value__box { display: grid; gap: 12px; }
-.ev-value__field { display: flex; align-items: center; gap: 10px; height: 60px; padding: 0 20px; background: #fff; color: var(--ev-ink);
-  border-radius: var(--ev-r-pill); }
-.ev-value__field .ev-icon { width: 24px; height: 24px; color: var(--ev-brand); }
-.ev-value__field input { flex: 1; min-width: 0; height: 100%; border: 0; background: none; padding: 0; color: var(--ev-ink);
-  font: 400 17px/1 var(--ev-font); outline: none; }
-.ev-value__field input::placeholder { color: #6B7076; }
-.ev-value__field:focus-within { outline: 2px solid #fff; outline-offset: 2px; }
-.ev-value .ev-btn { width: 100%; }
+/* Hero: text och adressfält direkt på fotot, mitt i höjden */
+.ev-hero--center { justify-content: center; }
+.ev-hero--center .ev-hero__in { padding-top: 64px; padding-bottom: 64px; }
+.ev-hero--center h1 { max-width: 16ch; }
+.ev-addr { margin-top: 28px; max-width: 620px; display: grid; gap: 8px; }
+.ev-addr label { font-size: 14px; font-weight: 600; text-shadow: 0 1px 10px rgba(0,0,0,.4); }
+.ev-addr__row { display: grid; gap: 12px; }
+.ev-addr .ev-input { height: 56px; border-color: #fff; }
+.ev-addr .ev-btn { width: 100%; }
 @media (min-width: 640px) {
-  .ev-value__box { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; height: 72px; padding: 0 10px 0 4px;
-    background: #fff; border-radius: var(--ev-r-pill); }
-  .ev-value__box:focus-within { outline: 2px solid #fff; outline-offset: 3px; }
-  .ev-value__field { height: 100%; background: none; font-size: 18px; }
-  .ev-value__field:focus-within { outline: none; }
-  .ev-value__field input { font-size: 18px; }
-  .ev-value .ev-btn { width: auto; }
-  .ev-value .ev-btn:focus-visible { outline-color: var(--ev-brand); }
-}
-@media (min-width: 900px) {
-  .ev-hero--value::before { background: linear-gradient(90deg, rgba(10, 20, 44, .86) 0%, rgba(10, 20, 44, .72) 32%, rgba(10, 20, 44, .18) 56%, rgba(10, 20, 44, 0) 70%); }
-  .ev-hero--value .ev-hero__in { justify-content: center; padding-top: 56px; padding-bottom: 56px; }
-  .ev-hero--value .ev-hero__lead { font-size: 20px; margin-top: 16px; }
-  .ev-value { margin-top: 36px; }
-  .ev-value__q { font-size: 26px; }
-}
-
-/* Rullande rad: pausas vid hover, fokus och med knappen (WCAG 2.2.2). Står still vid reducerad rörelse. */
-.ev-ticker { position: relative; background: var(--ev-brand-dark); color: #fff; }
-.ev-ticker__in { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title pause" "view view"; align-items: center; gap: 4px 16px; padding-top: 10px; padding-bottom: 10px; }
-.ev-ticker__title { grid-area: title; font-size: 14px; font-weight: 600; color: var(--ev-brand-light); letter-spacing: 0; }
-.ev-ticker__view { grid-area: view; overflow: hidden; min-width: 0;
-  -webkit-mask: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent); mask: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent); }
-.ev-ticker__track { display: flex; width: max-content; animation: ev-ticker 48s linear infinite; }
-.ev-ticker ul { display: flex; list-style: none; margin: 0; padding: 0; }
-.ev-ticker li { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 28px 0 0; margin-right: 28px; white-space: nowrap; font-size: 15px;
-  border-right: 1px solid rgba(255, 255, 255, .2); }
-.ev-ticker li .ev-icon { width: 20px; height: 20px; --ev-stroke: 1.75px; }
-.ev-ticker li b { font-weight: 600; }
-.ev-ticker__meta { color: #D5DDEE; }
-.ev-ticker__price { font-variant-numeric: tabular-nums; font-weight: 500; }
-.ev-ticker__diff { color: var(--ev-brand-light); font-weight: 600; font-variant-numeric: tabular-nums; }
-.ev-ticker:hover .ev-ticker__track, .ev-ticker:focus-within .ev-ticker__track, .ev-ticker.is-paused .ev-ticker__track { animation-play-state: paused; }
-.ev-ticker__pause { grid-area: pause; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 12px; border: 0; border-radius: var(--ev-r-pill);
-  background: none; color: #fff; font: 600 14px/1 var(--ev-font); cursor: pointer; }
-.ev-ticker__pause:hover { background: rgba(255, 255, 255, .12); }
-.ev-ticker__pause .ev-icon { width: 20px; height: 20px; --ev-stroke: 2px; }
-.ev-ticker__pause:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-@keyframes ev-ticker { to { transform: translateX(-50%); } }
-@media (min-width: 900px) {
-  .ev-ticker__in { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "title view pause"; gap: 24px; padding-top: 12px; padding-bottom: 12px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ev-ticker__track { animation: none; }
-  .ev-ticker__track > ul[aria-hidden] { display: none; }
-  .ev-ticker__view { overflow-x: auto; -webkit-mask: none; mask: none; }
-  .ev-ticker__pause { display: none; }
+  .ev-addr__row { grid-template-columns: 1fr auto; gap: 8px; align-items: center; }  /* knappen lägre än fältet (kn-hojd-falt) */
+  .ev-addr .ev-btn { width: auto; }
 }
 
 /* Kort i rutnät (ux-lista-*) */

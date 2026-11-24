@@ -66,33 +66,17 @@
 </dialog>
 <main id="innehall" tabindex="-1">
 
-<!-- Hero (ny): färgblock med en stor sko på konjak, jätterubrik bakom och framför skon och tre färgprickar -->
-<section class="ev-hero sk-hero ev-on-dark" aria-labelledby="hero-rubrik" data-skhero>
-  <div class="ev-wrap sk-hero__in">
-    <div class="sk-stage">
-      <h1 id="hero-rubrik" class="sk-title"><span class="sk-title__back">Kängor för</span> <span class="sk-title__front ev-dot">många vintrar</span></h1>
-      <img class="sk-shoe" src="img/sko-frilagd.webp" alt="Kungälv spänneskänga i konjakfärgat skinn, med dragkedja, nitar och spänne" fetchpriority="high" width="959" height="526">
-    </div>
-    <div class="sk-hero__foot">
-      <div class="sk-hero__main">
-        <p class="sk-hero__lead">Skinn och mocka från små skofabriker i Portugal och Italien, utvalda i butiken i Borås.</p>
-        <form class="ev-search" action="kategori.html" role="search" data-searchform>
-          <label class="ev-sr" for="hero-sok">Sök bland skorna</label>
-          <svg class="ev-icon " aria-hidden="true"><use href="icons.svg#search"/></svg>
-          <input id="hero-sok" name="q" type="search" placeholder="Modell, typ eller material" autocomplete="off">
-          <button class="ev-btn" type="submit">Sök</button>
-        </form>
-      </div>
-      <div class="sk-hero__side">
-        <a class="ev-link" href="produkt.html?id=kungalv">Kungälv spänneskänga, 1&nbsp;595&nbsp;kr<svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></a>
-        <div class="sk-swatches" role="group" aria-labelledby="sk-swatch-label">
-          <span id="sk-swatch-label">Bakgrund</span>
-          <button class="sk-swatch" type="button" style="--c:#8A3B12" data-bg="#8A3B12" aria-pressed="true"><span class="ev-sr">Konjak</span></button>
-          <button class="sk-swatch" type="button" style="--c:#6B1F2A" data-bg="#6B1F2A" aria-pressed="false"><span class="ev-sr">Vinröd</span></button>
-          <button class="sk-swatch" type="button" style="--c:#1F2A44" data-bg="#1F2A44" aria-pressed="false"><span class="ev-sr">Marinblå</span></button>
-        </div>
-      </div>
-    </div>
+<section class="ev-hero" aria-labelledby="hero-rubrik">
+  <img class="ev-hero__img" src="img/produkt-sko.jpg" alt="Ett par kängor i konjakfärgat skinn med dragkedja och spänne" fetchpriority="high" width="1400" height="913">
+  <div class="ev-wrap ev-hero__in">
+    <h1 id="hero-rubrik" class="ev-dot">Kängor som håller i många vintrar</h1>
+    <p>Skinn och mocka från små skofabriker i Portugal och Italien, utvalda i butiken i Borås.</p>
+    <form class="ev-search" action="kategori.html" role="search" data-searchform>
+      <label class="ev-sr" for="hero-sok">Sök bland skorna</label>
+      <svg class="ev-icon " aria-hidden="true"><use href="icons.svg#search"/></svg>
+      <input id="hero-sok" name="q" type="search" placeholder="Modell, typ eller material" autocomplete="off">
+      <button class="ev-btn" type="submit">Sök</button>
+    </form>
   </div>
 </section>
 

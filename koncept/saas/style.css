@@ -202,69 +202,30 @@ main:focus { outline: none; }
 .ev-menu li a .ev-icon { width: 20px; height: 20px; color: var(--ev-ink-2); }
 .ev-menu__foot { padding: 24px var(--ev-pad); display: grid; gap: 12px; }
 
+/* ---------- Hero (ux-hero-*) ---------- */
+.ev-hero { position: relative; min-height: max(600px, calc(100svh - var(--ev-header-h))); display: flex; align-items: flex-end; color: #fff; overflow: hidden; background: var(--ev-brand-dark); }
+.ev-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; }
+.ev-hero::after { content: ""; position: absolute; inset: 0; background: rgba(20, 14, 50, .72); }
+.ev-hero h1, .ev-hero__lead { text-shadow: 0 1px 16px rgba(0, 0, 0, .3); }
+.ev-hero__in { position: relative; z-index: 1; padding-top: 48px; padding-bottom: 48px; }
+.ev-hero h1 { max-width: 16ch; }
+.ev-hero__lead { font-size: 19px; line-height: 1.5; max-width: 42ch; margin-top: 16px; }
+@media (min-width: 900px) {
+  .ev-hero { align-items: center; }
+  .ev-hero__lead { font-size: 20px; }
+}
+
 /* Fält med knapp bredvid: knappen lägre än fältet, 8 px glapp (kn-hojd-falt, kn-rund-mot-falt) */
 .ev-fieldbtn { margin-top: 28px; max-width: 520px; }
 .ev-fieldbtn label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
 .ev-fieldbtn__row { display: flex; align-items: center; gap: 8px; }
 .ev-fieldbtn .ev-input { flex: 1; min-width: 0; }
 .ev-fieldbtn .ev-error { margin-top: 8px; }
-.ev-on-photo .ev-fieldbtn .ev-error, .ev-on-dark .ev-fieldbtn .ev-error { color: #fff; }
+.ev-on-photo .ev-fieldbtn .ev-error { color: #fff; }
 @media (max-width: 640px) {
   .ev-fieldbtn__row { flex-direction: column; align-items: stretch; gap: 12px; }
   .ev-fieldbtn .ev-input { flex: none; }
   .ev-fieldbtn .ev-btn { width: 100%; height: var(--ev-btn-h); }
-}
-
-/* Hero (ny) ---------------------------------------------------------------
-   Mörk violett yta (19b) med en stor lutad skiss av schemat, svävande notiskort och e-postfält.
-   Kontrast mot #24165E: vit text 15,5:1, ingress #DED8F5 11:1, prick #C8BBFF 8,9:1. */
-.ps-hero2 { --ps-hero-bg: #24165E; position: relative; overflow: hidden; background: var(--ps-hero-bg); color: #fff; }
-.ps-hero2__in { position: relative; display: grid; gap: 40px; padding-top: 36px; padding-bottom: 0; }
-.ps-hero2 h1 { font-size: clamp(38px, 4.4vw + 10px, 68px); line-height: 1.04; letter-spacing: -.02em; max-width: 12ch; }
-.ps-hero2__lead { font-size: 17px; line-height: 1.5; color: #DED8F5; max-width: 42ch; margin-top: 16px; }
-.ps-hero2 .ev-fieldbtn { margin-top: 24px; max-width: 480px; }
-.ps-hero2 .ev-fieldbtn label { color: #fff; }
-.ps-hero2 .ev-input { border-color: #fff; }
-
-/* Scenen: skissen lutar i 3D och går ut över kanten. Höjden styr hur mycket som syns. */
-.ps-hero2__stage { position: relative; height: 330px; margin: 0 calc(-1 * var(--ev-pad)); perspective: 1600px; }
-.ps-hero2__tilt { position: absolute; top: 24px; left: 20px; width: 620px; transform-origin: 0 0;
-  transform: rotateX(14deg) rotateY(-18deg) rotateZ(4deg) scale(.86); animation: ps-tilt-in 900ms var(--ev-ease) both; }
-.ps-hero2 .ps-app { border: 0; border-radius: 20px; box-shadow: 0 40px 80px rgba(8, 4, 30, .5); }
-.ps-hero2 .ps-board > div { min-height: 52px; }
-.ps-hero2 .ps-shift.is-new { box-shadow: 0 0 0 2px var(--ev-brand); }
-@keyframes ps-tilt-in { from { opacity: 0; transform: rotateX(22deg) rotateY(-26deg) rotateZ(6deg) scale(.82) translateY(40px); } }
-
-/* Notiskort: vita, ikon utan platta i varumärkesfärg. Svävar tre gånger (högst 5 s) och står sedan still. */
-.ps-note { position: absolute; z-index: 2; display: flex; align-items: flex-start; gap: 10px; width: max-content; max-width: 280px;
-  padding: 12px 16px 12px 14px; border-radius: 16px; background: #fff; color: var(--ev-ink); font-size: 13px; line-height: 1.35;
-  box-shadow: 0 16px 40px rgba(8, 4, 30, .38); animation: ps-note-in 600ms var(--ev-ease) both, ps-note-float 1.6s ease-in-out 900ms 3; }
-.ps-note .ev-icon { width: 20px; height: 20px; --ev-stroke: 2px; color: var(--ev-brand); margin-top: 1px; }
-.ps-note b { display: block; font-weight: 600; font-size: 14px; }
-.ps-note span { color: var(--ev-ink-2); }
-.ps-note--1 { right: var(--ev-pad); top: 8px; animation-delay: 500ms, 1.1s; }
-.ps-note--2 { left: var(--ev-pad); bottom: 28px; animation-delay: 700ms, 1.4s; }
-.ps-note--3 { display: none; }
-@keyframes ps-note-in { from { opacity: 0; transform: translateY(12px); } }
-@keyframes ps-note-float { 50% { transform: translateY(-6px); } }
-@media (prefers-reduced-motion: reduce) { .ps-hero2__tilt, .ps-note { animation: none; } }
-
-@media (min-width: 641px) {
-  .ps-hero2__stage { height: 440px; }
-  .ps-hero2__tilt { left: 40px; width: 760px; transform: rotateX(14deg) rotateY(-18deg) rotateZ(4deg) scale(.9); }
-}
-@media (min-width: 900px) {
-  .ps-hero2 { min-height: max(640px, calc(100svh - var(--ev-header-h))); display: flex; align-items: center; }
-  .ps-hero2__in { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: center; padding-top: 56px; padding-bottom: 56px; }
-  .ps-hero2__lead { font-size: 20px; margin-top: 24px; }
-  .ps-hero2 .ev-fieldbtn { margin-top: 32px; }
-  .ps-hero2__stage { height: 560px; margin: 0 calc(-1 * var(--ev-pad)) 0 0; }
-  .ps-hero2__tilt { top: 60px; left: 0; width: 860px; transform: rotateX(12deg) rotateY(-20deg) rotateZ(3deg); }
-  @keyframes ps-tilt-in { from { opacity: 0; transform: rotateX(20deg) rotateY(-28deg) rotateZ(5deg) translateY(40px); } }
-  .ps-hero2 .ps-board > div { min-height: 60px; }
-  .ps-note--1 { top: 10px; right: var(--ev-pad); left: auto; }
-  .ps-note--2 { left: 0; bottom: 70px; }
-  .ps-note--3 { display: flex; right: 0; bottom: 8px; }
 }
 
 /* Sidhuvud på undersidor */
@@ -651,6 +612,23 @@ a.ev-chip { text-decoration: none; }
   .ps-app__stat, .ps-app__pill { display: none; }
 }
 
+/* Mörk version som bild i heron */
+.ps-hero { background: var(--ev-brand-dark); }
+.ps-hero::after { background: rgba(20, 14, 50, .74); }
+.ps-hero__art { position: absolute; inset: 0; overflow: hidden; }
+.ps-hero__art .ps-board { position: absolute; top: -24px; left: 50%; width: max(1280px, 110%); transform: translateX(-42%); grid-template-columns: 120px repeat(7, minmax(0, 1fr)); }
+.ps-hero__art .ps-board > div { min-height: 92px; border-color: rgba(255,255,255,.08); padding: 10px 8px; }
+.ps-hero__art .ps-board > .ps-day { min-height: 0; color: rgba(255,255,255,.7); font-size: 14px; }
+.ps-hero__art .ps-name { color: #fff; font-size: 15px; }
+.ps-hero__art .ps-name small { color: rgba(255,255,255,.6); font-size: 13px; display: block; }
+.ps-hero__art .ps-shift { font-size: 15px; padding: 10px 12px; border-radius: 12px; }
+.ps-hero__art .ps-shift small { font-size: 13px; display: block; }
+.ps-hero__art .ps-shift--kok { background: #4B33B8; color: #fff; }
+.ps-hero__art .ps-shift--kassa { background: #11706A; color: #fff; }
+.ps-hero__art .ps-shift--serv { background: #9A6512; color: #fff; }
+.ps-hero__art .ps-shift--open { background: transparent; color: #fff; box-shadow: inset 0 0 0 2px #C8BBFF; }
+.ps-hero h1 { max-width: 14ch; }
+
 /* Bärbar dator med skiss på skärmen */
 .ps-laptop { position: relative; border-radius: var(--ev-r-card); overflow: hidden; }
 .ps-laptop img { width: 100%; aspect-ratio: 1400/933; object-fit: cover; }
@@ -794,6 +772,7 @@ a.ev-chip { text-decoration: none; }
 .ps-laptop__screen .ps-app__stat, .ps-laptop__screen .ps-app__pill { display: none; }
 .ps-laptop__screen .ps-app__week { font-size: 2.8cqw; }
 .ps-legend i { box-shadow: inset 0 0 0 1px rgba(26,28,30,.12); }
+@media (max-width: 640px) { .ps-hero::after { background: rgba(20, 14, 50, .84); } .ps-hero__art .ps-board { transform: translateX(-30%); } }
 
 [hidden] { display: none !important; }
 .ps-period__save { white-space: nowrap; }

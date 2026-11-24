@@ -69,6 +69,19 @@
     err.hidden = false;
   };
 
+  /* ---------- Hero: verifikationer → flödet ---------- */
+  const hero = $('[data-herocalc]');
+  if (hero) {
+    const inp = $('input', hero);
+    inp.dataset.msg = 'Skriv ett ungefärligt antal, till exempel 40.';
+    inp.addEventListener('blur', () => { if (inp.value !== '') showErr(inp, check(inp)); });
+    inp.addEventListener('input', () => { if (inp.getAttribute('aria-invalid') === 'true') showErr(inp, check(inp)); });
+    hero.addEventListener('submit', e => {
+      if (inp.value === '') return;              // tomt fält: gå till flödet utan förval
+      if (!check(inp)) { e.preventDefault(); showErr(inp, false); inp.focus(); }
+    });
+  }
+
   /* ---------- Prismodell (påhittad) ---------- */
   const BASE = { ab: [1195, 1795, 2795, 4295], ef: [795, 1295, 2195, 3495], hb: [995, 1495, 2395, 3795], fo: [695, 1095, 1895, 2995] };
   const BOLAG = { ab: 'Aktiebolag', ef: 'Enskild firma', hb: 'Handelsbolag', fo: 'Ideell förening' };
@@ -81,37 +94,6 @@
     rad: { name: 'Rådgivning', price: () => 245 }
   };
   const KONSULT = { ab: 'Anna Ekholm', ef: 'Sara Lindqvist', hb: 'Jonas Berglund', fo: 'Sara Lindqvist' };
-
-  /* ---------- Hero (ny): minikalkylator. Bolagsform och verifikationer → månadspris direkt, sedan till flödet ---------- */
-  const calc = $('[data-herocalc]');
-  if (calc) {
-    const range = $('input[type="range"]', calc);
-    const priceEl = $('[data-calc-price]', calc);
-    const PORTRATT = { 'Anna Ekholm': 'img/portratt-3.jpg', 'Jonas Berglund': 'img/portratt-2.jpg', 'Sara Lindqvist': 'img/portratt-1.jpg' };
-    const bandOf = v => v <= 20 ? 0 : v <= 50 ? 1 : v <= 100 ? 2 : 3;
-    let last = '';
-    const update = () => {
-      const bolag = $('input[name="bolag"]:checked', calc).value;
-      const v = +range.value, max = +range.max, band = bandOf(v);
-      const verText = v >= max ? `${max} eller fler` : String(v);
-      const price = kr(BASE[bolag][band]);
-      range.style.setProperty('--p', `${((v - range.min) / (max - range.min)) * 100}%`);
-      range.setAttribute('aria-valuetext', `${verText} verifikationer, ${price} i månaden`);
-      $('[data-calc-ver]', calc).textContent = v >= max ? `${max}+` : v;
-      if (price !== last) {                         // texten byts bara när priset ändras, så skärmläsaren inte pratar vid varje steg
-        priceEl.textContent = price;
-        if (last) { priceEl.classList.remove('is-bump'); void priceEl.offsetWidth; priceEl.classList.add('is-bump'); }
-        last = price;
-      }
-      $('[data-calc-note]', calc).textContent = `${BOLAG[bolag]} med ${BANDS[band].toLowerCase()} verifikationer. Bokföring och moms ingår. Priset är exklusive moms.`;
-      const who = KONSULT[bolag];
-      $('[data-calc-konsult]', calc).textContent = who;
-      $('[data-calc-img]', calc).src = PORTRATT[who];
-    };
-    calc.addEventListener('input', update);
-    calc.addEventListener('change', update);
-    update();
-  }
 
   /* ---------- Prislistan (priser.html) ---------- */
   const ptable = $('[data-pricetable]');
@@ -167,7 +149,7 @@
   if (heroVer > 0) {
     const band = heroVer <= 20 ? 0 : heroVer <= 50 ? 1 : heroVer <= 100 ? 2 : 3;
     const note = $('[data-ver-note]');
-    $('span', note).textContent = `Du angav ${heroVer} verifikationer på startsidan. Det motsvarar ${BANDS[band].toLowerCase()}.`;
+    $('span', note).textContent = `Du skrev ${heroVer} verifikationer på startsidan. Det motsvarar ${BANDS[band].toLowerCase()}.`;
     note.hidden = false;
     $(`[data-choices="ver"] [data-value="${band}"]`).setAttribute('aria-pressed', 'true');
   }

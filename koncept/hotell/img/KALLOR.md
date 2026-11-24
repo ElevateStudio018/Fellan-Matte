@@ -4,8 +4,7 @@ Hotell Sju Gränder är ett påhittat hotell. Bilderna är kopierade från `verk
 
 | Fil | Används till | Fotograf | Källa | Licens |
 |---|---|---|---|---|
-| `stockholm.jpg` | Hero på startsidan: Riddarholmen och Gamla stan från vattnet (800 px bred, något mjuk på stora skärmar) | Jon Flobrant | https://unsplash.com/photos/jxfe3orC4G8 | Unsplash |
-| `stadsgata.jpg` | Används inte längre på startsidan (Gamla stan i Stockholm) | Franziska Leimkühler | https://www.pexels.com/photo/a-street-in-a-city-13857032/ | Pexels |
+| `stadsgata.jpg` | Hero på startsidan (Gamla stan i Stockholm) | Franziska Leimkühler | https://www.pexels.com/photo/a-street-in-a-city-13857032/ | Pexels |
 | `hotellrum.jpg` | Rummen på startsidan och Takrummet | Takafumi Yamashita | https://images.unsplash.com/photo-1641133639375-f71c3c1220a1 | Unsplash |
 | `krogen-frukost.jpg` | Frukost på startsidan | Hayffield L | https://unsplash.com/photos/b59Yq7_GLN8 | Unsplash |
 | `badrum.jpg` | Hörnrum med badkar | Clay Banks | https://images.unsplash.com/photo-1771681278369-e2a5480b8c29 | Unsplash |
