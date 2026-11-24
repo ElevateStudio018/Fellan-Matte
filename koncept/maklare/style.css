@@ -942,3 +942,10 @@ select.ev-input { appearance: none; padding-right: 48px;
   .ev-dialog .ev-summary { padding: 20px 16px 28px; overflow: visible; }
   .ev-summary__img { display: none; }
 }
+
+/* Taggar och status (pi-et-status) */
+.ev-tag { display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: var(--ev-r-pill);
+  background: var(--ev-tint); color: var(--ev-brand); font: 600 12px/1 var(--ev-font); white-space: nowrap; }
+.ev-tag--warn { background: var(--ev-warn-tint); color: var(--ev-warn); }
+.ev-card__foot { margin-top: 0; }
+.ev-card > .ev-link { margin-top: auto; padding-top: 10px; }

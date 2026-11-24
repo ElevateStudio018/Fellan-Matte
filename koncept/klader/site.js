@@ -10,7 +10,6 @@
   var EXT = '<svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg>';
   var SWATCH = { Natur: '#ECE6DA', Rost: '#9C4A2C', Benvit: '#EFEBE3', Havre: '#D6C6AE', 'Mörkbrun': '#4A3428', Kalk: '#F2F0EA', Plommon: '#5A2A4C', Kamel: '#B58B5E' };
   var DAYS = ['söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'];
-  var DSHORT = ['Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'];
   var MONTHS = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
   function byId(id) { return P.filter(function (p) { return p.id === id; })[0]; }
   function store(id) { return ST.filter(function (s) { return s.id === id; })[0]; }
@@ -139,7 +138,7 @@
     }
     function until() {
       var d = new Date(Date.now() + 48 * 3600 * 1000), s = store(sel.butik), h = hoursToday(s, d);
-      return DSHORT[d.getDay()].toLowerCase().replace(/^./, function (c) { return c.toUpperCase(); }) + 'dag ' + d.getDate() + ' ' + MONTHS[d.getMonth()] + (h ? ' kl. ' + h[1] : '');
+      return DAYS[d.getDay()].replace(/^./, function (c) { return c.toUpperCase(); }) + ' ' + d.getDate() + ' ' + MONTHS[d.getMonth()] + (h ? ' kl. ' + h[1] : '');
     }
     function show(n, push) {
       if (n >= 2 && !p()) n = 1;
