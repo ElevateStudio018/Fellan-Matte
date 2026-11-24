@@ -1,0 +1,12 @@
+[
+ {"key":"typsnitt","title":"Typsnitt","desc":"Vilka typsnitt som ska användas och vilka som aldrig ska användas"},
+ {"key":"text","title":"Textdetaljer","desc":"Storlek, vikt, radavstånd, spärrning, versaler, länkar, priser och siffror"},
+ {"key":"knappar","title":"Knappar","desc":"Form, storlek, vikt, ikoner, sekundärknappar och lägen"},
+ {"key":"symboler","title":"Ikoner och symboler","desc":"Ikonstil, linjetjocklek, fyllning, plattor och symboler"},
+ {"key":"pilar","title":"Pilar och småbitar","desc":"Pilar, chevrons, etiketter, chips, avdelare, punkter och märken"},
+ {"key":"falt","title":"Fält och kontroller","desc":"Inmatningsfält, val, kryssrutor, reglage, datum och sök"},
+ {"key":"ytor","title":"Ytor, kort och former","desc":"Rundning, skuggor, kanter, kort och bildbehandling"},
+ {"key":"navigering","title":"Navigering och menyer","desc":"Header, menyer, mobilmeny, flikar, brödsmulor och sidfot"},
+ {"key":"lagen","title":"Lägen och återkoppling","desc":"Hover, fokus, laddning, fel, klart, tomt, notiser och dialoger"},
+ {"key":"ux","title":"UX-mönster","desc":"Flöden, steg, sök, filter, sidnumrering, val och mobilmönster"}
+]

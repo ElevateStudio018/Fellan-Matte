@@ -1,0 +1,89 @@
+/* ==========================================================================
+   Neutral grundstil för alla alternativ i Elevate-quizet (.spec).
+   Utgångsläget är medvetet neutralt: Inter, marinblå knapp, vit yta,
+   fält med tunn kant, 10/12/8 px rundning. Ett alternativ ändrar bara
+   det frågan gäller, med inline-stil eller egen <style> med unikt prefix.
+   ========================================================================== */
+.spec {
+  --fh: 'Inter', system-ui, sans-serif; --fhw: 700;
+  --fb: 'Inter', system-ui, sans-serif;
+  --brand: #24405E; --brand-d: #1A3049; --bink: #ffffff;
+  --ground: #F6F6F4; --box: #FFFFFF; --field: #FFFFFF;
+  --sink: #1A1C1E; --smuted: #5D6166; --accent: #DCE3EA;
+  --ok: #1E7A45; --warn: #9A5B00; --bad: #B3261E;
+  --rb: 10px; --rc: 12px; --rf: 8px;
+  --sline: rgba(26, 28, 30, .16);
+  --tint: #E6EBF0;
+  background: var(--ground); color: var(--sink);
+  font-family: var(--fb); font-size: 15px; line-height: 1.5;
+  position: relative; overflow: hidden;
+}
+.spec *, .spec *::before, .spec *::after { box-sizing: border-box; }
+.spec p { margin: 0; }
+.spec img { display: block; max-width: 100%; }
+
+/* Text */
+.spec .h { font-family: var(--fh); font-weight: var(--fhw); line-height: 1.12; letter-spacing: -0.01em; margin: 0; text-wrap: balance; color: var(--sink); }
+.spec .h1 { font-size: 34px; }
+.spec .h2 { font-size: 26px; }
+.spec .h3 { font-size: 19px; }
+.spec .eyebrow { font-size: 13px; font-weight: 600; color: var(--smuted); }
+.spec .muted { color: var(--smuted); }
+.spec .small { font-size: 13px; }
+.spec .price { font-weight: 700; font-variant-numeric: tabular-nums; }
+.spec .price small { font-weight: 400; color: var(--smuted); font-size: 13px; }
+.spec .link { color: var(--brand); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.spec .tag { display: inline-flex; align-items: center; gap: 4px; background: var(--tint); color: var(--brand); font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; line-height: 1.6; }
+
+/* Knappar */
+.spec .sb, .spec .sb2 {
+  font-family: var(--fb); font-weight: 600; font-size: 15px; height: 48px; padding: 0 24px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 2px solid var(--brand); background: var(--brand); color: var(--bink);
+  border-radius: var(--rb); cursor: pointer; text-decoration: none; white-space: nowrap; line-height: 1;
+}
+.spec .sb2 { background: transparent; color: var(--brand); }
+
+/* Fält (fyllda utan kant) */
+.spec .fld { display: flex; flex-direction: column; gap: 5px; min-width: 0; flex: 1 1 140px; }
+.spec .fld > .lbl { font-size: 13px; font-weight: 600; color: var(--sink); }
+.spec .inp { display: flex; align-items: center; height: 48px; padding: 0 14px; font-size: 15px; color: var(--sink); background: var(--field); border: 1px solid var(--sline); border-radius: var(--rf); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.spec .inp.ph { color: var(--smuted); }
+
+/* Byggstenar */
+.spec .pad { padding: 20px; }
+.spec .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.spec .stack { display: flex; flex-direction: column; gap: 10px; }
+.spec .panel { background: var(--box); border-radius: var(--rc); padding: 18px; }
+.spec .pic { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--rc); }
+.spec .chip { display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 999px; background: var(--box); border: 1px solid var(--sline); font-size: 14px; font-weight: 500; }
+.spec .divider { height: 1px; background: var(--sline); border: 0; margin: 0; }
+.spec .ico { width: 20px; height: 20px; flex: 0 0 auto; }
+
+/* ---------- Hero-koncept v2 (del Hero) ---------- */
+.spec .hx { container-type: inline-size; position: relative; overflow: hidden; background: var(--ground); }
+.spec .hx-photo { position: relative; color: #fff; display: flex; flex-direction: column; min-height: 400px; }
+.spec .hx-photo > .bg, .spec .hx-img > .bg, .spec .hx-frame .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; }
+.spec .hx-photo > .bg { z-index: 0; }
+.spec .hx-photo > .sh { position: absolute; inset: 0; z-index: 1; }
+.spec .hx-in { padding: 40px; padding: clamp(22px, 5cqi, 60px); display: flex; flex-direction: column; gap: 16px; gap: clamp(12px, 1.8cqi, 20px); position: relative; z-index: 2; min-width: 0; }
+.spec .hx-t { font-family: var(--fh); font-weight: 800; letter-spacing: -0.025em; line-height: 1.02; margin: 0; text-wrap: balance; }
+.spec .hx-xl { font-size: 64px; font-size: clamp(38px, 8.6cqi, 108px); letter-spacing: -0.035em; line-height: .96; }
+.spec .hx-l { font-size: 48px; font-size: clamp(32px, 5.6cqi, 66px); }
+.spec .hx-m { font-size: 38px; font-size: clamp(27px, 3.9cqi, 46px); }
+.spec .hx-s { font-size: 28px; font-size: clamp(23px, 2.9cqi, 34px); }
+.spec .hx-p { font-size: 16px; font-size: clamp(15px, 1.55cqi, 18px); line-height: 1.45; max-width: 44ch; margin: 0; }
+.spec .hx-eye { font-size: 14px; font-weight: 700; letter-spacing: .01em; }
+.spec .hx-acts { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.spec .hx-two { display: grid; grid-template-columns: 1fr 1fr; }
+.spec .hx-img { position: relative; min-height: 260px; overflow: hidden; }
+.spec .hx-searchpill { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 54px; padding: 0 30px; border-radius: 999px; background: #fff; color: var(--sink); font-weight: 600; font-size: 16px; min-width: min(100%, 300px); }
+.spec .hx-field { display: flex; align-items: center; gap: 10px; background: #fff; color: var(--smuted); border-radius: 999px; padding: 6px 6px 6px 20px; width: 100%; max-width: 520px; font-size: 16px; }
+.spec .hx-field > span:first-child { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.spec .hx-round { display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--brand); color: #fff; flex: 0 0 auto; }
+.spec .hx-wchip { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 999px; background: #fff; color: var(--sink); font-weight: 600; font-size: 14px; }
+.spec .hx-phone { width: 100%; max-width: 260px; margin: 18px auto; border-radius: 32px; border: 8px solid #1F1C18; overflow: hidden; background: var(--ground); }
+@container (max-width: 700px) {
+  .spec .hx-two { grid-template-columns: 1fr; }
+  .spec .hx-hide-s { display: none !important; }
+}

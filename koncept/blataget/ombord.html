@@ -1,0 +1,417 @@
+<!doctype html>
+<!--
+  Designkoncept av Elevate Studio. Inte en officiell webbplats.
+  Undersida. Header, trafikrad, bokningspanel och sidfot är identiska med index.html.
+  Varumärket står i data-brand och data-brand-url på <html>, i <title>, i ordmärket (2 st),
+  i sidfotens konceptrad och i kontaktuppgifterna.
+-->
+<html lang="sv" data-brand="Blå Tåget" data-brand-url="https://www.blataget.com/sv/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Ombord – Blå Tåget (designkoncept)</title>
+  <meta name="description" content="1:a och 2:a klass, internet, djur och konferenskupé. Designkoncept av Elevate Studio. Inte Blå Tågets officiella webbplats.">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#innehall">Hoppa till innehåll</a>
+
+  <!-- ===================== Header ===================== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="wordmark" href="index.html" aria-label="Blå Tåget, startsida">Blå Tåget</a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="huvudmeny">
+        <svg class="icon icon--open" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="icon icon--close" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        Meny
+      </button>
+
+      <nav id="huvudmeny" class="main-nav" aria-label="Huvudmeny">
+        <ul>
+          <li><a href="#boka" data-open-booking aria-haspopup="dialog">Boka resa</a></li>
+          <li><a href="strackan.html">Sträckan</a></li>
+          <li><a href="ombord.html" aria-current="page">Ombord</a></li>
+          <li><a href="restaurang.html">Restaurang och bar</a></li>
+          <li><a href="biljetter.html">Biljetter</a></li>
+          <li><a href="kundtjanst.html">Kundtjänst</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================== Trafikinfo-rad =====================
+       Verifierat mot blataget.com/sv/ 23 nov 2026: den planerade trafikstarten flyttas fram,
+       och startdatum meddelas innan bokningen öppnar. Egen formulering. Döljs för resten av besöket. -->
+  <aside class="traffic" id="trafikinfo" aria-label="Trafikinformation">
+    <div class="container traffic__inner">
+      <svg class="sym traffic__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M24 22v11"/><circle class="d" cx="24" cy="15.5" r="2.2"/></svg>
+      <p class="traffic__text">
+        <strong>Trafikstart:</strong> datumet meddelas innan bokningen öppnar.
+        <a href="https://www.blataget.com/sv/news/">Senaste nyheterna</a>
+      </p>
+      <button class="traffic__close" type="button" data-dismiss="trafikinfo">Dölj</button>
+    </div>
+  </aside>
+
+  <main id="innehall" tabindex="-1">
+
+    <!-- ===================== Sidhuvud ===================== -->
+    <section class="phead" aria-labelledby="sida-rubrik">
+      <img class="phead__img" src="img/sida-ombord.jpg" width="2000" height="1125" alt="Utsikt genom ett tågfönster över åkrar och röda gårdar en sensommarkväll."
+           onerror="this.closest('.phead').classList.add('phead--noimg')">
+      <div class="container phead__inner">
+        <p class="phead__label">Ombord</p>
+        <h1 id="sida-rubrik" class="phead__title">Sextiotal ombord.</h1>
+        <p class="phead__sub">1:a och 2:a klass i klassiska vagnar, internet i vagn 1–7 och restaurangvagn på varje avgång.</p>
+        <div class="phead__actions">
+          <button class="btn btn--hero" type="button" data-open-booking aria-haspopup="dialog" aria-controls="boka">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+            Sök resa
+          </button>
+          <a class="phead__link" href="#klasser">Jämför klasserna</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Välj klass: två kort och en tabell ===================== -->
+    <section class="blk" id="klasser" aria-labelledby="klass-rubrik">
+      <div class="container">
+        <div class="shead">
+          <div class="shead__text">
+            <h2 id="klass-rubrik">Välj klass</h2>
+            <p class="shead__sub">Du väljer klass när du bokar. Den största skillnaden är maten du kan förbeställa.</p>
+          </div>
+        </div>
+        <div class="classgrid">
+          <article class="klass" aria-labelledby="k1">
+            <div class="klass__head"><svg class="sym klass__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="25" r="12"/><circle cx="24" cy="25" r="6.5"/><path d="M6 11v6a3 3 0 0 0 3 3v19M9 11v6M42 11c-3 2.5-4 6-4 12h4v16"/></svg><h3 class="klass__title" id="k1">1:a klass</h3></div>
+            <p class="klass__lead">Trerätters meny och konferenskupé för sex.</p>
+            <ul class="klass__list">
+              <li><svg class="sym " aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Trerätters meny kan förbetalas och serveras direkt efter avgång</li>
+              <li><svg class="sym " aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Konferenskupé för sex personer, bokas via kundtjänst</li>
+            </ul>
+            <button class="btn btn--secondary" type="button" data-open-booking data-klass="1:a klass" aria-haspopup="dialog" aria-controls="boka">
+              Sök resa i 1:a klass
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </article>
+          <article class="klass" aria-labelledby="k2">
+            <div class="klass__head"><svg class="sym klass__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M9 19h23v9a10 10 0 0 1-10 10h-3A10 10 0 0 1 9 28z"/><path d="M32 22h3a4.5 4.5 0 0 1 0 9h-3.6"/><path d="M6 43h29"/><path d="M15.5 8c-1.5 2 1.5 3.5 0 6M21.5 8c-1.5 2 1.5 3.5 0 6M27.5 8c-1.5 2 1.5 3.5 0 6" stroke-width="1.6"/></svg><h3 class="klass__title" id="k2">2:a klass</h3></div>
+            <p class="klass__lead">Frukost att ta med, som du lägger till när du bokar.</p>
+            <ul class="klass__list">
+              <li><svg class="sym " aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Frukost att ta med kan köpas till</li>
+              <li><svg class="sym " aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Restaurangvagnen är med på varje avgång</li>
+            </ul>
+            <button class="btn btn--secondary" type="button" data-open-booking data-klass="2:a klass" aria-haspopup="dialog" aria-controls="boka">
+              Sök resa i 2:a klass
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </article>
+        </div>
+
+        <div class="compare-wrap">
+          <table class="compare">
+            <caption>Klasserna sida vid sida</caption>
+            <thead>
+              <tr><td></td><th scope="col">1:a klass</th><th scope="col">2:a klass</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Förbeställd måltid</th><td>Trerätters meny, förbetald</td><td>Frukost att ta med</td></tr>
+              <tr><th scope="row">Konferenskupé för sex</th><td>Ja, via kundtjänst</td><td class="no"><span aria-hidden="true">–</span><span class="sr-only">Nej</span></td></tr>
+              <tr><th scope="row">Restaurangvagnen</th><td>Med på varje avgång</td><td>Med på varje avgång</td></tr>
+              <tr><th scope="row">Avbokningsskydd</th><td>100 kr, läggs till vid bokning</td><td>100 kr, läggs till vid bokning</td></tr>
+              <tr><th scope="row">Biljett</th><td>Sms eller e-biljett</td><td>Sms eller e-biljett</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Bra att veta: varje rad säger något nytt ===================== -->
+    <section class="blk" aria-labelledby="veta-rubrik">
+      <div class="container">
+        <div class="shead">
+          <div class="shead__text">
+            <h2 id="veta-rubrik">Bra att veta ombord</h2>
+          </div>
+        </div>
+        <ul class="rows rows--two">
+          <li><svg class="sym rows__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20a23 23 0 0 1 32 0M13.5 26a15 15 0 0 1 21 0M19 32a7.5 7.5 0 0 1 10 0"/><circle class="f" cx="24" cy="38" r="3.2"/></svg><span class="rows__text"><span class="rows__title">Internet i vagn 1–7</span><span class="rows__line">Vill du sitta där kan kundtjänst flytta dig efter att du bokat och betalat.</span></span></li>
+          <li><svg class="sym rows__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M8 16h24v3a12 12 0 0 1-12 12A12 12 0 0 1 8 19z"/><path d="M32 16l3.5-7H41M20 31v2"/><circle class="f" cx="13" cy="38" r="4"/><circle class="f" cx="29" cy="38" r="4"/></svg><span class="rows__text"><span class="rows__title">Skötbord och mikro</span><span class="rows__line">Finns ombord. Ta med barnvagnen ihopfälld och lägg chassit i bagagehyllan.</span></span></li>
+          <li><svg class="sym rows__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="19" r="6"/><path class="f" d="M14 41v-3a10 10 0 0 1 20 0v3z"/></svg><span class="rows__text"><span class="rows__title">Barnmeny</span><span class="rows__line">För barn under 12 år i restaurangvagnen.</span></span></li>
+          <li><svg class="sym rows__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="6" y="11" width="36" height="26" rx="4"/><path d="M7.5 13.5 24 26l16.5-12.5"/></svg><span class="rows__text"><span class="rows__title">Allergier</span><span class="rows__line">Meddela kundtjänst dagen före avresa, gärna på <a href="mailto:info@blataget.com">info@blataget.com</a>.</span></span></li>
+          <li><svg class="sym rows__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M14 8h20l-2.5 13a7.5 7.5 0 0 1-15 0z"/><path d="M24 28.5V40M17 40h14"/><path d="M8 8l32 32"/></svg><span class="rows__text"><span class="rows__title">Ingen egen alkohol</span><span class="rows__line">Medhavd alkohol får inte förtäras ombord.</span></span></li>
+          <li><svg class="sym rows__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="9" y="14" width="30" height="26" rx="4"/><path d="M18 14V9.5A2.5 2.5 0 0 1 20.5 7h7A2.5 2.5 0 0 1 30 9.5V14M17 21v12M31 21v12"/></svg><span class="rows__text"><span class="rows__title">Bagaget stannar vid platsen</span><span class="rows__line">Av säkerhetsskäl får inget bagage följa med in i restaurang- och barvagnen.</span></span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== Djur ===================== -->
+    <section class="blk" id="djur" aria-labelledby="djur-rubrik">
+      <div class="container">
+        <div class="next">
+          <div>
+            <h2 id="djur-rubrik">Resa med djur</h2>
+            <p>Välj Djurtillåten klass när du bokar. Djuren ligger på golvet, inte i sätena.</p>
+          </div>
+          <button class="btn btn--secondary" type="button" data-open-booking data-pets aria-haspopup="dialog" aria-controls="boka">
+            Sök resa med djur
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Konferenskupén ===================== -->
+    <section class="blk" id="konferens" aria-labelledby="konf-rubrik">
+      <div class="container">
+        <div class="split">
+          <img class="split__img" src="img/kupe-sate.jpg" width="800" height="532" loading="lazy"
+               alt="Klassisk tågvagn inifrån med rader av röda stoppade säten.">
+          <div class="split__body">
+            <p class="tag">1:a klass</p>
+            <h2 id="konf-rubrik">Konferenskupé för sex</h2>
+            <p class="muted">En egen kupé för mötet på vägen mellan Göteborg och Stockholm. Den bokas via kundtjänst.</p>
+            <a class="btn btn--secondary" href="grupp.html">
+              Grupp och konferens
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Vidare ===================== -->
+    <section class="blk" aria-labelledby="vidare-rubrik">
+      <div class="container">
+        <div class="shead">
+          <div class="shead__text"><h2 id="vidare-rubrik">Mer om resan</h2></div>
+        </div>
+        <ul class="cards">
+          <li>
+            <a class="card" href="restaurang.html">
+              <img class="card__img" src="img/restaurangvagn.jpg" width="1600" height="1280" loading="lazy" alt="Restaurangvagn i kvällssol med vita dukar, läderstolar och bordslampor längs fönstren.">
+              <span class="card__title">Restaurang och bar</span>
+              <span class="card__text">Vita dukar, 42 platser och mat lagad från grunden.</span>
+            </a>
+          </li>
+          <li>
+            <a class="card" href="historien.html">
+              <img class="card__img" src="img/bla-vagn.jpg" width="800" height="530" loading="lazy" alt="Ett äldre blått motorvagnståg står på ett spår i kvällssol.">
+              <span class="card__title">Historien</span>
+              <span class="card__text">Vagnar från 60-talet, invigt i december 2011.</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== Bokningspanel: ett beslut i taget =====================
+       Dator: panel som glider in från höger. Mobil: helskärm.
+       Steg 1 vart, 2 när, 3 hur, 4 avgångar (exempel), 5 bekräftelse. -->
+  <dialog class="bk" id="boka" aria-labelledby="bk-titel">
+    <form class="bk__form" id="sokform" novalidate>
+      <div class="bk__band">
+        <div class="bk__bandrow">
+          <button class="bandbtn" type="button" data-back hidden>
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg>
+            Tillbaka
+          </button>
+          <p class="bk__progress"><span class="sr-only" id="bk-titel">Sök resa</span><span id="bk-stegtext">Steg 1 av 3</span>
+            <span class="bk__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+          </p>
+          <button class="bandbtn" type="button" data-close-booking>
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+            Stäng
+          </button>
+        </div>
+        <nav class="bk__summary" id="bk-summary" aria-label="Din resa hittills"></nav>
+      </div>
+
+      <div class="bk__body">
+        <!-- Steg 1: vart -->
+        <section class="bk__step" data-step="1" aria-labelledby="steg1-rubrik">
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M24 43s13-12.5 13-23a13 13 0 0 0-26 0c0 10.5 13 23 13 23z"/><circle cx="24" cy="20" r="5"/></svg><h2 class="bk__title" id="steg1-rubrik" tabindex="-1">Vart vill du åka?</h2></div>
+
+          <div class="from" id="from-row">
+            <span class="from__label">Från</span>
+            <strong class="from__value" id="from-value">Göteborg C</strong>
+            <button class="textbtn" type="button" id="from-change" aria-controls="from-field" aria-expanded="false">Ändra<span class="sr-only"> var du reser från</span></button>
+          </div>
+          <div class="field combo" id="from-field" hidden>
+            <label for="fran">Från</label>
+            <input id="fran" name="fran" type="text" value="Göteborg C" autocomplete="off" role="combobox"
+                   aria-autocomplete="list" aria-expanded="false" aria-controls="fran-lista" aria-describedby="fran-fel">
+            <ul class="combo__list" id="fran-lista" role="listbox" aria-label="Stationer" hidden></ul>
+            <p class="field__error" id="fran-fel" hidden></p>
+          </div>
+
+          <div class="field field--big combo">
+            <label for="till">Till</label>
+            <div class="combo__wrap">
+              <svg class="icon combo__icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+              <input id="till" name="till" type="text" placeholder="Station" autocomplete="off" role="combobox"
+                     aria-autocomplete="list" aria-expanded="false" aria-controls="till-lista" aria-describedby="till-fel">
+              <button class="swap" type="button" id="byt" aria-label="Byt plats på Från och Till" title="Byt plats på Från och Till">
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 4v16M7 4 3 8M7 4l4 4M17 20V4M17 20l-4-4M17 20l4-4"/></svg>
+              </button>
+            </div>
+            <ul class="combo__list" id="till-lista" role="listbox" aria-label="Stationer" hidden></ul>
+            <p class="field__error" id="till-fel" hidden></p>
+          </div>
+
+          <div class="stations-pick">
+            <p class="stations-pick__label" id="stationer-rubrik">Eller välj på sträckan</p>
+            <ol class="stations" id="dest-list" aria-labelledby="stationer-rubrik"></ol>
+          </div>
+        </section>
+
+        <!-- Steg 2: när -->
+        <section class="bk__step" data-step="2" aria-labelledby="steg2-rubrik" hidden>
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="7" y="10" width="34" height="31" rx="5"/><path d="M7 18h34M16 6v7M32 6v7"/><circle class="d" cx="16" cy="26" r="1.9"/><circle class="d" cx="24" cy="26" r="1.9"/><circle class="d" cx="32" cy="26" r="1.9"/><circle class="d" cx="16" cy="33" r="1.9"/><circle class="d" cx="24" cy="33" r="1.9"/></svg><h2 class="bk__title" id="steg2-rubrik" tabindex="-1">När vill du åka?</h2></div>
+          <fieldset class="days">
+            <legend class="sr-only">Datum för utresa</legend>
+            <div class="days__grid" id="date-grid"></div>
+          </fieldset>
+          <div class="field" id="utresa-field" hidden>
+            <label for="utresa">Datum för utresa</label>
+            <input id="utresa" name="utresa" type="date" aria-describedby="utresa-fel">
+            <p class="field__error" id="utresa-fel" hidden></p>
+          </div>
+
+          <div class="row">
+            <svg class="sym row__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="7" y="10" width="34" height="31" rx="5"/><path d="M7 18h34M16 6v7M32 6v7"/><circle class="d" cx="16" cy="26" r="1.9"/><circle class="d" cx="24" cy="26" r="1.9"/><circle class="d" cx="32" cy="26" r="1.9"/><circle class="d" cx="16" cy="33" r="1.9"/><circle class="d" cx="24" cy="33" r="1.9"/></svg>
+            <span class="row__label" id="hem-etikett">Lägg till hemresa</span>
+            <button class="switch" type="button" role="switch" aria-checked="false" aria-labelledby="hem-etikett" id="hem-switch"><span class="switch__knob"></span></button>
+          </div>
+          <div class="field" id="hemresa-field" hidden>
+            <label for="hemresa">Datum för hemresa</label>
+            <input id="hemresa" name="hemresa" type="date" aria-describedby="hemresa-fel">
+            <p class="field__error" id="hemresa-fel" hidden></p>
+          </div>
+        </section>
+
+        <!-- Steg 3: hur -->
+        <section class="bk__step" data-step="3" aria-labelledby="steg3-rubrik" hidden>
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="32" cy="15" r="5"/><path d="M27 26.5a9 9 0 0 1 14 7.5v3"/><circle class="f" cx="18" cy="17" r="6.5"/><path class="f" d="M6 41v-3a12 12 0 0 1 24 0v3z"/></svg><h2 class="bk__title" id="steg3-rubrik" tabindex="-1">Hur vill du resa?</h2></div>
+          <fieldset class="classes">
+            <legend class="sr-only">Klass</legend>
+            <label class="classcard">
+              <input type="radio" name="klass" value="2:a klass" checked>
+              <svg class="sym classcard__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M9 19h23v9a10 10 0 0 1-10 10h-3A10 10 0 0 1 9 28z"/><path d="M32 22h3a4.5 4.5 0 0 1 0 9h-3.6"/><path d="M6 43h29"/><path d="M15.5 8c-1.5 2 1.5 3.5 0 6M21.5 8c-1.5 2 1.5 3.5 0 6M27.5 8c-1.5 2 1.5 3.5 0 6" stroke-width="1.6"/></svg>
+              <span class="classcard__text"><span class="classcard__title">2:a klass</span><span class="classcard__line">Frukost att ta med kan köpas till.</span></span>
+              <span class="classcard__check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg></span>
+            </label>
+            <label class="classcard">
+              <input type="radio" name="klass" value="1:a klass">
+              <svg class="sym classcard__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="25" r="12"/><circle cx="24" cy="25" r="6.5"/><path d="M6 11v6a3 3 0 0 0 3 3v19M9 11v6M42 11c-3 2.5-4 6-4 12h4v16"/></svg>
+              <span class="classcard__text"><span class="classcard__title">1:a klass</span><span class="classcard__line">Trerätters meny kan förbetalas.</span></span>
+              <span class="classcard__check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg></span>
+            </label>
+          </fieldset>
+
+          <div class="row">
+            <svg class="sym row__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="15" r="7"/><path class="f" d="M10 41v-3a14 14 0 0 1 28 0v3z"/></svg>
+            <span class="row__label" id="resenarer-etikett">Resenärer</span>
+            <div class="stepper__controls">
+              <button type="button" class="stepper__btn" data-step="-1" data-target="resenarer" aria-label="En resenär färre">−</button>
+              <output id="resenarer" class="stepper__value" aria-labelledby="resenarer-etikett" aria-live="polite" data-min="1" data-max="9">1</output>
+              <button type="button" class="stepper__btn" data-step="1" data-target="resenarer" aria-label="En resenär fler">+</button>
+            </div>
+          </div>
+          <div class="row">
+            <svg class="sym row__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse class="f" cx="24" cy="31.5" rx="9.5" ry="8"/><circle class="f" cx="11.5" cy="21" r="4"/><circle class="f" cx="19" cy="12.5" r="4"/><circle class="f" cx="29" cy="12.5" r="4"/><circle class="f" cx="36.5" cy="21" r="4"/></svg>
+            <span class="row__label"><span id="djur-etikett">Jag reser med djur</span><span class="row__hint" id="djur-hint">Plats i Djurtillåten klass.</span></span>
+            <button class="switch" type="button" role="switch" aria-checked="false" aria-labelledby="djur-etikett" aria-describedby="djur-hint" id="djur-switch"><span class="switch__knob"></span></button>
+          </div>
+        </section>
+
+        <!-- Steg 4: avgångar (exempel) -->
+        <section class="bk__step" data-step="4" aria-labelledby="steg4-rubrik" hidden>
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="10" y="6" width="28" height="30" rx="6"/><path d="M10 24h28"/><circle class="d" cx="17" cy="30" r="2"/><circle class="d" cx="31" cy="30" r="2"/><path d="M16 36l-4 6M32 36l4 6"/></svg><h2 class="bk__title" id="steg4-rubrik" tabindex="-1">Välj avgång</h2></div>
+          <div class="result-top">
+            <p class="result-top__query" id="result-query"></p>
+            <button class="textbtn" type="button" data-goto="1">Ändra<span class="sr-only"> sökningen</span></button>
+          </div>
+          <!-- EXEMPEL: tidtabell och priser är inte publicerade. Tider och priser räknas fram i main.js. -->
+          <p class="example-note" data-exempel><svg class="sym example-note__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M24 22v11"/><circle class="d" cx="24" cy="15.5" r="2.2"/></svg><span><strong>Exempel:</strong> tidtabell och priser är inte publicerade än.</span></p>
+          <ol class="trips" id="trips" data-exempel aria-label="Avgångar, exempel"></ol>
+        </section>
+
+        <!-- Steg 5: bekräftelse -->
+        <section class="bk__step" data-step="5" aria-labelledby="steg5-rubrik" hidden>
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg><h2 class="bk__title" id="steg5-rubrik" tabindex="-1">Din resa</h2></div>
+          <dl class="confirm" id="confirm" data-exempel></dl>
+          <p class="confirm__total" data-exempel><span>Att betala</span><strong id="confirm-total"></strong></p>
+          <p class="confirm__ex">Exempelpris. Riktiga priser publiceras när bokningen öppnar.</p>
+          <div class="notice" id="sok-meddelande" role="status" aria-live="polite" hidden></div>
+          <ul class="trust">
+            <li><svg class="sym trust__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Avbokningsbar mot 100 kr extra, senast 1 timme före avgång.</li>
+            <li><svg class="sym trust__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Biljetten kommer som sms eller e-biljett, direkt när du betalat.</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="bk__bar" id="bk-bar">
+        <button class="btn btn--primary bk__next" type="button" id="bk-next">
+          <span id="bk-next-text">Nästa</span>
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ===================== Sidfot ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid site-footer__grid--four">
+        <div class="site-footer__brand">
+          <p class="wordmark wordmark--light">Blå Tåget</p>
+          <p class="site-footer__tag">Göteborg – Alingsås – Skövde – Hallsberg – Stockholm</p>
+          <address class="site-footer__contact">
+            <a href="tel:+46708904421">070-890 44 21</a>
+            <a href="mailto:info@blataget.com">info@blataget.com</a>
+          </address>
+        </div>
+        <nav aria-label="Resan">
+          <h2 class="site-footer__title">Resan</h2>
+          <ul>
+            <li><a href="strackan.html">Sträckan och stationerna</a></li>
+            <li><a href="ombord.html" aria-current="page">Ombord</a></li>
+            <li><a href="restaurang.html">Restaurang och bar</a></li>
+            <li><a href="biljetter.html">Biljetter och villkor</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Hjälp">
+          <h2 class="site-footer__title">Hjälp</h2>
+          <ul>
+            <li><a href="kundtjanst.html">Kundtjänst och frågor</a></li>
+            <li><a href="grupp.html">Grupp och konferens</a></li>
+            <li><a href="https://www.blataget.com/sv/news/">Senaste nyheterna</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Företaget">
+          <h2 class="site-footer__title">Företaget</h2>
+          <ul>
+            <li><a href="historien.html">Historien</a></li>
+            <li><a href="om.html">Om företaget</a></li>
+            <li><a href="https://www.blataget.com/sv/">Officiella webbplatsen</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="site-footer__legal">
+        <p class="site-footer__concept">Designkoncept av Elevate Studio – inte Blå Tågets officiella webbplats</p>
+        <p>Foton från Unsplash och Pexels, se <a href="img/KALLOR.md">bildkällor</a>. Filmen på startsidan bäddas in från YouTube. Fakta från den officiella webbplatsen i november 2026.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>

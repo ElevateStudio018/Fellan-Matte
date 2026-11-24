@@ -1,0 +1,560 @@
+<!doctype html>
+<!--
+  Designkoncept av Elevate Studio. Inte en officiell webbplats.
+
+  Startsidan. Undersidorna (strackan, ombord, restaurang, biljetter, grupp, historien, kundtjanst, om)
+  delar header, trafikrad, bokningspanel och sidfot med den här filen.
+
+  NEUTRAL VARIANT: varumärket står bara på dessa ställen (på varje sida).
+    1. data-brand och data-brand-url på <html> (används av main.js)
+    2. <title> och meta description
+    3. Ordmärket i headern och i sidfoten (.wordmark, 2 st)
+    4. Sidfotens konceptrad (.site-footer__concept)
+    5. Kundtjänstblocket (#kundtjanst) och sidfotens kontaktrad: bolagsnamn, org.nr, telefon och e-post
+    6. Länkar till blataget.com (sök på "blataget.com")
+  Videon styrs av data-video-id på .hero. Ta bort attributet så visas bara stillbilden.
+-->
+<html lang="sv" data-brand="Blå Tåget" data-brand-url="https://www.blataget.com/sv/">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Blå Tåget – klassiska tåg mellan Göteborg och Stockholm (designkoncept)</title>
+  <meta name="description" content="Designkoncept av Elevate Studio. Inte Blå Tågets officiella webbplats.">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#innehall">Hoppa till innehåll</a>
+
+  <!-- ===================== Header ===================== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="wordmark" href="index.html" aria-current="page" aria-label="Blå Tåget, startsida">Blå Tåget</a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="huvudmeny">
+        <svg class="icon icon--open" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="icon icon--close" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        Meny
+      </button>
+
+      <nav id="huvudmeny" class="main-nav" aria-label="Huvudmeny">
+        <ul>
+          <li><a href="#boka" data-open-booking aria-haspopup="dialog">Boka resa</a></li>
+          <li><a href="strackan.html">Sträckan</a></li>
+          <li><a href="ombord.html">Ombord</a></li>
+          <li><a href="restaurang.html">Restaurang och bar</a></li>
+          <li><a href="biljetter.html">Biljetter</a></li>
+          <li><a href="kundtjanst.html">Kundtjänst</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================== Trafikinfo-rad =====================
+       Verifierat mot blataget.com/sv/ 23 nov 2026: den planerade trafikstarten flyttas fram,
+       och startdatum meddelas innan bokningen öppnar. Egen formulering. Döljs för resten av besöket. -->
+  <aside class="traffic" id="trafikinfo" aria-label="Trafikinformation">
+    <div class="container traffic__inner">
+      <svg class="sym traffic__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M24 22v11"/><circle class="d" cx="24" cy="15.5" r="2.2"/></svg>
+      <p class="traffic__text">
+        <strong>Trafikstart:</strong> datumet meddelas innan bokningen öppnar.
+        <a href="https://www.blataget.com/sv/news/">Senaste nyheterna</a>
+      </p>
+      <button class="traffic__close" type="button" data-dismiss="trafikinfo">Dölj</button>
+    </div>
+  </aside>
+
+  <main id="innehall" tabindex="-1">
+
+    <!-- ===================== Hero: film (eller stillbild), fråga och en knapp =====================
+         Filmen bäddas in från YouTube (youtube-nocookie) av main.js, bara om data-video-id finns och
+         användaren inte har valt minskad rörelse. Stillbilden syns tills filmen spelar. -->
+    <section class="hero" aria-labelledby="hero-rubrik" data-video-id="ZrLJ2agojEI">
+      <!-- Alternativa herobilder: img/hero-alt-1.jpg (motorvagn över vårfält med björkskog) och img/hero-alt-2.jpg (Stockholm vid Riddarholmen, kräver object-position: 50% 100%). -->
+      <img class="hero__img" src="img/hero.jpg" width="2000" height="1343"
+           alt="Ett regionaltåg kör förbi ett blommande gult rapsfält med lövskog bakom.">
+      <div class="hero__video" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <div class="hero__head">
+          <h1 id="hero-rubrik" class="hero__title">Vita dukar hela vägen.</h1>
+          <p class="hero__sub">Klassiska tåg mellan Göteborg och Stockholm.</p>
+        </div>
+        <button class="btn btn--hero" type="button" data-open-booking aria-haspopup="dialog" aria-controls="boka">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+          Sök resa
+        </button>
+      </div>
+      <button class="hero__pause" type="button" id="video-toggle" aria-pressed="false" hidden>
+        <svg class="icon icon--pause" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 6v12M15 6v12"/></svg>
+        <svg class="icon icon--play" aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z"/></svg>
+        <span class="hero__pause-text">Pausa filmen</span>
+      </button>
+    </section>
+
+    <!-- ===================== Inför resan: snabbåtgärder =====================
+         Verifierat mot blataget.com/sv/customersupport/ och /sv/restaurant/ 23 nov 2026. -->
+    <section class="section section--quick" aria-labelledby="resa-rubrik">
+      <div class="container">
+        <h2 id="resa-rubrik" class="section__title">Inför resan</h2>
+        <ul class="quick">
+          <li>
+            <a class="quick__card" href="biljetter.html#avbokning">
+              <svg class="sym quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="7" y="10" width="34" height="31" rx="5"/><path d="M7 18h34M16 6v7M32 6v7M19.5 25l9 9M28.5 25l-9 9"/></svg>
+              <span class="quick__text"><span class="quick__title">Avbokningsbar biljett</span><span class="quick__line">100 kr extra. Avboka senast 1 h före avgång.</span></span>
+              <span class="quick__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+          </li>
+          <li>
+            <a class="quick__card" href="biljetter.html#forsening">
+              <svg class="sym quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M24 13v11l7.5 4.5"/><circle class="d" cx="24" cy="24" r="2"/></svg>
+              <span class="quick__text"><span class="quick__title">Blev tåget sent?</span><span class="quick__line">25 % tillbaka vid 60 min, 50 % vid 120 min.</span></span>
+              <span class="quick__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+          </li>
+          <li>
+            <a class="quick__card" href="ombord.html#djur">
+              <svg class="sym quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse class="f" cx="24" cy="31.5" rx="9.5" ry="8"/><circle class="f" cx="11.5" cy="21" r="4"/><circle class="f" cx="19" cy="12.5" r="4"/><circle class="f" cx="29" cy="12.5" r="4"/><circle class="f" cx="36.5" cy="21" r="4"/></svg>
+              <span class="quick__text"><span class="quick__title">Resa med djur</span><span class="quick__line">Välj Djurtillåten klass när du bokar.</span></span>
+              <span class="quick__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+          </li>
+          <li>
+            <a class="quick__card" href="restaurang.html#forbestall">
+              <svg class="sym quick__icon" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M9 19h23v9a10 10 0 0 1-10 10h-3A10 10 0 0 1 9 28z"/><path d="M32 22h3a4.5 4.5 0 0 1 0 9h-3.6"/><path d="M6 43h29"/><path d="M15.5 8c-1.5 2 1.5 3.5 0 6M21.5 8c-1.5 2 1.5 3.5 0 6M27.5 8c-1.5 2 1.5 3.5 0 6" stroke-width="1.6"/></svg>
+              <span class="quick__text"><span class="quick__title">Förbeställ maten</span><span class="quick__line">Trerätters i 1:a klass, frukost i 2:a.</span></span>
+              <span class="quick__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== Sträckan =====================
+         Stationer enligt bokningsformuläret på blataget.com/sv/. Biljetter cirka två månader före avresa
+         (verifierat av beställaren 23 nov 2026). Inga tider eller priser är publicerade. -->
+    <section class="blk" id="stracka" aria-labelledby="stracka-rubrik">
+      <div class="container">
+        <div class="shead">
+          <div class="shead__text">
+            <h2 id="stracka-rubrik">Sträckan</h2>
+            <p class="shead__sub">Fem stationer mellan Göteborg och Stockholm. Välj var du kliver på.</p>
+          </div>
+          <a class="link-arrow" href="strackan.html">Om stationerna</a>
+        </div>
+        <ol class="line" aria-label="Stationer från Göteborg till Stockholm">
+            <li class="line__stop line__stop--end">
+              <span class="line__dot" aria-hidden="true"></span>
+              <button class="line__name" type="button" data-open-booking data-from="Göteborg C"><span class="sr-only">Res från </span>Göteborg C</button>
+            </li>
+            <li class="line__stop">
+              <span class="line__dot" aria-hidden="true"></span>
+              <button class="line__name" type="button" data-open-booking data-from="Alingsås"><span class="sr-only">Res från </span>Alingsås</button>
+            </li>
+            <li class="line__stop">
+              <span class="line__dot" aria-hidden="true"></span>
+              <button class="line__name" type="button" data-open-booking data-from="Skövde C"><span class="sr-only">Res från </span>Skövde C</button>
+            </li>
+            <li class="line__stop">
+              <span class="line__dot" aria-hidden="true"></span>
+              <button class="line__name" type="button" data-open-booking data-from="Hallsberg"><span class="sr-only">Res från </span>Hallsberg</button>
+            </li>
+            <li class="line__stop line__stop--end">
+              <span class="line__dot" aria-hidden="true"></span>
+              <button class="line__name" type="button" data-open-booking data-from="Stockholm C"><span class="sr-only">Res från </span>Stockholm C</button>
+            </li>
+        </ol>
+        <div class="line__action">
+          <button class="btn btn--primary" type="button" data-open-booking aria-haspopup="dialog" aria-controls="boka">
+            Sök resa
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <p class="line__note">Biljetter släpps cirka två månader före avresa. Tidtabell och priser kommer när bokningen öppnar.</p>
+        </div>
+        <ul class="facts">
+          <li><svg class="sym facts__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M15 7h13a4 4 0 0 1 4 4v17H15z"/><path class="f" d="M10 28h28v6H10z"/><path d="M14 34v7M34 34v7"/></svg><span class="facts__text"><span class="facts__title">1:a och 2:a klass</span><span class="facts__line">Välj klass när du bokar.</span></span></li>
+          <li><svg class="sym facts__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20a23 23 0 0 1 32 0M13.5 26a15 15 0 0 1 21 0M19 32a7.5 7.5 0 0 1 10 0"/><circle class="f" cx="24" cy="38" r="3.2"/></svg><span class="facts__text"><span class="facts__title">Internet ombord</span><span class="facts__line">I de flesta vagnar.</span></span></li>
+          <li><svg class="sym facts__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="14" y="5" width="20" height="38" rx="4"/><path d="M21 37.5h6"/></svg><span class="facts__text"><span class="facts__title">Biljetten i mobilen</span><span class="facts__line">Som sms eller e-biljett.</span></span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== Restaurangvagnen: fotot bär sektionen =====================
+         Verifierat: restaurangvagnen är alltid med, vita dukar, mat lagad från grunden, 42 platser,
+         frukost på tidiga avgångar och middag senare, barnmeny för barn under 12 år. Barvagnen med pianobar
+         finns med på många avgångar (meddelas under nyheter samma vecka). Ingen meny med priser på sidan. -->
+    <section class="blk" id="restaurang" aria-labelledby="restaurang-rubrik">
+      <div class="container">
+        <div class="feature">
+          <img class="feature__img" src="img/restaurangvagn.jpg" width="1600" height="1280" loading="lazy"
+               alt="Restaurangvagn i kvällssol med vita dukar, läderstolar och bordslampor längs fönstren.">
+          <div class="feature__body">
+            <p class="feature__label">Restaurangvagnen</p>
+            <h2 id="restaurang-rubrik" class="feature__title">Lagat ombord.</h2>
+            <p class="feature__text">Mat från grunden på vita dukar. Restaurangvagnen är med på varje avgång.</p>
+            <a class="btn btn--hero" href="restaurang.html">
+              Om restaurangvagnen
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+        <ul class="facts">
+          <li><svg class="sym facts__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="7" y="15" width="34" height="7" rx="2"/><path d="M12 22v18M36 22v18"/><path d="M17 30h14"/></svg><span class="facts__text"><span class="facts__title">42 platser</span><span class="facts__line">i matsalen</span></span></li>
+          <li><svg class="sym facts__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="25" r="12"/><circle cx="24" cy="25" r="6.5"/><path d="M6 11v6a3 3 0 0 0 3 3v19M9 11v6M42 11c-3 2.5-4 6-4 12h4v16"/></svg><span class="facts__text"><span class="facts__title">Frukost och middag</span><span class="facts__line">Frukost tidigt, middag senare på dagen</span></span></li>
+          <li><svg class="sym facts__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="19" r="6"/><path class="f" d="M14 41v-3a10 10 0 0 1 20 0v3z"/></svg><span class="facts__text"><span class="facts__title">Barnmeny</span><span class="facts__line">för barn under 12 år</span></span></li>
+        </ul>
+        <p class="feature__note">Barvagnen med pianobar finns med på många avgångar. Vilka meddelas under nyheter samma vecka som du reser.</p>
+      </div>
+    </section>
+
+    <!-- ===================== Historien =====================
+         Verifierat: invigt 11 december 2011, efter avregleringen i oktober 2010, klassiska 60-talsvagnar,
+         barvagn med pianobar och skinnfåtöljer som finns med på många avgångar (meddelas under nyheter samma
+         vecka), separata kupéer, konferenskupé för sex i 1:a klass via kundtjänst. -->
+    <section class="blk" id="historien" aria-labelledby="historien-rubrik">
+      <div class="container">
+        <div class="shead">
+          <div class="shead__text">
+            <h2 id="historien-rubrik">Historien</h2>
+            <p class="shead__sub">Ett klassiskt tåg med vagnar från 60-talet.</p>
+          </div>
+          <a class="link-arrow" href="historien.html">Läs hela historien</a>
+        </div>
+        <div class="hist">
+          <p class="hist__lead">Tåget började som ett privat initiativ när järnvägen öppnades för fler bolag. Vagnarna är klassiska, från 60-talet, med restaurangvagn, separata kupéer och en barvagn med pianobar och skinnfåtöljer.</p>
+          <ol class="hist__list">
+            <li><span class="hist__when">Oktober 2010</span><span class="hist__what">Järnvägen i Sverige öppnas för fler bolag.</span></li>
+            <li><span class="hist__when">11 december 2011</span><span class="hist__what">Tåget invigs mellan Göteborg och Stockholm.</span></li>
+          </ol>
+        </div>
+        <ul class="tiles tiles--three">
+          <li>
+            <a class="tile" href="restaurang.html#barvagnen">
+              <img class="tile__img" src="img/pianobar.jpg" width="800" height="533" loading="lazy" alt="Ett glas står på ett öppet piano i varmt ljus.">
+              <span class="tile__text"><span class="tile__title">Pianobaren</span><span class="tile__sub">Med på många avgångar</span></span>
+              <span class="tile__btn" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
+            </a>
+          </li>
+          <li>
+            <a class="tile" href="grupp.html">
+              <img class="tile__img" src="img/kupe-sate.jpg" width="800" height="532" loading="lazy" alt="Klassisk tågvagn inifrån med rader av röda stoppade säten.">
+              <span class="tile__text"><span class="tile__title">Kupéerna</span><span class="tile__sub">Konferenskupé för sex i 1:a klass</span></span>
+              <span class="tile__btn" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
+            </a>
+          </li>
+          <li>
+            <a class="tile" href="historien.html">
+              <img class="tile__img" src="img/bla-vagn.jpg" width="800" height="530" loading="lazy" alt="Ett äldre blått motorvagnståg står på ett spår i kvällssol.">
+              <span class="tile__text"><span class="tile__title">Vagnarna</span><span class="tile__sub">Klassiska vagnar från 60-talet</span></span>
+              <span class="tile__btn" aria-hidden="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== Kundtjänst =====================
+         Verifierat mot blataget.com/sv/customersupport/ och /sv/restaurant/ (beställarens läsning 23 nov 2026). -->
+    <section class="blk" id="kundtjanst" aria-labelledby="kundtjanst-rubrik">
+      <div class="container">
+        <div class="shead">
+          <div class="shead__text">
+            <h2 id="kundtjanst-rubrik">Kundtjänst</h2>
+            <p class="shead__sub">Frågor om resan, platser eller gruppbokning. Öppnar strax före trafikstarten.</p>
+          </div>
+          <a class="link-arrow" href="kundtjanst.html">Alla frågor och svar</a>
+        </div>
+        <div class="help">
+          <div class="help__contact">
+            <ul class="contact">
+              <li>
+                <a class="contact__row" href="tel:+46708904421">
+                  <svg class="sym contact__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="14" y="5" width="20" height="38" rx="4"/><path d="M21 37.5h6"/></svg>
+                  <span class="contact__text"><span class="contact__label">Telefon</span><span class="contact__value">070-890 44 21</span></span>
+                </a>
+              </li>
+              <li>
+                <a class="contact__row" href="mailto:info@blataget.com">
+                  <svg class="sym contact__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="6" y="11" width="36" height="26" rx="4"/><path d="M7.5 13.5 24 26l16.5-12.5"/></svg>
+                  <span class="contact__text"><span class="contact__label">E-post</span><span class="contact__value">info@blataget.com</span></span>
+                </a>
+              </li>
+            </ul>
+            <p class="help__company">Blå Tåget Jernbanor AB · Org.nr 556089-9808 · Stationsgatan 7 B, 441 30 Alingsås</p>
+          </div>
+          <div class="faq">
+            <h3 class="sr-only">Vanliga frågor</h3>
+            <details class="faq__item">
+              <summary>När kan jag köpa biljett?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">Cirka två månader före avresa.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Kan jag avboka biljetten?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">Ja, om du lägger till 100 kr när du bokar. Avboka senast en timme före avgång.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Vad får jag tillbaka om tåget blir sent?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">25 % av biljettpriset vid 60 minuter eller mer och 50 % vid 120 minuter eller mer, oavsett orsak. Mejla biljetten med pris och plats till kundtjänst.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Får djur följa med?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">Ja, i Djurtillåten klass som du väljer när du bokar. Djuren ligger på golvet, inte i sätena.</p>
+            </details>
+            <div class="faq__more" id="fler-fragor" hidden>
+            <details class="faq__item">
+              <summary>Kan jag byta plats efter bokningen?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">Ja. Boka och betala först, och kontakta sedan kundtjänst så flyttar de dig till den plats du vill ha.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Går barvagnen med på min avgång?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">Barvagnen med pianobar finns med på många avgångar. Vilka meddelas under nyheter samma vecka som du reser. Restaurangvagnen är alltid med.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Kan jag boka bord i restaurangen?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">Nej, det går inte att boka bord. Förbetalda måltider serveras direkt efter avgång.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Hur meddelar jag allergier?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">Meddela kundtjänst dagen före avresa, gärna via mejl.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Får jag ta med egen alkohol?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">Nej, egen medhavd alkohol är inte tillåten ombord.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Reser du med små barn?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">Ta med barnvagnen ihopfälld och lägg chassit i bagagehyllan. Skötbord och mikro finns ombord.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Får jag ta med bagage till restaurang- och barvagnen?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">Nej. Av säkerhetsskäl får inget bagage följa med in där.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Kan vi boka en konferenskupé?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">Ja, en konferenskupé för sex personer i 1:a klass bokas via kundtjänst.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Jag har köpt biljetten på sj.se.<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">Kundtjänst kan inte hjälpa till med biljetter som är köpta på sj.se.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Hur får jag biljetten?<span class="faq__chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></summary>
+              <p class="faq__body">Biljetten kommer som sms eller e-biljett, direkt när du betalat.</p>
+            </details>
+            </div>
+            <button class="btn btn--secondary faq__toggle" type="button" aria-expanded="false" aria-controls="fler-fragor">
+              <span class="faq__toggle-text">Visa alla frågor</span>
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== Bokningspanel: ett beslut i taget =====================
+       Dator: panel som glider in från höger. Mobil: helskärm.
+       Steg 1 vart, 2 när, 3 hur, 4 avgångar (exempel), 5 bekräftelse. -->
+  <dialog class="bk" id="boka" aria-labelledby="bk-titel">
+    <form class="bk__form" id="sokform" novalidate>
+      <div class="bk__band">
+        <div class="bk__bandrow">
+          <button class="bandbtn" type="button" data-back hidden>
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg>
+            Tillbaka
+          </button>
+          <p class="bk__progress"><span class="sr-only" id="bk-titel">Sök resa</span><span id="bk-stegtext">Steg 1 av 3</span>
+            <span class="bk__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+          </p>
+          <button class="bandbtn" type="button" data-close-booking>
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+            Stäng
+          </button>
+        </div>
+        <nav class="bk__summary" id="bk-summary" aria-label="Din resa hittills"></nav>
+      </div>
+
+      <div class="bk__body">
+        <!-- Steg 1: vart -->
+        <section class="bk__step" data-step="1" aria-labelledby="steg1-rubrik">
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M24 43s13-12.5 13-23a13 13 0 0 0-26 0c0 10.5 13 23 13 23z"/><circle cx="24" cy="20" r="5"/></svg><h2 class="bk__title" id="steg1-rubrik" tabindex="-1">Vart vill du åka?</h2></div>
+
+          <div class="from" id="from-row">
+            <span class="from__label">Från</span>
+            <strong class="from__value" id="from-value">Göteborg C</strong>
+            <button class="textbtn" type="button" id="from-change" aria-controls="from-field" aria-expanded="false">Ändra<span class="sr-only"> var du reser från</span></button>
+          </div>
+          <div class="field combo" id="from-field" hidden>
+            <label for="fran">Från</label>
+            <input id="fran" name="fran" type="text" value="Göteborg C" autocomplete="off" role="combobox"
+                   aria-autocomplete="list" aria-expanded="false" aria-controls="fran-lista" aria-describedby="fran-fel">
+            <ul class="combo__list" id="fran-lista" role="listbox" aria-label="Stationer" hidden></ul>
+            <p class="field__error" id="fran-fel" hidden></p>
+          </div>
+
+          <div class="field field--big combo">
+            <label for="till">Till</label>
+            <div class="combo__wrap">
+              <svg class="icon combo__icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+              <input id="till" name="till" type="text" placeholder="Station" autocomplete="off" role="combobox"
+                     aria-autocomplete="list" aria-expanded="false" aria-controls="till-lista" aria-describedby="till-fel">
+              <button class="swap" type="button" id="byt" aria-label="Byt plats på Från och Till" title="Byt plats på Från och Till">
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M7 4v16M7 4 3 8M7 4l4 4M17 20V4M17 20l-4-4M17 20l4-4"/></svg>
+              </button>
+            </div>
+            <ul class="combo__list" id="till-lista" role="listbox" aria-label="Stationer" hidden></ul>
+            <p class="field__error" id="till-fel" hidden></p>
+          </div>
+
+          <div class="stations-pick">
+            <p class="stations-pick__label" id="stationer-rubrik">Eller välj på sträckan</p>
+            <ol class="stations" id="dest-list" aria-labelledby="stationer-rubrik"></ol>
+          </div>
+        </section>
+
+        <!-- Steg 2: när -->
+        <section class="bk__step" data-step="2" aria-labelledby="steg2-rubrik" hidden>
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="7" y="10" width="34" height="31" rx="5"/><path d="M7 18h34M16 6v7M32 6v7"/><circle class="d" cx="16" cy="26" r="1.9"/><circle class="d" cx="24" cy="26" r="1.9"/><circle class="d" cx="32" cy="26" r="1.9"/><circle class="d" cx="16" cy="33" r="1.9"/><circle class="d" cx="24" cy="33" r="1.9"/></svg><h2 class="bk__title" id="steg2-rubrik" tabindex="-1">När vill du åka?</h2></div>
+          <fieldset class="days">
+            <legend class="sr-only">Datum för utresa</legend>
+            <div class="days__grid" id="date-grid"></div>
+          </fieldset>
+          <div class="field" id="utresa-field" hidden>
+            <label for="utresa">Datum för utresa</label>
+            <input id="utresa" name="utresa" type="date" aria-describedby="utresa-fel">
+            <p class="field__error" id="utresa-fel" hidden></p>
+          </div>
+
+          <div class="row">
+            <svg class="sym row__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="7" y="10" width="34" height="31" rx="5"/><path d="M7 18h34M16 6v7M32 6v7"/><circle class="d" cx="16" cy="26" r="1.9"/><circle class="d" cx="24" cy="26" r="1.9"/><circle class="d" cx="32" cy="26" r="1.9"/><circle class="d" cx="16" cy="33" r="1.9"/><circle class="d" cx="24" cy="33" r="1.9"/></svg>
+            <span class="row__label" id="hem-etikett">Lägg till hemresa</span>
+            <button class="switch" type="button" role="switch" aria-checked="false" aria-labelledby="hem-etikett" id="hem-switch"><span class="switch__knob"></span></button>
+          </div>
+          <div class="field" id="hemresa-field" hidden>
+            <label for="hemresa">Datum för hemresa</label>
+            <input id="hemresa" name="hemresa" type="date" aria-describedby="hemresa-fel">
+            <p class="field__error" id="hemresa-fel" hidden></p>
+          </div>
+        </section>
+
+        <!-- Steg 3: hur -->
+        <section class="bk__step" data-step="3" aria-labelledby="steg3-rubrik" hidden>
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="32" cy="15" r="5"/><path d="M27 26.5a9 9 0 0 1 14 7.5v3"/><circle class="f" cx="18" cy="17" r="6.5"/><path class="f" d="M6 41v-3a12 12 0 0 1 24 0v3z"/></svg><h2 class="bk__title" id="steg3-rubrik" tabindex="-1">Hur vill du resa?</h2></div>
+          <fieldset class="classes">
+            <legend class="sr-only">Klass</legend>
+            <label class="classcard">
+              <input type="radio" name="klass" value="2:a klass" checked>
+              <svg class="sym classcard__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path class="f" d="M9 19h23v9a10 10 0 0 1-10 10h-3A10 10 0 0 1 9 28z"/><path d="M32 22h3a4.5 4.5 0 0 1 0 9h-3.6"/><path d="M6 43h29"/><path d="M15.5 8c-1.5 2 1.5 3.5 0 6M21.5 8c-1.5 2 1.5 3.5 0 6M27.5 8c-1.5 2 1.5 3.5 0 6" stroke-width="1.6"/></svg>
+              <span class="classcard__text"><span class="classcard__title">2:a klass</span><span class="classcard__line">Frukost att ta med kan köpas till.</span></span>
+              <span class="classcard__check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg></span>
+            </label>
+            <label class="classcard">
+              <input type="radio" name="klass" value="1:a klass">
+              <svg class="sym classcard__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="25" r="12"/><circle cx="24" cy="25" r="6.5"/><path d="M6 11v6a3 3 0 0 0 3 3v19M9 11v6M42 11c-3 2.5-4 6-4 12h4v16"/></svg>
+              <span class="classcard__text"><span class="classcard__title">1:a klass</span><span class="classcard__line">Trerätters meny kan förbetalas.</span></span>
+              <span class="classcard__check" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg></span>
+            </label>
+          </fieldset>
+
+          <div class="row">
+            <svg class="sym row__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="15" r="7"/><path class="f" d="M10 41v-3a14 14 0 0 1 28 0v3z"/></svg>
+            <span class="row__label" id="resenarer-etikett">Resenärer</span>
+            <div class="stepper__controls">
+              <button type="button" class="stepper__btn" data-step="-1" data-target="resenarer" aria-label="En resenär färre">−</button>
+              <output id="resenarer" class="stepper__value" aria-labelledby="resenarer-etikett" aria-live="polite" data-min="1" data-max="9">1</output>
+              <button type="button" class="stepper__btn" data-step="1" data-target="resenarer" aria-label="En resenär fler">+</button>
+            </div>
+          </div>
+          <div class="row">
+            <svg class="sym row__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse class="f" cx="24" cy="31.5" rx="9.5" ry="8"/><circle class="f" cx="11.5" cy="21" r="4"/><circle class="f" cx="19" cy="12.5" r="4"/><circle class="f" cx="29" cy="12.5" r="4"/><circle class="f" cx="36.5" cy="21" r="4"/></svg>
+            <span class="row__label"><span id="djur-etikett">Jag reser med djur</span><span class="row__hint" id="djur-hint">Plats i Djurtillåten klass.</span></span>
+            <button class="switch" type="button" role="switch" aria-checked="false" aria-labelledby="djur-etikett" aria-describedby="djur-hint" id="djur-switch"><span class="switch__knob"></span></button>
+          </div>
+        </section>
+
+        <!-- Steg 4: avgångar (exempel) -->
+        <section class="bk__step" data-step="4" aria-labelledby="steg4-rubrik" hidden>
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect class="f" x="10" y="6" width="28" height="30" rx="6"/><path d="M10 24h28"/><circle class="d" cx="17" cy="30" r="2"/><circle class="d" cx="31" cy="30" r="2"/><path d="M16 36l-4 6M32 36l4 6"/></svg><h2 class="bk__title" id="steg4-rubrik" tabindex="-1">Välj avgång</h2></div>
+          <div class="result-top">
+            <p class="result-top__query" id="result-query"></p>
+            <button class="textbtn" type="button" data-goto="1">Ändra<span class="sr-only"> sökningen</span></button>
+          </div>
+          <!-- EXEMPEL: tidtabell och priser är inte publicerade. Tider och priser räknas fram i main.js. -->
+          <p class="example-note" data-exempel><svg class="sym example-note__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M24 22v11"/><circle class="d" cx="24" cy="15.5" r="2.2"/></svg><span><strong>Exempel:</strong> tidtabell och priser är inte publicerade än.</span></p>
+          <ol class="trips" id="trips" data-exempel aria-label="Avgångar, exempel"></ol>
+        </section>
+
+        <!-- Steg 5: bekräftelse -->
+        <section class="bk__step" data-step="5" aria-labelledby="steg5-rubrik" hidden>
+          <div class="bk__head"><svg class="sym bk__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg><h2 class="bk__title" id="steg5-rubrik" tabindex="-1">Din resa</h2></div>
+          <dl class="confirm" id="confirm" data-exempel></dl>
+          <p class="confirm__total" data-exempel><span>Att betala</span><strong id="confirm-total"></strong></p>
+          <p class="confirm__ex">Exempelpris. Riktiga priser publiceras när bokningen öppnar.</p>
+          <div class="notice" id="sok-meddelande" role="status" aria-live="polite" hidden></div>
+          <ul class="trust">
+            <li><svg class="sym trust__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Avbokningsbar mot 100 kr extra, senast 1 timme före avgång.</li>
+            <li><svg class="sym trust__sym" aria-hidden="true" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle class="f" cx="24" cy="24" r="18"/><path d="M16 24.5l5.5 5.5L32.5 19"/></svg>Biljetten kommer som sms eller e-biljett, direkt när du betalat.</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="bk__bar" id="bk-bar">
+        <button class="btn btn--primary bk__next" type="button" id="bk-next">
+          <span id="bk-next-text">Nästa</span>
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ===================== Sidfot ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid site-footer__grid--four">
+        <div class="site-footer__brand">
+          <p class="wordmark wordmark--light">Blå Tåget</p>
+          <p class="site-footer__tag">Göteborg – Alingsås – Skövde – Hallsberg – Stockholm</p>
+          <address class="site-footer__contact">
+            <a href="tel:+46708904421">070-890 44 21</a>
+            <a href="mailto:info@blataget.com">info@blataget.com</a>
+          </address>
+        </div>
+        <nav aria-label="Resan">
+          <h2 class="site-footer__title">Resan</h2>
+          <ul>
+            <li><a href="strackan.html">Sträckan och stationerna</a></li>
+            <li><a href="ombord.html">Ombord</a></li>
+            <li><a href="restaurang.html">Restaurang och bar</a></li>
+            <li><a href="biljetter.html">Biljetter och villkor</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Hjälp">
+          <h2 class="site-footer__title">Hjälp</h2>
+          <ul>
+            <li><a href="kundtjanst.html">Kundtjänst och frågor</a></li>
+            <li><a href="grupp.html">Grupp och konferens</a></li>
+            <li><a href="https://www.blataget.com/sv/news/">Senaste nyheterna</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Företaget">
+          <h2 class="site-footer__title">Företaget</h2>
+          <ul>
+            <li><a href="historien.html">Historien</a></li>
+            <li><a href="om.html">Om företaget</a></li>
+            <li><a href="https://www.blataget.com/sv/">Officiella webbplatsen</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="site-footer__legal">
+        <p class="site-footer__concept">Designkoncept av Elevate Studio – inte Blå Tågets officiella webbplats</p>
+        <p>Foton från Unsplash och Pexels, se <a href="img/KALLOR.md">bildkällor</a>. Filmen på startsidan bäddas in från YouTube. Fakta från den officiella webbplatsen i november 2026.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+/* ==========================================================================
+   Provstil för alla quizalternativ (.spec).
+   Utgångsläget är beställarens val i Stillabbet: Hanken Grotesk, skog och
+   havre, pill-knappar, fyllda fält utan kant, 16 px rundning på kort.
+   Ett alternativ ändrar bara det som frågan gäller, med inline-stil eller
+   en egen <style> med unikt klassprefix.
+   ========================================================================== */
+.spec {
+  --fh: 'Hanken Grotesk', system-ui, sans-serif; --fhw: 800;
+  --fb: 'Hanken Grotesk', system-ui, sans-serif;
+  --brand: #1D5B3A; --brand-d: #164a2f; --bink: #ffffff;
+  --ground: #F6F1E9; --box: #FFFDF9; --field: #EFE8DC;
+  --sink: #1F1C18; --smuted: #5E574D; --accent: #F0C75E;
+  --ok: #1E7A45; --warn: #9A5B00; --bad: #B3261E;
+  --rb: 999px; --rc: 16px; --rf: 12px;
+  --sline: rgba(31, 28, 24, .16);
+  --tint: #E3ECE6;
+  background: var(--ground); color: var(--sink);
+  font-family: var(--fb); font-size: 15px; line-height: 1.5;
+  position: relative; overflow: hidden;
+}
+.spec *, .spec *::before, .spec *::after { box-sizing: border-box; }
+.spec p { margin: 0; }
+.spec img { display: block; max-width: 100%; }
+
+/* Text */
+.spec .h { font-family: var(--fh); font-weight: var(--fhw); line-height: 1.12; letter-spacing: -0.01em; margin: 0; text-wrap: balance; color: var(--sink); }
+.spec .h1 { font-size: 34px; }
+.spec .h2 { font-size: 26px; }
+.spec .h3 { font-size: 19px; }
+.spec .eyebrow { font-size: 13px; font-weight: 600; color: var(--smuted); }
+.spec .muted { color: var(--smuted); }
+.spec .small { font-size: 13px; }
+.spec .price { font-weight: 700; font-variant-numeric: tabular-nums; }
+.spec .price small { font-weight: 400; color: var(--smuted); font-size: 13px; }
+.spec .link { color: var(--brand); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.spec .tag { display: inline-flex; align-items: center; gap: 4px; background: var(--accent); color: var(--sink); font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; line-height: 1.6; }
+
+/* Knappar */
+.spec .sb, .spec .sb2 {
+  font-family: var(--fb); font-weight: 600; font-size: 15px; height: 48px; padding: 0 24px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 2px solid var(--brand); background: var(--brand); color: var(--bink);
+  border-radius: var(--rb); cursor: pointer; text-decoration: none; white-space: nowrap; line-height: 1;
+}
+.spec .sb2 { background: transparent; color: var(--brand); }
+
+/* Fält (fyllda utan kant) */
+.spec .fld { display: flex; flex-direction: column; gap: 5px; min-width: 0; flex: 1 1 140px; }
+.spec .fld > .lbl { font-size: 13px; font-weight: 600; color: var(--sink); }
+.spec .inp { display: flex; align-items: center; height: 48px; padding: 0 14px; font-size: 15px; color: var(--sink); background: var(--field); border: 0; border-radius: var(--rf); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.spec .inp.ph { color: var(--smuted); }
+
+/* Byggstenar */
+.spec .pad { padding: 20px; }
+.spec .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.spec .stack { display: flex; flex-direction: column; gap: 10px; }
+.spec .panel { background: var(--box); border-radius: var(--rc); padding: 18px; }
+.spec .pic { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--rc); }
+.spec .chip { display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 999px; background: var(--box); border: 1px solid var(--sline); font-size: 14px; font-weight: 500; }
+.spec .divider { height: 1px; background: var(--sline); border: 0; margin: 0; }
+.spec .ico { width: 20px; height: 20px; flex: 0 0 auto; }
+
+/* ---------- Hero-prover (del Hero) ---------- */
+.spec .hq { position: relative; display: flex; flex-direction: column; overflow: hidden; color: #fff; }
+.spec .hq > img.hq-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; max-width: none; }
+.spec .hq > .hq-ov { position: absolute; inset: 0; z-index: 1; }
+.spec .hq-ct { position: relative; flex: 1; display: flex; flex-direction: column; gap: 14px; padding: 28px clamp(18px, 4%, 40px); min-width: 0; }
+.spec .hq-ttl { font-family: var(--fh); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; color: #fff; margin: 0; text-wrap: balance; }
+.spec .hq-sub { font-size: 17px; font-weight: 500; color: rgba(255, 255, 255, .94); max-width: 46ch; line-height: 1.4; }
+.spec .hq-eye { font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, .9); }
+.spec .hq-hdr { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(18px, 4%, 40px); font-weight: 600; font-size: 14px; flex-wrap: wrap; }
+.spec .hq-hdr .wm { font-weight: 800; font-size: 19px; letter-spacing: -0.01em; }
+.spec .hq-hdr nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.spec .hq-panel { background: var(--box); color: var(--sink); border-radius: var(--rc); padding: 18px; display: flex; flex-direction: column; gap: 12px; width: 100%; min-width: 0; }
+.spec .hq-panel.green { background: var(--brand); color: #fff; }
+.spec .hq-panel.green .lbl { color: #fff; }
+.spec .hq-panel.green .inp { background: #F6F1E9; }
+.spec .hq-panel.dark { background: rgba(31, 28, 24, .88); color: #fff; }
+.spec .hq-panel.dark .lbl { color: #fff; }
+.spec .hq-panel.dark .inp { background: rgba(255, 255, 255, .14); color: #fff; }
+.spec .hq-grid { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; }
+.spec .hq-grid.one { grid-template-columns: 1fr; }
+.spec .hq-rowf { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+.spec .hq-rowf .fld { flex: 1 1 120px; }
+.spec .hq-trust { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; }
+.spec .hq-trust span { display: inline-flex; gap: 6px; align-items: center; }
+.spec .hq-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.spec .hq-tabs span { padding: 7px 14px; border-radius: 999px; font-weight: 600; font-size: 14px; color: var(--smuted); }
+.spec .hq-tabs span.on { background: var(--tint); color: var(--brand); }
+.spec .hq-panel.green .hq-tabs span { color: rgba(255,255,255,.8); } .spec .hq-panel.green .hq-tabs span.on { background: rgba(255,255,255,.16); color: #fff; }
+.spec .hq-phone { width: 100%; max-width: 250px; margin: 18px auto; border-radius: 30px; border: 8px solid #1F1C18; overflow: hidden; background: var(--ground); }
+.spec .hq-phone .hq-ct { padding: 18px 16px; }
+.spec .hq-phone .hq-hdr { padding: 10px 14px; }
+.spec .hq-phone .hq-panel { padding: 12px; gap: 8px; }
+.spec .hq-phone .inp { height: 38px; font-size: 13px; padding: 0 10px; }
+.spec .hq-phone .lbl { font-size: 11px; }
+.spec .hq-phone .sb { height: 40px; font-size: 14px; }
+@media (max-width: 560px) { .spec .hq-grid:not(.keep) { grid-template-columns: 1fr; } }
+
+/* ---------- Hero-koncept v2 (del Hero) ---------- */
+.spec .hx { container-type: inline-size; position: relative; overflow: hidden; background: var(--ground); }
+.spec .hx-photo { position: relative; color: #fff; display: flex; flex-direction: column; min-height: 400px; }
+.spec .hx-photo > .bg, .spec .hx-img > .bg, .spec .hx-frame .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; }
+.spec .hx-photo > .bg { z-index: 0; }
+.spec .hx-photo > .sh { position: absolute; inset: 0; z-index: 1; }
+.spec .hx-in { padding: 40px; padding: clamp(22px, 5cqi, 60px); display: flex; flex-direction: column; gap: 16px; gap: clamp(12px, 1.8cqi, 20px); position: relative; z-index: 2; min-width: 0; }
+.spec .hx-t { font-family: var(--fh); font-weight: 800; letter-spacing: -0.025em; line-height: 1.02; margin: 0; text-wrap: balance; }
+.spec .hx-xl { font-size: 64px; font-size: clamp(38px, 8.6cqi, 108px); letter-spacing: -0.035em; line-height: .96; }
+.spec .hx-l { font-size: 48px; font-size: clamp(32px, 5.6cqi, 66px); }
+.spec .hx-m { font-size: 38px; font-size: clamp(27px, 3.9cqi, 46px); }
+.spec .hx-s { font-size: 28px; font-size: clamp(23px, 2.9cqi, 34px); }
+.spec .hx-p { font-size: 16px; font-size: clamp(15px, 1.55cqi, 18px); line-height: 1.45; max-width: 44ch; margin: 0; }
+.spec .hx-eye { font-size: 14px; font-weight: 700; letter-spacing: .01em; }
+.spec .hx-acts { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.spec .hx-two { display: grid; grid-template-columns: 1fr 1fr; }
+.spec .hx-img { position: relative; min-height: 260px; overflow: hidden; }
+.spec .hx-searchpill { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 54px; padding: 0 30px; border-radius: 999px; background: #fff; color: var(--sink); font-weight: 600; font-size: 16px; min-width: min(100%, 300px); }
+.spec .hx-field { display: flex; align-items: center; gap: 10px; background: #fff; color: var(--smuted); border-radius: 999px; padding: 6px 6px 6px 20px; width: 100%; max-width: 520px; font-size: 16px; }
+.spec .hx-field > span:first-child { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.spec .hx-round { display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--brand); color: #fff; flex: 0 0 auto; }
+.spec .hx-wchip { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 999px; background: #fff; color: var(--sink); font-weight: 600; font-size: 14px; }
+.spec .hx-phone { width: 100%; max-width: 260px; margin: 18px auto; border-radius: 32px; border: 8px solid #1F1C18; overflow: hidden; background: var(--ground); }
+@container (max-width: 700px) {
+  .spec .hx-two { grid-template-columns: 1fr; }
+  .spec .hx-hide-s { display: none !important; }
+}
