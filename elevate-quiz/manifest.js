@@ -1,6 +1,6 @@
 window.QZ_MANIFEST = {
- "v": 1795508550,
- "total": 1972,
+ "v": 1795508737,
+ "total": 2027,
  "parts": [
   {
    "key": "typsnitt",
@@ -90,7 +90,7 @@ window.QZ_MANIFEST = {
    "files": [
     "data-ux.js"
    ],
-   "count": 146
+   "count": 201
   }
  ]
 };
