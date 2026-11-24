@@ -30,11 +30,10 @@
 </header>
 <main id="innehall" tabindex="-1">
 
-<section class="ev-hero ev-on-photo" aria-labelledby="hero-rubrik">
-  <img class="ev-hero__img" src="img/gym.jpg" alt="Fysioterapeut visar en övning med tunga rep för en patient i rehabgymmet" fetchpriority="high" width="1400" height="1125">
-  <div class="ev-wrap ev-hero__in">
+<section class="ev-hero ev-on-dark" aria-labelledby="hero-rubrik">
+  <div class="ev-hero__in">
     <h1 id="hero-rubrik" class="ev-dot">Fysioterapi i Örebro för dig som vill röra dig utan ont</h1>
-    <p>Första besöket inom en vecka och utan remiss. Skriv var det gör ont så visar vi hur vi brukar hjälpa till.</p>
+    <p class="ev-hero__lead">Första besöket inom en vecka och utan remiss. Skriv var det gör ont så visar vi hur vi brukar hjälpa till.</p>
     <form class="ev-search" action="besvar.html" method="get" role="search" data-search data-sticky-anchor>
       <label for="sok">Var gör det ont?</label>
       <div class="ev-search__box">
@@ -44,7 +43,16 @@
         <ul class="ev-suggest" id="sok-forslag" role="listbox" aria-label="Förslag" hidden></ul>
       </div>
     </form>
+    <ul class="ev-hero__zones" aria-label="Vanliga besvär">
+      <li><a href="besvar.html?q=rygg#rygg">Rygg</a></li>
+      <li><a href="besvar.html?q=nacke#nacke">Nacke</a></li>
+      <li><a href="besvar.html?q=kn%C3%A4#kna">Knä</a></li>
+      <li><a href="besvar.html?q=axel#axel">Axel</a></li>
+    </ul>
   </div>
+  <figure class="ev-hero__band">
+    <img class="ev-hero__img" src="img/gym.jpg" alt="Fysioterapeut visar en övning med tunga rep för en patient i rehabgymmet" fetchpriority="high" width="1400" height="1125">
+  </figure>
 </section>
 
 <section class="ev-section" aria-labelledby="besvar-rubrik">

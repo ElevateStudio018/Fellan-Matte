@@ -208,11 +208,11 @@ main:focus { outline: none; }
 .bl-hero { position: relative; overflow: hidden; background: var(--ev-brand-dark); color: #fff; }
 .bl-hero__in { position: relative; display: grid; gap: 32px; padding-top: 36px; padding-bottom: 40px; }
 .bl-hero h1 { font-size: clamp(38px, 4.6vw + 10px, 72px); line-height: 1.04; letter-spacing: -.02em; max-width: 12ch; }
-.bl-hero__lead { font-size: 18px; line-height: 1.5; color: #D5DDEE; max-width: 40ch; margin-top: 16px; }
+.bl-hero__lead { font-size: 17px; line-height: 1.5; color: #D5DDEE; max-width: 40ch; margin-top: 16px; }
 .bl-hero__text .ev-link { margin-top: 20px; min-height: 24px; }
 @media (min-width: 900px) {
   .bl-hero { min-height: max(640px, calc(100svh - var(--ev-header-h))); display: flex; align-items: center; }
-  .bl-hero__in { grid-template-columns: minmax(0, 1fr) minmax(400px, 460px); gap: 72px; align-items: center; padding-top: 64px; padding-bottom: 64px; }
+  .bl-hero__in { grid-template-columns: minmax(0, 1fr) minmax(440px, 500px); gap: 64px; align-items: center; padding-top: 64px; padding-bottom: 64px; }
   .bl-hero__lead { font-size: 20px; margin-top: 24px; }
   .bl-hero__text .ev-link { margin-top: 28px; }
 }
@@ -225,10 +225,10 @@ main:focus { outline: none; }
 .bl-calc__group { border: 0; margin: 18px 0 0; padding: 0; min-width: 0; }
 .bl-calc__group legend, .bl-calc__label label { font-size: 14px; font-weight: 600; padding: 0; }
 .bl-calc__group legend { margin-bottom: 8px; }
-.bl-seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.bl-seg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }   /* 2 × 2, alla fyra syns utan svep */
 .bl-seg__opt { position: relative; cursor: pointer; }
 .bl-seg__opt input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
-.bl-seg__opt span { display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: var(--ev-r-pill);
+.bl-seg__opt span { display: flex; align-items: center; justify-content: center; height: 34px; padding: 0 14px; border-radius: var(--ev-r-pill);
   border: 1px solid var(--ev-field-line); background: #fff; color: var(--ev-ink); font: 500 14px/1 var(--ev-font); white-space: nowrap;
   transition: background-color var(--ev-dur-btn) ease, color var(--ev-dur-btn) ease, border-color var(--ev-dur-btn) ease; }
 .bl-seg__opt:hover span { border-color: var(--ev-ink); }

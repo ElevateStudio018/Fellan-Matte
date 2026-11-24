@@ -41,18 +41,22 @@
 </dialog>
 <main id="innehall" tabindex="-1">
 
-<section class="ev-hero sn-hero ev-on-photo" aria-labelledby="hero-rubrik">
-  <img class="ev-hero__img" src="img/snickare.jpg" alt="Snickare märker ut en träbit med blyertspenna bland kutterspån" fetchpriority="high" width="1400" height="933">
-  <div class="ev-wrap ev-hero__in">
-    <h1 id="hero-rubrik" class="ev-dot">Snickare i Jönköping för kök, golv och altaner</h1>
-    <p>Vi kommer hem till dig, mäter och ger ett fast pris. Hembesöket kostar ingenting.</p>
-    <form class="sn-heroform" action="#boka" data-sticky-anchor>
-      <label for="hero-postnr">Ditt postnummer</label>
-      <div class="sn-heroform__row">
-        <input class="ev-input" id="hero-postnr" name="postnr" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="553 21">
-        <button class="ev-btn ev-btn--sm" type="submit" data-flow-open><span>Boka hembesök</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
-      </div>
-    </form>
+<section class="ev-hero sn-hero" aria-labelledby="hero-rubrik">
+  <div class="sn-hero__media">
+    <img src="img/snickare.jpg" alt="Snickare märker ut en träbit med blyertspenna bland kutterspån" fetchpriority="high" width="1400" height="933">
+  </div>
+  <div class="ev-wrap sn-hero__wrap">
+    <div class="sn-hero__plate ev-on-dark">
+      <h1 id="hero-rubrik" class="ev-dot">Snickare i Jönköping för kök, golv och altaner</h1>
+      <p>Vi kommer hem till dig, mäter och ger ett fast pris. Hembesöket kostar ingenting.</p>
+      <form class="sn-heroform" action="#boka" data-sticky-anchor>
+        <label for="hero-postnr">Ditt postnummer</label>
+        <div class="sn-heroform__row">
+          <input class="ev-input" id="hero-postnr" name="postnr" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="553 21">
+          <button class="ev-btn ev-btn--sm" type="submit" data-flow-open><span>Boka hembesök</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+        </div>
+      </form>
+    </div>
   </div>
 </section>
 

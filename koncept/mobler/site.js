@@ -580,6 +580,7 @@
       closeAll(spot); setOpen(spot, on);
       spot.classList.remove('is-dismissed');
     });
+    spot.addEventListener('mouseenter', function () { closeAll(spot); });
     spot.addEventListener('mouseleave', function () { spot.classList.remove('is-dismissed'); });
   });
   document.addEventListener('click', function (e) { if (!e.target.closest('.ek-spot')) closeAll(); });

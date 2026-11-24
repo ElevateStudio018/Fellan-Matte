@@ -4,8 +4,11 @@ Kardemumma är ett påhittat bageri. Bilderna är kopierade från `verktyg/eleva
 
 | Fil | Används till | Fotograf | Källa | Licens |
 |---|---|---|---|---|
-| `kafe-kaffe.jpg` | Hero på startsidan, produktkortet Kardemummabullar | Elin Gann | https://images.unsplash.com/photo-1731958786878-a5843673a0d7 | Unsplash |
+| `kafe-kaffe.jpg` | Produktkortet Kardemummabullar (förlaga till två av herons runda foton) | Elin Gann | https://images.unsplash.com/photo-1731958786878-a5843673a0d7 | Unsplash |
 | `bageri.jpg` | Blocket Bakat i natt, produktkorten Surdegslimpa och Smörcroissanter | Yeh Xintong | https://images.unsplash.com/photo-1568254183919-78a4f43a2877 | Unsplash |
+| `hero-bullar.jpg` | Hero på startsidan, stora runda fotot. Kvadratiskt utsnitt av `kafe-kaffe.jpg` (bullarna), 720 × 720 px | Elin Gann | https://images.unsplash.com/photo-1731958786878-a5843673a0d7 | Unsplash |
+| `hero-kaffe.jpg` | Hero på startsidan, mellanstora runda fotot. Kvadratiskt utsnitt av `kafe-kaffe.jpg` (muggen), 720 × 720 px | Elin Gann | https://images.unsplash.com/photo-1731958786878-a5843673a0d7 | Unsplash |
+| `hero-bageri.jpg` | Hero på startsidan, lilla runda fotot. Kvadratiskt utsnitt av `bageri.jpg` (croissanter och småfranska), 720 × 720 px | Yeh Xintong | https://images.unsplash.com/photo-1568254183919-78a4f43a2877 | Unsplash |
 
 Produkter utan passande foto (tårtor, kanelbullar, lussekatter med flera) visas som typografiska färgytor i stället för en bild som inte stämmer.
 
