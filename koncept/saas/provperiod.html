@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Starta provperiod – Passa</title>
+<meta name="description" content="Välj plan, skapa konto och prova Passa gratis i 30 dagar.">
+<meta name="theme-color" content="#5A35D6">
+<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%235A35D6'/%3E%3Cpath d='M9 12h14M11 17h4M17 17h4M11 21h4' stroke='white' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<script src="main.js" defer></script>
+</head>
+<body id="top">
+<a class="ev-skip" href="#innehall">Hoppa till innehållet</a>
+<header class="ev-header">
+  <div class="ev-wrap ev-header__in">
+    <a class="ev-logo" href="index.html"><svg class="ev-icon ev-logo__mark" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="16" rx="3"/><path d="M3.5 9.5h17M8 14h3M13 14h3M8 17h3"/></svg><span>Passa<b>.</b></span></a>
+    <nav class="ev-nav" aria-label="Huvudmeny"><ul><li><a href="funktioner.html">Funktioner</a></li><li><a href="priser.html">Priser</a></li><li><a href="index.html#faq">Vanliga frågor</a></li><li><a href="provperiod.html" aria-current="page">Starta provperiod</a></li></ul></nav>
+    <div class="ev-header__tools">
+      <button class="ev-iconbtn ev-menubtn" type="button" aria-label="Öppna menyn" aria-haspopup="dialog"><svg class="ev-icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="innehall" tabindex="-1" class="ev-flowpage">
+  <div class="ev-wrap ev-flowgrid">
+    <div class="ev-flow" data-flow>
+      <a class="ev-iconbtn ev-flow__close" href="index.html" aria-label="Avbryt och gå till startsidan"><svg class="ev-icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+      <a class="ev-link ev-link--back ev-step__back" href="#" data-back hidden><svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>Tillbaka</a>
+
+      <section class="ev-step" data-step="1" aria-labelledby="s1-rubrik">
+        <h1 id="s1-rubrik" tabindex="-1">Vilken plan vill du prova?</h1>
+        <p class="ev-step__hint">Tre korta steg, ungefär två minuter. Du provar gratis i 30 dagar och kan byta plan när som helst. Välj en plan så går du vidare.</p>
+        <div class="ps-period" style="margin-top:20px">
+          <label for="period">Betala årsvis efter provperioden</label>
+          <button class="ev-switch" type="button" role="switch" id="period" aria-checked="false" data-period></button>
+          <span class="ps-period__save">Spara 15&nbsp;%</span>
+        </div>
+        <div class="ev-step__body ev-choices" data-choices="plan" style="margin-top:16px">
+          <button class="ev-choice" type="button" data-value="start" aria-pressed="false"><span>Start</span><small><span class="ps-plancard-price" data-m="39" data-y="33">39&nbsp;kr</span> per anställd och månad. Upp till 15 anställda.</small><svg class="ev-icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+          <button class="ev-choice" type="button" data-value="team" aria-pressed="false"><span>Team <span class="ev-tag">Populärast</span></span><small><span class="ps-plancard-price" data-m="59" data-y="50">59&nbsp;kr</span> per anställd och månad. Med tidrapport och löneunderlag.</small><svg class="ev-icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+          <button class="ev-choice" type="button" data-value="foretag" aria-pressed="false"><span>Företag</span><small><span class="ps-plancard-price" data-m="89" data-y="76">89&nbsp;kr</span> per anställd och månad. Flera arbetsplatser och behörigheter.</small><svg class="ev-icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+        </div>
+        <p class="ev-step__aside"><svg class="ev-icon " viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span>Osäker? Välj Team. Den har allt utom flera arbetsplatser, och du kan byta senare.</span></p>
+      </section>
+
+      <section class="ev-step" data-step="2" aria-labelledby="s2-rubrik" hidden>
+        <h1 id="s2-rubrik" tabindex="-1">Berätta om arbetsplatsen</h1>
+        <p class="ev-step__hint">Vi lägger upp ett exempelschema som passar din bransch.</p>
+        <form class="ev-step__body ev-form" novalidate data-form="2">
+          <div class="ev-field"><label for="f-foretag">Företagets namn</label><input class="ev-input" id="f-foretag" name="foretag" type="text" autocomplete="organization" placeholder="Till exempel Kafé Strand" required aria-describedby="f-foretag-fel" data-msg="Skriv företagets namn, det syns för personalen i appen."><p class="ev-error" id="f-foretag-fel" hidden></p></div>
+          <div class="ev-field">
+            <label for="f-bransch">Bransch</label>
+            <select class="ev-input" id="f-bransch" name="bransch">
+              <option>Restaurang och café</option><option>Butik och handel</option><option>Vård och omsorg</option><option>Hotell och besöksnäring</option><option>Städ och service</option><option>Annat</option>
+            </select>
+          </div>
+          <div class="ev-field">
+            <span class="ev-field__label" id="anst-label" style="font-size:14px;font-weight:600">Antal anställda med pass</span>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--ev-field-line);border-radius:999px;height:52px;padding:0 10px 0 20px">
+              <span class="ev-muted" style="font-size:15px">Ungefär, du kan ändra senare</span>
+              <div class="ev-qty" role="group" aria-labelledby="anst-label">
+                <button type="button" data-qty="-1" aria-label="Färre anställda"><svg class="ev-icon ev-icon--20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+                <output data-qty-out aria-live="polite">10</output>
+                <button type="button" data-qty="1" aria-label="Fler anställda"><svg class="ev-icon ev-icon--20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section class="ev-step" data-step="3" aria-labelledby="s3-rubrik" hidden>
+        <h1 id="s3-rubrik" tabindex="-1">Skapa ditt konto</h1>
+        <p class="ev-step__hint">Du loggar in med e-post och lösenord. Personalen loggar in med en länk på sms.</p>
+        <form class="ev-step__body ev-form" novalidate data-form="3">
+          <div class="ev-field"><label for="f-namn">Namn</label><input class="ev-input" id="f-namn" name="namn" type="text" autocomplete="name" placeholder="Förnamn Efternamn" required aria-describedby="f-namn-fel" data-msg="Skriv ditt namn så att personalen vet vem som lägger schemat."><p class="ev-error" id="f-namn-fel" hidden></p></div>
+          <div class="ev-field"><label for="f-epost">E-post</label><div class="ev-inputwrap"><svg class="ev-icon " viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="3"/><path d="M3.8 7.5 12 13.2l8.2-5.7"/></svg><input class="ev-input" id="f-epost" name="epost" type="email" autocomplete="email" placeholder="namn@foretag.se" required aria-describedby="f-epost-fel" data-msg="Skriv e-postadressen med @, till exempel namn@foretag.se." data-type="email"></div><p class="ev-error" id="f-epost-fel" hidden></p></div>
+          <div class="ev-field">
+            <label for="f-losen">Lösenord</label>
+            <div class="ps-pass ev-inputwrap"><svg class="ev-icon " viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></svg><input class="ev-input" id="f-losen" name="losen" type="password" autocomplete="new-password" placeholder="Minst 8 tecken" required aria-describedby="f-losen-krav f-losen-fel" data-type="pass" data-msg="Lösenordet behöver minst 8 tecken.">
+              <button class="ps-pass__eye" type="button" aria-label="Visa lösenordet" aria-pressed="false" data-eye><svg class="ev-icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+            <p class="ev-hint" id="f-losen-krav">Minst 8 tecken. Gärna en mening som du kommer ihåg.</p>
+            <p class="ev-error" id="f-losen-fel" hidden></p>
+          </div>
+        </form>
+      </section>
+
+      <section class="ev-step" data-step="4" aria-labelledby="s4-rubrik" hidden>
+        <h1 id="s4-rubrik" tabindex="-1">Stämmer det här?</h1>
+        <p class="ev-step__hint">Ändra det som inte stämmer. Du betalar ingenting under provperioden.</p>
+        <div class="ev-step__body">
+          <dl class="ev-review" data-review></dl>
+          <div class="ev-total"><div><b>Efter 30 dagar, om du fortsätter</b><small data-total-note></small></div><span class="ev-price" data-total></span></div>
+          <p class="ev-policy">Vi drar inga pengar automatiskt. Innan provperioden tar slut får du ett mejl, och du väljer själv om du vill fortsätta.</p>
+          <label class="ev-check" style="margin-top:20px"><input type="checkbox" data-terms aria-describedby="villkor-fel"><span>Jag godkänner <a class="ev-inline-link" href="#villkor" style="color:var(--ev-brand);text-decoration:underline;text-underline-offset:3px">användarvillkoren</a> och att Passa sparar mina uppgifter.</span></label>
+          <p class="ev-error" id="villkor-fel" hidden style="margin-top:8px"></p>
+        </div>
+      </section>
+
+      <section class="ev-done" data-done hidden aria-labelledby="klar-rubrik">
+        <svg class="ev-icon ev-icon--48 ev-draw" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M7.8 12.3l2.9 2.9 5.5-5.6"/></svg>
+        <h1 id="klar-rubrik" tabindex="-1" style="font-size:clamp(26px,2vw + 18px,34px)">Provperioden har startat</h1>
+        <p data-done-text></p>
+        <p class="ev-muted" data-done-mail></p>
+        <div class="ev-actions"><a class="ev-btn " href="funktioner.html#schema"><span>Lägg första schemat</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+      </section>
+
+      <div class="ev-flow__foot" data-foot>
+        <button class="ev-btn ev-btn--block" type="button" data-next hidden><span data-next-label>Fortsätt</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+        <p class="ev-flow__missing" data-missing hidden></p>
+        <div class="ev-steps" data-steps>
+          <p class="ev-steps__count" aria-live="polite">Steg 1 av 4</p>
+          <ol class="ev-steps__list"><li aria-current="step">Plan</li><li>Arbetsplats</li><li>Konto</li><li>Bekräfta</li></ol>
+          <span class="ev-steps__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="ev-summary" aria-labelledby="sum-rubrik" data-summary>
+      <h2 id="sum-rubrik">Din provperiod</h2>
+      <dl>
+        <div><dt>Plan</dt><dd class="is-empty" data-sum="plan">Inte vald än</dd></div>
+        <div><dt>Betalning efter provperioden</dt><dd data-sum="period">Månadsvis</dd></div>
+        <div><dt>Anställda</dt><dd data-sum="anst">10</dd></div>
+      </dl>
+      <p class="ev-summary__total"><small>Pris efter 30 dagar, exkl. moms</small><span class="ev-price" data-total>–</span></p>
+      <ul class="ev-facts">
+        <li><svg class="ev-icon " viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span>Gratis till <span data-trial-end>24 december</span></span></li>
+        <li><svg class="ev-icon " viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></svg><span>Inget kort behövs</span></li>
+        <li><svg class="ev-icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg><span>Avsluta när du vill</span></li>
+      </ul>
+    </aside>
+  </div>
+</main>
+
+<footer class="ev-footer ev-on-dark">
+  <div class="ev-wrap">
+    <div class="ev-footer__bottom" style="margin-top:0;padding-top:0;border-top:0">
+      <p class="ev-concept">Designkoncept av Elevate Studio. Påhittat företag med exempelinnehåll.</p>
+      <ul class="ev-footer__links"><li><a href="img/KALLOR.md">Bildkällor</a></li><li><a href="index.html">Passa</a></li></ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

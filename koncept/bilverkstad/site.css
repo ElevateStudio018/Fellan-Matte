@@ -1,0 +1,105 @@
+/* Bergqvists Bil: bilverkstad i Borlänge. Designkoncept av Elevate Studio. */
+:root {
+  /* Varumärke: verkstadsorange. 5,4:1 mot vit text och 5,0:1 mot ljusgrå sektion. */
+  --ev-brand: #B54708;
+  --ev-brand-dark: #1C1F22;    /* grafit: omdömen och sidfot. 16:1 mot vitt */
+  --ev-brand-light: #FDBA8C;   /* prick på mörk yta, 10:1 mot grafit */
+}
+
+/* Hero: text till vänster, mekanikern till höger */
+.ev-hero__img { object-position: 70% 40%; }
+.ev-hero::after { background: rgba(14, 14, 16, .6); }
+.ev-hero h1 { max-width: 14ch; }
+.ev-hero__in { width: 100%; }
+@media (min-width: 900px) { .ev-hero { align-items: center; } .ev-hero p { font-size: 20px; } }
+
+/* Fält och knapp bredvid varandra: knappen lägre än fältet, 8 px glapp (kn-hojd-falt) */
+.ev-regform { margin-top: 28px; max-width: 520px; }
+.ev-regform label { display: block; font-size: 14px; font-weight: 600; color: #fff; }
+.ev-regform.ev-field { gap: 6px; }
+.ev-regform__row { display: flex; align-items: center; gap: 8px; }
+.ev-regform .ev-input { flex: 1; min-width: 0; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; font-size: 18px; }
+.ev-regform .ev-input::placeholder { text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 16px; }
+.ev-on-photo .ev-regform .ev-btn { background: var(--ev-brand); color: #fff; }   /* varumärkesfärg: en vit knapp skulle smälta ihop med det vita fältet */
+.ev-on-photo .ev-regform .ev-btn:hover { background: var(--ev-brand-hover); }
+.ev-on-photo .ev-regform .ev-btn:active { background: var(--ev-brand-active); }
+.ev-regform .ev-error { color: #fff; margin-top: 2px; }
+.ev-regform .ev-error .ev-icon { color: #FFB4A9; }
+@media (max-width: 640px) {
+  .ev-regform__row { flex-direction: column; align-items: stretch; gap: 12px; }
+  .ev-regform .ev-input { flex: none; }
+  .ev-regform .ev-btn { height: var(--ev-btn-h); width: 100%; }
+}
+
+/* ---------- Tjänster med från-pris (rader, ux-lista-tabell) ---------- */
+.ev-services { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 64px; }
+@media (min-width: 900px) { .ev-services { grid-template-columns: 1fr 1fr; } }
+.ev-service { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 2px 12px; align-items: start; padding: 18px 0; border-bottom: 1px solid var(--ev-line); }
+.ev-services .ev-service:first-child, .ev-services .ev-service:nth-child(2) { border-top: 1px solid var(--ev-line); }
+@media (max-width: 899px) { .ev-services .ev-service:nth-child(2) { border-top: 0; } }
+.ev-service > .ev-icon { width: 20px; height: 20px; margin-top: 2px; }
+.ev-service h3 { font-size: 17px; }
+.ev-service h3 a { color: var(--ev-ink); text-decoration: none; }
+.ev-service h3 a::after { content: ""; position: absolute; inset: 0; }
+.ev-service h3 a:focus-visible { outline: none; }
+.ev-service:has(a:focus-visible) { outline: 2px solid var(--ev-brand); outline-offset: 2px; border-radius: 4px; }
+.ev-service p { grid-column: 2; color: var(--ev-ink-2); font-size: 14px; }
+.ev-service__price { grid-column: 3; grid-row: 1 / span 2; display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--ev-ink-2); white-space: nowrap; align-self: center; }
+.ev-service__price .ev-price { color: var(--ev-ink); font-size: 16px; }
+.ev-service__price .ev-icon { width: 20px; height: 20px; color: var(--ev-ink); --ev-stroke: 1.75px; transition: transform var(--ev-dur-arrow) var(--ev-ease); }
+.ev-service:hover h3 a { color: var(--ev-brand); }
+.ev-service:hover .ev-service__price .ev-icon { transform: translateX(4px); }
+@media (max-width: 640px) {
+  .ev-service > .ev-icon { width: 24px; height: 24px; margin-top: 0; }
+  .ev-service { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .ev-service__price { grid-column: 2; grid-row: auto; margin-top: 6px; }
+  .ev-service__price .ev-icon { display: none; }
+  .ev-service::after { content: ""; grid-column: 3; grid-row: 1 / span 3; align-self: center; width: 24px; height: 24px; background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h16M14 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h16M14 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat; }
+}
+
+/* Förtroende: porträtt och löften */
+.ev-trust { display: grid; gap: 32px; }
+.ev-trust figure { margin: 0; }
+.ev-trust figcaption { margin-top: 8px; }
+@media (min-width: 900px) { .ev-trust { grid-template-columns: 4fr 7fr; gap: 80px; align-items: center; } }
+.ev-promise { display: grid; gap: 24px; margin-top: 32px; }
+@media (min-width: 640px) { .ev-promise { grid-template-columns: 1fr 1fr; } }
+.ev-promise div { display: grid; gap: 4px; }
+.ev-promise .ev-icon { width: 32px; height: 32px; --ev-stroke: 2.25px; margin-bottom: 8px; }   /* sy-storlek-kort: 32 px i infokort */
+.ev-promise b { font-weight: 600; font-size: 17px; }
+.ev-promise span { color: var(--ev-ink-2); font-size: 15px; }
+
+/* Så går det till: rubrik till vänster, steg till höger */
+.ev-how { display: grid; gap: 32px; }
+@media (min-width: 900px) { .ev-how { grid-template-columns: 5fr 6fr; gap: 80px; align-items: start; } }
+
+/* ---------- Prislista ---------- */
+.ev-pricebar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 16px 0; border-top: 1px solid var(--ev-line); border-bottom: 1px solid var(--ev-line); }
+.ev-pricebar > span { font-size: 14px; font-weight: 600; }
+.ev-pricegroup { margin-top: 48px; }
+.ev-pricegroup h2 { display: flex; align-items: center; gap: 12px; font-size: 22px; padding-bottom: 12px; border-bottom: 1px solid var(--ev-ink); }   /* pi-avd-rubriklinje */
+.ev-pricegroup h2 .ev-icon { width: 32px; height: 32px; --ev-stroke: 2.25px; }
+.ev-pricelist { list-style: none; margin: 0; padding: 0; }
+.ev-pricelist li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 24px; padding: 16px 0; border-bottom: 1px solid var(--ev-line); }
+.ev-pricelist b { font-weight: 600; }
+.ev-pricelist span { grid-column: 1; color: var(--ev-ink-2); font-size: 14px; }
+.ev-pricelist .ev-price { grid-column: 2; grid-row: 1 / span 2; text-align: right; font-size: 16px; }
+.ev-pricelist .ev-price small { display: block; font-weight: 400; color: var(--ev-ink-2); font-size: 13px; }
+.ev-pricecols { display: grid; gap: 0 64px; }
+@media (min-width: 900px) { .ev-pricecols { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- Bokningsflödet ---------- */
+.ev-flow .ev-regfield .ev-input { text-transform: uppercase; letter-spacing: .06em; font-weight: 600; font-size: 18px; max-width: 280px; }
+.ev-flow .ev-regfield .ev-input::placeholder { text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 16px; }
+.ev-choices--2 { grid-template-columns: 1fr; }
+@media (min-width: 640px) { .ev-choices--2 { grid-template-columns: 1fr 1fr; } }
+.ev-times { margin-top: 24px; }
+.ev-times h2 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.ev-timegrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }   /* ux-val-tid: rutnät med lediga tider */
+.ev-choice.ev-time { display: block; height: 48px; padding: 0; text-align: center; border-radius: var(--ev-r-pill); font: 500 16px/1 var(--ev-font); font-variant-numeric: tabular-nums; }
+.ev-choice.ev-time:disabled { background: var(--ev-surface-2); border-color: transparent; color: #6B7076; text-decoration: line-through; cursor: default; }
+.ev-choice.ev-time[aria-pressed="true"] { background: var(--ev-brand); border-color: var(--ev-brand); color: #fff; box-shadow: none; }
+@media (max-width: 400px) { .ev-timegrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.ev-times__legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; font-size: 13px; color: var(--ev-ink-2); }
