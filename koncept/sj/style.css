@@ -664,3 +664,17 @@ fieldset.bk__fs legend { padding: 0; }
 .ev-row--link:hover .ev-route { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .ev-row--link:hover h3 { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .ev-row--link:focus-visible { outline-offset: 4px; border-radius: 4px; }
+
+/* ---------- Finputs ---------- */
+.ev-hero h1 { font-size: clamp(42px, 5.2vw + 14px, 84px); line-height: 1.04; letter-spacing: -.02em; max-width: 11ch; }
+.ev-table--cards { table-layout: fixed; }
+.ev-table--cards thead th:first-child, .ev-table--cards tbody th { width: 40%; }
+@media (max-width: 640px) { .ev-table--cards tbody th { width: 100%; } }
+/* Mobil: stegen och sammanfattningen staplas i samma scroll, utan att krympa */
+.bk__main { flex: 1 0 auto; }
+.bk__summary { flex: 0 0 auto; }
+@media (max-width: 640px) { .bk__main { min-height: 100%; } }
+[hidden] { display: none !important; }
+.bk__summary dd .ev-icon, .bk__review dd .ev-icon { vertical-align: -3px; margin: 0 4px; }
+.bk__notice { padding: 10px 14px; }
+.ev-discount strong { display: block; font-size: clamp(36px, 2vw + 24px, 48px); font-weight: 600; line-height: 1; letter-spacing: -.02em; color: var(--ev-brand); font-variant-numeric: tabular-nums; }

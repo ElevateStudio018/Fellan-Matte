@@ -171,7 +171,7 @@
       '<section class="bk__step" data-step="4" hidden aria-labelledby="bk-h4">' + backLink() +
       '<h2 id="bk-h4" tabindex="-1">Välj avgång</h2>' +
       '<p class="bk__hint">Välj en avgång så går du vidare.</p>' +
-      '<div class="bk__notice" role="note">' + icon("warning") + '<p><strong>Exempeldata.</strong> Avgångar och priser här visar hur flödet fungerar. De är inte SJ:s tidtabell eller priser.</p></div>' +
+      '<div class="bk__notice" role="note">' + icon("warning") + '<p>Avgångar och priser i konceptet är exempel.</p></div>' +
       '<div data-fact></div>' +
       '<ul class="bk__deps" data-deps></ul>' + foot(4, false) + '</section>' +
       '<section class="bk__step" data-step="5" hidden aria-labelledby="bk-h5">' + backLink() +
@@ -334,21 +334,22 @@
   function renderSummary() {
     var rows = [
       ["Från", state.from], ["Till", state.to], ["Datum", dateText(state.date)], ["Resenärer", travText()],
-      ["Avgång", state.dep ? state.dep.dep + " → " + state.dep.arr + ", " + state.dep.type : ""]
+      ["Avgång", state.dep ? { html: state.dep.dep + icon("arrow", "ev-icon--16") + state.dep.arr + ", " + state.dep.type } : ""]
     ];
     if (state.dep) rows.push(["Pris", kr(state.dep.price * factor()) + " (exempel)"]);
     dialog.querySelector("[data-summary]").innerHTML = rows.map(function (r) {
-      return '<div><dt>' + r[0] + '</dt><dd' + (r[1] ? "" : ' class="is-empty"') + '>' + esc(r[1] || "Inte valt än") + '</dd></div>';
+      var v = r[1] && r[1].html ? r[1].html : esc(r[1] || "Inte valt än");
+      return '<div><dt>' + r[0] + '</dt><dd' + (r[1] ? "" : ' class="is-empty"') + '>' + v + '</dd></div>';
     }).join("");
     dialog.querySelector("[data-sum-tag]").hidden = !state.dep;
   }
   function renderReview() {
     var rows = [
       ["Från", state.from, 1], ["Till", state.to, 2], ["Datum", dateText(state.date), 3], ["Resenärer", travText(), 3],
-      ["Avgång (exempel)", state.dep.dep + " → " + state.dep.arr + " · " + fmtDur(state.dep.dur) + " · " + state.dep.type + " · 2 klass", 4]
+      ["Avgång", { html: state.dep.dep + icon("arrow", "ev-icon--16") + state.dep.arr + ", " + fmtDur(state.dep.dur) + ", " + state.dep.type + ", 2 klass" }, 4]
     ];
     dialog.querySelector("[data-review]").innerHTML = rows.map(function (r) {
-      return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd><button type="button" class="ev-link" data-edit="' + r[2] + '">Ändra<span class="ev-sr"> ' + r[0].toLowerCase() + '</span></button></div>';
+      return '<div><dt>' + r[0] + '</dt><dd>' + (r[1].html || esc(r[1])) + '</dd><button type="button" class="ev-link" data-edit="' + r[2] + '">Ändra<span class="ev-sr"> ' + r[0].toLowerCase() + '</span></button></div>';
     }).join("");
     dialog.querySelector("[data-total]").textContent = kr(state.dep.price * factor());
   }
