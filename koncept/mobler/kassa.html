@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Kassa | Ekbacka hem</title>
+<meta name="description" content="Kassan hos Ekbacka hem.">
+<meta name="theme-color" content="#9B3D22">
+<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%239B3D22'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='17' font-weight='700' fill='white' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E">
+<script src="data.js" defer></script>
+<script src="core.js" defer></script>
+<script src="site.js" defer></script>
+</head>
+<body id="top">
+<a class="ev-skip" href="#innehall">Hoppa till innehållet</a>
+<header class="ev-header">
+  <div class="ev-wrap ev-header__in">
+    <a class="ev-logo" href="index.html">Ekbacka hem<b>.</b></a>
+    <nav class="ev-nav" aria-label="Huvudmeny"><ul><li><a href="kategori.html">Vardagsrum</a></li><li><a href="kategori.html?kat=fatoljer">Fåtöljer</a></li><li><a href="kategori.html?kat=belysning">Belysning</a></li><li><a href="index.html#leverans">Leverans och montering</a></li><li><a href="index.html#showroom">Showroom</a></li></ul></nav>
+    <div class="ev-header__tools">
+      <button class="ev-iconbtn" type="button" data-search-open aria-label="Sök bland möblerna"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><span class="ev-iconbtn__label" aria-hidden="true">Sök</span></button>
+      <a class="ev-iconbtn" href="varukorg.html" data-cart-label aria-label="Varukorg"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2.2l2.1 10.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 1.9-1.5L20.5 8H6.1"/><circle cx="10" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/></svg><span class="ev-count" data-cart-count data-empty aria-hidden="true">0</span></a>
+      <button class="ev-iconbtn ev-menubtn" type="button" aria-label="Öppna menyn" aria-expanded="false" aria-haspopup="dialog"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="ev-minicart" role="region" aria-label="Lagt i varukorgen" hidden>
+    <div class="ev-minicart__head"><p><svg class="ev-icon ev-icon--20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Lagd i varukorgen</p><button class="ev-dialog__close" type="button" data-mini-close aria-label="Stäng"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="ev-minicart__item" data-mini-item></div>
+    <a class="ev-btn " href="varukorg.html"><span>Till varukorgen</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+    <button class="ev-link" type="button" data-mini-close>Fortsätt handla</button>
+  </div>
+  <p class="ev-sr" aria-live="polite" data-live></p>
+</header>
+<dialog class="ev-menu" id="meny" aria-label="Meny">
+  <div class="ev-menu__top"><a class="ev-logo" href="index.html">Ekbacka hem<b>.</b></a><button class="ev-iconbtn" type="button" data-dialog-close aria-label="Stäng menyn"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <ul><li><a href="kategori.html">Vardagsrum<svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></li><li><a href="kategori.html?kat=fatoljer">Fåtöljer<svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></li><li><a href="kategori.html?kat=belysning">Belysning<svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></li><li><a href="index.html#leverans">Leverans och montering<svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></li><li><a href="index.html#showroom">Showroom<svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></li></ul>
+  <div class="ev-menu__foot">
+    <p class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 3.6 6.3 4.2A2.3 2.3 0 0 0 4.6 6.6c.5 7 5.8 12.3 12.8 12.8a2.3 2.3 0 0 0 2.4-1.7l.6-2.3a1.5 1.5 0 0 0-.8-1.7l-2.8-1.3a1.5 1.5 0 0 0-1.8.4l-1 1.3a11 11 0 0 1-4.3-4.3l1.3-1a1.5 1.5 0 0 0 .4-1.8L10.3 4.4a1.5 1.5 0 0 0-1.7-.8z"/></svg><span>Kundservice <a href="tel:+46100000000">010-000 00 00</a>, vardagar 9–17</span></p>
+  </div>
+</dialog>
+<dialog class="ev-searchdlg" id="sok" aria-label="Sök">
+  <div class="ev-searchdlg__top">
+    <form class="ev-search" role="search"><label class="ev-sr" for="sok-falt">Sök bland möblerna</label><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><input id="sok-falt" type="search" placeholder="Soffa, bord, lampa …" autocomplete="off"><button class="ev-btn" type="submit"><span>Sök</span></button></form>
+    <button class="ev-iconbtn" type="button" data-dialog-close aria-label="Stäng sökningen"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="ev-searchdlg__body" data-search-results aria-live="polite"></div>
+</dialog>
+<main id="innehall" tabindex="-1">
+
+<div class="ev-wrap ev-flowpage">
+  <div class="ev-flowgrid">
+    <div class="ev-flow">
+      <a class="ev-flow__close" href="varukorg.html" aria-label="Avbryt köpet och gå tillbaka till varukorgen"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+
+      <section data-step="1" aria-labelledby="s1-rubrik">
+        <div class="ev-flow__backslot"><a class="ev-link ev-link--back" href="varukorg.html"><svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>Till varukorgen</a></div>
+        <h1 id="s1-rubrik" tabindex="-1">Hur vill du handla?</h1>
+        <p class="ev-hint">Välj ett alternativ så går du vidare direkt.</p>
+        <div class="ev-flow__body ev-choices">
+          <button class="ev-choice" type="button" data-account="gast"><span class="ev-choice__title">Handla som gäst</span><span class="ev-choice__desc">Du kan skapa konto efter köpet om du vill.</span><svg class="ev-icon ev-choice__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+          <button class="ev-choice" type="button" data-account="konto"><span class="ev-choice__title">Logga in</span><span class="ev-choice__desc">Vi fyller i dina uppgifter från kontot.</span><svg class="ev-icon ev-choice__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+        </div>
+        <div class="ev-flow__foot"><div class="ev-steps"><p class="ev-steps__count">Steg 1 av 4</p><ol class="ev-steps__list" aria-label="Steg i kassan"><li aria-current="step">Konto</li><li>Uppgifter</li><li>Adress</li><li>Betala</li></ol><span class="ev-steps__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></span></div></div>
+      </section>
+
+      <section data-step="2" aria-labelledby="s2-rubrik" hidden>
+        <form data-validate novalidate data-form="2">
+          <div class="ev-flow__backslot"><a class="ev-link ev-link--back" href="#" data-goto="1"><svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>Tillbaka</a></div>
+          <h1 id="s2-rubrik" tabindex="-1">Dina uppgifter</h1>
+          <p class="ev-hint" data-prefilled-note>Vi skickar orderbekräftelsen till din e-post och ringer dig dagen före leverans.</p>
+          <div class="ev-flow__body">
+            <div class="ev-field"><label class="ev-label" for="epost">E-post</label><div class="ev-inputwrap"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="3"/><path d="M3.8 7.5 12 13.2l8.2-5.7"/></svg><input class="ev-input" id="epost" name="epost" type="email" autocomplete="email" placeholder="namn@exempel.se" required data-error="Fyll i din e-post, så skickar vi orderbekräftelsen dit."></div></div>
+            <div class="ev-field"><label class="ev-label" for="namn">Namn</label><input class="ev-input" id="namn" name="namn" autocomplete="name" placeholder="Förnamn Efternamn" required data-error="Fyll i ditt namn som det står på dörren."></div>
+            <div class="ev-field"><label class="ev-label" for="mobil">Mobilnummer</label><input class="ev-input" id="mobil" name="mobil" type="tel" autocomplete="tel" inputmode="tel" placeholder="070-123 45 67" required data-error="Fyll i ditt mobilnummer, så kan budet ringa dagen innan."></div>
+          </div>
+          <div class="ev-flow__foot">
+            <button class="ev-btn ev-btn--block" type="submit"><span>Fortsätt</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+            <div class="ev-steps"><p class="ev-steps__count">Steg 2 av 4</p><ol class="ev-steps__list" aria-label="Steg i kassan"><li>Konto</li><li aria-current="step">Uppgifter</li><li>Adress</li><li>Betala</li></ol><span class="ev-steps__dots" aria-hidden="true"><i></i><i class="is-on"></i><i></i><i></i></span></div>
+          </div>
+        </form>
+      </section>
+
+      <section data-step="3" aria-labelledby="s3-rubrik" hidden>
+        <form data-validate novalidate data-form="3">
+          <div class="ev-flow__backslot"><a class="ev-link ev-link--back" href="#" data-goto="2"><svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>Tillbaka</a></div>
+          <h1 id="s3-rubrik" tabindex="-1">Vart ska möblerna?</h1>
+          <p class="ev-hint">Börja skriva så föreslår vi adressen.</p>
+          <div class="ev-flow__body">
+            <div class="ev-field ek-addr"><label class="ev-label" for="adress">Adress</label>
+              <div class="ev-inputwrap"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><input class="ev-input" id="adress" name="adress" autocomplete="off" placeholder="Gata och nummer, ort" required data-error="Fyll i gatuadress och ort dit vi ska leverera." role="combobox" aria-expanded="false" aria-controls="adresslista" aria-autocomplete="list"></div>
+              <ul class="ek-addrlist" id="adresslista" role="listbox" aria-label="Adressförslag" hidden></ul>
+            </div>
+            <div class="ev-field"><label class="ev-label" for="vaning">Våning och hiss <span class="ev-opt">(valfritt)</span></label><input class="ev-input" id="vaning" name="vaning" placeholder="3 tr, hiss finns"></div>
+            <div class="ev-field"><label class="ev-label" for="portkod">Portkod eller meddelande till budet <span class="ev-opt">(valfritt)</span></label><textarea class="ev-input" id="portkod" name="portkod" rows="3" placeholder="Portkod 1234. Ring på hos Lind."></textarea></div>
+          </div>
+          <div class="ev-flow__foot">
+            <button class="ev-btn ev-btn--block" type="submit"><span>Fortsätt</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+            <div class="ev-steps"><p class="ev-steps__count">Steg 3 av 4</p><ol class="ev-steps__list" aria-label="Steg i kassan"><li>Konto</li><li>Uppgifter</li><li aria-current="step">Adress</li><li>Betala</li></ol><span class="ev-steps__dots" aria-hidden="true"><i></i><i></i><i class="is-on"></i><i></i></span></div>
+          </div>
+        </form>
+      </section>
+
+      <section data-step="4" aria-labelledby="s4-rubrik" hidden>
+        <form data-validate novalidate data-form="4">
+          <div class="ev-flow__backslot"><a class="ev-link ev-link--back" href="#" data-goto="3"><svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>Tillbaka</a></div>
+          <h1 id="s4-rubrik" tabindex="-1">Kontrollera och betala</h1>
+          <p class="ev-hint">Ändra det som inte stämmer innan du slutför köpet.</p>
+          <div class="ev-flow__body">
+            <dl class="ev-review">
+              <div><dt>Leveransdag</dt><dd data-r-date>–</dd><a class="ev-link" href="varukorg.html">Ändra<span class="ev-sr"> leveransdag</span></a></div>
+              <div><dt>Leverans</dt><dd data-r-deliv>–</dd><a class="ev-link" href="varukorg.html">Ändra<span class="ev-sr"> leveranssätt</span></a></div>
+              <div><dt>Kontakt</dt><dd data-r-contact>–</dd><a class="ev-link" href="#" data-goto="2">Ändra<span class="ev-sr"> kontaktuppgifter</span></a></div>
+              <div><dt>Adress</dt><dd data-r-addr>–</dd><a class="ev-link" href="#" data-goto="3">Ändra<span class="ev-sr"> adress</span></a></div>
+            </dl>
+            <h2 style="font-size:19px;margin:32px 0 12px">Betalsätt</h2>
+            <div class="ek-paymethods" role="radiogroup" aria-label="Betalsätt">
+              <div class="ek-pay"><label><input type="radio" name="betal" value="kort" checked data-paybody="pb-kort"><span>Kort<small>Debiteras när möblerna skickas</small></span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="3"/><path d="M3 10h18M7 15h4"/></svg></label>
+                <div class="ek-pay__body" id="pb-kort">
+                  <div class="ev-field"><label class="ev-label" for="kortnr">Kortnummer</label><input class="ev-input" id="kortnr" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" required data-error="Fyll i de 16 siffrorna på framsidan av kortet."></div>
+                  <div class="ek-cardrow">
+                    <div class="ev-field"><label class="ev-label" for="giltig">Giltigt till</label><input class="ev-input" id="giltig" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/ÅÅ" required data-error="Fyll i månad och år, till exempel 08/28."></div>
+                    <div class="ev-field"><label class="ev-label" for="cvc">CVC</label><input class="ev-input" id="cvc" inputmode="numeric" autocomplete="cc-csc" placeholder="123" required data-error="Fyll i de tre siffrorna på baksidan."></div>
+                  </div>
+                </div>
+              </div>
+              <div class="ek-pay"><label><input type="radio" name="betal" value="faktura" data-paybody="pb-faktura"><span>Faktura<small>Betala inom 30 dagar efter leverans</small></span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></label>
+                <div class="ek-pay__body" id="pb-faktura" hidden><p class="ev-hint">Fakturan kommer med e-post samma dag som leveransen. Ingen avgift.</p></div>
+              </div>
+              <div class="ek-pay"><label><input type="radio" name="betal" value="delbetala" data-paybody="pb-del"><span>Delbetala<small>12 månader räntefritt, 29&nbsp;kr i avgift per månad</small></span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></label>
+                <div class="ek-pay__body" id="pb-del" hidden><p class="ev-hint">Du får en månadsfaktura. Totalt <span data-r-monthly>–</span> per månad i 12 månader.</p></div>
+              </div>
+            </div>
+            <details class="ek-promo"><summary>Har du en rabattkod?<svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+              <div class="ek-promo__row"><label class="ev-sr" for="rabatt">Rabattkod</label><input class="ev-input" id="rabatt" placeholder="VINTER26"><button class="ev-btn ev-btn--sm ev-btn--secondary" type="button" data-promo><span>Använd</span></button></div>
+              <p class="ev-hint" data-promo-msg style="margin-top:8px" aria-live="polite"></p>
+            </details>
+            <label class="ev-check" style="margin-top:28px"><input type="checkbox" id="villkor" required data-error="Kryssa i rutan för att godkänna köpvillkoren."><span>Jag godkänner <a href="#villkor-text" style="text-decoration:underline">köpvillkoren</a> och har läst hur Ekbacka hem hanterar personuppgifter.</span></label>
+          </div>
+          <div class="ev-flow__foot">
+            <button class="ev-btn ev-btn--block ev-btn--lg" type="submit"><span>Slutför köp</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+            <p class="ev-secure"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5M12 14.5v2"/></svg>Säker betalning. Kortuppgifterna krypteras och sparas inte hos oss.</p>
+            <div class="ev-steps"><p class="ev-steps__count">Steg 4 av 4</p><ol class="ev-steps__list" aria-label="Steg i kassan"><li>Konto</li><li>Uppgifter</li><li>Adress</li><li aria-current="step">Betala</li></ol><span class="ev-steps__dots" aria-hidden="true"><i></i><i></i><i></i><i class="is-on"></i></span></div>
+          </div>
+        </form>
+      </section>
+    </div>
+    <aside class="ev-summary" aria-labelledby="ks-rubrik">
+      <h2 id="ks-rubrik">Din order</h2>
+      <ul class="ek-sumlines" data-k-lines></ul>
+      <dl>
+        <div><dt>Leveransdag</dt><dd data-k-date>–</dd></div>
+        <div><dt>Leverans</dt><dd data-k-deliv>–</dd></div>
+        <div data-k-promo-row hidden><dt>Rabatt</dt><dd data-k-promo>–</dd></div>
+        <div><dt>Totalt</dt><dd data-k-total style="font-weight:600">–</dd></div>
+        <div><dt>Varav moms</dt><dd data-k-vat>–</dd></div>
+      </dl>
+    </aside>
+  </div>
+</div>
+</main>
+<footer class="ev-footer ek-footer">
+  <div class="ev-wrap">
+    <div class="ev-footer__grid">
+      <div>
+        <a class="ev-logo" href="index.html">Ekbacka hem<b>.</b></a>
+        <p style="margin-top:12px;max-width:34ch">Möbler och inredning från vår verkstad och showroom i Tranås. Vi levererar i hela Sverige och bär in och monterar om du vill.</p>
+      </div>
+      <div>
+        <h2>Kundservice</h2>
+        <p class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 3.6 6.3 4.2A2.3 2.3 0 0 0 4.6 6.6c.5 7 5.8 12.3 12.8 12.8a2.3 2.3 0 0 0 2.4-1.7l.6-2.3a1.5 1.5 0 0 0-.8-1.7l-2.8-1.3a1.5 1.5 0 0 0-1.8.4l-1 1.3a11 11 0 0 1-4.3-4.3l1.3-1a1.5 1.5 0 0 0 .4-1.8L10.3 4.4a1.5 1.5 0 0 0-1.7-.8z"/></svg><span>Telefon <a href="tel:+46100000000">010-000 00 00</a><br><span class="ev-hint">Vardagar 9–17, svar direkt</span></span></p>
+        <p class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="3"/><path d="M3.8 7.5 12 13.2l8.2-5.7"/></svg><span>E-post <a href="mailto:hej@ekbacka.example">hej@ekbacka.example</a><br><span class="ev-hint">Svar inom en arbetsdag</span></span></p>
+      </div>
+      <div>
+        <h2>Showroom</h2>
+        <p class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>Storgatan 41<br>573 32 Tranås</span></p>
+        <p class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Tis–fre 11–18<br>Lör 10–15</span></p>
+      </div>
+      <div>
+        <h2>Handla</h2>
+        <ul>
+          <li><a href="kategori.html">Vardagsrum</a></li>
+          <li><a href="produkt.html">Fåtölj Ask</a></li>
+          <li><a href="varukorg.html">Varukorg</a></li>
+          <li><a href="index.html#fragor">Leverans, retur och frågor</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ev-footer__bottom">
+      <p class="ev-concept">Designkoncept av Elevate Studio. Påhittat företag med exempelinnehåll.</p>
+      <ul class="ev-footer__links">
+        <li><a href="img/KALLOR.md">Bildkällor</a></li>
+        <li><a href="#top">Till toppen<svg class="ev-icon ev-icon--16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4M6 10l6-6 6 6"/></svg></a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

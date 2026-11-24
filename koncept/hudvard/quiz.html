@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hudtestet – Ljungdal hudvård</title>
+<meta name="description" content="Fyra frågor om din hud, så får du din hudtyp och en rutin. Tar två minuter.">
+<meta name="theme-color" content="#74405F">
+<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%2374405F'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='17' font-weight='700' fill='white' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+<script src="main.js" defer></script>
+</head>
+<body id="top">
+<a class="ev-skip" href="#innehall">Hoppa till innehållet</a>
+<header class="ev-header">
+  <div class="ev-wrap ev-header__in" style="position:relative">
+    <a class="ev-logo" href="index.html">Ljungdal<b>.</b></a>
+    <nav class="ev-nav" aria-label="Huvudmeny"><ul><li><a href="produkter.html">Sortiment</a></li><li><a href="quiz.html" aria-current="page">Hudtestet</a></li><li><a href="index.html#ingredienser">Ingredienser</a></li><li><a href="index.html#salongen">Salongen</a></li><li><a href="index.html#fragor">Frågor</a></li></ul></nav>
+    <div class="ev-header__tools">
+      <button class="ev-iconbtn ev-cartbtn" type="button" aria-expanded="false" aria-controls="minivarukorg" data-cartlabel aria-label="Varukorg"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#cart"/></svg><span class="ev-cartcount is-zero" data-cartcount aria-hidden="true">0</span></button>
+      <button class="ev-iconbtn ev-menubtn" type="button" aria-label="Öppna menyn" aria-expanded="false" aria-haspopup="dialog"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#menu"/></svg></button>
+    </div>
+    <div class="ev-minicart" id="minivarukorg" data-minicart hidden>
+      <div class="ev-minicart__head"><h2>Varukorg</h2><button class="ev-closebtn" type="button" data-minicart-close aria-label="Stäng varukorgen"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#close"/></svg></button></div>
+      <div data-minicart-empty>
+        <p class="ev-minicart__empty">Varukorgen är tom. Gör hudtestet, så föreslår vi en rutin.</p>
+        <a class="ev-link" href="quiz.html">Gör hudtestet<svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></a>
+      </div>
+      <div data-minicart-full hidden>
+        <ul class="ev-minicart__list" data-minicart-list></ul>
+        <div class="ev-minicart__sum"><span>Totalt</span><span class="ev-price" data-minicart-sum>0&nbsp;kr</span></div>
+        <p class="ev-minicart__vat" data-minicart-vat></p>
+        <div class="ev-minicart__btns ev-on-white">
+          <button class="ev-btn" type="button" data-checkout><span>Till kassan</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></button>
+          <button class="ev-btn ev-btn--secondary" type="button" data-minicart-close>Fortsätt handla</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<dialog class="ev-menu" id="meny" aria-label="Meny">
+  <div class="ev-menu__top"><a class="ev-logo" href="index.html">Ljungdal<b>.</b></a><button class="ev-closebtn" type="button" data-close aria-label="Stäng menyn"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#close"/></svg></button></div>
+  <nav aria-label="Huvudmeny"><ul><li><a href="produkter.html">Sortiment<svg class="ev-icon " aria-hidden="true"><use href="icons.svg#chevron-right"/></svg></a></li><li><a href="quiz.html" aria-current="page">Hudtestet<svg class="ev-icon " aria-hidden="true"><use href="icons.svg#chevron-right"/></svg></a></li><li><a href="index.html#ingredienser">Ingredienser<svg class="ev-icon " aria-hidden="true"><use href="icons.svg#chevron-right"/></svg></a></li><li><a href="index.html#salongen">Salongen<svg class="ev-icon " aria-hidden="true"><use href="icons.svg#chevron-right"/></svg></a></li><li><a href="index.html#fragor">Frågor<svg class="ev-icon " aria-hidden="true"><use href="icons.svg#chevron-right"/></svg></a></li></ul></nav>
+  <div class="ev-menu__foot">
+    <p class="ev-iconline"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#phone"/></svg><a class="ev-inline-link" href="tel:+46100000000">010-000 00 00</a></p>
+    <p class="ev-iconline"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#mail"/></svg><a class="ev-inline-link" href="mailto:hej@ljungdal.example">hej@ljungdal.example</a></p>
+  </div>
+</dialog>
+<main id="innehall" tabindex="-1">
+
+<div class="ev-wrap ev-quiz">
+  <div class="ev-flow" data-quiz>
+    <a class="ev-closebtn ev-flow__close" href="index.html" aria-label="Avbryt hudtestet" data-close-quiz><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#close"/></svg></a>
+    <a class="ev-link ev-link--back ev-flow__back" href="#" data-back hidden><svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="icons.svg#arrow-left"/></svg>Tillbaka</a>
+
+    <section data-q aria-labelledby="q1">
+      <h1 id="q1">Hur känns huden mitt på dagen?</h1>
+      <p class="ev-lead">Fyra frågor, ungefär två minuter. Välj ett alternativ så går du vidare.</p>
+      <div class="ev-step__body ev-choices">
+        <button class="ev-choice ev-choice--big" type="button" data-pick="feel:torr" aria-pressed="false"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#snow"/></svg><span><b>Stram och torr</b><span>Kan flagna, särskilt när det är kallt</span></span></button>
+        <button class="ev-choice ev-choice--big" type="button" data-pick="feel:tzon" aria-pressed="false"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#drop"/></svg><span><b>Blank i pannan och på näsan</b><span>Kinderna känns normala eller torra</span></span></button>
+        <button class="ev-choice ev-choice--big" type="button" data-pick="feel:fet" aria-pressed="false"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#sun"/></svg><span><b>Blank överallt</b><span>Behöver ofta torka av eller pudra</span></span></button>
+        <button class="ev-choice ev-choice--big" type="button" data-pick="feel:normal" aria-pressed="false"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#leaf"/></svg><span><b>Varken eller</b><span>Huden känns mest bekväm</span></span></button>
+      </div>
+    </section>
+
+    <section data-q hidden aria-labelledby="q2">
+      <h1 id="q2">Reagerar huden lätt?</h1>
+      <p class="ev-lead">Till exempel rodnad, sveda eller klåda av nya produkter, vind eller kyla. Välj så går du vidare.</p>
+      <div class="ev-step__body ev-yesno">
+        <button class="ev-choice" type="button" data-pick="sens:ja" aria-pressed="false">Ja</button>
+        <button class="ev-choice" type="button" data-pick="sens:nej" aria-pressed="false">Nej</button>
+      </div>
+    </section>
+
+    <section data-q hidden aria-labelledby="q3">
+      <h1 id="q3">Vad vill du förbättra?</h1>
+      <p class="ev-lead">Välj ett eller flera. Det du väljer först väger tyngst.</p>
+      <fieldset class="ev-fieldset ev-step__body"><legend class="ev-sr">Mål med hudvården</legend><div class="ev-multi"><label><input type="checkbox" name="mal" value="torrhet"><span class="ev-box"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#check"/></svg></span><span><b>Torrhet</b><span>Stramar och flagnar</span></span></label><label><input type="checkbox" name="mal" value="finnar"><span class="ev-box"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#check"/></svg></span><span><b>Finnar och porer</b><span>Utbrott och synliga porer</span></span></label><label><input type="checkbox" name="mal" value="rodnad"><span class="ev-box"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#check"/></svg></span><span><b>Rodnad</b><span>Rodnar lätt, ofta runt näsan</span></span></label><label><input type="checkbox" name="mal" value="linjer"><span class="ev-box"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#check"/></svg></span><span><b>Fina linjer</b><span>Runt ögon och mun</span></span></label><label><input type="checkbox" name="mal" value="glans"><span class="ev-box"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#check"/></svg></span><span><b>Trött och glanslös</b><span>Saknar lyster på vintern</span></span></label></div></fieldset>
+      <div class="ev-flow__foot">
+        <button class="ev-btn ev-btn--block" type="button" data-goals-next aria-disabled="true" aria-describedby="goals-miss"><span>Fortsätt</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></button>
+        <p class="ev-buy__missing" id="goals-miss" data-goals-miss aria-live="polite">Välj minst ett mål för att gå vidare.</p>
+      </div>
+    </section>
+
+    <section data-q hidden aria-labelledby="q4">
+      <h1 id="q4">Hur lång rutin vill du ha?</h1>
+      <p class="ev-lead">Välj ett alternativ så visar vi ditt resultat.</p>
+      <div class="ev-step__body ev-choices">
+        <button class="ev-choice ev-choice--big" type="button" data-pick="length:enkel" aria-pressed="false"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#clock"/></svg><span><b>Enkel</b><span>Tre steg: rengör, behandla, återfukta. Fem minuter om dagen.</span></span></button>
+        <button class="ev-choice ev-choice--big" type="button" data-pick="length:komplett" aria-pressed="false"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#box"/></svg><span><b>Komplett</b><span>Fem steg, med olja eller mask för extra omsorg.</span></span></button>
+      </div>
+    </section>
+
+    <section data-q hidden aria-labelledby="q5">
+      <span class="ev-tag ev-result__type">Din hudtyp</span>
+      <h1 id="q5" data-r-type>Kombinerad och känslig</h1>
+      <p class="ev-lead" data-r-why></p>
+      <ol class="ev-routine" data-routine aria-label="Din rutin"></ol>
+      <div class="ev-routine__total"><span>Rutinen, <span data-r-count>3 produkter</span></span><span class="ev-price" data-r-total>0&nbsp;kr</span></div>
+      <div class="ev-flow__foot">
+        <button class="ev-btn ev-btn--block ev-btn--lg" type="button" data-r-add aria-describedby="r-miss"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#cart"/></svg><span>Lägg 3 i varukorgen</span></button>
+        <p class="ev-buy__missing" id="r-miss" data-r-miss aria-live="polite"></p>
+        <button class="ev-link" type="button" data-restart style="justify-self:center">Gör om testet<svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></button>
+      </div>
+    </section>
+
+    <section data-q hidden aria-labelledby="q6">
+      <div class="ev-done">
+        <svg class="ev-icon ev-icon--48 ev-draw" aria-hidden="true" viewBox="0 0 24 24"><circle vector-effect="non-scaling-stroke" cx="12" cy="12" r="9"/><path vector-effect="non-scaling-stroke" d="M7.8 12.4l2.9 2.9 5.5-5.6"/></svg>
+        <h1 id="q6">Rutinen ligger i varukorgen</h1>
+        <p><span data-done-sum></span>, utvalda för <span data-done-type></span> hud. Du ändrar antal eller tar bort produkter i varukorgen.</p>
+        <ul class="ev-mini-routine" data-done-list style="width:100%;margin-top:12px"></ul>
+        <div class="ev-actions"><button class="ev-btn" type="button" data-open-cart><span>Visa varukorgen</span><svg class="ev-icon ev-btn__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></button><a class="ev-link" href="produkter.html">Fortsätt handla<svg class="ev-icon ev-link__arrow" aria-hidden="true"><use href="icons.svg#arrow"/></svg></a></div>
+      </div>
+    </section>
+
+    <div data-q-foot style="margin-top:28px">
+      <div class="ev-steps">
+        <p class="ev-steps__count">Steg 1 av 4</p>
+        <ol class="ev-steps__list"><li aria-current="step">Känsla</li><li>Känslighet</li><li>Mål</li><li>Rutin</li></ol>
+        <span class="ev-steps__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="ev-answers" data-answers aria-labelledby="ans-rubrik">
+    <h2 id="ans-rubrik">Dina svar</h2>
+    <dl>
+      <div><dt>Mitt på dagen</dt><dd data-a="feel"></dd></div>
+      <div><dt>Reagerar lätt</dt><dd data-a="sens"></dd></div>
+      <div><dt>Vill förbättra</dt><dd data-a="goals"></dd></div>
+      <div><dt>Rutin</dt><dd data-a="length"></dd></div>
+    </dl>
+    <p class="ev-answers__note">Frågorna kommer från hudanalysen i salongen. Inget sparas eller skickas.</p>
+  </aside>
+</div>
+</main>
+<footer class="ev-footer ev-on-dark">
+  <div class="ev-wrap">
+    <div class="ev-footer__grid">
+      <div>
+        <a class="ev-logo" href="index.html">Ljungdal<b>.</b></a>
+        <p style="margin-top:12px;max-width:36ch">Hudvård från Östersund, gjord för kyla, vind och torr inomhusluft. Parfymfri och tillverkad i Jämtland.</p>
+        <p class="ev-iconline"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#phone"/></svg><a href="tel:+46100000000">010-000 00 00</a></p>
+        <p class="ev-iconline"><svg class="ev-icon " aria-hidden="true"><use href="icons.svg#mail"/></svg><a href="mailto:hej@ljungdal.example">hej@ljungdal.example</a></p>
+      </div>
+      <div><h2>Handla</h2><ul><li><a href="produkter.html">Hela sortimentet</a></li><li><a href="quiz.html">Hudtestet</a></li><li><a href="produkt.html">Havtornsserum</a></li></ul></div>
+      <div><h2>Om oss</h2><ul><li><a href="index.html#ingredienser">Ingredienser</a></li><li><a href="index.html#salongen">Salongen</a></li><li><a href="index.html#fragor">Vanliga frågor</a></li></ul></div>
+      <div><h2>Salongen</h2><ul><li><a href="index.html#salongen">Prästgatan 31, Östersund</a></li><li><a href="index.html#salongen">Tis–lör 10–18</a></li></ul></div>
+    </div>
+    <div class="ev-footer__bottom">
+      <p class="ev-concept">Designkoncept av Elevate Studio. Påhittat företag med exempelinnehåll.</p>
+      <ul class="ev-footer__links"><li><a href="img/KALLOR.md">Bildkällor</a></li><li><a href="#top">Till toppen<svg class="ev-icon ev-icon--16" aria-hidden="true"><use href="icons.svg#arrow-up"/></svg></a></li></ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

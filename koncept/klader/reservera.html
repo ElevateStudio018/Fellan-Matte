@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Reservera i butik | Gränd</title>
+<meta name="description" content="Reservera ett plagg i din storlek och prova i butiken. Det tar ungefär en minut.">
+<meta name="theme-color" content="#6B2D5C">
+<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%236B2D5C'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='17' font-weight='700' fill='white' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
+<script src="data.js" defer></script>
+<script src="core.js" defer></script>
+<script src="site.js" defer></script>
+</head>
+<body id="top">
+<a class="ev-skip" href="#innehall">Hoppa till innehållet</a>
+<header class="ev-header">
+  <div class="ev-wrap ev-header__in">
+    <a class="ev-logo" href="index.html">Gränd<b>.</b></a>
+    <nav class="ev-nav" aria-label="Huvudmeny"><ul><li><a href="index.html#nytt">Nytt</a></li><li><a href="produkt.html">Stickat</a></li><li><a href="butiker.html">Butiker</a></li><li><a href="reservera.html" aria-current="page">Reservera i butik</a></li></ul></nav>
+    <div class="ev-header__tools">
+      <button class="ev-iconbtn" type="button" data-search-open aria-label="Sök bland plaggen"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><span class="ev-iconbtn__label" aria-hidden="true">Sök</span></button>
+      <a class="ev-iconbtn" href="varukorg.html" data-cart-label aria-label="Varukorg"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2.2l2.1 10.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 1.9-1.5L20.5 8H6.1"/><circle cx="10" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/></svg><span class="ev-count" data-cart-count data-empty aria-hidden="true">0</span></a>
+      <button class="ev-iconbtn ev-menubtn" type="button" aria-label="Öppna menyn" aria-expanded="false" aria-haspopup="dialog"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <div class="ev-minicart" role="region" aria-label="Lagt i varukorgen" hidden>
+    <div class="ev-minicart__head"><p><svg class="ev-icon ev-icon--20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Lagd i varukorgen</p><button class="ev-dialog__close" type="button" data-mini-close aria-label="Stäng"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="ev-minicart__item" data-mini-item></div>
+    <a class="ev-btn " href="varukorg.html"><span>Till varukorgen</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+    <button class="ev-link" type="button" data-mini-close>Fortsätt handla</button>
+  </div>
+  <p class="ev-sr" aria-live="polite" data-live></p>
+</header>
+<dialog class="ev-menu" id="meny" aria-label="Meny">
+  <div class="ev-menu__top"><a class="ev-logo" href="index.html">Gränd<b>.</b></a><button class="ev-iconbtn" type="button" data-dialog-close aria-label="Stäng menyn"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <ul><li><a href="index.html#nytt">Nytt<svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></li><li><a href="produkt.html">Stickat<svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></li><li><a href="butiker.html">Butiker<svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></li><li><a href="reservera.html" aria-current="page">Reservera i butik<svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></li></ul>
+  <div class="ev-menu__foot"><p class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 3.6 6.3 4.2A2.3 2.3 0 0 0 4.6 6.6c.5 7 5.8 12.3 12.8 12.8a2.3 2.3 0 0 0 2.4-1.7l.6-2.3a1.5 1.5 0 0 0-.8-1.7l-2.8-1.3a1.5 1.5 0 0 0-1.8.4l-1 1.3a11 11 0 0 1-4.3-4.3l1.3-1a1.5 1.5 0 0 0 .4-1.8L10.3 4.4a1.5 1.5 0 0 0-1.7-.8z"/></svg><span>Kundservice <a href="tel:+46100000000">010-000 00 00</a>, vardagar 9–16</span></p></div>
+</dialog>
+<dialog class="ev-searchdlg" id="sok" aria-label="Sök">
+  <div class="ev-searchdlg__top">
+    <form class="ev-search" role="search"><label class="ev-sr" for="sok-falt">Sök bland plaggen</label><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><input id="sok-falt" type="search" placeholder="Kofta, byxor, mössa …" autocomplete="off"><button class="ev-btn" type="submit"><span>Sök</span></button></form>
+    <button class="ev-iconbtn" type="button" data-dialog-close aria-label="Stäng sökningen"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="ev-searchdlg__body" data-search-results aria-live="polite"></div>
+</dialog>
+<main id="innehall" tabindex="-1">
+
+<div class="ev-wrap ev-flowpage">
+  <div class="ev-flowgrid">
+    <div class="ev-flow">
+      <a class="ev-flow__close" href="index.html" data-close aria-label="Avbryt reservationen"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+
+      <section data-step="1" aria-labelledby="r1-rubrik">
+        <div class="ev-flow__backslot"></div>
+        <h1 id="r1-rubrik" tabindex="-1">Vilket plagg vill du prova?</h1>
+        <p class="ev-hint">Det tar ungefär en minut. Välj ett plagg så går du vidare direkt.</p>
+        <div class="ev-flow__body ev-choices" data-plagg-list></div>
+        <div class="ev-flow__foot"><div class="ev-steps"><p class="ev-steps__count">Steg 1 av 4</p><ol class="ev-steps__list" aria-label="Steg i reservationen"><li aria-current="step">Plagg</li><li>Storlek</li><li>Butik</li><li>Uppgifter</li></ol><span class="ev-steps__dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></span></div></div>
+      </section>
+
+      <section data-step="2" aria-labelledby="r2-rubrik" hidden>
+        <div class="ev-flow__backslot"><a class="ev-link ev-link--back" href="#" data-goto="1"><svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>Tillbaka</a></div>
+        <h1 id="r2-rubrik" tabindex="-1">Vilken storlek?</h1>
+        <p class="ev-hint">Välj en storlek så går du vidare. Överstrukna storlekar är slut i alla butiker.</p>
+        <div class="ev-flow__body gr-sizechoices" data-size-list></div>
+        <p style="margin-top:16px"><button class="ev-link" type="button" data-dialog-open="storleksguide">Osäker? Se storleksguiden</button></p>
+        <div class="ev-flow__foot"><div class="ev-steps"><p class="ev-steps__count">Steg 2 av 4</p><ol class="ev-steps__list" aria-label="Steg i reservationen"><li>Plagg</li><li aria-current="step">Storlek</li><li>Butik</li><li>Uppgifter</li></ol><span class="ev-steps__dots" aria-hidden="true"><i></i><i class="is-on"></i><i></i><i></i></span></div></div>
+      </section>
+
+      <section data-step="3" aria-labelledby="r3-rubrik" hidden>
+        <div class="ev-flow__backslot"><a class="ev-link ev-link--back" href="#" data-goto="2"><svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>Tillbaka</a></div>
+        <h1 id="r3-rubrik" tabindex="-1">Var vill du prova?</h1>
+        <p class="ev-hint">Antalet gäller din storlek just nu. Välj en butik så går du vidare.</p>
+        <div class="ev-flow__body ev-choices" data-store-list></div>
+        <div class="ev-flow__foot"><div class="ev-steps"><p class="ev-steps__count">Steg 3 av 4</p><ol class="ev-steps__list" aria-label="Steg i reservationen"><li>Plagg</li><li>Storlek</li><li aria-current="step">Butik</li><li>Uppgifter</li></ol><span class="ev-steps__dots" aria-hidden="true"><i></i><i></i><i class="is-on"></i><i></i></span></div></div>
+      </section>
+
+      <section data-step="4" aria-labelledby="r4-rubrik" hidden>
+        <form data-validate novalidate data-form>
+          <div class="ev-flow__backslot"><a class="ev-link ev-link--back" href="#" data-goto="3"><svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg>Tillbaka</a></div>
+          <h1 id="r4-rubrik" tabindex="-1">Vart skickar vi sms:et?</h1>
+          <p class="ev-hint">Vi skickar ett sms när plagget ligger undan, oftast inom en timme.</p>
+          <div class="ev-flow__body">
+            <dl class="ev-review">
+              <div><dt>Plagg</dt><dd data-r-plagg>–</dd><a class="ev-link" href="#" data-goto="1">Ändra<span class="ev-sr"> plagg</span></a></div>
+              <div><dt>Storlek</dt><dd data-r-size>–</dd><a class="ev-link" href="#" data-goto="2">Ändra<span class="ev-sr"> storlek</span></a></div>
+              <div><dt>Butik</dt><dd data-r-store>–</dd><a class="ev-link" href="#" data-goto="3">Ändra<span class="ev-sr"> butik</span></a></div>
+            </dl>
+            <div class="ev-field" style="margin-top:28px"><label class="ev-label" for="namn">Namn</label><input class="ev-input" id="namn" name="namn" autocomplete="name" placeholder="Förnamn Efternamn" required data-error="Fyll i ditt namn, så hittar personalen påsen."></div>
+            <div class="ev-field"><label class="ev-label" for="mobil">Mobilnummer</label><input class="ev-input" id="mobil" name="mobil" type="tel" autocomplete="tel" inputmode="tel" placeholder="070-123 45 67" required data-error="Fyll i ditt mobilnummer, så skickar vi sms när plagget ligger undan."></div>
+            <div class="ev-field"><label class="ev-label" for="epost">E-post <span class="ev-opt">(valfritt)</span></label><div class="ev-inputwrap"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="3"/><path d="M3.8 7.5 12 13.2l8.2-5.7"/></svg><input class="ev-input" id="epost" name="epost" type="email" autocomplete="email" placeholder="namn@exempel.se"></div></div>
+          </div>
+          <div class="ev-flow__foot">
+            <button class="ev-btn ev-btn--block" type="submit"><span>Reservera plagget</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+            <p class="ev-flow__missing">Gratis. Du betalar i butiken om du tar plagget.</p>
+            <div class="ev-steps"><p class="ev-steps__count">Steg 4 av 4</p><ol class="ev-steps__list" aria-label="Steg i reservationen"><li>Plagg</li><li>Storlek</li><li>Butik</li><li aria-current="step">Uppgifter</li></ol><span class="ev-steps__dots" aria-hidden="true"><i></i><i></i><i></i><i class="is-on"></i></span></div>
+          </div>
+        </form>
+      </section>
+
+      <section data-step="5" class="gr-done" aria-labelledby="r5-rubrik" hidden>
+        <svg class="ev-icon ev-done__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M7.8 12.4l2.9 2.9 5.6-5.8"/></svg>
+        <h1 id="r5-rubrik" tabindex="-1">Plagget är reserverat</h1>
+        <p class="ev-lead" style="margin-top:12px" data-d-lead>Vi skickar ett sms när det ligger undan.</p>
+        <div class="ev-summary">
+          <h2>Din reservation</h2>
+          <dl>
+            <div><dt>Nummer</dt><dd data-d-nr>R-2041</dd></div>
+            <div><dt>Plagg</dt><dd data-d-plagg>–</dd></div>
+            <div><dt>Butik</dt><dd data-d-store>–</dd></div>
+            <div><dt>Ligger undan till</dt><dd data-d-until>–</dd></div>
+          </dl>
+        </div>
+        <div class="ev-actions"><a class="ev-btn" href="butiker.html" data-d-link><span>Hitta till butiken</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+        <p class="ev-hint" style="margin-top:24px">Ångrar du dig? Avboka med länken i sms:et eller ring butiken på 010-000 00 00.</p>
+      </section>
+    </div>
+    <aside class="ev-summary" aria-labelledby="rs-rubrik" data-aside>
+      <h2 id="rs-rubrik">Din reservation</h2>
+      <div data-s-thumb style="margin-bottom:12px"></div>
+      <dl>
+        <div><dt>Plagg</dt><dd data-s-plagg>Inte valt</dd></div>
+        <div><dt>Storlek</dt><dd data-s-size>Inte vald</dd></div>
+        <div><dt>Butik</dt><dd data-s-store>Inte vald</dd></div>
+        <div><dt>Pris i butik</dt><dd data-s-price>–</dd></div>
+      </dl>
+    </aside>
+  </div>
+</div>
+<dialog class="ev-dialog ev-dialog--sheet" id="storleksguide" aria-labelledby="sg-rubrik">
+  <div class="ev-dialog__in">
+    <div class="ev-dialog__head"><h2 id="sg-rubrik">Storleksguide</h2><button class="ev-dialog__close" type="button" data-dialog-close aria-label="Stäng storleksguiden"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <p class="ev-hint" style="margin-bottom:12px">Plaggets mått i centimeter, mätt plant. Gäller koftor och tröjor.</p>
+    <table class="gr-sizetable"><thead><tr><th scope="col">Storlek</th><th scope="col">Bröstvidd</th><th scope="col">Längd</th><th scope="col">Ärm</th></tr></thead>
+    <tbody><tr><td>XS</td><td>100</td><td>62</td><td>58</td></tr><tr><td>S</td><td>106</td><td>64</td><td>59</td></tr><tr><td>M</td><td>112</td><td>66</td><td>60</td></tr><tr><td>L</td><td>118</td><td>68</td><td>61</td></tr><tr><td>XL</td><td>124</td><td>70</td><td>62</td></tr></tbody></table>
+  </div>
+</dialog>
+</main>
+<footer class="ev-footer gr-footer">
+  <div class="ev-wrap">
+    <div class="ev-footer__grid">
+      <div>
+        <a class="ev-logo" href="index.html">Gränd<b>.</b></a>
+        <p style="margin-top:12px;max-width:34ch">Stickat och basplagg i naturmaterial. Tre butiker i Mälardalen och en webbshop med fri retur i butik.</p>
+      </div>
+      <div>
+        <h2>Kundservice</h2>
+        <p class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 3.6 6.3 4.2A2.3 2.3 0 0 0 4.6 6.6c.5 7 5.8 12.3 12.8 12.8a2.3 2.3 0 0 0 2.4-1.7l.6-2.3a1.5 1.5 0 0 0-.8-1.7l-2.8-1.3a1.5 1.5 0 0 0-1.8.4l-1 1.3a11 11 0 0 1-4.3-4.3l1.3-1a1.5 1.5 0 0 0 .4-1.8L10.3 4.4a1.5 1.5 0 0 0-1.7-.8z"/></svg><span>Telefon <a href="tel:+46100000000">010-000 00 00</a><br><span class="ev-hint">Vardagar 9–16</span></span></p>
+        <p class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="3"/><path d="M3.8 7.5 12 13.2l8.2-5.7"/></svg><span>E-post <a href="mailto:hej@grand.example">hej@grand.example</a><br><span class="ev-hint">Svar inom en arbetsdag</span></span></p>
+      </div>
+      <div>
+        <h2>Butiker</h2>
+        <ul>
+          <li><a href="butiker.html#uppsala">Uppsala, Svartbäcksgatan</a></li>
+          <li><a href="butiker.html#vasteras">Västerås, Stora Gatan</a></li>
+          <li><a href="butiker.html#orebro">Örebro, Drottninggatan</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Handla</h2>
+        <ul>
+          <li><a href="reservera.html">Reservera i butik</a></li>
+          <li><a href="produkt.html">Flätstickad kofta Ida</a></li>
+          <li><a href="varukorg.html">Varukorg</a></li>
+          <li><a href="butiker.html#fragor">Byten och retur</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ev-footer__bottom">
+      <p class="ev-concept">Designkoncept av Elevate Studio. Påhittat företag med exempelinnehåll.</p>
+      <ul class="ev-footer__links">
+        <li><a href="img/KALLOR.md">Bildkällor</a></li>
+        <li><a href="#top">Till toppen<svg class="ev-icon ev-icon--16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4M6 10l6-6 6 6"/></svg></a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

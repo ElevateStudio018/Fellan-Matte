@@ -1,0 +1,523 @@
+/* Elevate-grund: gemensamma komponenter för konceptsajten.
+   Regler: docs/elevate/designregler.md. Värden märkta "standard" gäller tills beställaren svarat.
+   Varumärkesfärgen och sajtens egen layout ligger i site.css. */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-latin-wght.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --ev-brand: #24405E; /* skrivs över i site.css */
+  --ev-brand-hover: color-mix(in srgb, var(--ev-brand) 50%, #000);  /* kn-hover-styrka */
+  --ev-brand-active: color-mix(in srgb, var(--ev-brand) 38%, #000); /* kn-tryck-typ */
+  --ev-tint: color-mix(in srgb, var(--ev-brand) 12%, #fff);         /* sy-platta-ton */
+  --ev-tint-btn: color-mix(in srgb, var(--ev-brand) 16%, #fff);     /* kn-sek-tonad-styrka */
+  --ev-ink: #1A1C1E;
+  --ev-ink-2: #4A4E53;
+  --ev-line: rgba(26, 28, 30, .16);
+  --ev-field-line: #858A90;   /* standard: fältkant 3,5:1 */
+  --ev-surface: #FFFFFF;
+  --ev-surface-2: #F6F6F4;    /* standard */
+  --ev-skeleton: #E6E7E9;
+  --ev-ok: #1E7A45;   --ev-ok-tint: #E3F1E8;
+  --ev-warn: #9A5B00; --ev-warn-tint: #F8EEDC;
+  --ev-bad: #B3261E;  --ev-bad-tint: #FBE9E7;
+  --ev-star: #F2B600;
+
+  --ev-font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ev-fs-body: 16px; --ev-lh-body: 1.5;
+  --ev-h-weight: 600;
+  --ev-h1: clamp(36px, 4.4vw + 12px, 56px);
+  --ev-h2: clamp(28px, 2.2vw + 18px, 36px);
+  --ev-h3: clamp(19px, .6vw + 16px, 22px);
+
+  --ev-btn-h: 52px; --ev-btn-h-sm: 40px; --ev-btn-h-lg: 56px;
+  --ev-btn-px: 20px; --ev-btn-px-icon: 16px; --ev-btn-min-w: 96px;
+  --ev-btn-fs: 16px; --ev-btn-fw: 500; --ev-btn-gap: 6px;
+  --ev-btn-border-2: 1.5px;
+  --ev-btn-card-w: 180px;
+
+  --ev-r-pill: 999px;
+  --ev-r-card: 16px;
+  --ev-r-tooltip: 12px;
+  --ev-r-icon: 3px;
+  --ev-field-h: 52px;
+
+  --ev-gap-btns: 8px; --ev-gap-text-btns: 16px; --ev-gap-stack: 12px;
+  --ev-gap-icon-text: 8px; --ev-gap-icon-heading: 12px; --ev-gap-chips: 8px;
+  --ev-max-w: 1200px;
+  --ev-pad: 16px;
+  --ev-section: 64px;
+  --ev-header-h: 60px;
+
+  --ev-dur-btn: 100ms; --ev-dur-arrow: 200ms; --ev-dur-icon: 600ms;
+  --ev-ease: cubic-bezier(.2, .7, .2, 1);
+}
+@media (min-width: 900px) {
+  :root { --ev-pad: 32px; --ev-section: 96px; --ev-header-h: 72px; }
+}
+
+/* ---------- Grund ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 24px; scroll-padding-bottom: 104px; }
+body { margin: 0; background: var(--ev-surface); color: var(--ev-ink);
+  font: 400 var(--ev-fs-body)/var(--ev-lh-body) var(--ev-font); overflow-x: clip; }
+img { max-width: 100%; height: auto; display: block; }
+h1, h2, h3 { font-weight: var(--ev-h-weight); margin: 0; text-wrap: balance; }
+h1 { font-size: var(--ev-h1); line-height: 1.1; letter-spacing: -.01em; }
+h2 { font-size: var(--ev-h2); line-height: 1.2; letter-spacing: -.01em; }
+h3 { font-size: var(--ev-h3); line-height: 1.25; }
+p { margin: 0; }
+p + p { margin-top: 12px; }
+a { color: var(--ev-brand); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ev-brand); outline-offset: 2px; }
+.ev-on-dark :focus-visible, .ev-on-photo :focus-visible { outline-color: #fff; }
+.ev-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.ev-wrap { width: 100%; max-width: calc(var(--ev-max-w) + 2 * var(--ev-pad)); margin: 0 auto; padding: 0 var(--ev-pad); }
+.ev-section { padding: var(--ev-section) 0; }
+.ev-section--grey { background: var(--ev-surface-2); }
+.ev-lead { font-size: 18px; line-height: 1.55; max-width: 58ch; }
+.ev-hint { color: var(--ev-ink-2); font-size: 14px; }
+.ev-prose { max-width: 66ch; }
+.ev-prose p + p { margin-top: 16px; }
+.ev-prose a { color: var(--ev-brand); text-decoration: underline; text-underline-offset: 3px; }
+.ev-price { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+.ev-price--sale { color: var(--ev-bad); }
+.ev-price s { color: var(--ev-ink-2); font-weight: 400; margin-left: 6px; }
+
+/* Rubrikaccent: prick i varumärkesfärg (pi-ac-rubrik) */
+.ev-dot::after { content: "."; color: var(--ev-brand); }
+.ev-section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 24px; margin-bottom: 32px; }
+.ev-section-head p { color: var(--ev-ink-2); max-width: 56ch; margin-top: 8px; }
+
+.ev-skip { position: absolute; left: 16px; top: -100px; z-index: 200; background: var(--ev-ink); color: #fff;
+  padding: 12px 16px; border-radius: var(--ev-r-pill); font-weight: 600; text-decoration: none; }
+.ev-skip:focus { top: 12px; }
+
+/* ---------- Ikoner (sy-*) ---------- */
+.ev-icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor; stroke-width: var(--ev-stroke, 2px);
+  stroke-linecap: round; stroke-linejoin: round; }
+.ev-icon * { vector-effect: non-scaling-stroke; }
+.ev-icon--16 { width: 16px; height: 16px; --ev-stroke: 1.5px; }
+.ev-icon--20 { width: 20px; height: 20px; --ev-stroke: 1.75px; }
+.ev-icon--32 { width: 32px; height: 32px; --ev-stroke: 2.25px; }
+.ev-icon--48 { width: 48px; height: 48px; --ev-stroke: 2.5px; }
+.ev-iconline { display: flex; align-items: flex-start; gap: var(--ev-gap-icon-text); }
+.ev-iconline .ev-icon { --ev-stroke: 2px; margin-top: 2px; width: 20px; height: 20px; }
+.ev-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 14px; color: var(--ev-ink); }
+.ev-meta > span { display: inline-flex; align-items: center; gap: 6px; }
+.ev-meta .ev-icon { color: var(--ev-ink-2); width: 16px; height: 16px; --ev-stroke: 1.5px; }
+.ev-star { width: 16px; height: 16px; fill: var(--ev-star); stroke: var(--ev-star); stroke-width: 1px; stroke-linejoin: round; flex: none; }
+@media (max-width: 640px) {
+  .ev-iconline .ev-icon { width: 24px; height: 24px; margin-top: 0; }
+}
+
+/* ---------- Knappar (kn-*) ---------- */
+.ev-btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--ev-btn-gap);
+  height: var(--ev-btn-h); min-width: var(--ev-btn-min-w); padding: 0 var(--ev-btn-px);
+  border: var(--ev-btn-border-2) solid transparent; border-radius: var(--ev-r-pill);
+  background: var(--ev-brand); color: #fff; font: var(--ev-btn-fw) var(--ev-btn-fs)/1 var(--ev-font);
+  white-space: nowrap; text-decoration: none; cursor: pointer;
+  transition: background-color var(--ev-dur-btn) ease, color var(--ev-dur-btn) ease, border-color var(--ev-dur-btn) ease; }
+.ev-btn:has(> span + .ev-icon) { padding-right: var(--ev-btn-px-icon); }
+.ev-btn:has(> .ev-icon + span) { padding-left: var(--ev-btn-px-icon); }
+.ev-btn .ev-icon { width: 20px; height: 20px; --ev-stroke: 2px; }
+.ev-btn__arrow { transition: transform var(--ev-dur-arrow) var(--ev-ease); }
+.ev-btn:hover { background: var(--ev-brand-hover); }
+.ev-btn:hover .ev-btn__arrow { transform: translateX(6px); }
+.ev-btn:active { background: var(--ev-brand-active); }
+.ev-btn--sm { height: var(--ev-btn-h-sm); }
+.ev-btn--lg { height: var(--ev-btn-h-lg); }
+.ev-btn--block { width: 100%; }
+.ev-btn--secondary { background: transparent; color: var(--ev-ink); border-color: var(--ev-ink); }
+.ev-btn--secondary:hover, .ev-btn--secondary:active { background: var(--ev-ink); color: #fff; }
+.ev-on-white .ev-btn--secondary { background: var(--ev-tint-btn); border-color: transparent; }
+.ev-on-grey .ev-btn--secondary { background: #fff; border-color: transparent; }
+.ev-on-white .ev-btn--secondary:hover, .ev-on-grey .ev-btn--secondary:hover { background: var(--ev-ink); color: #fff; }
+.ev-on-photo .ev-btn, .ev-on-dark .ev-btn { background: #fff; color: var(--ev-ink); }
+.ev-on-photo .ev-btn:not(.ev-btn--secondary):hover, .ev-on-dark .ev-btn:not(.ev-btn--secondary):hover { background: #E6E7E9; }
+.ev-on-photo .ev-btn:not(.ev-btn--secondary):active, .ev-on-dark .ev-btn:not(.ev-btn--secondary):active { background: #D3D5D8; }
+.ev-on-photo .ev-btn--secondary, .ev-on-dark .ev-btn--secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,.5); }
+.ev-on-photo .ev-btn--secondary:hover, .ev-on-dark .ev-btn--secondary:hover { border-color: #fff; background: transparent; }
+.ev-btn--danger { background: var(--ev-bad); }
+.ev-btn--danger:hover { background: color-mix(in srgb, var(--ev-bad) 50%, #000); }
+.ev-btn[aria-disabled="true"] { background: #E4E5E7; color: var(--ev-ink-2); border-color: transparent; cursor: not-allowed; }
+.ev-btn[aria-disabled="true"] .ev-btn__arrow { transform: none; }
+.ev-btn.is-saved, .ev-btn.is-saved:hover { background: var(--ev-ok); color: #fff; }
+.ev-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ev-gap-btns); margin-top: var(--ev-gap-text-btns); }
+.ev-actions .ev-link { margin-left: 12px; }
+@media (max-width: 640px) {
+  .ev-actions { flex-direction: column; align-items: stretch; gap: var(--ev-gap-stack); }
+  .ev-actions .ev-link { align-self: center; margin-left: 0; min-height: 24px; }
+  .ev-actions .ev-btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+}
+
+/* Textlänkknapp (kn-ter-*, pi-tj-lank, pi-hv-lank) */
+.ev-link { display: inline-flex; align-items: center; gap: 4px; color: var(--ev-brand); font: 600 15px/1.4 var(--ev-font);
+  text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; min-height: 24px; }
+.ev-link .ev-icon { width: 1em; height: 1em; --ev-stroke: 1.75px; }
+.ev-link__arrow { transition: transform var(--ev-dur-arrow) var(--ev-ease); }
+.ev-link:hover .ev-link__arrow { transform: translateX(4px); }
+.ev-link--back { color: var(--ev-ink); }
+.ev-link--back:hover .ev-link__arrow { transform: translateX(-4px); }
+.ev-link--more .ev-icon { transition: transform var(--ev-dur-arrow) var(--ev-ease); }
+.ev-link--more[aria-expanded="true"] .ev-icon { transform: rotate(180deg); }
+.ev-on-dark .ev-link, .ev-on-photo .ev-link { color: #fff; }
+
+/* ---------- Header (standard: 72/60 px, vit, 1 px linje) ---------- */
+.ev-header { background: #fff; border-bottom: 1px solid var(--ev-line); position: relative; z-index: 30; }
+.ev-header__in { display: flex; align-items: center; gap: 12px; height: var(--ev-header-h); }
+.ev-logo { display: inline-flex; align-items: baseline; color: var(--ev-ink); text-decoration: none;
+  font-weight: 650; font-size: 18px; letter-spacing: -.015em; margin-right: auto; min-height: 24px; white-space: nowrap; }
+.ev-logo b { font-weight: 650; color: var(--ev-brand); }
+.ev-nav { display: none; }
+.ev-nav ul { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+.ev-nav a { display: inline-flex; align-items: center; height: var(--ev-header-h); color: var(--ev-ink); text-decoration: none;
+  font-size: 15px; font-weight: 500; border-bottom: 2px solid transparent; padding-top: 2px; }
+.ev-nav a:hover { color: var(--ev-brand); }
+.ev-nav a[aria-current="page"] { font-weight: 600; border-bottom-color: var(--ev-ink); }
+.ev-header__tools { display: flex; align-items: center; gap: 0; margin-right: -6px; }
+.ev-iconbtn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 44px; height: 44px; padding: 0 6px;
+  border-radius: var(--ev-r-pill); border: 0; background: none; color: var(--ev-ink); cursor: pointer; text-decoration: none; font-size: 15px; font-weight: 500; }
+.ev-iconbtn:hover { color: #000; }
+.ev-iconbtn .ev-icon { width: 28px; height: 28px; }
+.ev-iconbtn__label { display: none; }
+.ev-count { font-size: 14px; font-weight: 600; color: var(--ev-ink); font-variant-numeric: tabular-nums; min-width: 1ch; }  /* sy-nav-markning, pi-bd-farg */
+.ev-count[data-empty] { color: var(--ev-ink-2); font-weight: 500; }  /* pi-bd-noll: grå nolla */
+@media (min-width: 900px) {
+  .ev-nav { display: block; }
+  .ev-menubtn { display: none; }
+  .ev-iconbtn { min-width: 40px; height: 40px; }
+  .ev-iconbtn .ev-icon { width: 24px; height: 24px; }
+  .ev-iconbtn__label { display: inline; }   /* sy-nav-sok: ikon och "Sök" */
+  .ev-header__in { gap: 24px; }
+  .ev-header__tools { gap: 4px; margin-right: -8px; }
+  .ev-iconbtn { padding: 0 8px; }
+  .ev-logo { font-size: 20px; }
+}
+
+/* Mobilmeny: panel i helskärm (standard) */
+.ev-menu { border: 0; padding: 0; margin: 0; width: 100%; max-width: 100%; height: 100%; max-height: 100%; background: #fff; color: var(--ev-ink); }
+.ev-menu::backdrop { background: rgba(0,0,0,.3); }
+.ev-menu__top { display: flex; align-items: center; justify-content: space-between; height: var(--ev-header-h); padding: 0 var(--ev-pad); border-bottom: 1px solid var(--ev-line); }
+.ev-menu ul { list-style: none; margin: 0; padding: 8px var(--ev-pad); }
+.ev-menu li a { display: flex; align-items: center; justify-content: space-between; min-height: 56px; border-bottom: 1px solid var(--ev-line);
+  color: var(--ev-ink); text-decoration: none; font-size: 20px; font-weight: 500; }
+.ev-menu li a[aria-current="page"] { font-weight: 600; }
+.ev-menu li a .ev-icon { width: 20px; height: 20px; color: var(--ev-ink-2); }
+.ev-menu__foot { padding: 24px var(--ev-pad); display: grid; gap: 12px; }
+
+/* ---------- Sökfält (konflikt 23: knapp "Sök" inne i fältet, lupp till vänster) ---------- */
+.ev-search { position: relative; display: flex; align-items: center; width: 100%; max-width: 560px; height: 60px;
+  background: #fff; border: 1px solid var(--ev-field-line); border-radius: var(--ev-r-pill); color: var(--ev-ink); }
+.ev-search > .ev-icon { position: absolute; left: 18px; color: var(--ev-ink-2); pointer-events: none; }
+.ev-search input { flex: 1; min-width: 0; height: 100%; border: 0; background: none; padding: 0 8px 0 52px; font: 400 16px var(--ev-font); color: var(--ev-ink); border-radius: var(--ev-r-pill); }
+.ev-search input::placeholder { color: var(--ev-ink-2); }
+.ev-search input:focus { outline: none; }
+.ev-search:focus-within { outline: 2px solid var(--ev-brand); outline-offset: 2px; }
+.ev-on-photo .ev-search:focus-within { outline-color: #fff; }
+.ev-search .ev-btn { height: 44px; margin-right: 7px; min-width: 0; }
+.ev-on-photo .ev-search .ev-btn { background: var(--ev-brand); color: #fff; }
+.ev-on-photo .ev-search .ev-btn:hover { background: var(--ev-brand-hover); }
+
+/* Sököverlägg (ux-sok-oppna) */
+.ev-searchdlg { border: 0; padding: 0; margin: 0; width: 100%; max-width: 100%; height: 100%; max-height: 100%; background: #fff; color: var(--ev-ink); }
+.ev-searchdlg::backdrop { background: rgba(0,0,0,.3); }
+.ev-searchdlg__top { display: flex; align-items: center; gap: 12px; padding: 16px var(--ev-pad); border-bottom: 1px solid var(--ev-line); }
+.ev-searchdlg__top .ev-search { max-width: none; height: 52px; }
+.ev-searchdlg__body { max-width: 760px; margin: 0 auto; padding: 24px var(--ev-pad) 48px; }
+.ev-searchdlg h2 { font-size: 14px; font-weight: 600; color: var(--ev-ink-2); letter-spacing: 0; margin: 24px 0 8px; padding-bottom: 8px; border-bottom: 1px solid var(--ev-line); }  /* pi-avd-rubriklinje */
+.ev-searchdlg h2:first-child { margin-top: 0; }
+.ev-sugg { list-style: none; margin: 0; padding: 0; }
+.ev-sugg a, .ev-sugg button { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 6px 0; background: none; border: 0;
+  border-bottom: 1px solid var(--ev-line); color: var(--ev-ink); text-decoration: none; text-align: left; cursor: pointer; font-size: 16px; }
+.ev-sugg .ev-icon { width: 20px; height: 20px; color: var(--ev-ink-2); }
+.ev-sugg img, .ev-sugg .ev-thumb { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; flex: none; }
+.ev-sugg mark { background: none; color: inherit; font-weight: 400; }
+.ev-sugg b { font-weight: 650; }
+.ev-sugg .ev-price { margin-left: auto; font-size: 15px; }
+
+/* ---------- Kort och rutnät (standard: 16 px radie, ingen skugga) ---------- */
+.ev-media { position: relative; overflow: hidden; border-radius: var(--ev-r-card); background: var(--ev-surface-2); }
+.ev-media img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; }
+.ev-ribbon { position: absolute; top: 14px; left: -34px; width: 120px; transform: rotate(-45deg); padding: 5px 9px; z-index: 2;
+  background: #fff; color: var(--ev-ink); font: 600 12px/1 var(--ev-font); text-align: center; }  /* pi-et-form */
+.ev-tag { display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: var(--ev-r-pill);
+  background: var(--ev-tint); color: var(--ev-brand); font: 600 12px/1 var(--ev-font); white-space: nowrap; }
+.ev-tag--ok { background: var(--ev-ok-tint); color: var(--ev-ok); }
+.ev-tag--warn { background: var(--ev-warn-tint); color: var(--ev-warn); }
+.ev-tag--bad { background: var(--ev-bad-tint); color: var(--ev-bad); }
+.ev-open { color: var(--ev-ok); font-weight: 600; }   /* pi-et-oppet: bara grön text */
+
+.ev-products { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; list-style: none; margin: 0; padding: 0; }
+@media (min-width: 900px) { .ev-products { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px 24px; } }  /* ux-lista-per-rad */
+.ev-pcard { position: relative; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ev-pcard .ev-media { margin-bottom: 8px; }
+.ev-pcard__name { font-size: 16px; font-weight: 600; line-height: 1.3; margin: 0; }
+.ev-pcard__name a { color: var(--ev-ink); text-decoration: none; }
+.ev-pcard__name a::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: var(--ev-r-card); }  /* ux-lista-klickyta */
+.ev-pcard__name a:focus-visible { outline: none; }
+.ev-pcard__name a:focus-visible::after { outline: 2px solid var(--ev-brand); outline-offset: 4px; }
+.ev-pcard:hover .ev-pcard__name a { text-decoration: underline; text-underline-offset: 3px; }
+.ev-pcard__sub { font-size: 14px; color: var(--ev-ink-2); }
+.ev-pcard__rating { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--ev-ink); }
+.ev-pcard__rating span { color: var(--ev-ink-2); }
+.ev-pcard__price { margin-top: 4px; font-size: 16px; }
+.ev-pcard .ev-btn { position: relative; z-index: 2; margin-top: 10px; align-self: flex-start; width: var(--ev-btn-card-w); max-width: 100%; }  /* kn-bredd, ux-lista-kop-pa-kort */
+.ev-products.is-list { grid-template-columns: 1fr; gap: 0; }
+.ev-products.is-list .ev-pcard { display: grid; grid-template-columns: 112px 1fr; column-gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--ev-line); align-items: start; }
+.ev-products.is-list .ev-pcard > :not(.ev-media) { grid-column: 2; }
+.ev-products.is-list .ev-media { grid-row: 1 / span 6; margin: 0; }
+.ev-products.is-list .ev-ribbon { display: none; }
+
+/* Platt illustration i stället för foto (linjeteckning på färgad yta) */
+.ev-art { display: grid; place-items: center; width: 100%; aspect-ratio: 4/5; background: var(--art, #EDE7DF); color: var(--art-ink, #1A1C1E); }
+.ev-art svg { width: 58%; height: auto; fill: none; stroke: currentColor; stroke-width: 2.5px; stroke-linecap: round; stroke-linejoin: round; }
+.ev-art svg * { vector-effect: non-scaling-stroke; }
+
+/* ---------- Chips (pi-chip-*) ---------- */
+.ev-chips { display: flex; gap: var(--ev-gap-chips); list-style: none; margin: 0; padding: 2px; overflow-x: auto; scrollbar-width: none; }
+.ev-chips::-webkit-scrollbar { display: none; }
+.ev-chip { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; border-radius: var(--ev-r-pill); white-space: nowrap; flex: none;
+  border: 1px solid var(--ev-field-line); background: #fff; color: var(--ev-ink); font: 500 14px/1 var(--ev-font); cursor: pointer; text-decoration: none; }
+.ev-chip:hover { border-color: var(--ev-ink); }
+.ev-chip[aria-pressed="true"], .ev-chip[aria-current="true"] { background: var(--ev-brand); border-color: var(--ev-brand); color: #fff; }
+.ev-chip .ev-icon { width: 16px; height: 16px; --ev-stroke: 1.5px; }
+@media (min-width: 900px) { .ev-chips { flex-wrap: wrap; overflow: visible; } }
+
+/* ---------- Fält (standard tills Fält och kontroller besvarats) ---------- */
+.ev-field { display: grid; gap: 6px; margin-top: 20px; align-content: start; }
+.ev-field:first-child { margin-top: 0; }
+.ev-label { font-size: 14px; font-weight: 600; color: var(--ev-ink); }
+.ev-label .ev-opt { font-weight: 400; color: var(--ev-ink-2); }
+.ev-input { width: 100%; height: var(--ev-field-h); padding: 0 20px; border: 1px solid var(--ev-field-line); border-radius: var(--ev-r-pill);
+  background: #fff; color: var(--ev-ink); font: 400 16px var(--ev-font); }
+textarea.ev-input { height: auto; min-height: 120px; padding: 14px 18px; border-radius: 16px; resize: vertical; line-height: 1.5; }
+.ev-input::placeholder { color: #6B7076; }
+.ev-input:hover { border-color: var(--ev-ink-2); }
+.ev-input:focus { outline: 2px solid var(--ev-brand); outline-offset: 2px; border-color: var(--ev-ink); }
+.ev-input[aria-invalid="true"] { border-color: var(--ev-bad); border-width: 2px; padding-left: 19px; }
+.ev-inputwrap { position: relative; }
+.ev-inputwrap > .ev-icon { position: absolute; left: 18px; top: 14px; color: var(--ev-ink); pointer-events: none; }  /* sy-sym-falt-ikon */
+.ev-inputwrap .ev-input { padding-left: 52px; }
+.ev-error { display: none; align-items: flex-start; gap: 6px; color: var(--ev-bad); font-size: 14px; font-weight: 500; }
+.ev-error .ev-icon { width: 20px; height: 20px; margin-top: 0; }
+.ev-error.is-on { display: flex; }
+.ev-check { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; cursor: pointer; }
+.ev-check input { appearance: none; width: 20px; height: 20px; margin: 1px 0 0; flex: none; border: 1px solid var(--ev-field-line); border-radius: 4px; background: #fff; display: grid; place-items: center; cursor: pointer; }
+.ev-check input:checked { background: var(--ev-brand); border-color: var(--ev-brand); }
+.ev-check input:checked::after { content: ""; width: 11px; height: 6px; border: solid #fff; border-width: 0 0 2px 2px; transform: translateY(-1px) rotate(-45deg); }
+.ev-check input:focus-visible { outline: 2px solid var(--ev-brand); outline-offset: 2px; }
+.ev-check input[aria-invalid="true"] { border: 2px solid var(--ev-bad); }
+
+/* Radiokort för 2–4 alternativ (ux-val-fa-alternativ), inget förval (ux-val-forvalt) */
+.ev-radiocards { display: grid; gap: 8px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.ev-radiocards legend { font-size: 14px; font-weight: 600; margin-bottom: 8px; padding: 0; }
+.ev-rcard { display: grid; grid-template-columns: 20px 1fr auto; gap: 2px 12px; align-items: start; padding: 16px; border: 1px solid var(--ev-field-line);
+  border-radius: var(--ev-r-card); background: #fff; cursor: pointer; }
+.ev-rcard:hover { border-color: var(--ev-ink); }
+.ev-rcard input { appearance: none; width: 20px; height: 20px; margin: 1px 0 0; border: 1px solid var(--ev-field-line); border-radius: 50%; background: #fff; grid-row: 1 / span 2; cursor: pointer; }
+.ev-rcard input:checked { border: 6px solid var(--ev-brand); }
+.ev-rcard input:focus-visible { outline: 2px solid var(--ev-brand); outline-offset: 2px; }
+.ev-rcard:has(input:checked) { border-color: var(--ev-brand); box-shadow: inset 0 0 0 1px var(--ev-brand); }
+.ev-rcard__title { font-weight: 600; }
+.ev-rcard__desc { grid-column: 2; font-size: 14px; color: var(--ev-ink-2); }
+.ev-rcard .ev-price { grid-column: 3; grid-row: 1; }
+
+/* Rutor med alla storlekar (ux-val-variant), slutsålt överstruket (ux-val-slutsalt) */
+.ev-sizes { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.ev-size { position: relative; }
+.ev-size input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.ev-size span { display: grid; place-items: center; height: 48px; border: 1px solid var(--ev-field-line); border-radius: 12px; font-weight: 500; background: #fff; }
+.ev-size input:hover + span { border-color: var(--ev-ink); }
+.ev-size input:checked + span { background: var(--ev-brand); border-color: var(--ev-brand); color: #fff; }
+.ev-size input:focus-visible + span { outline: 2px solid var(--ev-brand); outline-offset: 2px; }
+.ev-size input:disabled { cursor: not-allowed; }
+.ev-size input:disabled + span { color: var(--ev-ink-2); text-decoration: line-through; background: var(--ev-surface-2); border-color: var(--ev-line); }
+
+/* Antalsväljare: bara − och + (pi-kv-*) */
+.ev-qty { display: inline-flex; align-items: center; height: 32px; gap: 2px; }
+.ev-qty button { display: grid; place-items: center; width: 32px; height: 32px; border: 0; background: none; border-radius: 50%; cursor: pointer; color: var(--ev-ink); }
+.ev-qty button .ev-icon { width: 20px; height: 20px; }
+.ev-qty button[aria-disabled="true"] { opacity: .4; cursor: not-allowed; }  /* pi-kv-minst */
+.ev-qty output { min-width: 24px; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* ---------- Dialog och bottenark (standard: 16 px radie, högst 480 px) ---------- */
+.ev-dialog { border: 0; padding: 0; width: calc(100% - 32px); max-width: 480px; border-radius: 16px; color: var(--ev-ink); background: #fff;
+  box-shadow: 0 24px 64px rgba(0,0,0,.24); }
+.ev-dialog::backdrop { background: rgba(20, 22, 24, .45); }
+.ev-dialog__in { padding: 24px; }
+.ev-dialog__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.ev-dialog__head h2 { font-size: 22px; }
+.ev-dialog__close { display: grid; place-items: center; width: 40px; height: 40px; margin: -8px -8px 0 0; border: 0; border-radius: 50%; background: none; color: var(--ev-ink-2); cursor: pointer; flex: none; }
+.ev-dialog__close:hover { color: var(--ev-ink); }
+.ev-dialog__btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 24px; }  /* kn-par-dialog: lika breda */
+.ev-dialog__btns .ev-btn { min-width: 0; padding: 0 12px; }
+@media (max-width: 640px) {
+  .ev-dialog--sheet { width: 100%; max-width: 100%; margin: auto 0 0; border-radius: 16px 16px 0 0; max-height: 88svh; }  /* ux-mobil-panel */
+  .ev-dialog__close { width: 44px; height: 44px; }
+}
+
+/* Minivarukorg: ruta under ikonen (ux-vagn-typ) */
+.ev-minicart { position: absolute; right: var(--ev-pad); top: calc(var(--ev-header-h) - 4px); width: min(360px, calc(100vw - 2 * var(--ev-pad)));
+  background: #fff; border-radius: 16px; box-shadow: 0 16px 48px rgba(0,0,0,.18); padding: 20px; z-index: 40; }
+.ev-minicart[hidden] { display: none; }
+.ev-minicart.is-fixed { position: fixed; top: 12px; }
+.ev-minicart__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.ev-minicart__head p { display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--ev-ok); }
+.ev-minicart__item { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: center; padding: 12px 0; border-top: 1px solid var(--ev-line); border-bottom: 1px solid var(--ev-line); }
+.ev-minicart__item .ev-thumb, .ev-minicart__item img { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; }
+.ev-minicart__item p { font-size: 14px; }
+.ev-minicart .ev-btn { width: 100%; margin-top: 16px; }
+.ev-minicart .ev-link { display: flex; justify-content: center; margin: 12px auto 0; }
+
+/* ---------- Dragspel (pi-drag-oppet: plus vrids till kryss) ---------- */
+.ev-faq { border-top: 1px solid var(--ev-line); max-width: 760px; }
+.ev-faq details { border-bottom: 1px solid var(--ev-line); }
+.ev-faq summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; padding: 12px 0; cursor: pointer;
+  font-size: 17px; font-weight: 600; list-style: none; }
+.ev-faq summary::-webkit-details-marker { display: none; }
+.ev-faq summary .ev-icon { transition: transform var(--ev-dur-arrow) var(--ev-ease); }
+.ev-faq details[open] summary .ev-icon { transform: rotate(45deg); }
+.ev-faq details > div { padding: 0 0 20px; max-width: 64ch; color: var(--ev-ink); }
+
+/* Lodrät steglista: 28 px fyllda cirklar med 2 px linje (pi-sg-lodrat) */
+.ev-vsteps { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+.ev-vsteps li { position: relative; padding: 0 0 28px 48px; counter-increment: s; }
+.ev-vsteps li::before { content: counter(s); position: absolute; left: 0; top: -2px; width: 28px; height: 28px; border-radius: 50%; background: var(--ev-brand);
+  color: #fff; font-size: 14px; font-weight: 600; display: grid; place-items: center; }
+.ev-vsteps li:not(:last-child)::after { content: ""; position: absolute; left: 13px; top: 30px; bottom: 2px; width: 2px; background: var(--ev-brand); }
+.ev-vsteps li:last-child { padding-bottom: 0; }
+.ev-vsteps h3 { font-size: 17px; margin-bottom: 4px; }
+.ev-vsteps p { color: var(--ev-ink-2); }
+.ev-on-dark .ev-vsteps li::before { background: #fff; color: var(--ev-ink); }
+.ev-on-dark .ev-vsteps li::after { background: rgba(255,255,255,.7); }
+.ev-on-dark .ev-vsteps p { color: rgba(255,255,255,.86); }
+
+/* Citat: lodrät linje till vänster, svenska citattecken (pi-ct-stil) */
+.ev-quote { margin: 0; padding-left: 20px; border-left: 2px solid var(--ev-brand); }
+.ev-quote p { font-size: 17px; line-height: 1.55; }
+.ev-quote footer { margin-top: 12px; font-size: 14px; color: var(--ev-ink-2); }
+.ev-stars { display: inline-flex; gap: 2px; margin-bottom: 10px; }   /* pi-sj-avstand */
+.ev-stars .is-empty { fill: #D9DADC; stroke: #D9DADC; }
+
+/* Progress: 8 px, runda ändar, procent ovanför till höger (pi-pb-*) */
+.ev-progress__top { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; margin-bottom: 8px; }
+.ev-progress__bar { height: 8px; border-radius: var(--ev-r-pill); background: var(--ev-skeleton); overflow: hidden; }
+.ev-progress__bar i { display: block; height: 100%; border-radius: var(--ev-r-pill); background: var(--ev-brand); transition: width .4s var(--ev-ease); }
+
+/* Avdelare 1 px heldragen (pi-avd-*) */
+.ev-hr { border: 0; border-top: 1px solid var(--ev-line); margin: 12px 0; }
+
+/* Brödsmulor: snedstreck lika mörkt som texten, hemikon först (pi-brod-*, sy-nav-brodsmula) */
+.ev-crumbs ol { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; list-style: none; margin: 0; padding: 0; font-size: 14px; }
+.ev-crumbs li { display: inline-flex; align-items: center; gap: 8px; }
+.ev-crumbs li + li::before { content: "/"; color: var(--ev-ink); }
+.ev-crumbs a { color: var(--ev-ink); display: inline-flex; align-items: center; min-height: 24px; }
+.ev-crumbs a .ev-icon { width: 20px; height: 20px; --ev-stroke: 1.75px; }
+.ev-crumbs [aria-current] { color: var(--ev-ink-2); }
+
+/* ---------- Stegflöde (ux-flode-*) ---------- */
+.ev-flowpage { padding-top: 24px; padding-bottom: 64px; }
+.ev-flowgrid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: start; }
+@media (min-width: 960px) { .ev-flowgrid { grid-template-columns: minmax(0, 560px) minmax(0, 380px); justify-content: space-between; gap: 64px; } }
+.ev-flow { position: relative; max-width: 560px; min-width: 0; }
+.ev-flow__close { position: absolute; top: -8px; right: -10px; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: none; color: var(--ev-ink-2); cursor: pointer; text-decoration: none; }
+.ev-flow__close:hover { color: var(--ev-ink); }
+.ev-flow .ev-link--back { margin-bottom: 16px; }
+.ev-flow__backslot { min-height: 40px; }
+.ev-flow h1 { font-size: clamp(28px, 2.4vw + 18px, 40px); padding-right: 48px; }
+.ev-flow h1 + .ev-hint, .ev-flow h1 + p { margin-top: 8px; }
+.ev-flow__body { margin-top: 28px; }
+.ev-flow__foot { display: grid; gap: 16px; margin-top: 28px; }
+.ev-flow__missing { font-size: 14px; color: var(--ev-ink-2); text-align: center; }
+.ev-choices { display: grid; gap: 8px; }
+.ev-choice { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; align-items: center; width: 100%; padding: 16px 18px; text-align: left; cursor: pointer;
+  border: 1px solid var(--ev-field-line); border-radius: var(--ev-r-card); background: #fff; color: var(--ev-ink); font: inherit; }
+.ev-choice:hover { border-color: var(--ev-ink); }
+.ev-choice:hover .ev-choice__arrow { transform: translateX(4px); }
+.ev-choice__title { font-weight: 600; font-size: 17px; }
+.ev-choice__desc { grid-column: 1; font-size: 14px; color: var(--ev-ink-2); }
+.ev-choice__arrow { grid-row: 1 / span 2; grid-column: 2; width: 20px; height: 20px; --ev-stroke: 1.75px; transition: transform var(--ev-dur-arrow) var(--ev-ease); }
+.ev-choice[aria-disabled="true"] { cursor: not-allowed; background: var(--ev-surface-2); border-color: var(--ev-line); }
+.ev-choice[aria-disabled="true"] .ev-choice__title { color: var(--ev-ink-2); }
+.ev-choice[aria-disabled="true"] .ev-choice__arrow { opacity: .4; transform: none; }
+.ev-choice--media { grid-template-columns: 72px 1fr auto; }
+.ev-choice--media .ev-thumb, .ev-choice--media img { grid-row: 1 / span 2; width: 72px; height: 72px; border-radius: 12px; object-fit: cover; }
+.ev-choice--media .ev-choice__desc { grid-column: 2; }
+.ev-choice--media .ev-choice__arrow { grid-column: 3; }
+.ev-steps { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 12px; font-size: 14px; color: var(--ev-ink-2); }
+.ev-steps__count { margin: 0; font-weight: 600; color: var(--ev-ink); }
+.ev-steps__list { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.ev-steps__list li { display: inline-flex; align-items: center; gap: 8px; }
+.ev-steps__list li+li::before { content: ""; width: 14px; height: 14px; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat; }
+.ev-steps__list [aria-current="step"] { color: var(--ev-ink); font-weight: 600; }
+.ev-steps__dots { display: none; gap: 6px; }
+.ev-steps__dots i { width: 8px; height: 8px; border-radius: var(--ev-r-pill); background: var(--ev-line); }
+.ev-steps__dots i.is-on { width: 20px; background: var(--ev-brand); }
+@media (max-width: 640px) {
+  .ev-steps__list { display: none; } .ev-steps__dots { display: inline-flex; }
+  .ev-steps__count { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+}
+.ev-summary { background: var(--ev-surface-2); border-radius: var(--ev-r-card); padding: 24px; }
+.ev-summary h2 { font-size: 19px; margin-bottom: 12px; }
+.ev-summary dl { margin: 0; }
+.ev-summary dl > div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-top: 1px solid var(--ev-line); font-size: 15px; }
+.ev-summary dt { color: var(--ev-ink-2); }
+.ev-summary dd { margin: 0; text-align: right; font-weight: 500; }
+.ev-review { margin: 0; border-top: 1px solid var(--ev-line); }
+.ev-review > div { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; padding: 14px 0; border-bottom: 1px solid var(--ev-line); }
+.ev-review dt { font-size: 14px; color: var(--ev-ink-2); }
+.ev-review dd { margin: 0; grid-column: 1; font-weight: 500; }
+.ev-review .ev-link { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+.ev-secure { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; color: var(--ev-ink-2); }
+.ev-secure .ev-icon { width: 16px; height: 16px; --ev-stroke: 1.5px; }
+
+/* Bekräftelse: bocken ritas fram (sy-anim-klar) */
+.ev-done__icon { width: 48px; height: 48px; color: var(--ev-ok); --ev-stroke: 2.5px; margin-bottom: 20px; }
+.ev-done__icon path { stroke-dasharray: 30; stroke-dashoffset: 30; animation: ev-draw var(--ev-dur-icon) var(--ev-ease) .15s forwards; }
+@keyframes ev-draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .ev-done__icon path { stroke-dashoffset: 0; animation: none; } }
+
+/* Fast list längst ner på desktop (ux-cta-folj-med). Inte på mobil (ux-mobil-fast-knapp). */
+.ev-stickybar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; background: #fff; border-top: 1px solid var(--ev-line);
+  box-shadow: 0 -8px 24px rgba(0,0,0,.06); transform: translateY(110%); visibility: hidden; transition: transform .25s var(--ev-ease), visibility 0s .25s; display: none; }
+.ev-stickybar.is-on { transform: none; visibility: visible; transition: transform .25s var(--ev-ease); }
+.ev-stickybar__in { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 80px; }
+.ev-stickybar p { font-weight: 600; }
+.ev-stickybar p span { font-weight: 400; color: var(--ev-ink-2); margin-left: 8px; }
+@media (min-width: 900px) { .ev-stickybar { display: block; } }
+
+/* Notis (standard: mörk, vit text, 12 px radie). Nere i mitten på desktop, överst på mobil (ux-notis-plats-*) */
+.ev-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60; max-width: calc(100% - 32px);
+  background: var(--ev-ink); color: #fff; border-radius: var(--ev-r-tooltip); padding: 12px 16px; font-size: 15px; display: flex; gap: 8px; align-items: center; }
+.ev-toast[hidden] { display: none; }
+.ev-toast .ev-icon { width: 20px; height: 20px; }
+@media (max-width: 640px) { .ev-toast { bottom: auto; top: 12px; } }
+
+/* ---------- Sidfot ---------- */
+.ev-footer { padding: 56px 0 32px; font-size: 15px; }
+.ev-footer h2 { font-size: 15px; font-weight: 600; margin-bottom: 12px; letter-spacing: 0; }
+.ev-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.ev-footer a { color: inherit; }
+.ev-footer .ev-iconline + .ev-iconline { margin-top: 10px; }
+.ev-footer__grid { display: grid; gap: 32px; }
+@media (min-width: 760px) { .ev-footer__grid { grid-template-columns: 1.3fr 1fr 1fr 1fr; } }
+.ev-footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--ev-line); font-size: 14px; }
+.ev-footer__links { display: flex !important; flex-wrap: wrap; gap: 0 !important; }
+.ev-footer__links li { display: inline-flex; align-items: center; }
+.ev-footer__links li + li::before { content: ""; width: 3px; height: 3px; border-radius: 50%; background: currentColor; margin: 0 8px; }  /* pi-avd-vertikal: prick */
+.ev-footer__links a { display: inline-flex; align-items: center; gap: 4px; min-height: 24px; }
+h1[tabindex="-1"]:focus, main:focus { outline: none; }
+.ev-search input::-webkit-search-cancel-button { appearance: none; }
