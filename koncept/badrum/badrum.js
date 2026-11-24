@@ -37,6 +37,57 @@
     });
   }
 
+  /* ---------- Hero (ny): före/efter-reglage ---------- */
+  const cmp = $('[data-compare]');
+  if (cmp) {
+    const range = $('.bd-compare__range', cmp);
+    let intro = 0;
+    const set = v => {
+      v = Math.max(0, Math.min(100, v));
+      cmp.style.setProperty('--pos', v + '%');
+      range.value = String(Math.round(v));
+      range.setAttribute('aria-valuetext', `Före syns på ${Math.round(v)} procent av bilden`);
+      cmp.classList.toggle('is-left', v < 14);
+      cmp.classList.toggle('is-right', v > 86);
+    };
+    const stopIntro = () => { if (intro) { cancelAnimationFrame(intro); intro = 0; } };
+    const fromX = x => { const r = cmp.getBoundingClientRect(); return (x - r.left) / r.width * 100; };
+    range.addEventListener('input', () => { stopIntro(); set(Number(range.value)); });
+    // Dra var som helst i bilden. Pekskärm: bara vågrät rörelse, så att sidan fortfarande går att skrolla.
+    let down = null, dragging = false;
+    cmp.addEventListener('pointerdown', e => {
+      if (e.target === range || (e.pointerType === 'mouse' && e.button !== 0)) return;
+      down = { x: e.clientX, y: e.clientY, id: e.pointerId }; dragging = false;
+    });
+    cmp.addEventListener('pointermove', e => {
+      if (!down || e.pointerId !== down.id) return;
+      if (!dragging && Math.abs(e.clientX - down.x) > 6 && Math.abs(e.clientX - down.x) > Math.abs(e.clientY - down.y)) {
+        dragging = true; stopIntro();
+        try { cmp.setPointerCapture(e.pointerId); } catch (err) { /* ingen capture */ }
+      }
+      if (dragging) { e.preventDefault(); set(fromX(e.clientX)); }
+    });
+    const end = e => {
+      if (down && !dragging && e.type === 'pointerup') { stopIntro(); set(fromX(e.clientX)); }
+      down = null; dragging = false;
+    };
+    cmp.addEventListener('pointerup', end);
+    cmp.addEventListener('pointercancel', end);
+    set(Number(range.value));
+    // En lugn svepning en gång som visar att bilden går att dra i (ingen vid reducerad rörelse)
+    if (!reduce) {
+      const start = Number(range.value), t0 = performance.now() + 700, dur = 1800;
+      const step = now => {
+        const t = (now - t0) / dur;
+        if (t < 0) { intro = requestAnimationFrame(step); return; }
+        if (t >= 1) { set(start); intro = 0; return; }
+        set(start - 16 * Math.sin(t * Math.PI * 2) * (1 - t * .4));
+        intro = requestAnimationFrame(step);
+      };
+      intro = requestAnimationFrame(step);
+    }
+  }
+
   /* ---------- Prisuppskattning ---------- */
   const flow = $('[data-flow]');
   if (!flow) return;

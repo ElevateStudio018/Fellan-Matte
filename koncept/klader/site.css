@@ -13,15 +13,51 @@
 .ev-on-dark .ev-dot::after, .ev-on-photo .ev-dot::after { color: var(--gr-on-dark-accent); }
 .ev-on-dark .ev-hint, .ev-on-dark .ev-section-head p { color: rgba(255,255,255,.82); }
 
-/* ---------- Hero: foto i hela höjden, text nere till vänster på bilden (ux-hero-*) ---------- */
-.gr-hero { position: relative; min-height: calc(100svh - var(--ev-header-h)); display: flex; align-items: flex-end; color: #fff; overflow: hidden; background: #3A2B22; }
-.gr-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 40%; }
-.gr-hero::after { content: ""; position: absolute; inset: 0; background: rgba(30, 16, 24, .5); }
-.gr-hero__in { position: relative; z-index: 1; padding-top: 48px; padding-bottom: 56px; }
-.gr-hero h1 { max-width: 13ch; font-size: clamp(40px, 5.2vw + 14px, 72px); line-height: 1.04; text-shadow: 0 1px 18px rgba(0,0,0,.3); }
-.gr-hero p { font-size: 19px; max-width: 36ch; margin-top: 16px; text-shadow: 0 1px 12px rgba(0,0,0,.35); }
-.gr-hero .ev-search { margin-top: 28px; border-color: #fff; }
-@media (min-width: 900px) { .gr-hero__in { padding-bottom: 88px; } .gr-hero p { font-size: 20px; } }
+/* Hero (ny): collage med tre bilder i olika storlek och en plommonruta med rubriken, i ett asymmetriskt rutnät.
+   Ingen hinna över fotona: texten står på den fyllda rutan, så bilderna får lysa. */
+.gr-hero { background: #F1E9EE; padding: 12px 0; }
+.gr-hero__grid { display: grid; gap: 8px; padding: 0 12px; max-width: 1600px; margin: 0 auto;
+  grid-template-columns: 1.35fr 1fr; grid-template-rows: auto 150px 150px;
+  grid-template-areas: "box box" "rack street" "rack snow"; }
+.gr-hero__box { grid-area: box; background: var(--ev-brand); color: #fff; border-radius: var(--ev-r-card); padding: 28px 20px 24px;
+  display: flex; flex-direction: column; justify-content: flex-end; }
+.gr-hero__box h1 { max-width: 12ch; font-size: clamp(36px, 3.6vw + 14px, 66px); line-height: 1.03; letter-spacing: -.02em; }
+.gr-hero__box p { font-size: 17px; max-width: 34ch; margin-top: 14px; color: #fff; }
+.gr-hero__box .ev-search { margin-top: 22px; border-color: #fff; }
+.gr-hero__tile { position: relative; margin: 0; border-radius: var(--ev-r-card); overflow: hidden; background: #D8C9BE; }
+.gr-hero__tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.gr-hero__tile--rack { grid-area: rack; } .gr-hero__tile--rack img { object-position: 62% 40%; }
+.gr-hero__tile--street { grid-area: street; } .gr-hero__tile--street img { object-position: 60% 50%; }
+.gr-hero__tile--snow { grid-area: snow; } .gr-hero__tile--snow img { object-position: 50% 62%; }
+/* Liten vit pill med textlänk på gatubilden */
+.gr-hero__stores { position: absolute; left: 8px; bottom: 8px; right: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+  min-height: 36px; padding: 0 12px; border-radius: var(--ev-r-pill); background: #fff; color: var(--ev-brand); font: 600 13px/1.2 var(--ev-font); text-decoration: none; white-space: nowrap; }
+@media (max-width: 380px) { .gr-hero__stores { left: 6px; right: 6px; padding: 0 6px; } }
+.gr-hero__stores .ev-icon { width: 1em; height: 1em; --ev-stroke: 1.75px; flex: none; transition: transform var(--ev-dur-arrow) var(--ev-ease); }
+.gr-hero__stores:hover .ev-icon { transform: translateX(4px); }
+.gr-hero__stores:focus-visible { outline: 2px solid #fff; outline-offset: 2px; box-shadow: 0 0 0 4px var(--ev-brand); }
+/* Rutorna glider in en gång, förskjutet */
+.gr-hero__box, .gr-hero__tile { animation: gr-in .7s var(--ev-ease) both; }
+.gr-hero__tile--rack { animation-delay: .08s; } .gr-hero__tile--street { animation-delay: .16s; } .gr-hero__tile--snow { animation-delay: .24s; }
+@keyframes gr-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .gr-hero__box, .gr-hero__tile { animation: none; } .gr-hero__stores .ev-icon { transition: none; } }
+@media (min-width: 560px) and (max-width: 899px) {
+  .gr-hero__grid { grid-template-rows: auto 210px 210px; }
+  .gr-hero__stores { right: auto; font-size: 14px; }
+}
+@media (min-width: 900px) {
+  .gr-hero { padding: 16px 0; }
+  .gr-hero__grid { height: calc(100svh - var(--ev-header-h) - 32px); min-height: 640px; gap: 12px; padding: 0 16px;
+    grid-template-columns: 1.15fr .62fr .9fr 1.25fr; grid-template-rows: auto minmax(200px, 1fr);
+    grid-template-areas: "box box box rack" "snow street street rack"; }
+  .gr-hero__box { padding: 48px 48px 44px; }
+  .gr-hero__box p { font-size: 20px; }
+  .gr-hero__stores { right: auto; left: 16px; bottom: 16px; font-size: 15px; min-height: 40px; padding: 0 16px; }
+}
+@media (min-width: 1200px) {
+  .gr-hero__grid { grid-template-areas: "box box street rack" "snow snow street rack"; grid-template-columns: 1fr .9fr .9fr 1.3fr; }
+  .gr-hero__tile--street img { object-position: 30% 50%; }
+}
 
 /* ---------- Reservera i butik: mörkt band ---------- */
 .gr-reserve { display: grid; gap: 40px; align-items: start; }

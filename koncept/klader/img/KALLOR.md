@@ -6,5 +6,6 @@ Bilderna kommer från Elevate Studios bildbank (`verktyg/elevate-quiz/img/`). Li
 |---|---|---|---|---|
 | `kladstall.jpg` | Klädställning med stickade plagg i naturtoner och pampasgräs | Alyssa Strohmann | https://images.unsplash.com/photo-1558769132-cb1aea458c5e | [Unsplash](https://unsplash.com/license) |
 | `stadsgata.jpg` | Kullerstensgränd med gula fasader i solsken, Gamla stan i Stockholm. Beskuren till 4:3 | Franziska Leimkühler | https://www.pexels.com/photo/a-street-in-a-city-13857032/ | [Pexels](https://www.pexels.com/license/) |
+| `fjallen-vandring.jpg` | Person i gul jacka på en snöig stig bland stugor. Används i heronas collage | Magnus Östberg | https://unsplash.com/photos/9SXVtuVTVLo | [Unsplash](https://unsplash.com/license) |
 
 Produktkorten visar utsnitt av `kladstall.jpg` eller linjeteckningar på färgad yta, ritade för konceptet. Gatan på bilden är inte någon av Gränds butiksadresser. Gränd är ett påhittat företag.

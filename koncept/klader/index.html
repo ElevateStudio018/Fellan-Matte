@@ -49,16 +49,23 @@
 </dialog>
 <main id="innehall" tabindex="-1">
 
-<section class="gr-hero ev-on-photo" aria-labelledby="hero-rubrik">
-  <img class="gr-hero__img" src="img/kladstall.jpg" alt="Klädställning med stickade koftor och tröjor i natur, havre och rost" fetchpriority="high" width="1400" height="1050">
-  <div class="ev-wrap gr-hero__in">
-    <h1 id="hero-rubrik" class="ev-dot">Stickat som håller i många vintrar</h1>
-    <p>Reservera på nätet och prova i någon av våra tre butiker samma dag.</p>
-    <form class="ev-search" role="search" data-search-form>
-      <label class="ev-sr" for="hero-sok">Sök bland plaggen</label><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>
-      <input id="hero-sok" type="search" placeholder="Kofta, byxor, mössa …" autocomplete="off">
-      <button class="ev-btn" type="submit"><span>Sök</span></button>
-    </form>
+<section class="gr-hero" aria-labelledby="hero-rubrik">
+  <div class="gr-hero__grid">
+    <div class="gr-hero__box ev-on-photo">
+      <h1 id="hero-rubrik" class="ev-dot">Stickat som håller i många vintrar</h1>
+      <p>Reservera på nätet och prova i någon av våra tre butiker samma dag.</p>
+      <form class="ev-search" role="search" data-search-form>
+        <label class="ev-sr" for="hero-sok">Sök bland plaggen</label><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg>
+        <input id="hero-sok" type="search" placeholder="Kofta, byxor, mössa …" autocomplete="off">
+        <button class="ev-btn" type="submit"><span>Sök</span></button>
+      </form>
+    </div>
+    <figure class="gr-hero__tile gr-hero__tile--rack"><img src="img/kladstall.jpg" alt="Klädställning med stickade koftor och tröjor i natur, havre och rost" fetchpriority="high" width="1400" height="1050"></figure>
+    <figure class="gr-hero__tile gr-hero__tile--street">
+      <img src="img/stadsgata.jpg" alt="" width="1400" height="1050">
+      <a class="gr-hero__stores" href="butiker.html">Se butikerna<svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+    </figure>
+    <figure class="gr-hero__tile gr-hero__tile--snow"><img src="img/fjallen-vandring.jpg" alt="" width="700" height="1050"></figure>
   </div>
 </section>
 

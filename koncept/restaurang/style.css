@@ -84,7 +84,7 @@ p { margin: 0; }
 p + p { margin-top: 12px; }
 a { color: var(--ev-brand); }
 :focus-visible { outline: 2px solid var(--ev-brand); outline-offset: 2px; }
-.ev-on-dark :focus-visible, .ev-hero :focus-visible { outline-color: #fff; }
+.ev-on-dark :focus-visible { outline-color: #fff; }
 .ev-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .ev-wrap { width: 100%; max-width: calc(var(--ev-max-w) + 2 * var(--ev-pad)); margin: 0 auto; padding: 0 var(--ev-pad); }
 .ev-section { padding: var(--ev-section) 0; }
@@ -99,7 +99,7 @@ a { color: var(--ev-brand); }
 
 /* Rubrikaccent: en prick i varumärkesfärg efter avsnittsrubriken (pi-ac-rubrik) */
 .ev-dot::after { content: "."; color: var(--ev-brand); }
-.ev-on-dark .ev-dot::after, .ev-hero .ev-dot::after { color: #9ED3E3; }
+.ev-on-dark .ev-dot::after { color: #9ED3E3; }
 .ev-section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 24px; margin-bottom: 32px; }
 .ev-section-head p { color: var(--ev-ink-2); max-width: 56ch; margin-top: 8px; }
 
@@ -211,19 +211,49 @@ a { color: var(--ev-brand); }
 .ev-menu li a .ev-icon { width: 20px; height: 20px; color: var(--ev-ink-2); }
 .ev-menu__foot { padding: 24px var(--ev-pad); display: grid; gap: 12px; }
 
-/* ---------- Hero (ux-hero-*) ---------- */
-.ev-hero { position: relative; min-height: calc(100svh - var(--ev-header-h)); display: flex; align-items: flex-end; color: #fff; overflow: hidden; background: #0B2F3B; }
-.ev-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
-.ev-hero::after { content: ""; position: absolute; inset: 0; background: rgba(8, 22, 28, .56); }
-.ev-hero h1, .ev-hero p { text-shadow: 0 1px 16px rgba(0, 0, 0, .3); }
-.ev-hero__in { position: relative; z-index: 1; padding-top: 48px; padding-bottom: 56px; }
-.ev-hero h1 { max-width: 15ch; }
-.ev-hero p { font-size: 19px; line-height: 1.5; max-width: 40ch; margin-top: 16px; }
-.ev-hero .ev-actions { margin-top: 24px; }
+/* Hero (ny): foto i full höjd, texten nere till vänster, gradient nerifrån och dagens lunch som flytande ruta.
+   Ingen jämn hinna: bara en gradient under texten, så att maten lyser (regel 19b, ux-hero-text-och-bild). */
+.ev-hero :focus-visible { outline-color: #fff; }
+.ev-hero .ev-dot::after { color: #9ED3E3; }
+.rb-hero { position: relative; isolation: isolate; display: flex; min-height: calc(100svh - var(--ev-header-h)); color: #fff; overflow: hidden; background: #0B2F3B; }
+.rb-hero__img { position: absolute; left: 0; bottom: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 80%; }
+/* Smal skärm: bilden är högre än heron och nederkanten ligger kvar, så att tallriken hamnar ovanför texten */
+@media (max-width: 899px) { .rb-hero__img { height: 125%; } }
+.rb-hero::before { content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, rgba(6, 26, 34, .9) 0%, rgba(6, 26, 34, .78) 30%, rgba(6, 26, 34, .45) 46%, rgba(6, 26, 34, 0) 62%); }
+.rb-hero__in { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding-top: 20px; padding-bottom: 40px; }
+.rb-hero__text h1 { max-width: 16ch; }
+.rb-hero__text p { font-size: 18px; line-height: 1.5; max-width: 40ch; margin-top: 12px; }
+.rb-hero__text .ev-actions { margin-top: 24px; }
+
+/* Dagens lunch: liten vit ruta uppe till höger. Kommer in en gång, svävar inte. */
+.rb-lunchcard { align-self: flex-end; width: min(100%, 272px); padding: 14px 16px 12px; border-radius: var(--ev-r-card);
+  background: #fff; color: var(--ev-ink); box-shadow: 0 12px 32px rgba(6, 26, 34, .22);
+  animation: rb-in 520ms var(--ev-ease) 200ms both; }
+.rb-lunchcard p + p { margin-top: 4px; }
+.rb-lunchcard__head { display: flex; justify-content: space-between; gap: 12px; font: 600 12px/1.4 var(--ev-font); color: var(--ev-ink-2); }
+.rb-lunchcard__head > span:first-child { color: var(--ev-brand); }
+.rb-lunchcard__time { font-variant-numeric: tabular-nums; }
+.rb-lunchcard__dish { font-size: 16px; font-weight: 600; line-height: 1.3; text-wrap: balance; }
+.rb-lunchcard__meta { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--ev-ink-2); }
+.rb-lunchcard__meta .ev-price { color: var(--ev-ink); }
+.rb-lunchcard .ev-link { color: var(--ev-brand); margin-top: 6px; font-size: 14px; min-height: 24px; }
+.rb-lunchcard .ev-link:focus-visible { outline-color: var(--ev-brand); }
+@keyframes rb-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .rb-lunchcard { animation: none; } }
+
+@media (max-width: 640px) {
+  .rb-lunchcard { width: min(100%, 236px); padding: 12px 14px 10px; }
+  .rb-lunchcard__meta { display: none; }
+  .rb-lunchcard__dish { font-size: 15px; }
+}
 @media (min-width: 900px) {
-  .ev-hero { align-items: center; }
-  .ev-hero__in { padding-bottom: 48px; }
-  .ev-hero p { font-size: 20px; }
+  .rb-hero::before { background: linear-gradient(to top, rgba(6, 26, 34, .88) 0%, rgba(6, 26, 34, .7) 26%, rgba(6, 26, 34, .4) 42%, rgba(6, 26, 34, 0) 60%); }
+  .rb-hero__in { padding-top: 40px; padding-bottom: 64px; }
+  .rb-hero__text h1 { max-width: 25ch; }
+  .rb-hero__text p { font-size: 20px; }
+  .rb-lunchcard { width: 300px; padding: 18px 20px 14px; }
+  .rb-lunchcard__dish { font-size: 18px; }
 }
 
 /* Sidhuvud på undersidor */

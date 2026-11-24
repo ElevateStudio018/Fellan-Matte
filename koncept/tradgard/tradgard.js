@@ -15,6 +15,36 @@
   const monthly = (plan, size, addons = []) => Math.round(PLANS[plan][1] * SIZES[size][1] / 10) * 10 + addons.reduce((s, k) => s + ADDONS[k][1], 0);
 
   const dlg = $('#bestall');
+  /* ---------- Hero (ny): årstidsflikar. Rätt årstid är vald när sidan öppnas ---------- */
+  const seasonHero = $('.tg-hero[data-season]');
+  if (seasonHero) {
+    const tabs = $$('[data-season-tab]', seasonHero);
+    const pick = (tab, focus) => {
+      tabs.forEach(t => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      });
+      seasonHero.dataset.season = tab.dataset.seasonTab;
+      if (focus) tab.focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => pick(t));
+      t.addEventListener('keydown', e => {
+        const k = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+        if (k === undefined) return;
+        e.preventDefault();
+        pick(tabs[(k + tabs.length) % tabs.length], true);
+      });
+    });
+    const m = new Date().getMonth();
+    const now = m >= 2 && m <= 4 ? 'var' : m >= 5 && m <= 7 ? 'sommar' : m >= 8 && m <= 10 ? 'host' : 'vinter';
+    seasonHero.classList.add('is-init');
+    pick(tabs.find(t => t.dataset.seasonTab === now) || tabs[1]);
+    requestAnimationFrame(() => requestAnimationFrame(() => seasonHero.classList.remove('is-init')));
+  }
+
   if (!dlg) return;
   const state = { size: null, plan: null, addons: [], post: '', contact: null };
   let opener = null;

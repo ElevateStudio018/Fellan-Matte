@@ -965,3 +965,50 @@ body { background: #fff; }
 .ev-routine li.is-removed b { text-decoration: line-through; }
 .ev-routine__total { display: flex; justify-content: space-between; padding: 16px 0 0; font-weight: 600; font-size: 17px; }
 @media (max-width: 640px) { .ev-routine li { grid-template-columns: 64px minmax(0, 1fr) auto; } .ev-routine .ev-swatch { width: 64px; } }
+
+/* Hero (ny): redaktionell, delad. Produktbild på ljungtonad yta, tunt citat och
+   "Gör hudtestet" med tre-stegsindikator. Ersätter .ev-hero--light på startsidan. */
+.lj-hero { --lj-heather: #E6C2D6; --lj-paper: #F5EBF0;
+  display: grid; background: var(--lj-paper); color: var(--ev-ink); overflow: hidden; }
+.lj-hero__media { position: relative; margin: 0; background: var(--lj-heather); isolation: isolate; overflow: hidden;
+  height: clamp(260px, 40svh, 420px); }
+/* multiply: fotots vita bakgrund och flaska tar ljungtonen, guldet behålls */
+.lj-hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 62%; display: block;
+  mix-blend-mode: multiply; transform-origin: 30% 60%; transform: scale(1.12); animation: lj-zoom 1.6s var(--ev-ease) both; }
+.lj-hero__cap { position: absolute; left: var(--ev-pad); bottom: 16px; display: grid; gap: 2px; font-size: 13px; line-height: 1.35; color: var(--ev-ink); }
+.lj-hero__cap b { font-weight: 600; font-size: 14px; }
+.lj-hero__copy { padding: 28px var(--ev-pad) 40px; animation: lj-rise .8s var(--ev-ease) .1s both; }
+.lj-hero__kicker { font-size: 13px; font-weight: 600; color: var(--ev-brand); margin: 0 0 12px; }
+.lj-hero h1 { max-width: 12ch; font-size: clamp(38px, 4.6vw + 14px, 72px); line-height: 1.04; letter-spacing: -.025em; }
+.lj-hero__lead { font-size: 18px; line-height: 1.5; max-width: 34ch; margin-top: 16px; }
+.lj-hero__cta { margin-top: 8px; }
+.lj-hero__cta .ev-actions { margin-top: var(--ev-gap-text-btns); }
+/* Liten stegvisare: siffran utan form i varumärkesfärg, heldragen linje emellan (pi-sg-form, pi-sg-linje) */
+.lj-hero__steps { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; list-style: none; margin: 16px 0 0; padding: 0; font-size: 13px; color: var(--ev-ink-2); }
+.lj-hero__steps li { display: inline-flex; align-items: center; gap: 6px; }
+.lj-hero__steps li + li::before { content: ""; width: 18px; height: 1px; background: currentColor; margin-right: 4px; }
+.lj-hero__steps b { color: var(--ev-brand); font-weight: 600; }
+/* Tunt citat: lodrät linje till vänster, svenska citattecken (pi-ct-stil, pi-ct-tecken) */
+.lj-hero__quote { margin: 32px 0 0; padding-left: 16px; border-left: 1px solid var(--ev-brand); max-width: 36ch; }
+.lj-hero__quote p { font-size: 18px; line-height: 1.45; font-weight: 300; letter-spacing: -.005em; }
+.lj-hero__quote footer { margin-top: 8px; font-size: 13px; color: var(--ev-ink-2); }
+@media (max-width: 640px) {
+  .lj-hero__steps { justify-content: center; }
+}
+@media (max-width: 400px) {
+  .lj-hero__steps { flex-wrap: nowrap; gap: 6px; font-size: 12px; white-space: nowrap; }
+  .lj-hero__steps li { gap: 4px; }
+  .lj-hero__steps li + li::before { width: 10px; margin-right: 2px; }
+}
+@media (min-width: 900px) {
+  .lj-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: calc(100svh - var(--ev-header-h)); }
+  .lj-hero__media { order: 2; height: auto; min-height: 100%; }
+  .lj-hero__media img { position: absolute; inset: 0; object-position: 26% 60%; }
+  .lj-hero__cap { left: 32px; bottom: 28px; }
+  .lj-hero__copy { order: 1; align-self: center; padding: 56px 56px 56px max(var(--ev-pad), calc((100vw - var(--ev-max-w)) / 2 + var(--ev-pad))); }
+  .lj-hero__lead { font-size: 20px; }
+  .lj-hero__quote { margin-top: 48px; }
+}
+@keyframes lj-zoom { from { transform: scale(1.2); } to { transform: scale(1.12); } }
+@keyframes lj-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .lj-hero__media img, .lj-hero__copy { animation: none; } }

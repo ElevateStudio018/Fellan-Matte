@@ -218,14 +218,6 @@ main:focus { outline: none; }
 .ev-menu__contact { display: grid; gap: 12px; padding-bottom: 32px; }
 .ev-menu__contact a { color: var(--ev-ink); }
 
-/* ---------- Hero: foto i full höjd med texten på bilden (ux-hero-*) ---------- */
-.ev-hero { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: calc(100svh - var(--ev-header-h)); color: #fff; overflow: hidden; }
-.ev-hero__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
-.ev-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(12, 16, 24, .52); }
-.ev-hero__in { padding-top: 64px; padding-bottom: 56px; }
-.ev-hero h1 { color: #fff; max-width: 15ch; }
-.ev-hero p { margin-top: 16px; font-size: 18px; line-height: 1.5; max-width: 44ch; color: #fff; }
-@media (min-width: 900px) { .ev-hero__in { padding-bottom: 96px; } .ev-hero p { font-size: 20px; } }
 
 /* ---------- Sidrubrik på undersidor ---------- */
 .ev-pagehead { padding: 48px 0 40px; border-bottom: 1px solid var(--ev-line); }
@@ -535,14 +527,40 @@ textarea.ev-input { height: auto; min-height: 132px; padding: 14px 18px; border-
   --el-deep: #0E1A3D;               /* mörk yta för förtroende och rekommenderat paket */
 }
 
-/* Hero: texten till höger på desktop, där väggen är lugn */
-.el-hero .ev-hero__img { object-position: 38% 50%; }
-.el-hero::before { background: rgba(10, 16, 32, .56); }
+/* Hero (ny): delad 50/50. Mättad blå varumärkesyta med stor text till vänster, foto till höger
+   och ett runt "Svar inom 24 h"-märke som korsar skarven (regel 19b). Mobil: fotot överst, skarven blir vågrät.
+   Reserv mot ux-hero-text-och-bild (text på bilden): beställarens hero-brief för sajten kräver delad layout. */
+.el-hero { position: relative; display: grid; grid-template-rows: minmax(200px, 1fr) auto; min-height: calc(100svh - var(--ev-header-h)); background: var(--ev-brand); color: #fff; }
+.el-hero__media { grid-row: 1; position: relative; min-height: 200px; overflow: hidden; }
+.el-hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
+.el-hero__panel { grid-row: 2; position: relative; display: flex; align-items: center; padding: 56px var(--ev-gutter) 40px; }
+.el-hero__text { max-width: 620px; }
+.el-hero h1 { color: #fff; font-size: clamp(38px, 5.2vw + 14px, 72px); line-height: 1.04; letter-spacing: -.02em; max-width: 13ch; }
+.el-hero .ev-dot::after { color: #B4C6FF; }   /* ljus ton av varumärket, prickaccent på blå yta (pi-ac-rubrik) */
+.el-hero__text p { margin-top: 16px; font-size: 18px; line-height: 1.5; max-width: 40ch; color: #fff; }
+.el-hero .ev-actions { margin-top: 28px; }
+
+/* Märket: vit cirkel med blå text, ligger på skarven */
+.el-hero__badge { position: absolute; z-index: 2; right: var(--ev-gutter); top: 0; transform: translateY(-50%) rotate(-8deg);
+  width: 112px; height: 112px; margin: 0; border-radius: 50%; background: #fff; color: var(--ev-brand);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  font: 600 12px/1.2 var(--ev-font); box-shadow: 0 0 0 6px var(--ev-brand); animation: el-badge 600ms var(--ev-ease) 250ms both; }
+.el-hero__badge .ev-icon { width: 20px; height: 20px; --ev-stroke: 2px; margin-bottom: 2px; }
+.el-hero__badge b { font-size: 30px; line-height: 1; font-weight: 700; letter-spacing: -.02em; color: var(--ev-ink); }
+.el-hero__badge span:last-child { color: var(--ev-ink-2); font-weight: 500; }
+@keyframes el-badge { from { opacity: 0; transform: translateY(-50%) rotate(-30deg) scale(.85); } to { opacity: 1; transform: translateY(-50%) rotate(-8deg); } }
+@media (prefers-reduced-motion: reduce) { .el-hero__badge { animation: none; } }
+
 @media (min-width: 900px) {
-  .el-hero { align-items: center; }
-  .el-hero::before { background: rgba(10, 16, 32, .5); }
-  .el-hero__text { margin-left: auto; max-width: 560px; }
-  .el-hero .ev-hero__in { padding-top: 96px; padding-bottom: 96px; }
+  .el-hero { grid-template-columns: 1fr 1fr; grid-template-rows: none; }
+  .el-hero__media { grid-row: 1; grid-column: 2; }
+  .el-hero__media img { object-position: 56% 50%; }
+  .el-hero__panel { grid-row: 1; grid-column: 1; padding: 72px 96px 72px max(var(--ev-gutter), calc(100% - var(--ev-max-w) / 2)); }
+  .el-hero__text p { font-size: 20px; }
+  .el-hero__badge { right: 0; top: auto; bottom: 14%; transform: translateX(50%) rotate(-8deg); width: 148px; height: 148px; font-size: 14px; box-shadow: none; }
+  .el-hero__badge .ev-icon { width: 24px; height: 24px; }
+  .el-hero__badge b { font-size: 40px; }
+  @keyframes el-badge { from { opacity: 0; transform: translateX(50%) rotate(-30deg) scale(.85); } to { opacity: 1; transform: translateX(50%) rotate(-8deg); } }
 }
 
 /* Tjänster: sex kort, tre per rad (reserv i ux-lista-per-rad: sex tjänster delas jämnt) */

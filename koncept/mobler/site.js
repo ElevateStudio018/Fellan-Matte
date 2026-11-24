@@ -562,3 +562,40 @@
     });
   })();
 })();
+
+/* Hero (ny): "shop the look"-punkter. Klick växlar kortet, Esc stänger, ett kort i taget. */
+(function () {
+  'use strict';
+  var spots = Array.prototype.slice.call(document.querySelectorAll('.ek-spot'));
+  if (!spots.length) return;
+  function setOpen(spot, on) {
+    spot.classList.toggle('is-open', on);
+    spot.querySelector('.ek-spot__btn').setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+  function closeAll(except) { spots.forEach(function (s) { if (s !== except) setOpen(s, false); }); }
+  spots.forEach(function (spot) {
+    var btn = spot.querySelector('.ek-spot__btn');
+    btn.addEventListener('click', function () {
+      var on = !spot.classList.contains('is-open');
+      closeAll(spot); setOpen(spot, on);
+      spot.classList.remove('is-dismissed');
+    });
+    spot.addEventListener('mouseenter', function () { closeAll(spot); });
+    spot.addEventListener('mouseleave', function () { spot.classList.remove('is-dismissed'); });
+  });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.ek-spot')) closeAll(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    var open = spots.filter(function (s) { return s.classList.contains('is-open') || s.matches(':hover'); });
+    open.forEach(function (s) {
+      var hadFocus = s.contains(document.activeElement);
+      setOpen(s, false); s.classList.add('is-dismissed');
+      if (hadFocus) s.querySelector('.ek-spot__btn').focus();
+    });
+  });
+  /* På dator visas ett kort från början, så att man ser att punkterna går att använda */
+  if (window.matchMedia('(min-width: 900px)').matches) {
+    var first = document.querySelector('.ek-spot[data-start]') || spots[spots.length - 1];
+    setOpen(first, true);
+  }
+})();

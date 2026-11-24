@@ -198,15 +198,48 @@ main:focus { outline: none; }
 .ev-menu li a .ev-icon { width: 20px; height: 20px; color: var(--ev-ink-2); }
 .ev-menu__foot { padding: 24px var(--ev-pad); display: grid; gap: 12px; }
 
-/* ---------- Hero (ux-hero-*) ---------- */
-.ev-hero { position: relative; min-height: calc(100svh - var(--ev-header-h)); display: flex; align-items: flex-end; color: #fff; overflow: hidden; background: var(--ev-brand-dark); }
-.ev-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.ev-hero::after { content: ""; position: absolute; inset: 0; background: var(--ev-scrim); }
-.ev-hero h1, .ev-hero p { text-shadow: 0 1px 16px rgba(0, 0, 0, .3); }
-.ev-hero__in { position: relative; z-index: 1; padding-top: 48px; padding-bottom: 56px; }
-.ev-hero p { font-size: 19px; line-height: 1.5; max-width: 42ch; margin-top: 16px; }
+/* Hero (ny) – tandläkare: ljus koboltyta (inte vit), foto i rundad vit ram och två flytande infokort.
+   Texten står på den ljusa ytan, inte på fotot (hero-brief 24 nov, regel 19b). */
+.ev-hero { --hero-bg: #D9E2FA; --hero-ink: #14244F; --hero-ink-2: #34405E;
+  position: relative; overflow: hidden; background: var(--hero-bg); color: var(--hero-ink);
+  min-height: calc(100svh - var(--ev-header-h)); display: flex; align-items: center; }
+.ev-hero__in { display: grid; gap: 40px; padding-top: 32px; padding-bottom: 48px; }
+.ev-hero h1 { max-width: 15ch; }
+.ev-hero__lead { font-size: 18px; line-height: 1.5; color: var(--hero-ink-2); max-width: 42ch; margin-top: 16px; }
 .ev-hero .ev-actions { margin-top: 24px; }
-@media (min-width: 900px) { .ev-hero__in { padding-bottom: 80px; } .ev-hero p { font-size: 20px; } }
+.ev-hero__visual { position: relative; padding: 0 0 28px; }
+.ev-hero__frame { margin: 0; padding: 8px; background: #fff; border-radius: 32px; }
+.ev-hero__img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 62% 35%; border-radius: 24px; }
+.ev-hero__cards { list-style: none; margin: 0; padding: 0; }
+.ev-hero__card { position: absolute; display: flex; align-items: center; gap: 12px; padding: 12px 18px 12px 14px;
+  background: #fff; color: var(--hero-ink); border-radius: 16px; box-shadow: 0 10px 30px -12px rgba(20, 36, 79, .35);
+  animation: ev-hero-card 700ms var(--ev-ease) both; }
+.ev-hero__card .ev-icon { width: 24px; height: 24px; --ev-stroke: 2px; }
+.ev-hero__card span { display: grid; line-height: 1.25; }
+.ev-hero__card small { font-size: 13px; color: var(--ev-ink-2); }
+.ev-hero__card b { font-size: 16px; font-weight: 600; }
+.ev-hero__card--time b { font-size: 20px; font-variant-numeric: tabular-nums; }
+.ev-hero__card--time { left: -4px; top: -20px; animation-delay: 300ms; }
+.ev-hero__card--new { right: -4px; bottom: 0; animation-delay: 550ms; }
+@keyframes ev-hero-card { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+@media (min-width: 641px) {
+  .ev-hero__lead { font-size: 19px; }
+  .ev-hero__visual { padding: 0 24px 28px; }
+  .ev-hero__img { max-height: 56svh; }
+  .ev-hero__card--time { left: 0; top: 24px; }
+  .ev-hero__card--new { right: 0; }
+}
+@media (min-width: 1000px) {
+  .ev-hero__in { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: 56px;
+    padding-top: 56px; padding-bottom: 56px; }
+  .ev-hero__lead { font-size: 20px; }
+  .ev-hero__visual { padding: 0 0 32px 48px; }
+  .ev-hero__img { aspect-ratio: 6 / 5; max-height: calc(100svh - var(--ev-header-h) - 150px); }
+  .ev-hero__card { padding: 16px 22px 16px 18px; }
+  .ev-hero__card--time { left: 0; top: 18%; }
+  .ev-hero__card--new { right: -16px; bottom: 0; }
+}
 
 /* Sidhuvud på undersidor */
 .ev-pagehead { padding-top: 40px; padding-bottom: 32px; }
@@ -549,9 +582,6 @@ select.ev-input { appearance: none; padding-right: 48px;
   --ev-scrim: rgba(10, 18, 44, .52);
 }
 
-.ev-hero__img { object-position: 64% 30%; }
-.ev-hero h1 { max-width: 16ch; }
-@media (min-width: 900px) { .ev-hero { align-items: center; } .ev-hero__in { padding-top: 64px; } }
 
 /* Behandlingar som klickbara rader med pil längst till höger (pi-lank-lista, pi-form-lista) */
 .ev-rows { list-style: none; margin: 0; padding: 0; display: grid; }

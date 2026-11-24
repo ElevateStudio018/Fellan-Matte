@@ -39,18 +39,26 @@
 
 <main id="innehall" tabindex="-1">
 
-<section class="ev-hero ev-on-photo" aria-labelledby="hero-rubrik">
-  <img class="ev-hero__img" src="img/bilverkstad.jpg" alt="Leende mekaniker i blå overall läser i en pärm bredvid en orange bil i verkstaden" fetchpriority="high" width="1400" height="933">
-  <div class="ev-wrap ev-hero__in">
+<section class="bv-hero ev-on-dark" aria-labelledby="hero-rubrik">
+  <div class="bv-hero__body">
     <h1 id="hero-rubrik" class="ev-dot">Bilverkstad för alla bilmärken i Borlänge</h1>
-    <p>Du får ett fast pris innan vi börjar, och vi ringer alltid innan vi gör något extra.</p>
-    <form class="ev-regform ev-field" action="boka.html" method="get" data-regform novalidate data-sticky-anchor>
+    <p class="bv-hero__lead">Du får ett fast pris innan vi börjar, och vi ringer alltid innan vi gör något extra.</p>
+    <form class="bv-regform ev-field" action="boka.html" method="get" data-regform novalidate data-sticky-anchor>
       <label for="hero-regnr">Registreringsnummer</label>
-      <div class="ev-regform__row">
-        <input class="ev-input" id="hero-regnr" name="regnr" placeholder="Till exempel ABC 123" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="7" data-validate="regnr" data-short="registreringsnummer" required>
-        <button class="ev-btn ev-btn--sm" type="submit"><span>Boka service</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+      <div class="bv-regform__row">
+        <div class="bv-plate">
+          <span class="bv-plate__eu" aria-hidden="true">
+            <svg viewBox="0 0 20 20"><g fill="#FFCC00"><circle cx="10" cy="3" r="1.1"/><circle cx="13.5" cy="3.94" r="1.1"/><circle cx="16.06" cy="6.5" r="1.1"/><circle cx="17" cy="10" r="1.1"/><circle cx="16.06" cy="13.5" r="1.1"/><circle cx="13.5" cy="16.06" r="1.1"/><circle cx="10" cy="17" r="1.1"/><circle cx="6.5" cy="16.06" r="1.1"/><circle cx="3.94" cy="13.5" r="1.1"/><circle cx="3" cy="10" r="1.1"/><circle cx="3.94" cy="6.5" r="1.1"/><circle cx="6.5" cy="3.94" r="1.1"/></g></svg>
+            <b>S</b>
+          </span>
+          <input class="bv-plate__input" id="hero-regnr" name="regnr" placeholder="ABC 123" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="7" data-validate="regnr" data-short="registreringsnummer" required>
+        </div>
+        <button class="ev-btn ev-btn--lg bv-hero__btn" type="submit"><span>Boka service</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
       </div>
     </form>
+  </div>
+  <div class="bv-hero__photo">
+    <img src="img/bilverkstad.jpg" alt="Leende mekaniker i blå overall läser i en pärm bredvid en orange bil i verkstaden" fetchpriority="high" width="1400" height="933">
   </div>
 </section>
 

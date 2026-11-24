@@ -26,11 +26,19 @@
 </header>
 <main id="innehall" tabindex="-1">
 
-<section class="ev-hero ev-on-photo" aria-labelledby="hero-rubrik">
-  <img class="ev-hero__img" src="img/stadsgata.jpg" alt="Solig kullerstensgränd med gula fasader i Gamla stan" fetchpriority="high" width="1400" height="1050">
-  <div class="ev-wrap ev-hero__in">
-    <h1 id="hero-rubrik" class="ev-dot">Ett litet hotell i en gränd i Gamla stan</h1>
-    <p class="ev-hero__lead">24 rum i ett hus från 1640, tre minuter från tunnelbanan. Välj datum så ser du vilka rum som är lediga.</p>
+<section class="ev-hero ev-hero--pano" aria-labelledby="hero-rubrik">
+  <div class="ev-hero__photo ev-on-photo">
+    <img class="ev-hero__img" src="img/stockholm.jpg" alt="Gamla stan och Riddarholmskyrkan i kvällsljus, sett över Riddarfjärden" fetchpriority="high" width="800" height="533">
+  </div>
+  <div class="ev-hero__shade" aria-hidden="true"></div>
+  <div class="ev-wrap ev-hero__text ev-on-photo">
+    <div>
+      <p class="ev-hero__place"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Tunnbindargränd 4, Gamla stan</p>
+      <h1 id="hero-rubrik" class="ev-dot">Ett litet hotell i en gränd i Gamla stan</h1>
+      <p class="ev-hero__lead">24 rum i ett hus från 1640, tre minuter från tunnelbanan. Välj datum så ser du vilka rum som är lediga.</p>
+    </div>
+  </div>
+  <div class="ev-wrap ev-hero__bar">
     <form class="ev-search" action="boka.html" method="get" data-search novalidate>
       <div class="ev-field">
         <label for="s-in">Incheckning</label>
@@ -52,6 +60,7 @@
       <div class="ev-search__go">
         <button class="ev-btn" type="submit" data-sticky-anchor><span>Visa lediga rum</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
       </div>
+      <p class="ev-search__note"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Bästa priset när du bokar här. Du betalar när du checkar in och kan avboka fritt till kl. 18 dagen före.</span></p>
     </form>
   </div>
 </section>
