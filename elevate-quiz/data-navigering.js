@@ -1080,7 +1080,7 @@
   q('so-typ', 'Hur ska sökningen fungera i headern?', S, [
     ['Ikon som öppnar ett fält i headern', H({ nav: `<span class="inp nvb-sf" style="height:40px;gap:8px;font-size:14px;flex:0 1 460px;min-width:0;border-radius:999px;border-color:var(--brand)">${ic('search', 16)}<span class="muted" style="flex:1">Sök</span>${ic('x', 16)}</span>` })],
     ['Fält som alltid syns', H({ extra: SFLD() })],
-    ['Ikon som öppnar helskärmssök', opt(`<div style="background:#fff;padding:28px var(--hp,32px) 40px;display:flex;flex-direction:column;gap:16px;min-height:200px"><div style="display:flex;align-items:center;gap:12px"><span class="nvb-logo">Företaget</span><span class="nvb-sp"></span>${XB()}</div><div style="display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--sink);padding:10px 0;font-size:24px;color:var(--smuted)">${ic('search', 26)}Vad letar du efter?</div></div>`)]
+    ['Ikon som öppnar helskärmssök', opt(`<div style="background:#fff;padding:28px var(--hp,32px) 40px;display:flex;flex-direction:column;gap:16px;min-height:200px"><div style="display:flex;align-items:center;gap:12px"><span class="nvb-logo">Företaget</span><span class="nvb-msp"></span>${XB()}</div><div style="display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--sink);padding:10px 0;font-size:24px;color:var(--smuted)">${ic('search', 26)}Vad letar du efter?</div></div>`)]
   ]);
   q('so-ikontext', 'Ska sökikonen i headern ha text?', S, [
     ['Bara ikon', H({ extra: SICON })],
@@ -1097,7 +1097,7 @@
     ['Fältet fälls ner under headern', H({ extra: `<span class="nvb-btn">${ic('x', 20)}</span>`, page: `<div style="background:#fff;border-bottom:1px solid var(--sline);padding:14px var(--hp,32px)"><span class="inp" style="height:46px;gap:10px;border-color:var(--brand)">${ic('search', 18)}<span class="muted">Sök</span></span></div>` + PAGE })]
   ]);
   q('so-helskarm', 'Hur ska helskärmssöket se ut?', S, [
-    ['Vit yta över hela sidan', opt(`<div style="background:#fff;padding:24px var(--hp,32px) 40px;display:flex;flex-direction:column;gap:16px;min-height:220px"><div style="display:flex;align-items:center"><span class="nvb-sp"></span>${XB()}</div><div style="display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--sink);padding:10px 0;font-size:24px;color:var(--smuted)">${ic('search', 26)}Vad letar du efter?</div></div>`)],
+    ['Vit yta över hela sidan', opt(`<div style="background:#fff;padding:24px var(--hp,32px) 40px;display:flex;flex-direction:column;gap:16px;min-height:220px"><div style="display:flex;align-items:center"><span class="nvb-msp"></span>${XB()}</div><div style="display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--sink);padding:10px 0;font-size:24px;color:var(--smuted)">${ic('search', 26)}Vad letar du efter?</div></div>`)],
     ['Mörkt tonad sida, fält överst', opt(`<div style="position:relative;min-height:260px">${head({})}${PAGE}<div style="position:absolute;inset:0;background:rgba(20,22,24,.5);z-index:4"></div><div style="position:absolute;left:0;right:0;top:0;z-index:5;background:#fff;padding:18px var(--hp,32px);display:flex;align-items:center;gap:12px;box-shadow:0 8px 24px rgba(20,22,24,.15)"><span class="inp" style="flex:1;height:48px;gap:10px;border-color:var(--brand)">${ic('search', 18)}<span class="muted">Vad letar du efter?</span></span>${XB()}</div></div>`)]
   ]);
   q('so-forslag', 'Vad ska visas under sökfältet innan man har skrivit något?', S, [
@@ -1109,6 +1109,134 @@
     ['Ikon i headern', M({ right: `<span class="nvb-btn" style="margin-right:6px">${ic('search', 22)}</span>` })],
     ['Fält under headern', M({ body: `<div style="padding:10px 12px;background:#fff;border-bottom:1px solid var(--sline)"><span class="inp ph" style="height:38px;gap:8px;font-size:13px;border-radius:999px">${ic('search', 15)}Sök</span></div>` + MBODY })],
     ['Bara inne i menyn', M({})]
+  ]);
+
+  /* ===== Sidfot ===== */
+  group('sidfot', 'Sidfot');
+  const FC = {
+    tj: ['Tjänster', ['Undersida ett', 'Undersida två', 'Undersida tre']],
+    fo: ['Företaget', ['Om oss', 'Jobb', 'Nyheter']],
+    hj: ['Hjälp', ['Vanliga frågor', 'Villkor', 'Kontakt']],
+    me: ['Mer', ['Priser', 'Boka tid', 'Hitta hit']]
+  };
+  const SOC = (k = 'free', c = '') => `<div class="nvb-fs">${['camera', 'play', 'bubble'].map(x => k === 'text' ? `<span class="nvb-fl">${{ camera: 'Bilder', play: 'Film', bubble: 'Forum' }[x]}</span>` : k === 'round' ? `<span class="nvb-btn" style="width:36px;height:36px;border-radius:999px;background:var(--fsoc,rgba(26,28,30,.07))">${ic(x, 18)}</span>` : ic(x, 20)).join('')}</div>`;
+  const CONTACTF = (icons = true) => [[ 'phone', TEL ], [ 'mail', 'info@foretaget.se' ], [ 'pin', 'Gatan 1, 123 45 Staden' ]].map(([k, t]) => `<span class="nvb-fl" style="display:inline-flex;align-items:flex-start;gap:8px">${icons ? ic(k, 16, 2, 'margin-top:2px') : ''}${t}</span>`).join('');
+  const NEWS = (st = 'join', inBand = false) => {
+    const f = st === 'line' ? `<span style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid currentColor;padding:8px 0;max-width:300px;font-size:14px"><span style="opacity:.7">Din e-post</span>${ic('arrowR', 18)}</span>`
+      : st === 'sep' ? `<span style="display:flex;gap:8px;flex-wrap:wrap;max-width:340px"><span class="inp ph" style="flex:1 1 150px;height:44px;font-size:14px">Din e-post</span><span class="sb" style="height:44px;font-size:14px;padding:0 18px">Prenumerera</span></span>`
+      : `<span style="display:flex;max-width:340px;border:1px solid var(--sline);border-radius:var(--rb);background:#fff;padding:4px"><span class="inp ph" style="flex:1;min-width:0;height:38px;border:0;font-size:14px">Din e-post</span><span class="sb" style="height:38px;font-size:14px;padding:0 16px;border-radius:calc(var(--rb) - 3px)">Prenumerera</span></span>`;
+    return inBand ? f : `<div class="nvb-fc"><p class="nvb-fh">Nyhetsbrev</p><span class="nvb-fl">Tips och nyheter en gång i månaden.</span>${f}</div>`;
+  };
+  const FOOT = (o = {}) => {
+    const cols = o.cols || ['brand', 'tj', 'fo', 'kontakt'];
+    const head = (t) => (o.heads === 'none' ? '' : `<p class="nvb-fh">${t}</p>`);
+    const col = (k) => {
+      if (k === 'brand') return `<div class="nvb-fc nvb-fbr">${o.logo === 'none' ? '' : '<span class="nvb-logo">Företaget</span>'}${o.btext === false ? '' : '<span class="nvb-fl" style="max-width:30ch">Kort text om vad företaget gör, på en eller två rader.</span>'}${o.contact === 'brand' ? CONTACTF(o.cicons !== false) : ''}${o.social === 'brand' || o.social === undefined ? SOC(o.soc) : ''}</div>`;
+      if (k === 'kontakt') return `<div class="nvb-fc">${head('Kontakt')}${CONTACTF(o.cicons !== false)}</div>`;
+      if (k === 'social') return `<div class="nvb-fc">${head('Följ oss')}${SOC(o.soc)}</div>`;
+      if (k === 'news') return NEWS(o.nst);
+      const [t, l] = FC[k];
+      return `<div class="nvb-fc">${head(t)}${l.map(x => `<span class="nvb-fl">${x}</span>`).join('')}</div>`;
+    };
+    const top = o.logo === 'center' ? '<div style="display:flex;justify-content:center;padding-bottom:32px"><span class="nvb-logo">Företaget</span></div>' : '';
+    const band = o.newsBand ? `<div class="nvb-fnb"><div><p class="nvb-fh" style="font-size:18px;margin:0">Få nyheter och tips</p><span class="nvb-fl">En gång i månaden, inget mer.</span></div>${NEWS(o.nst, true)}</div>` : '';
+    const legal = `<span>© 2026 Företaget</span><span class="nvb-fl">Integritetspolicy</span><span class="nvb-fl">Cookies</span>`;
+    const bottom = o.bottom === 'center' ? `<div class="nvb-fb" style="justify-content:center">${legal}</div>`
+      : `<div class="nvb-fb"${o.bottom === 'noline' ? ' style="border-top:0;padding-top:0"' : ''}>${legal}<span class="nvb-sp" style="display:block"></span>${o.social === 'bottom' ? SOC(o.soc) : ''}</div>`;
+    return `<footer class="nvb-f">${band}${top}<div class="nvb-fg">${cols.map(col).join('')}</div>${bottom}</footer>`;
+  };
+  const FCSS = '& .nvb-f{background:var(--fbg,var(--ground));color:var(--fc,var(--sink));padding:var(--fpad,56px) var(--hp,32px) 0;border-top:var(--fbt,1px solid var(--sline));position:relative}& .nvb-fg{display:grid;grid-template-columns:var(--fcols,1.4fr repeat(3,1fr));gap:28px 40px;padding-bottom:var(--fpad,56px)}& .nvb-fc{display:flex;flex-direction:column;gap:var(--fgap,10px);min-width:0;font-size:var(--fls,14px);align-items:flex-start}& .nvb-fh{font-size:14px;font-weight:600;margin:0 0 4px}& .nvb-fl{color:var(--fm,var(--smuted));line-height:1.4}& .nvb-fs{display:flex;gap:12px;align-items:center;flex-wrap:wrap;color:var(--fc,var(--sink))}& .nvb-fb{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;padding:18px 0 22px;border-top:1px solid var(--fline,var(--sline));font-size:var(--fjs,13px);color:var(--fm,var(--smuted))}& .nvb-fnb{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;padding-bottom:32px;margin-bottom:40px;border-bottom:1px solid var(--fline,var(--sline))}& .nvb-fbr{gap:14px}@container (max-width:680px){& .nvb-fg{grid-template-columns:1fr 1fr}& .nvb-fbr{grid-column:1/-1}& .nvb-f{--fpad:36px}}';
+  const LAST = '<div class="nvb-pg" style="background:#fff"><p class="h">Sidans sista avsnitt</p><p class="muted">Kort text innan sidfoten börjar.</p></div>';
+  const F = (o = {}, vars = '', css = '', above = LAST) => opt(above + FOOT(o), FCSS + css, vars);
+  const DARK = '--fbg:var(--sink);--fc:#fff;--fm:rgba(255,255,255,.68);--fline:rgba(255,255,255,.16);--fbt:0;--fsoc:rgba(255,255,255,.1);';
+  q('sf-ton', 'Vilken bakgrund ska sidfoten ha?', S, [
+    ['Ljusgrå', F()],
+    ['Vit med linje ovanför', F({}, '--fbg:#fff')],
+    ['Mörk', F({}, DARK)],
+    ['Huvudfärgen', F({}, DARK + '--fbg:var(--brand);--fm:rgba(255,255,255,.75)')]
+  ]);
+  q('sf-kolumner', 'Hur många kolumner ska sidfoten ha?', S, [
+    ['2 kolumner', F({ cols: ['brand', 'kontakt'] }, '--fcols:1.4fr 1fr')],
+    ['3 kolumner', F({ cols: ['brand', 'tj', 'kontakt'] }, '--fcols:1.4fr 1fr 1fr')],
+    ['4 kolumner', F({})],
+    ['5 kolumner', F({ cols: ['brand', 'tj', 'fo', 'hj', 'kontakt'] }, '--fcols:1.3fr repeat(4,1fr)')]
+  ]);
+  q('sf-lankstorlek', 'Hur stora ska länkarna i sidfoten vara?', S, [13, 14, 15, 16].map(s => [`${s} px`, F({}, `--fls:${s}px`)]));
+  q('sf-lankavstand', 'Hur tätt ska länkarna i sidfoten stå?', S, [[6, 'Tätt (6 px)'], [10, 'Mellan (10 px)'], [16, 'Luftigt (16 px)']].map(([g, l]) => [l, F({}, `--fgap:${g}px`)]));
+  q('sf-rubriker', 'Hur ska kolumnrubrikerna i sidfoten se ut?', S, [
+    ['Halvfeta, samma färg som texten', F()],
+    ['Små versaler i grått', F({}, '', '& .nvb-fh{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--fm,var(--smuted))}')],
+    ['Inga rubriker', F({ heads: 'none' })]
+  ]);
+  q('sf-mork-lankar', 'Hur ska länkarna se ut i en mörk sidfot?', S, [
+    ['Dämpat vita', F({}, DARK)],
+    ['Helvita', F({}, DARK + '--fm:#fff')]
+  ]);
+  q('sf-logo', 'Var ska logon stå i sidfoten?', S, [
+    ['I första kolumnen', F()],
+    ['Centrerad ovanför kolumnerna', F({ logo: 'center', btext: false, cols: ['tj', 'fo', 'hj', 'kontakt'], social: 'bottom' }, '--fcols:repeat(4,1fr)')],
+    ['Ingen logo i sidfoten', F({ logo: 'none' })]
+  ]);
+  q('sf-logotext', 'Ska logon i sidfoten ha en kort text?', S, [
+    ['Bara logon', F({ btext: false })],
+    ['Logo och kort beskrivning', F()]
+  ]);
+  q('sf-kontakt', 'Var ska kontaktuppgifterna stå i sidfoten?', S, [
+    ['I en egen kolumn', F()],
+    ['Under logon', F({ contact: 'brand', btext: false, cols: ['brand', 'tj', 'fo', 'hj'] })],
+    ['Inga kontaktuppgifter', F({ cols: ['brand', 'tj', 'fo', 'hj'] })]
+  ]);
+  q('sf-kontaktikoner', 'Ska kontaktuppgifterna i sidfoten ha ikoner?', S, [
+    ['Bara text', F({ cicons: false })],
+    ['Med små ikoner', F()]
+  ]);
+  q('sf-sociala', 'Hur ska länkarna till sociala medier se ut?', S, [
+    ['Fria ikoner', F()],
+    ['Ikoner i runda plattor', F({ soc: 'round' })],
+    ['Textlänkar', F({ soc: 'text' })]
+  ]);
+  q('sf-socialplats', 'Var ska ikonerna för sociala medier stå?', S, [
+    ['Under logon', F()],
+    ['I bottenraden till höger', F({ social: 'bottom' })],
+    ['I en egen kolumn', F({ social: 'none', cols: ['brand', 'tj', 'fo', 'social'] })]
+  ]);
+  q('sf-bottenrad', 'Hur ska bottenraden med juridiska länkar se ut?', S, [
+    ['Linje ovanför, vänsterställd', F()],
+    ['Utan linje', F({ bottom: 'noline' })],
+    ['Centrerad med linje', F({ bottom: 'center' })]
+  ]);
+  q('sf-jurstorlek', 'Hur stor ska texten i bottenraden vara?', S, [12, 13, 14].map(s => [`${s} px`, F({}, `--fjs:${s}px`)]));
+  q('sf-nyhetsbrev', 'Ska sidfoten ha anmälan till nyhetsbrev?', S, [
+    ['Inget nyhetsbrev', F()],
+    ['Fält i en av kolumnerna', F({ cols: ['brand', 'tj', 'fo', 'news'] }, '--fcols:1.2fr 1fr 1fr 1.6fr')],
+    ['Eget band överst i sidfoten', F({ newsBand: true })]
+  ]);
+  q('sf-nyhetsbrev-stil', 'Hur ska fältet för nyhetsbrevet se ut?', S, [
+    ['Fält och knapp i samma ram', F({ newsBand: true })],
+    ['Fält och knapp bredvid varandra', F({ newsBand: true, nst: 'sep' })],
+    ['Linje med pil', F({ newsBand: true, nst: 'line' })]
+  ]);
+  const CTAB = (o = {}) => `<div class="nvb-cb" style="background:var(--brand);color:#fff;padding:44px var(--hp,32px);display:flex;flex-wrap:wrap;gap:18px 32px;align-items:center;${o.center ? 'flex-direction:column;text-align:center' : 'justify-content:space-between'}"><div style="display:flex;flex-direction:column;gap:6px;${o.center ? 'align-items:center' : ''}"><p class="h h2" style="color:#fff">Redo att komma igång?</p><p style="opacity:.8">Kort text som leder fram till knappen.</p></div><span class="sb" style="background:#fff;border-color:#fff;color:var(--brand)">Boka tid</span></div>`;
+  q('sf-cta', 'Ska det finnas en stor uppmaning ovanför sidfoten?', S, [
+    ['Ingen uppmaning', F()],
+    ['Brett band i huvudfärgen', F({}, '', '', LAST + CTAB())],
+    ['Kort som går in över sidfoten', F({}, '--fbt:0', '& .nvb-ov{background:linear-gradient(#fff 50%,var(--ground) 50%);padding:0 var(--hp,32px)}& .nvb-ov>div{border-radius:var(--rc);overflow:hidden}', LAST + `<div class="nvb-ov"><div>${CTAB()}</div></div>`)]
+  ]);
+  q('sf-cta-stil', 'Hur ska uppmaningen ovanför sidfoten ställas upp?', S, [
+    ['Centrerad', F({}, '', '', LAST + CTAB({ center: true }))],
+    ['Text vänster, knapp höger', F({}, '', '', LAST + CTAB())]
+  ]);
+  q('sf-luft', 'Hur mycket luft ska sidfoten ha?', S, [[32, 'Kompakt'], [56, 'Mellan'], [88, 'Luftig']].map(([p, l]) => [`${l} (${p} px)`, F({}, `--fpad:${p}px`)]));
+  q('sf-omfang', 'Hur omfattande ska sidfoten vara på en liten webbplats?', S, [
+    ['Kolumner med länkar', F()],
+    ['En rad med logo, länkar och ©', opt(LAST + `<footer class="nvb-f" style="padding-top:24px"><div class="nvb-fb" style="border-top:0;padding-top:0;font-size:14px"><span class="nvb-logo" style="font-size:17px;color:var(--fc,var(--sink))">Företaget</span><span class="nvb-fl">Tjänster</span><span class="nvb-fl">Priser</span><span class="nvb-fl">Om oss</span><span class="nvb-fl">Kontakt</span><span class="nvb-sp" style="display:block"></span><span>© 2026 Företaget</span></div></footer>`, FCSS)]
+  ]);
+  const PF = (inner, css = '') => phone(`<div style="padding:16px 14px 12px;background:#fff;font-size:13px;font-weight:600">Sidans sista avsnitt</div><div class="nvb-pf">${inner}<div class="nvb-pfb">© 2026 Företaget · Integritetspolicy</div></div>`, '& .nvb-pf{flex:1;background:var(--ground);border-top:1px solid var(--sline);padding:16px 14px 0;display:flex;flex-direction:column;gap:12px;font-size:12px;overflow:hidden}& .nvb-pf .nvb-logo{font-size:16px}& .nvb-pfh{font-weight:600;font-size:13px}& .nvb-pfl{color:var(--smuted);display:flex;flex-direction:column;gap:5px}& .nvb-pfb{margin-top:auto;border-top:1px solid var(--sline);padding:10px 0 12px;font-size:11px;color:var(--smuted)}' + css);
+  const pcol = (t, l) => `<div><p class="nvb-pfh">${t}</p><div class="nvb-pfl">${l.map(x => `<span>${x}</span>`).join('')}</div></div>`;
+  q('sf-mobil', 'Hur ska sidfotens kolumner visas i mobilen?', GR, [
+    ['Staplade under varandra', PF('<span class="nvb-logo">Företaget</span>' + pcol('Tjänster', ['Undersida ett', 'Undersida två']) + pcol('Företaget', ['Om oss', 'Jobb']))],
+    ['Hopfällbara rubriker', PF('<span class="nvb-logo">Företaget</span>' + ['Tjänster', 'Företaget', 'Hjälp', 'Kontakt'].map(t => `<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--sline);padding:4px 0 8px;font-weight:600;font-size:13px">${t}${ic('plus', 15)}</div>`).join(''), '& .nvb-pf{gap:8px}')],
+    ['Två kolumner bredvid varandra', PF('<span class="nvb-logo">Företaget</span><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 10px">' + pcol('Tjänster', ['Undersida ett', 'Undersida två']) + pcol('Företaget', ['Om oss', 'Jobb']) + pcol('Hjälp', ['Frågor', 'Villkor']) + pcol('Kontakt', ['Ring oss', 'Mejla']) + '</div>')]
   ]);
 
   /*SLUT*/

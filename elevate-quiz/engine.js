@@ -189,7 +189,7 @@
   $('#toggleView').addEventListener('click', () => { st.view = st.view === 'overview' ? 'quiz' : 'overview'; save(); render(); window.scrollTo({ top: 0 }); });
   $('#main').addEventListener('click', e => {
     const op = e.target.closest('[data-open]'); if (op && op.dataset.open) return open(op.dataset.open);
-    const o = e.target.closest('.opt'); if (o) return choose(+o.dataset.i);
+    const o = e.target.closest('.opt'); if (o) { if (e.target.closest('.render')) e.preventDefault(); return choose(+o.dataset.i); }
     const a = e.target.closest('[data-act]');
     if (a) {
       const act = a.dataset.act;

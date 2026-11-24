@@ -1366,7 +1366,6 @@
     ]);
   }
 
-  // --- FLER GRUPPER ---
 
   window.QZ.part({ key: 'knappar', groups: G });
 })();

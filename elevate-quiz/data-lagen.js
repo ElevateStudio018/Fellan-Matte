@@ -288,7 +288,7 @@
   Q('hov-markor', 'Vilken muspekare ska klickbara kort ha?', [
     ['Hand', cur('hand')],
     ['Vanlig pil', cur('pil')]
-  ], { css: '& .cc{position:relative;padding:4px 0 18px}& .cu{position:absolute;left:96px;top:34px;display:block}' });
+  ], { css: '& .cc{position:relative;padding:4px 0 18px}& .cu{position:absolute;left:112px;top:12px;display:block}' });
 
   QT('hov-touch', 'Hur ska hover-effekter hanteras på pekskärmar?', ['Stängs av på pekskärm', 'Visas kort när man trycker', 'Samma som på dator']);
 
@@ -1240,13 +1240,13 @@
 
   const mobDlg = (kind) => {
     const body = `<div class="mb ${kind}">${kind === 'sheet' ? '<i class="hd"></i>' : ''}<b>Välj tid</b><span class="r">09.00</span><span class="r">10.30</span><span class="r">13.00</span><span class="sb lx-btnsm" style="width:100%">Välj</span></div>`;
-    return phone(`<div class="ov2">${body}</div>`, 300);
+    return phone(`<div class="ov2 w-${kind}">${body}</div>`, 300);
   };
   Q('dia-mobil', 'Hur ska en dialog visas på mobil?', [
     ['Centrerad ruta', mobDlg('mid')],
     ['Bottenark nerifrån', mobDlg('sheet')],
     ['Helskärm', mobDlg('full').replace('<b>Välj tid</b>', `<span class="fh"><span style="display:flex">${ico('x', 18)}</span><b>Välj tid</b></span>`)]
-  ], { css: '& .ov2{position:absolute;inset:0;background:rgba(15,18,22,.45);display:flex;padding:10px}& .mb{background:#fff;display:flex;flex-direction:column;gap:6px;padding:14px;width:100%;font-size:13px}& .mb b{font-size:14px;margin-bottom:4px}& .r{padding:7px 10px;border:1px solid var(--sline);border-radius:7px}& .mid{margin:auto 0;border-radius:14px}& .sheet{margin-top:auto;border-radius:16px 16px 0 0;margin:auto -10px -10px}& .full{margin:-10px;border-radius:0}& .hd{display:block;width:34px;height:4px;border-radius:2px;background:#C9CCCF;margin:-4px auto 6px}& .fh{display:flex;gap:10px;align-items:center;margin-bottom:6px}& .fh b{margin:0!important}' });
+  ], { css: '& .ov2{position:absolute;inset:0;background:rgba(15,18,22,.45);display:flex;padding:10px}& .mb{background:#fff;display:flex;flex-direction:column;gap:6px;padding:14px;width:100%;font-size:13px}& .mb b{font-size:14px;margin-bottom:4px}& .r{padding:7px 10px;border:1px solid var(--sline);border-radius:7px}& .mid{margin:auto 0;border-radius:14px}& .w-sheet,& .w-full{padding:0}& .sheet{margin-top:auto;border-radius:16px 16px 0 0}& .full{border-radius:0}& .hd{display:block;width:34px;height:4px;border-radius:2px;background:#C9CCCF;margin:-4px auto 6px}& .fh{display:flex;gap:10px;align-items:center;margin-bottom:6px}& .fh b{margin:0!important}' });
 
   const det = `<b>Detaljer</b><span class="ln" style="width:80%"></span><span class="ln"></span><span class="ln" style="width:60%"></span><span class="sb lx-btnsm" style="margin-top:auto">Spara</span>`;
   Q('dia-utdrag', 'Hur ska en panel för att visa eller redigera detaljer öppnas på dator?', [
@@ -1387,6 +1387,304 @@
     ['Gömd i ⋯-meny', row(`<span class="lx-ib" style="width:34px;height:34px;color:var(--smuted)">${ico('more', 18)}</span>`)],
     ['Röd papperskorg-ikon', row(`<span class="lx-ib" style="width:34px;height:34px;color:#B3261E">${ico('trash', 18)}</span>`)]
   ], { css: rwCss });
+
+  /* =====================================================================
+     TOMMA LÄGEN
+     ===================================================================== */
+  grp('tomt', 'Tomma lägen');
+
+  const illu = `<svg class="il" viewBox="0 0 120 90" aria-hidden="true"><ellipse cx="60" cy="80" rx="44" ry="6" fill="#E8EAEC"/><rect x="28" y="26" width="64" height="46" rx="6" fill="#fff" stroke="#24405E" stroke-width="2"/><path d="M28 40h64" stroke="#24405E" stroke-width="2"/><rect x="36" y="48" width="30" height="5" rx="2.5" fill="#DCE3EA"/><rect x="36" y="58" width="44" height="5" rx="2.5" fill="#DCE3EA"/><circle cx="86" cy="22" r="11" fill="#DCE3EA"/><path d="M82 22h8M86 18v8" stroke="#24405E" stroke-width="2" stroke-linecap="round"/></svg>`;
+  const emp = (vis, btn = '') => `<div class="em">${vis}<b>Inga bokningar ännu</b><span class="small muted">När du bokar en tid visas den här.</span>${btn}</div>`;
+  const empCss = '& .em{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:20px 12px;background:var(--box);border-radius:12px;border:1px solid var(--sline)}& .em b{font-size:15px;margin-top:4px}& .il{width:110px;height:auto}& .ip{width:52px;height:52px;border-radius:50%;background:var(--tint);color:var(--brand);display:grid;place-items:center}& .em .sb,& .em .sb2{margin-top:8px}';
+  const icP = `<span class="ip">${ico('cal', 24, 1.8)}</span>`;
+  Q('tom-typ', 'Hur ska ett tomt läge illustreras?', [
+    ['Liten illustration', emp(illu)],
+    ['Ikon i rund platta', emp(icP)],
+    ['Fri linjeikon', emp(`<span style="color:var(--smuted);display:flex">${ico('cal', 36, 1.5)}</span>`)],
+    ['Bara text', emp('')]
+  ], { css: empCss });
+
+  Q('tom-knapp', 'Ska ett tomt läge ha en knapp som tar en vidare?', [
+    ['Primärknapp', emp(icP, '<span class="sb lx-btnsm">Boka tid</span>')],
+    ['Sekundärknapp', emp(icP, '<span class="sb2 lx-btnsm">Boka tid</span>')],
+    ['Textlänk', emp(icP, '<span class="link small" style="margin-top:6px">Boka tid</span>')],
+    ['Ingen knapp', emp(icP)]
+  ], { css: empCss });
+
+  Q('tom-justering', 'Ska ett tomt läge vara centrerat eller vänsterställt?', [
+    ['Centrerat', emp(icP, '<span class="sb lx-btnsm">Boka tid</span>')],
+    ['Vänsterställt', emp(icP, '<span class="sb lx-btnsm">Boka tid</span>'), '& .em{align-items:flex-start;text-align:left}']
+  ], { css: empCss });
+
+  Q('tom-ram', 'Hur ska ytan för ett tomt läge avgränsas?', [
+    ['Streckad ram', emp(icP), '& .em{background:transparent;border:1.5px dashed rgba(26,28,30,.25)}'],
+    ['Tonad yta utan ram', emp(icP), '& .em{background:#EDEEEC;border:0}'],
+    ['Vit yta med tunn ram', emp(icP)],
+    ['Ingen avgränsning', emp(icP), '& .em{background:transparent;border:0}']
+  ], { css: empCss });
+
+  Q('tom-ikonstorlek', 'Hur stor ska ikonen i ett tomt läge vara?', [
+    ['Liten (40 px platta)', emp(`<span class="ip" style="width:40px;height:40px">${ico('cal', 20, 1.8)}</span>`)],
+    ['Medel (56 px platta)', emp(`<span class="ip" style="width:56px;height:56px">${ico('cal', 26, 1.8)}</span>`)],
+    ['Stor (80 px platta)', emp(`<span class="ip" style="width:80px;height:80px">${ico('cal', 36, 1.6)}</span>`)]
+  ], { css: empCss });
+
+  /* =====================================================================
+     INGA SÖKTRÄFFAR
+     ===================================================================== */
+  grp('soktraffar', 'Inga sökträffar');
+
+  const sbar = `<span class="inp" style="gap:8px;margin-bottom:12px">${ico('search', 18, 2, 'color:var(--smuted)')}hörlurr</span>`;
+  const nr = (inner) => `${sbar}<div class="nr">${inner}</div>`;
+  const nrCss = '& .nr{display:flex;flex-direction:column;gap:6px;background:var(--box);border-radius:12px;padding:16px;border:1px solid var(--sline)}& .nr b{font-size:15px}& .nr ul{margin:4px 0 0;padding-left:18px;font-size:13px;color:var(--smuted)}';
+  Q('sok-stil', 'Hur ska det se ut när en sökning inte ger några träffar?', [
+    ['Bara en rad text', nr('<span style="font-size:14px">Inga träffar för ”hörlurr”.</span>')],
+    ['Rubrik och tips', nr('<b>Inga träffar för ”hörlurr”</b><ul><li>Kontrollera stavningen</li><li>Prova ett bredare ord</li></ul>')],
+    ['Ikon, rubrik och text', nr(`<span style="color:var(--smuted);display:flex">${ico('searchx', 30, 1.6)}</span><b>Inga träffar för ”hörlurr”</b><span class="small muted">Prova ett annat sökord.</span>`).replace('class="nr"', 'class="nr" style="align-items:center;text-align:center"')],
+    ['Rubrik och förslag som chips', nr('<b>Inga träffar för ”hörlurr”</b><span class="small muted">Menade du:</span><div class="row" style="gap:6px"><span class="chip">hörlurar</span><span class="chip">högtalare</span></div>')]
+  ], { css: nrCss });
+
+  Q('sok-term', 'Ska sökordet upprepas i meddelandet?', [
+    ['Ja, i citattecken och fetstil', nr('<span style="font-size:14px">Inga träffar för <b>”hörlurr”</b>.</span>')],
+    ['Ja, i vanlig text', nr('<span style="font-size:14px">Inga träffar för ”hörlurr”.</span>')],
+    ['Nej, bara ”Inga träffar”', nr('<span style="font-size:14px">Inga träffar.</span>')]
+  ], { css: nrCss });
+
+  const fltr = (inner) => `<div class="lx-cap" style="margin-bottom:8px">Filtren gav inga träffar</div><div class="nr"><b>Inga träffar med de här filtren</b>${inner}</div>`;
+  Q('sok-rensa', 'Hur ska man kunna ta bort filter som gav noll träffar?', [
+    ['Knapp ”Rensa alla filter”', fltr('<span class="sb2 lx-btnsm" style="align-self:flex-start;margin-top:6px">Rensa alla filter</span>')],
+    ['Textlänk ”Rensa filter”', fltr('<span class="link small">Rensa filter</span>')],
+    ['Aktiva filter som chips med kryss', fltr(`<div class="row" style="gap:6px;margin-top:4px"><span class="chip">Under 500 kr ${ico('x', 14, 2, 'margin-left:6px')}</span><span class="chip">I lager ${ico('x', 14, 2, 'margin-left:6px')}</span></div>`)]
+  ], { css: nrCss });
+
+  const dds = (inner) => `<div class="ds"><span class="inp" style="gap:8px;border-color:var(--brand)">${ico('search', 18, 2, 'color:var(--smuted)')}hörlurr</span><div class="dl">${inner}</div></div>`;
+  Q('sok-direkt', 'Vad ska en sökruta med direktförslag visa när inget matchar?', [
+    ['En rad: ”Inga träffar”', dds('<span class="lx-mi" style="color:var(--smuted)">Inga träffar för ”hörlurr”</span>')],
+    ['Rad med ”Sök i allt”', dds(`<span class="lx-mi" style="color:var(--smuted)">Inga förslag</span><span class="lx-mi" style="color:var(--brand);font-weight:600">${ico('search', 16)}Sök efter ”hörlurr”</span>`)],
+    ['Listan stängs, inget visas', dds('').replace('<div class="dl"></div>', '')]
+  ], { css: '& .ds{display:flex;flex-direction:column;gap:6px;min-height:120px}& .dl{background:#fff;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.10),0 0 0 1px var(--sline);padding:6px}' });
+
+  /* =====================================================================
+     OFFLINE OCH FEL VID LADDNING
+     ===================================================================== */
+  grp('offline', 'Offline och fel vid laddning');
+
+  Q('off-banner', 'Hur ska det visas att man har tappat uppkopplingen?', [
+    ['Mörk rad överst', scr(`<div class="ob" style="top:0;left:0;right:0;background:#1F2225;color:#fff">${ico('wifioff', 15)}Ingen uppkoppling</div>`, 160)],
+    ['Toast nederst som ligger kvar', scr(`<div class="ob" style="bottom:10px;left:50%;transform:translateX(-50%);background:#1F2225;color:#fff;border-radius:8px;white-space:nowrap">${ico('wifioff', 15)}Ingen uppkoppling</div>`, 160)],
+    ['Tonad gul rad överst', scr(`<div class="ob" style="top:0;left:0;right:0;background:#FFF4E0;color:#6B4100">${ico('wifioff', 15)}Ingen uppkoppling. Ändringar sparas när du är online.</div>`, 160)]
+  ], { css: '& .ob{position:absolute;display:flex;align-items:center;justify-content:center;gap:7px;font-size:12px;font-weight:600;padding:8px 12px;text-align:left;line-height:1.3}' });
+
+  const fc = (inner) => `<div class="fc">${inner}</div>`;
+  Q('off-kort', 'Hur ska en del av sidan se ut när den inte gick att ladda?', [
+    ['Ikon, text och knapp ”Försök igen”', fc(`<span style="display:flex;color:var(--smuted)">${ico('cloudoff', 26, 1.7)}</span><b>Kunde inte ladda</b><span class="sb2 lx-btnsm">${ico('refresh', 15)}Försök igen</span>`)],
+    ['Text och länk', fc('<span class="small muted">Kunde inte ladda. <span class="link">Försök igen</span></span>')],
+    ['Bara ikon och kort text', fc(`<span style="display:flex;color:var(--smuted)">${ico('cloudoff', 26, 1.7)}</span><span class="small muted">Kunde inte ladda</span>`)]
+  ], { css: '& .fc{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;min-height:150px;background:var(--box);border:1px solid var(--sline);border-radius:12px;padding:16px}& .fc b{font-size:14px}' });
+
+  const bc = (img) => `<div class="bc">${img}<div class="bt"><span class="lx-ct" style="font-size:14px">Rubrik</span><span class="lx-cs">Från 495 kr</span></div></div>`;
+  Q('off-bild', 'Hur ska en bild som inte gick att ladda visas?', [
+    ['Grå yta med trasig bild-ikon', bc(`<div class="ph">${ico('imageoff', 26, 1.6)}</div>`)],
+    ['Grå yta med bildens alt-text', bc('<div class="ph"><span class="small">Stugor vid en sjö</span></div>')],
+    ['Neutral grå yta utan något', bc('<div class="ph"></div>')]
+  ], { css: '& .bc{max-width:220px;background:var(--box);border:1px solid var(--sline);border-radius:12px;overflow:hidden}& .ph{aspect-ratio:4/3;background:#E9EAEB;color:#8B9096;display:grid;place-items:center}& .bt{padding:10px 12px;display:flex;flex-direction:column}' });
+
+  Q('off-tillbaka', 'Vad ska hända när uppkopplingen kommer tillbaka?', [
+    ['Grön toast ”Du är online igen”', scr(`<div class="ob" style="background:#1E7A45">${ico('check', 15, 2.6)}Du är online igen</div>`, 150)],
+    ['Neutral toast ”Du är online igen”', scr(`<div class="ob" style="background:#1F2225">${ico('check', 15, 2.6)}Du är online igen</div>`, 150)],
+    ['Inget, varningen försvinner bara', scr('', 150)]
+  ], { css: '& .ob{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:7px;color:#fff;font-size:12px;font-weight:600;padding:8px 12px;border-radius:8px;white-space:nowrap}' });
+
+  /* =====================================================================
+     RÄKNARE SOM ÄNDRAS
+     ===================================================================== */
+  grp('raknare', 'Räknare som ändras');
+
+  const cartB = `<div class="lx-cap" style="margin-bottom:12px">Antalet ökar, upprepas</div><span class="cb">${ico('cart', 24)}<span class="bd"><span class="nm"><i>2</i><i>3</i></span></span></span>`;
+  const cbCss = '& .cb{position:relative;display:inline-flex;color:var(--sink);padding:6px}& .bd{position:absolute;top:-2px;right:-6px;min-width:20px;height:20px;border-radius:999px;background:var(--brand);color:#fff;font-size:11px;font-weight:700;overflow:hidden}& .nm{display:flex;flex-direction:column;align-items:center}& .nm i{font-style:normal;height:20px;line-height:20px;display:block;padding:0 6px}';
+  Q('rak-anim', 'Hur ska en siffra som ändras (t.ex. i varukorgen) bete sig?', [
+    ['Byts direkt', cartB, cbCss + '& .nm{animation:&&k 3s infinite steps(1)}@keyframes &&k{0%,40%{transform:translateY(0)}41%,100%{transform:translateY(-20px)}}'],
+    ['Rullar upp', cartB, cbCss + '& .nm{animation:&&k 3s infinite cubic-bezier(.2,.8,.2,1)}@keyframes &&k{0%,40%{transform:translateY(0)}50%,95%{transform:translateY(-20px)}100%{transform:translateY(-20px)}}'],
+    ['Byts och märket studsar', cartB, cbCss + '& .nm{animation:&&k 3s infinite steps(1)}& .bd{animation:&&p 3s infinite}@keyframes &&k{0%,40%{transform:translateY(0)}41%,100%{transform:translateY(-20px)}}@keyframes &&p{0%,40%{transform:scale(1)}46%{transform:scale(1.35)}54%,100%{transform:scale(1)}}'],
+    ['Tonar över', cartB, cbCss + '& .nm{position:relative;height:20px}& .nm i{position:absolute;left:50%;transform:translateX(-50%)}& .nm i:first-child{animation:&&a 3s infinite}& .nm i:last-child{animation:&&b 3s infinite}@keyframes &&a{0%,40%{opacity:1}52%,100%{opacity:0}}@keyframes &&b{0%,40%{opacity:0}52%,100%{opacity:1}}']
+  ]);
+
+  Q('rak-markering', 'Hur ska antalet i varukorgsikonen visas?', [
+    ['Siffra i rund bricka', `<span class="cb">${ico('cart', 24)}<span class="bd"><span class="nm"><i>3</i></span></span></span>`, cbCss],
+    ['Bara en prick', `<span class="cb">${ico('cart', 24)}<span class="dt"></span></span>`, cbCss + '& .dt{position:absolute;top:4px;right:3px;width:10px;height:10px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 2px var(--ground)}'],
+    ['Siffra bredvid ikonen', `<span class="cb" style="gap:6px;align-items:center">${ico('cart', 24)}<b style="font-size:15px;font-variant-numeric:tabular-nums">3</b></span>`, cbCss]
+  ]);
+
+  const stat = `<div class="lx-cap" style="margin-bottom:10px">När sektionen syns, upprepas</div><div class="st"><div><b class="n"></b><span class="lx-cs">nöjda kunder</span></div></div>`;
+  Q('rak-statistik', 'Ska stora siffror räkna upp när de kommer in i bild?', [
+    ['Ja, räknar upp från 0', stat, '@property --la-n{syntax:"<integer>";initial-value:0;inherits:false}& .n{--la-n:1200;counter-reset:lan var(--la-n);animation:&&k 3.5s infinite ease-out}& .n::after{content:counter(lan)}@keyframes &&k{0%{--la-n:0}45%,100%{--la-n:1200}}@media (prefers-reduced-motion: reduce){& .n{--la-n:1200}}'],
+    ['Nej, siffran står still', stat, '& .n::after{content:"1200"}']
+  ], { css: '& .st b{display:block;font-size:34px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}' });
+
+  /* =====================================================================
+     KOPIERAT
+     ===================================================================== */
+  grp('kopierat', 'Kopierat-återkoppling');
+
+  const cpf = (btn) => `<div class="lx-cap" style="margin-bottom:10px">Efter klick på kopiera</div><div class="cf"><span class="u">exempel.se/b/7KQ2</span>${btn}</div>`;
+  const cfCss = '& .cf{position:relative;display:flex;align-items:center;gap:8px;height:46px;padding:0 6px 0 14px;background:#fff;border:1px solid var(--sline);border-radius:var(--rf);font-size:14px}& .u{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--smuted)}& .cbn{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 10px;border-radius:7px;font-size:13px;font-weight:600;color:var(--brand)}';
+  Q('kop-stil', 'Hur ska det synas att något har kopierats?', [
+    ['Ikonen byts till en bock', cpf(`<span class="cbn" style="color:#1E7A45">${ico('check', 18, 2.6)}</span>`)],
+    ['Liten bubbla ”Kopierat!”', cpf(`<span class="cbn">${ico('copy', 18)}</span><span class="bb">Kopierat!</span>`), '& .bb{position:absolute;right:0;top:-34px;background:#1F2225;color:#fff;font-size:12px;font-weight:500;padding:5px 9px;border-radius:6px}'],
+    ['Knapptexten byts till ”Kopierat”', cpf(`<span class="cbn" style="background:var(--tint)">${ico('check', 16, 2.6)}Kopierat</span>`)],
+    ['Toast nederst på sidan', cpf(`<span class="cbn">${ico('copy', 18)}</span>`) + `<div class="ts2">${ico('check', 15, 2.6)}Länken är kopierad</div>`, '& .ts2{margin-top:14px;display:inline-flex;align-items:center;gap:7px;background:#1F2225;color:#fff;font-size:13px;padding:8px 12px;border-radius:8px}']
+  ], { css: cfCss });
+
+  Q('kop-farg', 'Vilken färg ska kopierat-bocken ha?', [
+    ['Grön', cpf(`<span class="cbn" style="color:#1E7A45">${ico('check', 16, 2.6)}Kopierat</span>`)],
+    ['Samma färg som knappen', cpf(`<span class="cbn">${ico('check', 16, 2.6)}Kopierat</span>`)]
+  ], { css: cfCss });
+
+  const cpl = `<div class="lx-cap" style="margin-bottom:10px">Klick upprepas</div><div class="cf"><span class="u">exempel.se/b/7KQ2</span><span class="cbn"><span class="a">${ico('copy', 16)}Kopiera</span><span class="b">${ico('check', 16, 2.6)}Kopierat</span></span></div>`;
+  const cplK = (s) => { const C = 6, a = 15, b = a + s / C * 100; return `& .cbn{position:relative;min-width:104px}& .a,& .b{display:inline-flex;align-items:center;gap:6px}& .b{position:absolute;left:10px;color:#1E7A45;opacity:0;animation:&&b ${C}s infinite steps(1)}& .a{animation:&&a ${C}s infinite steps(1)}@keyframes &&a{0%,${a}%{opacity:1}${a + .1}%,${b.toFixed(1)}%{opacity:0}${(b + .1).toFixed(1)}%,100%{opacity:1}}@keyframes &&b{0%,${a}%{opacity:0}${a + .1}%,${b.toFixed(1)}%{opacity:1}${(b + .1).toFixed(1)}%,100%{opacity:0}}@media (prefers-reduced-motion: reduce){& .a{opacity:0}& .b{opacity:1}}`; };
+  Q('kop-tid', 'Hur länge ska ”Kopierat” synas innan knappen återgår?', [
+    ['1,5 sekunder', cpl, cplK(1.5)],
+    ['3 sekunder', cpl, cplK(3)]
+  ], { css: cfCss });
+
+  /* =====================================================================
+     FORMULÄR SKICKAT
+     ===================================================================== */
+  grp('skickat', 'Formulär skickat');
+
+  Q('skick-monster', 'Vad ska hända med ett kontaktformulär när det har skickats?', [
+    ['Formuläret ersätts av ett tack', `<div class="fx c">${ck('fill')}<b>Tack, vi har fått ditt meddelande</b><span class="small muted">Vi svarar inom en arbetsdag.</span></div>`, ckCss + '& .fx .ck{width:44px;height:44px}'],
+    ['Tack ovanför, formuläret tömt', `<div class="fx"><div class="okb">${ico('checkc', 18)}Tack! Meddelandet är skickat.</div><div class="fld"><span class="lbl">Meddelande</span><span class="inp ph">Skriv här</span></div><span class="sb lx-btnsm" style="align-self:flex-start">Skicka</span></div>`, '& .okb{display:flex;gap:8px;align-items:center;background:#E7F4EC;color:#14532D;padding:10px 12px;border-radius:8px;font-size:13px;font-weight:500}'],
+    ['Toast, formuläret tömt', `<div class="fx" style="position:relative;padding-bottom:58px"><div class="fld"><span class="lbl">Meddelande</span><span class="inp ph">Skriv här</span></div><span class="sb lx-btnsm" style="align-self:flex-start">Skicka</span><div class="tz">${ico('check', 15, 2.6)}Meddelandet är skickat</div></div>`, '& .tz{position:absolute;left:12px;right:12px;bottom:10px;display:flex;align-items:center;gap:7px;background:#1F2225;color:#fff;font-size:12px;padding:9px 12px;border-radius:8px}']
+  ], { css: '& .fx{display:flex;flex-direction:column;gap:10px;background:var(--box);border:1px solid var(--sline);border-radius:12px;padding:16px;min-height:200px;justify-content:center}& .fx.c{align-items:center;text-align:center;gap:6px}& .fx b{font-size:15px}' });
+
+  const tk = (extra) => `<div class="fx">${ck('fill')}<b>Tack, vi har fått ditt meddelande</b>${extra}</div>`;
+  Q('skick-nasta', 'Vad mer ska tackmeddelandet innehålla?', [
+    ['Bara tack och svarstid', tk('<span class="small muted">Vi svarar inom en arbetsdag.</span>')],
+    ['Vad som händer härnäst', tk('<ol class="nx"><li>Vi läser ditt meddelande</li><li>Du får svar via e-post</li><li>Vi bokar in en tid</li></ol>')],
+    ['En kopia av det man skrev', tk('<div class="cp"><span class="lx-cs">Ditt meddelande</span><span>Hej! Jag undrar om ni har tid nästa vecka …</span></div>')]
+  ], { css: ckCss + '& .fx{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;background:var(--box);border:1px solid var(--sline);border-radius:12px;padding:16px}& .fx .ck{width:40px;height:40px}& .fx b{font-size:15px}& .nx{margin:0;padding-left:20px;text-align:left;font-size:13px;color:var(--smuted);display:flex;flex-direction:column;gap:2px}& .cp{background:var(--ground);border-radius:8px;padding:10px 12px;text-align:left;font-size:13px;display:flex;flex-direction:column;gap:2px;width:100%}' });
+
+  Q('skick-epost', 'Ska tacket tala om att en bekräftelse skickats via e-post?', [
+    ['Ja, med adressen', tk('<span class="small muted">En bekräftelse har skickats till <b style="font-size:13px;color:var(--sink)">alex@exempel.se</b>.</span>')],
+    ['Ja, utan adressen', tk('<span class="small muted">En bekräftelse har skickats till din e-post.</span>')],
+    ['Nej', tk('<span class="small muted">Vi svarar inom en arbetsdag.</span>')]
+  ], { css: ckCss + '& .fx{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;background:var(--box);border:1px solid var(--sline);border-radius:12px;padding:16px}& .fx .ck{width:40px;height:40px}& .fx b{font-size:15px}' });
+
+  /* =====================================================================
+     KUNDVAGN UPPDATERAD
+     ===================================================================== */
+  grp('kundvagn', 'Kundvagn uppdaterad');
+
+  const prodImg = '<img src="img/produkt-sko.jpg" alt="Sko">';
+  const kvTop = `<div class="kh"><span class="lg"></span><span class="cb">${ico('cart', 20)}<span class="bd">1</span></span></div>`;
+  const kvCss = '& .kh{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--sline);background:#fff}& .lg{width:44px;height:10px;border-radius:3px;background:var(--accent)}& .cb{position:relative;display:inline-flex}& .bd{position:absolute;top:-6px;right:-8px;min-width:16px;height:16px;border-radius:999px;background:var(--brand);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;padding:0 4px}& .pi{display:flex;gap:8px;align-items:center;font-size:12px;line-height:1.3}& .pi img{width:38px;height:38px;border-radius:6px;object-fit:cover;flex:0 0 auto}& .pi b{display:block;font-size:12px}';
+  const kvScr = (inner) => `<div class="lx-scr" style="height:210px">${kvTop}<div class="lx-fake" style="padding-top:14px"><i style="width:60%"></i><i style="width:80%"></i><div class="lx-bl"><i></i><i></i></div></div>${inner}</div>`;
+  Q('kv-monster', 'Hur ska det bekräftas att en vara lagts i varukorgen?', [
+    ['Liten toast', kvScr(`<div class="tz">${ico('check', 15, 2.6)}Tillagd i varukorgen <u>Visa</u></div>`), '& .tz{position:absolute;left:50%;transform:translateX(-50%);bottom:10px;display:flex;align-items:center;gap:7px;background:#1F2225;color:#fff;font-size:12px;padding:8px 12px;border-radius:8px;white-space:nowrap}& .tz u{font-weight:600;margin-left:4px}'],
+    ['Ruta under varukorgsikonen', kvScr(`<div class="pv"><div class="pi">${prodImg}<span><b>Tillagd</b>Sko, strl 42</span></div><span class="sb lx-btnsm" style="width:100%;height:30px;font-size:12px">Till kassan</span></div>`), '& .pv{position:absolute;top:42px;right:8px;width:62%;background:#fff;border-radius:10px;box-shadow:0 10px 26px rgba(0,0,0,.18);padding:10px;display:flex;flex-direction:column;gap:8px}'],
+    ['Utdragslåda från höger', kvScr(`<div class="sh"></div><div class="dr"><b style="font-size:13px">Varukorg</b><div class="pi">${prodImg}<span><b>Sko</b>495 kr</span></div><span class="sb lx-btnsm" style="width:100%;height:30px;font-size:12px;margin-top:auto">Till kassan</span></div>`), '& .sh{position:absolute;inset:0;background:rgba(15,18,22,.35)}& .dr{position:absolute;top:0;right:0;bottom:0;width:62%;background:#fff;padding:12px;display:flex;flex-direction:column;gap:10px;box-shadow:-8px 0 24px rgba(0,0,0,.15)}'],
+    ['Bara knappen och siffran ändras', kvScr(`<div class="kb"><span class="sb lx-btnsm" style="height:32px;font-size:12px">${ico('check', 14, 2.6)}Tillagd</span></div>`), '& .kb{position:absolute;left:12px;bottom:12px}']
+  ], { css: kvCss });
+
+  const kb = (inner) => `<div class="row" style="gap:16px">${cap('Före', '<span class="sb">Lägg i varukorg</span>')}${cap('Efter klick', inner)}</div>`;
+  Q('kv-knapp', 'Hur ska köpknappen se ut direkt efter att varan lagts till?', [
+    ['Grön med bock: ”Tillagd”', kb(`<span class="sb" style="background:#1E7A45;border-color:#1E7A45">${ico('check', 18, 2.6)}Tillagd</span>`)],
+    ['Samma färg med bock: ”Tillagd”', kb(`<span class="sb">${ico('check', 18, 2.6)}Tillagd</span>`)],
+    ['Oförändrad', kb('<span class="sb">Lägg i varukorg</span>')]
+  ], { css: '& .lx-pair,& .row{align-items:flex-start}' , pad: true });
+
+  Q('kv-lada', 'Vad ska utdragslådan visa när en vara lagts till?', [
+    ['Bara den tillagda varan', `<div class="dr2"><b>${ico('checkc', 16, 2, 'color:#1E7A45;vertical-align:-3px;margin-right:5px')}Tillagd i varukorgen</b><div class="pi">${prodImg}<span><b>Sko</b>Strl 42 · 495 kr</span></div><span class="sb lx-btnsm" style="width:100%">Till kassan</span><span class="sb2 lx-btnsm" style="width:100%">Fortsätt handla</span></div>`],
+    ['Hela varukorgen med summa', `<div class="dr2"><b>Varukorg (3)</b><div class="pi">${prodImg}<span><b>Sko</b>495 kr</span></div><div class="pi"><img src="img/produkt-stol.jpg" alt="Stol"><span><b>Stol</b>1 295 kr</span></div><div class="sm"><span>Summa</span><b>2 285 kr</b></div><span class="sb lx-btnsm" style="width:100%">Till kassan</span></div>`]
+  ], { css: kvCss + '& .dr2{display:flex;flex-direction:column;gap:10px;background:#fff;border:1px solid var(--sline);border-radius:12px;padding:14px;max-width:250px}& .dr2>b{font-size:14px}& .sm{display:flex;justify-content:space-between;font-size:13px;border-top:1px solid var(--sline);padding-top:8px}' });
+
+  /* =====================================================================
+     COOKIE-BANNER
+     ===================================================================== */
+  grp('cookie', 'Cookie-banner');
+
+  const ckBody = (btns = '<span class="sb b1">Godkänn</span><span class="sb2 b2">Neka</span>', ic = '') => `<div class="cbx">${ic}<span class="tx">Vi använder kakor för att sajten ska fungera.</span><div class="bt">${btns}</div></div>`;
+  const ckCss2 = '& .cbx{background:#fff;color:var(--sink);display:flex;flex-direction:column;gap:8px;padding:10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.16);font-size:12px;line-height:1.35}& .bt{display:flex;gap:6px;flex-wrap:wrap}& .bt span{height:28px;padding:0 10px;font-size:12px;border-radius:7px}';
+  const ckScr = (pos, st = '') => scr(`<div class="cpz" style="${pos}">${ckBody()}</div>`, 200, st);
+  Q('coo-plac', 'Var ska cookie-bannern sitta?', [
+    ['Nere, hela bredden', ckScr('left:0;right:0;bottom:0'), '& .cbx{flex-direction:row;align-items:center;flex-wrap:wrap}& .tx{flex:1 1 120px}'],
+    ['Ruta nere till vänster', ckScr('left:10px;bottom:10px;width:62%'), '& .cbx{border-radius:10px}'],
+    ['Mitt på sidan med dimma', scr(`<div class="dm"></div><div class="cpz" style="left:12%;right:12%;top:50%;transform:translateY(-50%)">${ckBody()}</div>`, 200), '& .cbx{border-radius:10px}& .dm{position:absolute;inset:0;background:rgba(15,18,22,.4)}'],
+    ['Överst, hela bredden', ckScr('left:0;right:0;top:0'), '& .cbx{flex-direction:row;align-items:center;flex-wrap:wrap}& .tx{flex:1 1 120px}']
+  ], { css: ckCss2 + '& .cpz{position:absolute}' });
+
+  const ckBox = (st) => `<div class="cbx" style="${st}"><span class="tx">Vi använder kakor för att sajten ska fungera.</span><div class="bt"><span class="sb b1" style="${st.includes('#1F2225') ? 'background:#fff;color:#1F2225;border-color:#fff' : ''}">Godkänn</span><span class="sb2 b2" style="${st.includes('#1F2225') ? 'color:#fff;border-color:rgba(255,255,255,.6)' : ''}">Neka</span></div></div>`;
+  Q('coo-stil', 'Hur ska cookie-bannern se ut?', [
+    ['Ljus med skugga', ckBox('')],
+    ['Mörk', ckBox('background:#1F2225;color:#fff')],
+    ['Tonad utan skugga', ckBox('background:#E6EBF0;box-shadow:none')],
+    ['Ljus med kant, utan skugga', ckBox('box-shadow:none;border:1px solid rgba(26,28,30,.2)')]
+  ], { css: ckCss2 + '& .cbx{border-radius:12px;padding:14px;font-size:13px;max-width:260px}& .bt span{height:34px;font-size:13px}' });
+
+  Q('coo-knappar', 'Hur ska valen i cookie-bannern se ut?', [
+    ['Två likvärdiga knappar', ckBody('<span class="sb b1">Godkänn alla</span><span class="sb b1">Neka alla</span>')],
+    ['Godkänn som knapp, Neka som länk', ckBody('<span class="sb b1">Godkänn</span><span class="lnk">Neka</span>')],
+    ['Godkänn, Neka och Inställningar', ckBody('<span class="sb b1">Godkänn</span><span class="sb2 b2">Neka</span><span class="lnk">Inställningar</span>')],
+    ['Primär och sekundär knapp', ckBody()]
+  ], { css: ckCss2 + '& .cbx{border-radius:12px;padding:14px;font-size:13px;max-width:260px}& .bt{align-items:center}& .bt span{height:34px;font-size:13px}& .lnk{height:auto!important;padding:0 6px!important;text-decoration:underline;text-underline-offset:3px;font-weight:600;color:var(--brand);display:inline-flex;align-items:center}' });
+
+  Q('coo-mobil', 'Hur ska cookie-bannern visas på mobil?', [
+    ['Ark längst ned, hela bredden', phone(`<div class="cpz" style="left:0;right:0;bottom:0">${ckBody()}</div>`, 280), '& .cbx{border-radius:14px 14px 0 0;padding:14px}& .bt span{flex:1}'],
+    ['Flytande kort med luft runt', phone(`<div class="cpz" style="left:8px;right:8px;bottom:8px">${ckBody()}</div>`, 280), '& .cbx{border-radius:12px}& .bt span{flex:1}'],
+    ['Smal rad längst ned', phone(`<div class="cpz" style="left:0;right:0;bottom:0">${ckBody('<span class="sb b1">OK</span>')}</div>`, 280), '& .cbx{flex-direction:row;align-items:center;border-radius:0;padding:8px 10px;font-size:11px}& .tx{flex:1}']
+  ], { css: ckCss2 + '& .cpz{position:absolute}' });
+
+  Q('coo-ikon', 'Ska cookie-bannern ha en kak-ikon?', [
+    ['Med ikon', ckBody(undefined, `<span style="display:flex;color:var(--brand)">${ico('cookie', 24, 1.8)}</span>`)],
+    ['Utan ikon', ckBody()]
+  ], { css: ckCss2 + '& .cbx{border-radius:12px;padding:14px;font-size:13px;max-width:260px}& .bt span{height:34px;font-size:13px}' });
+
+  /* =====================================================================
+     SIDÖVERGÅNGAR OCH SCROLLANIMATIONER
+     ===================================================================== */
+  grp('rorelse', 'Sidövergångar och scrollrörelse');
+
+  const pgT = `<div class="lx-cap" style="margin-bottom:8px">Byte av sida, upprepas</div><div class="lx-scr pt" style="height:160px"><div class="pa">${fake(4)}</div><div class="pb"><div class="lx-fake"><i class="lx-hb"></i><i style="width:40%;height:16px;background:var(--accent)"></i><i style="width:90%"></i><i style="width:70%"></i><i style="width:82%"></i></div></div></div>`;
+  const ptCss = '& .pa,& .pb{position:absolute;inset:0;background:#fff}';
+  Q('ror-sida', 'Ska det synas en övergång när man byter sida?', [
+    ['Ingen, nya sidan visas direkt', pgT, ptCss + '& .pb{animation:&&k 4s infinite steps(1)}@keyframes &&k{0%,45%{opacity:0}46%,95%{opacity:1}96%,100%{opacity:0}}'],
+    ['Tonar över', pgT, ptCss + '& .pb{animation:&&k 4s infinite}@keyframes &&k{0%,40%{opacity:0}46%,92%{opacity:1}98%,100%{opacity:0}}'],
+    ['Glider in från höger', pgT, ptCss + '& .pb{animation:&&k 4s infinite cubic-bezier(.2,.8,.2,1)}@keyframes &&k{0%,40%{transform:translateX(100%)}48%,92%{transform:none}100%{transform:translateX(100%)}}'],
+    ['Tonar och glider upp lite', pgT, ptCss + '& .pb{animation:&&k 4s infinite ease-out}@keyframes &&k{0%,40%{opacity:0;transform:translateY(12px)}47%,92%{opacity:1;transform:none}98%,100%{opacity:0}}']
+  ]);
+
+  const ptk = (ms) => { const a = 40, b = a + ms / 4000 * 100; return ptCss + `& .pb{animation:&&k 4s infinite}@keyframes &&k{0%,${a}%{opacity:0}${b.toFixed(2)}%,92%{opacity:1}96%,100%{opacity:0}}`; };
+  Q('ror-sida-tid', 'Hur lång ska en tonande sidövergång vara?', [150, 250, 400].map(ms => [`${ms} ms`, pgT, ptk(ms)]));
+
+  const sc = `<div class="lx-cap" style="margin-bottom:8px">Innehåll kommer in i bild, upprepas</div><div class="sw"><div class="bl"><b></b><i></i><i style="width:70%"></i></div><div class="bl"><b></b><i></i><i style="width:60%"></i></div><div class="bl"><b></b><i></i><i style="width:80%"></i></div></div>`;
+  const scCss = '& .sw{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}& .bl{background:#fff;border:1px solid var(--sline);border-radius:10px;padding:8px;display:flex;flex-direction:column;gap:6px;min-width:0}& .bl b{display:block;aspect-ratio:1;border-radius:6px;background:var(--tint)}& .bl i{display:block;height:6px;border-radius:3px;background:#E3E5E7}';
+  const scK = (from, stag = 0, dur = 3.6) => scCss + `& .bl{animation:&&k ${dur}s infinite ease-out}& .bl:nth-child(2){animation-delay:${stag}s}& .bl:nth-child(3){animation-delay:${stag * 2}s}@keyframes &&k{0%,15%{${from}}35%,85%{opacity:1;transform:none}100%{${from}}}`;
+  Q('ror-scroll', 'Ska innehåll röra sig när det kommer in i bild vid scroll?', [
+    ['Nej, det står still', sc, scCss],
+    ['Tonar in', sc, scK('opacity:0')],
+    ['Tonar in och glider upp', sc, scK('opacity:0;transform:translateY(20px)')],
+    ['Växer fram', sc, scK('opacity:0;transform:scale(.92)')]
+  ]);
+
+  Q('ror-scroll-avstand', 'Hur långt ska innehållet glida när det tonar in?', [8, 24, 48].map(d => [`${d} px`, sc, scK(`opacity:0;transform:translateY(${d}px)`)]), { css: '&.pad{padding-top:28px}' });
+
+  Q('ror-stagger', 'Ska flera kort komma in samtidigt eller ett i taget?', [
+    ['Alla samtidigt', sc, scK('opacity:0;transform:translateY(16px)')],
+    ['Ett i taget, kort fördröjning', sc, scK('opacity:0;transform:translateY(16px)', .12)],
+    ['Ett i taget, tydlig fördröjning', sc, scK('opacity:0;transform:translateY(16px)', .3)]
+  ]);
+
+  const acc = `<div class="lx-cap" style="margin-bottom:8px">Öppnas och stängs, upprepas</div><div class="ac"><div class="ah"><b>Hur avbokar jag?</b>${ico('chev', 18)}</div><div class="ab"><div class="ai">Du kan avboka fram till 24 timmar innan din tid utan kostnad.</div></div></div>`;
+  const acCss = '& .ac{background:#fff;border:1px solid var(--sline);border-radius:10px;overflow:hidden}& .ah{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;font-size:14px}& .ab{display:grid;overflow:hidden}& .ai{min-height:0;padding:0 14px 12px;font-size:13px;color:var(--smuted)}';
+  const acK = (ms) => { const C = 4000, a = 20, b = a + ms / C * 100, c = 70, d = c + ms / C * 100; return acCss + `& .ab{animation:&&k 4s infinite ${ms ? 'ease-in-out' : 'steps(1)'}}@keyframes &&k{0%,${a}%{grid-template-rows:0fr}${b.toFixed(2)}%,${c}%{grid-template-rows:1fr}${d.toFixed(2)}%,100%{grid-template-rows:0fr}}@media (prefers-reduced-motion: reduce){& .ab{grid-template-rows:1fr}}`; };
+  Q('ror-dragspel', 'Hur ska en fällbar fråga (dragspel) öppnas?', [
+    ['Direkt, utan rörelse', acc, acK(0)],
+    ['Glider upp och ned snabbt (200 ms)', acc, acK(200)],
+    ['Glider lugnt (400 ms)', acc, acK(400)]
+  ]);
+
+  QT('ror-minska', 'Vad ska hända när besökaren har valt ”minska rörelse” i sin enhet?', ['All rörelse stängs av', 'Glid och zoom byts mot tonade övergångar', 'Bara stora rörelser stängs av']);
 
   // SLUT-PÅ-GRUPPER
 
