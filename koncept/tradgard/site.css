@@ -1,0 +1,180 @@
+/* Hagby Trädgård: designkoncept av Elevate Studio. Bygger på base.css.
+   Varumärke: gräsgrön #356A2E, 6,5:1 mot vit text och 6,0:1 mot ljusgrå sektion. */
+:root {
+  --ev-brand: #356A2E;
+  --ev-brand-dark: #1B3417;        /* rekommenderat paket, sidfot och mörka ytor */
+  --ev-accent-on-dark: #C3E0A8;    /* rubrikprick på mörk yta, 10:1 mot #1B3417 */
+  --ev-hero-shade: rgba(14, 24, 12, .52);
+  --ev-surface-2: #F5F5F0;
+}
+
+.ev-logo { gap: 8px; align-items: center; }
+.ev-logo__mark { width: 28px; height: 28px; color: var(--ev-brand); }
+.ev-footer .ev-logo__mark, .ev-on-dark .ev-logo__mark { color: #fff; }
+.ev-footer p, .ev-footer li, .ev-footer__bottom, .ev-concept, .ev-footer__links li + li::before { color: #E2E9DE; }
+
+/* ---------- Hero med postnummer ---------- */
+.tg-hero .ev-hero__img { object-position: 50% 60%; }
+.tg-hero h1 { max-width: 18ch; }
+.tg-hero p { max-width: 46ch; }
+.tg-heroform { margin-top: 28px; display: grid; gap: 6px; max-width: 440px; }
+.tg-heroform label { font-size: 14px; font-weight: 600; }
+.tg-heroform__row { display: grid; gap: 12px; }
+.tg-heroform .ev-input { border-color: #fff; }
+.tg-heroform .ev-error { color: #fff; }
+.tg-heroform .ev-input[aria-invalid="true"] { border-color: #FFB4AB; box-shadow: inset 0 0 0 1px #FFB4AB; }
+@media (min-width: 641px) {
+  .tg-heroform__row { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; }
+  .tg-heroform .ev-btn { height: var(--ev-btn-h-sm); }   /* lägre än fältet (kn-hojd-falt) */
+}
+@media (max-width: 640px) { .tg-heroform .ev-btn { width: 100%; } }
+
+/* ---------- Abonnemang ---------- */
+.tg-pkg-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px 32px; margin-bottom: 24px; }
+.ev-pkg__price small { font-size: 15px; }
+.ev-pkg .ev-pkg__per { display: block; font-size: 14px; margin-top: 2px; }
+.ev-pkg--rec .ev-pkg__per { color: #E2E9DE; }
+.ev-pkg--rec .ev-link { color: #fff; }
+.tg-pkg-list { list-style: none; padding: 0 !important; display: grid; gap: 8px; }
+.tg-pkg-list li { display: flex; gap: 8px; align-items: flex-start; margin: 0 !important; }
+.tg-pkg-list .ev-icon { width: 20px; height: 20px; margin-top: 2px; flex: none; }
+.tg-pkg-list li.is-no { color: var(--ev-ink-2); }
+.ev-pkg--rec .tg-pkg-list li.is-no { color: #C9D3C4; }
+.tg-pkg-foot { margin-top: 20px; font-size: 14px; color: var(--ev-ink-2); }
+.ev-pkg--rec .tg-pkg-foot { color: #E2E9DE; }
+.ev-pkgtabs .ev-chip { height: 34px; }
+
+/* ---------- Året i trädgården ---------- */
+.tg-year { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 900px) { .tg-year { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; } }
+.tg-season { background: #fff; border-radius: var(--ev-r-card); padding: 24px; min-width: 0; }
+.tg-season > .ev-icon { width: 32px; height: 32px; --ev-stroke: 2.25px; }
+.tg-season h3 { margin-top: 12px; font-size: 18px; }
+.tg-season h3 span { display: block; font-size: 13px; font-weight: 500; color: var(--ev-ink-2); margin-top: 2px; }
+.tg-season ul { margin: 12px 0 0; padding-left: 18px; font-size: 15px; }
+.tg-season li + li { margin-top: 4px; }
+@media (max-width: 640px) { .tg-season { padding: 16px; } .tg-season ul { font-size: 14px; } .tg-season h3 { font-size: 16px; } }
+
+/* ---------- Anläggning: bild och klickbara rader (pi-lank-lista) ---------- */
+.tg-build { display: grid; gap: 32px; }
+@media (min-width: 900px) { .tg-build { grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; } }
+.tg-build .ev-media img { aspect-ratio: 4/3; }
+.tg-rows { list-style: none; margin: 24px 0 0; padding: 0; border-top: 1px solid var(--ev-line); }
+.tg-rows a { display: grid; grid-template-columns: 24px minmax(0, 1fr) 20px; gap: 2px 12px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--ev-line); color: var(--ev-ink); text-decoration: none; }
+.tg-rows a > .ev-icon:first-child { grid-row: 1 / span 2; align-self: start; margin-top: 1px; }
+.tg-rows b { font-weight: 600; }
+.tg-rows span { grid-column: 2; color: var(--ev-ink-2); font-size: 14px; }
+.tg-rows .tg-rows__arrow { grid-column: 3; grid-row: 1 / span 2; width: 20px; height: 20px; --ev-stroke: 1.75px; color: var(--ev-ink); transition: transform var(--ev-dur-arrow) var(--ev-ease); }
+.tg-rows a:hover b { color: var(--ev-brand); }
+.tg-rows a:hover .tg-rows__arrow { transform: translateX(4px); }
+
+/* ---------- Vågrät stegvisare (pi-sg-form, pi-sg-linje) ---------- */
+.tg-hsteps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: s; }
+.tg-hsteps li { position: relative; counter-increment: s; padding: 0 0 28px 44px; }
+.tg-hsteps li::before { content: counter(s); position: absolute; left: 0; top: -6px; width: 28px; text-align: center; font-size: 28px; font-weight: 600; color: var(--ev-brand); line-height: 1.2; }
+.tg-hsteps li::after { content: ""; position: absolute; left: 13px; top: 32px; bottom: 4px; width: 2px; background: var(--ev-brand); }
+.tg-hsteps li:last-child::after { display: none; }
+.tg-hsteps b { display: block; font-weight: 600; font-size: 17px; }
+.tg-hsteps span { display: block; color: var(--ev-ink-2); font-size: 15px; margin-top: 4px; }
+@media (min-width: 900px) {
+  .tg-hsteps { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+  .tg-hsteps li { padding: 52px 0 0; }
+  .tg-hsteps li::before { top: 0; left: 0; text-align: left; width: auto; font-size: 32px; }
+  .tg-hsteps li::after { left: 40px; right: -20px; top: 20px; bottom: auto; width: auto; height: 2px; }
+}
+
+/* ---------- Omdömen i rad ---------- */
+.tg-quotes { display: grid; gap: 32px; }
+@media (min-width: 900px) { .tg-quotes { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; } }
+
+/* ---------- Område och kontakt (mörk yta) ---------- */
+.tg-area { background: var(--ev-brand-dark); color: #fff; }
+.tg-area__grid { display: grid; gap: 40px; }
+@media (min-width: 900px) { .tg-area__grid { grid-template-columns: 7fr 5fr; gap: 72px; align-items: start; } }
+.tg-area p { color: #E2E9DE; }
+.tg-area .ev-lead { color: #fff; }
+.tg-towns { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 24px 0 0; padding: 0; }
+.tg-towns li { display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: var(--ev-r-pill); border: 1px solid rgba(255,255,255,.4); font-size: 14px; font-weight: 500; }
+.tg-staff { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; align-items: center; }
+.tg-staff img { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; object-position: 50% 25%; }
+.tg-staff b { display: block; font-weight: 600; }
+.tg-area .ev-contactlist { margin-top: 24px; }
+.tg-area .ev-contactlist li { border-color: rgba(255,255,255,.2); }
+.tg-area .ev-contactlist a { color: #fff; }
+.tg-area .ev-contactlist span { color: #E2E9DE; }
+.tg-area .ev-contactlist .ev-icon { color: #fff; }
+
+/* ---------- Abonnemangssidan ---------- */
+.tg-compare { width: 100%; border-collapse: collapse; font-size: 15px; }
+.tg-compare caption { text-align: left; font-weight: 600; font-size: 15px; padding-bottom: 12px; }
+.tg-compare th, .tg-compare td { padding: 12px 8px; border-bottom: 1px solid var(--ev-line); text-align: center; vertical-align: middle; }
+.tg-compare thead th { font-size: 14px; font-weight: 600; border-bottom-color: var(--ev-ink); }
+.tg-compare tbody th { text-align: left; font-weight: 400; padding-left: 0; }
+.tg-compare td .ev-icon { width: 20px; height: 20px; margin: 0 auto; display: block; }
+.tg-compare td.is-no .ev-icon { color: var(--ev-ink-2); }
+.tg-compare .is-rec { background: var(--ev-tint); }
+.tg-compare td.ev-price { font-weight: 600; }
+@media (max-width: 640px) { .tg-compare { font-size: 14px; } .tg-compare th, .tg-compare td { padding: 10px 4px; } }
+.tg-two { display: grid; gap: 48px; }
+@media (min-width: 900px) { .tg-two { grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; } }
+
+/* ---------- Anläggningssidan ---------- */
+.tg-services { display: grid; gap: 0; border-top: 1px solid var(--ev-line); }
+.tg-service { display: grid; gap: 12px; padding: 32px 0; border-bottom: 1px solid var(--ev-line); scroll-margin-top: 24px; }
+@media (min-width: 900px) { .tg-service { grid-template-columns: 4fr 7fr; gap: 64px; padding: 48px 0; } }
+.tg-service__head .ev-icon { width: 32px; height: 32px; --ev-stroke: 2.25px; margin-bottom: 12px; }
+.tg-service__head h2 { font-size: var(--ev-h3); }
+.tg-service__head .ev-meta { margin-top: 10px; }
+.tg-service h3 { font-size: 17px; margin-top: 20px; }
+.tg-service .ev-prose > :first-child { margin-top: 0; }
+
+/* ---------- Beställningsdialogen ---------- */
+.tg-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.tg-opt { display: grid; gap: 2px; justify-items: start; align-content: center; min-height: 84px; padding: 14px 18px; border-radius: var(--ev-r-card);
+  border: 1px solid var(--ev-field-line); background: #fff; color: var(--ev-ink); text-align: left; cursor: pointer; font: inherit; }
+.tg-opt b { font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tg-opt span { font-size: 14px; color: var(--ev-ink-2); }
+.tg-opt:hover { border-color: var(--ev-ink); background: var(--ev-surface-2); }
+.tg-opt[aria-pressed="true"] { border-color: var(--ev-brand); box-shadow: inset 0 0 0 1px var(--ev-brand); background: var(--ev-tint); }
+.tg-plans { display: grid; gap: 8px; }
+.tg-plan { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 16px 20px; border-radius: var(--ev-r-card);
+  border: 1px solid var(--ev-field-line); background: #fff; color: var(--ev-ink); text-align: left; cursor: pointer; font: inherit; }
+.tg-plan b { font-size: 18px; font-weight: 600; }
+.tg-plan .ev-price { grid-column: 2; grid-row: 1; font-size: 16px; }
+.tg-plan > span:last-child { grid-column: 1 / -1; font-size: 14px; color: var(--ev-ink-2); }
+.tg-plan .ev-tag { justify-self: start; }
+.tg-plan:hover { border-color: var(--ev-ink); background: var(--ev-surface-2); }
+.tg-plan[aria-pressed="true"] { border-color: var(--ev-brand); box-shadow: inset 0 0 0 1px var(--ev-brand); background: var(--ev-tint); }
+.tg-addons { display: grid; gap: 8px; }
+.tg-addon { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 2px 12px; padding: 14px 16px; border: 1px solid var(--ev-field-line);
+  border-radius: var(--ev-r-card); background: #fff; cursor: pointer; align-items: start; }
+.tg-addon input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--ev-brand); grid-row: 1 / span 2; }
+.tg-addon b { font-weight: 600; font-size: 15px; }
+.tg-addon .ev-price { font-size: 14px; grid-column: 3; grid-row: 1; }
+.tg-addon span:not(.ev-price) { grid-column: 2 / -1; font-size: 14px; color: var(--ev-ink-2); }
+.tg-addon:hover { border-color: var(--ev-ink); }
+.tg-addon:has(input:checked) { border-color: var(--ev-brand); box-shadow: inset 0 0 0 1px var(--ev-brand); background: var(--ev-tint); }
+.tg-addon:has(input:focus-visible) { outline: 2px solid var(--ev-brand); outline-offset: 2px; }
+.tg-addon input:focus-visible { outline: none; }
+.tg-total { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 16px 0 0; font-size: 15px; }
+.tg-total b { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tg-intro { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; color: var(--ev-ink-2); margin-bottom: 12px; padding-right: 48px; min-height: 28px; }
+.tg-intro .ev-icon { width: 20px; height: 20px; flex: none; }
+.tg-intro.is-ok { color: var(--ev-ok); font-weight: 600; }
+.ev-step .ev-form { max-width: none; }
+.ev-summary .tg-sumtotal { margin-top: 16px; display: grid; gap: 2px; }
+.ev-summary .tg-sumtotal span { font-size: 13px; color: var(--ev-ink-2); }
+.ev-summary .tg-sumtotal b { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tg-done { display: grid; gap: 12px; justify-items: start; }
+.tg-done .ev-icon--48 { color: var(--ev-ok); }
+.tg-done h2:focus { outline: none; }
+@media (max-width: 760px) {
+  .tg-opt { min-height: 76px; padding: 12px 14px; }
+  .tg-opt b { font-size: 17px; }
+  .ev-summary dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ev-summary dl div:last-child { grid-column: 1 / -1; }
+}
+.ev-summary dl div { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 0 10px; }
+.ev-summary dl dt, .ev-summary dl dd { grid-column: 2; }
+.ev-summary dl .ev-icon { grid-row: 1 / span 2; margin-top: 2px; }
+.ev-footer { border-top: 1px solid rgba(255,255,255,.16); }

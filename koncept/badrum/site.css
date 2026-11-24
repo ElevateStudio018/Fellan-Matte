@@ -1,0 +1,232 @@
+/* Norrby Bad & Rör: designkoncept av Elevate Studio. Bygger på base.css.
+   Varumärke: kakelblå #24589E, 7,1:1 mot vit text och 6,6:1 mot ljusgrå sektion. */
+:root {
+  --ev-brand: #24589E;
+  --ev-brand-dark: #10294A;         /* rekommenderat, mörka ytor */
+  --ev-accent-on-dark: #A9C8F0;     /* rubrikprick på mörk yta och foto, 9:1 mot #10294A */
+  --ev-hero-shade: rgba(12, 26, 46, .58);
+  --ev-surface-2: #F3F5F7;          /* ljusgrå sektion (standard), lätt kall ton */
+}
+
+/* ---------- Header ---------- */
+.ev-logo { gap: 8px; align-items: center; }
+.ev-logo__mark { width: 28px; height: 28px; color: var(--ev-brand); --ev-stroke: 2px; }
+
+/* ---------- Hero med ytfält (ux-hero-innehall, kn-hojd-falt) ---------- */
+.bd-hero { align-items: flex-end; }
+.bd-hero .ev-hero__img { object-position: 60% 50%; }
+.bd-hero h1 { max-width: 17ch; }
+.bd-hero p { max-width: 44ch; }
+.bd-heroform { margin-top: 28px; display: grid; gap: 6px; max-width: 460px; }
+.bd-heroform label { font-size: 14px; font-weight: 600; color: #fff; }
+.bd-heroform__row { display: grid; gap: 12px; }
+.bd-heroform .ev-input { border-color: #fff; }
+.bd-heroform__unit { position: relative; }
+.bd-heroform__unit span { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--ev-ink-2); pointer-events: none; }
+.bd-heroform .ev-error { color: #fff; }
+.bd-heroform .ev-input[aria-invalid="true"] { border-color: #FFB4AB; box-shadow: inset 0 0 0 1px #FFB4AB; }
+.bd-heroform__note { font-size: 14px; color: #E6ECF3; }
+@media (min-width: 641px) {
+  .bd-heroform__row { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; }
+  .bd-heroform .ev-btn { height: var(--ev-btn-h-sm); }    /* knappen lägre än fältet (kn-hojd-falt) */
+}
+@media (max-width: 640px) { .bd-heroform .ev-btn { width: 100%; } }
+@media (min-width: 900px) { .bd-hero .ev-hero__in { padding-bottom: 88px; } .bd-hero { align-items: flex-end; } }
+
+/* ---------- Tjänstekort med 32 px ikon (sy-storlek-kort) ---------- */
+.bd-services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (min-width: 900px) { .bd-services { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; } }
+.bd-service { position: relative; display: flex; flex-direction: column; gap: 8px; background: #fff; border-radius: var(--ev-r-card); padding: 24px; min-width: 0; }
+.bd-service .ev-icon { width: 32px; height: 32px; --ev-stroke: 2.25px; color: var(--ev-ink); margin-bottom: 8px; }
+.bd-service h3 { font-size: 18px; line-height: 1.3; }
+.bd-service h3 a { color: var(--ev-ink); text-decoration: none; }
+.bd-service h3 a::after { content: ""; position: absolute; inset: 0; border-radius: var(--ev-r-card); }
+.bd-service h3 a:focus-visible { outline: none; }
+.bd-service:has(h3 a:focus-visible) { outline: 2px solid var(--ev-brand); outline-offset: 2px; }
+.bd-service p { color: var(--ev-ink-2); font-size: 15px; }
+.bd-service .ev-price { margin-top: auto; padding-top: 8px; font-size: 15px; }
+.bd-service .ev-price { white-space: normal; }
+.bd-service .ev-price small { font-weight: 400; color: var(--ev-ink-2); font-size: 14px; white-space: nowrap; }
+.bd-service .ev-link { margin-top: 4px; }
+.bd-service:hover .ev-link__arrow { transform: translateX(4px); }
+@media (max-width: 640px) {
+  .bd-service { padding: 16px; }
+  .bd-service .ev-icon { width: 32px; height: 32px; }
+  .bd-service h3 { font-size: 16px; }
+  .bd-service p { font-size: 14px; }
+  .bd-service .ev-link { font-size: 14px; }
+}
+
+/* ---------- Prisexempel som rader (ux-lista-tabell, pi-avd-zebra) ---------- */
+.bd-prices { display: grid; gap: 32px; }
+@media (min-width: 900px) { .bd-prices { grid-template-columns: 5fr 7fr; gap: 64px; align-items: start; } }
+.bd-pricelist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ev-line); }
+.bd-pricelist li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 20px 0; border-bottom: 1px solid var(--ev-line); }
+.bd-pricelist b { font-weight: 600; font-size: 17px; }
+.bd-pricelist .ev-meta { grid-column: 1; }
+.bd-pricelist__price { grid-column: 2; grid-row: 1 / span 2; text-align: right; align-self: center; }
+.bd-pricelist__price .ev-price { display: block; font-size: 20px; }
+.bd-pricelist__price span { font-size: 13px; color: var(--ev-ink-2); }
+.bd-rot { margin-top: 16px; font-size: 14px; color: var(--ev-ink-2); max-width: 60ch; }
+
+/* ---------- Så går det till ---------- */
+.bd-process { display: grid; gap: 40px; }
+@media (min-width: 900px) { .bd-process { grid-template-columns: 6fr 5fr; gap: 72px; align-items: center; } }
+.bd-process .ev-vsteps { margin-top: 28px; }
+.bd-process .ev-vsteps li::after { opacity: 1; background: var(--ev-tint); }
+.bd-process .ev-vsteps li { padding-bottom: 24px; }
+.bd-process figure { margin: 0; }
+.bd-process figcaption { margin-top: 8px; }
+
+/* ---------- Trygghet ---------- */
+.bd-trust { display: grid; gap: 40px; }
+@media (min-width: 900px) { .bd-trust { grid-template-columns: 7fr 4fr; gap: 72px; align-items: start; } }
+.bd-trust .ev-facts { gap: 20px; margin-top: 28px; }
+@media (min-width: 641px) { .bd-trust .ev-facts { grid-template-columns: 1fr 1fr; gap: 24px 32px; } }
+.bd-person { background: #fff; border-radius: var(--ev-r-card); overflow: hidden; }
+.bd-person img { width: 100%; aspect-ratio: 4/3; object-fit: cover; object-position: 50% 25%; }
+.bd-person__body { padding: 20px 24px 24px; }
+.bd-person__body b { font-weight: 600; display: block; }
+.bd-person__body p { margin-top: 8px; color: var(--ev-ink-2); font-size: 15px; }
+.bd-person .ev-contactlist { margin-top: 16px; }
+
+/* ---------- Omdömen: ett stort och två små ---------- */
+.bd-quotes { display: grid; gap: 32px; }
+@media (min-width: 900px) { .bd-quotes { grid-template-columns: 6fr 5fr; gap: 64px; } .bd-quotes__small { display: grid; gap: 32px; align-content: start; } }
+.bd-quotes__big blockquote { font-size: clamp(20px, 1vw + 16px, 26px); line-height: 1.45; }
+
+/* ---------- Avslutande uppmaning ---------- */
+.bd-cta { background: var(--ev-brand-dark); color: #fff; border-radius: var(--ev-r-card); padding: 40px 24px; display: grid; gap: 8px; }
+.bd-cta p { color: #DDE6F1; max-width: 52ch; }
+.bd-cta .ev-actions { margin-top: 16px; }
+@media (min-width: 900px) { .bd-cta { padding: 56px; grid-template-columns: 1fr auto; align-items: end; gap: 8px 48px; } .bd-cta .ev-actions { margin-top: 0; } }
+
+/* ---------- Sidfot: ljus variant ---------- */
+.ev-footer { background: var(--ev-surface-2); color: var(--ev-ink); border-top: 1px solid var(--ev-line); }
+.ev-footer a { color: var(--ev-ink); }
+.ev-footer .ev-logo { color: var(--ev-ink); }
+.ev-footer .ev-logo b { color: var(--ev-brand); }
+.ev-footer p, .ev-footer li, .ev-footer__bottom, .ev-concept, .ev-footer__links li + li::before { color: var(--ev-ink-2); }
+.ev-footer .ev-iconline { color: var(--ev-ink); }
+.ev-footer__bottom { border-top-color: var(--ev-line); }
+
+/* ---------- Tjänstesidan ---------- */
+.bd-toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; list-style: none; padding: 0; }
+.bd-servicepage { display: grid; gap: 48px; }
+.bd-block { display: grid; gap: 24px; padding-top: 48px; border-top: 1px solid var(--ev-line); scroll-margin-top: 24px; }
+.bd-block:first-child { border-top: 0; padding-top: 0; }
+@media (min-width: 900px) { .bd-block { grid-template-columns: 4fr 7fr; gap: 64px; } }
+.bd-block__head .ev-icon { width: 32px; height: 32px; --ev-stroke: 2.25px; margin-bottom: 12px; }
+.bd-block__head .ev-price { display: block; margin-top: 12px; font-size: 18px; }
+.bd-block__head .ev-price small { font-weight: 400; color: var(--ev-ink-2); font-size: 14px; }
+.bd-block h3 { font-size: 18px; margin-top: 24px; }
+.bd-block h3:first-child { margin-top: 0; }
+.bd-block .ev-prose p { margin-top: 8px; }
+.bd-incl { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+.bd-incl li { display: flex; gap: 8px; align-items: flex-start; }
+.bd-incl .ev-icon { width: 20px; height: 20px; margin-top: 2px; flex: none; }
+.bd-incl li.is-no { color: var(--ev-ink-2); }
+.bd-incl li.is-no .ev-icon { color: var(--ev-ink-2); }
+
+/* ---------- Kontaktsidan ---------- */
+.bd-contact { display: grid; gap: 48px; }
+@media (min-width: 900px) { .bd-contact { grid-template-columns: 7fr 5fr; gap: 72px; align-items: start; } }
+.bd-contact aside h2 { font-size: 20px; margin-bottom: 12px; }
+.bd-contact aside .ev-map { margin-top: 24px; aspect-ratio: 16/10; }
+
+/* ---------- Prisuppskattningen (egen sida) ---------- */
+.bd-flowpage { padding: 24px 0 64px; }
+@media (min-width: 900px) { .bd-flowpage { padding: 48px 0 96px; } }
+.bd-flowgrid { display: grid; gap: 32px; align-items: start; }
+@media (min-width: 1000px) { .bd-flowgrid { grid-template-columns: minmax(0, 620px) 340px; justify-content: space-between; gap: 64px; } }
+.ev-flow { position: relative; max-width: 620px; width: 100%; }
+.ev-flow__close { position: absolute; top: -8px; right: -8px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: none; color: var(--ev-ink-2); display: grid; place-items: center; cursor: pointer; }
+.ev-flow__close:hover { color: var(--ev-ink); }
+.ev-flow__intro { display: flex; gap: 8px; align-items: center; color: var(--ev-ink-2); font-size: 14px; margin-bottom: 16px; min-height: 28px; padding-right: 48px; }
+.ev-flow__intro .ev-icon { width: 20px; height: 20px; --ev-stroke: 2px; }
+.ev-flow .ev-step h1, .ev-flow .ev-step h2 { font-size: clamp(26px, 1.4vw + 20px, 34px); line-height: 1.2; padding-right: 48px; }
+.ev-flow .ev-step :is(h1, h2):focus { outline: none; }
+.ev-flow .ev-step .ev-hint { margin-top: 8px; font-size: 15px; }
+.ev-flow .ev-step__body { margin-top: 24px; }
+.ev-flow__foot { display: grid; gap: 16px; margin-top: 28px; }
+.ev-flow .ev-step__back { min-height: 28px; margin-bottom: 12px; }
+
+/* Valknappar som går vidare direkt (ux-flode-auto-vidare) */
+.bd-sizes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.bd-size { display: grid; gap: 2px; align-content: center; justify-items: start; min-height: 88px; padding: 16px 20px; border-radius: var(--ev-r-card);
+  border: 1px solid var(--ev-field-line); background: #fff; color: var(--ev-ink); text-align: left; cursor: pointer; font: inherit; }
+.bd-size b { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.bd-size span { font-size: 14px; color: var(--ev-ink-2); }
+.bd-size:hover { border-color: var(--ev-ink); background: var(--ev-surface-2); }
+.bd-size[aria-pressed="true"] { border-color: var(--ev-brand); box-shadow: inset 0 0 0 1px var(--ev-brand); background: var(--ev-tint); }
+.bd-exact { margin-top: 20px; display: grid; gap: 6px; max-width: 380px; }
+.bd-exact__row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.bd-exact .ev-btn { height: var(--ev-btn-h-sm); }
+
+.bd-levels { display: grid; gap: 8px; }
+.bd-level { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 18px 20px; border-radius: var(--ev-r-card);
+  border: 1px solid var(--ev-field-line); background: #fff; color: var(--ev-ink); text-align: left; cursor: pointer; font: inherit; }
+.bd-level b { font-size: 18px; font-weight: 600; }
+.bd-level .ev-price { grid-column: 2; grid-row: 1; font-size: 15px; }
+.bd-level span { grid-column: 1 / -1; font-size: 14px; color: var(--ev-ink-2); }
+.bd-level:hover { border-color: var(--ev-ink); background: var(--ev-surface-2); }
+.bd-level[aria-pressed="true"] { border-color: var(--ev-brand); box-shadow: inset 0 0 0 1px var(--ev-brand); background: var(--ev-tint); }
+
+/* Flerval: kort med bock (ux-val-flerval) */
+.bd-addons { display: grid; gap: 8px; }
+@media (min-width: 641px) { .bd-addons { grid-template-columns: 1fr 1fr; } }
+.bd-addon { position: relative; display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 2px 12px; padding: 14px 16px; border: 1px solid var(--ev-field-line);
+  border-radius: var(--ev-r-card); background: #fff; cursor: pointer; }
+.bd-addon input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--ev-brand); grid-row: 1 / span 2; }
+.bd-addon b { font-weight: 600; font-size: 15px; }
+.bd-addon span { grid-column: 2; font-size: 14px; color: var(--ev-ink-2); }
+.bd-addon:hover { border-color: var(--ev-ink); }
+.bd-addon:has(input:checked) { border-color: var(--ev-brand); box-shadow: inset 0 0 0 1px var(--ev-brand); background: var(--ev-tint); }
+.bd-addon:has(input:focus-visible) { outline: 2px solid var(--ev-brand); outline-offset: 2px; }
+.bd-addon input:focus-visible { outline: none; }
+
+/* Resultat */
+.bd-result { background: var(--ev-brand-dark); color: #fff; border-radius: var(--ev-r-card); padding: 28px 24px; }
+.bd-result__label { font-size: 14px; color: #DDE6F1; }
+.bd-result__price { font-size: clamp(30px, 2.4vw + 20px, 42px); font-weight: 600; letter-spacing: -.01em; line-height: 1.15; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.bd-result__before { margin-top: 8px; font-size: 15px; color: #DDE6F1; }
+.bd-result__before .ev-price { color: #fff; font-weight: 600; }
+.bd-result__note { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.2); font-size: 14px; color: #DDE6F1; }
+.bd-review { margin-top: 24px; }
+
+/* Sammanfattning bredvid stegen (ux-flode-sammanfattning) */
+.bd-summary { background: var(--ev-surface-2); border-radius: var(--ev-r-card); padding: 24px; }
+@media (min-width: 1000px) { .bd-summary { position: sticky; top: 24px; } }
+.bd-summary h2 { font-size: 16px; font-weight: 600; }
+.bd-summary dl { margin: 12px 0 0; }
+.bd-summary dl div { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 0 10px; padding: 12px 0; border-bottom: 1px solid var(--ev-line); }
+.bd-summary dt { font-size: 13px; color: var(--ev-ink-2); grid-column: 2; }
+.bd-summary dd { margin: 0; font-weight: 600; font-size: 15px; grid-column: 2; }
+.bd-summary dd.is-empty { font-weight: 400; color: var(--ev-ink-2); }
+.bd-summary .ev-icon { width: 20px; height: 20px; --ev-stroke: 1.75px; color: var(--ev-ink-2); grid-row: 1 / span 2; margin-top: 2px; }
+.bd-summary__total { margin-top: 16px; display: grid; gap: 2px; }
+.bd-summary__total span { font-size: 13px; color: var(--ev-ink-2); }
+.bd-summary__total b { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.bd-summary__help { margin-top: 20px; font-size: 14px; color: var(--ev-ink-2); }
+.bd-summary__help a { color: var(--ev-ink); }
+
+.bd-done { display: grid; gap: 12px; justify-items: start; }
+.bd-done .ev-icon--48 { color: var(--ev-ok); }
+.bd-done h1 { font-size: clamp(28px, 1.6vw + 20px, 36px); }
+.bd-done h1:focus { outline: none; }
+.bd-done .ev-vsteps { margin-top: 16px; }
+
+@media (max-width: 640px) {
+  .ev-steps__list { display: none; }
+  .ev-steps__dots { display: inline-flex; }
+  .ev-steps__count { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .bd-size { min-height: 80px; padding: 14px 16px; }
+  .bd-size b { font-size: 18px; }
+  .ev-flow__close { width: 44px; height: 44px; }
+  .bd-flowpage .ev-flow__close .ev-icon { width: 28px; height: 28px; }
+}
+
+/* Länken i kortet bryts som text, så pilen följer sista ordet */
+.bd-service .ev-link { display: inline; }
+.bd-service .ev-link .ev-icon { display: inline-block; vertical-align: -.15em; margin-left: 4px; }
+.bd-person { border: 1px solid var(--ev-line); }
