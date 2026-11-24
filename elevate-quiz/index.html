@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Elevate designquiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="base.css">
+<style>
+/* Quizets eget gränssnitt. Neutralt, så att det inte färgar svaren. */
+:root {
+  --bg: #ffffff; --surface: #f4f4f2; --ink: #141414; --ink-2: #5b5b5b; --line: #e3e3e0;
+  --one: #141414; --one-bg: #ececea; --two: #6b6b6b; --focus: #2457d6;
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; --r: 8px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #121212; --surface: #1c1c1c; --ink: #f1f1f1; --ink-2: #a6a6a6; --line: #2f2f2f; --one: #f1f1f1; --one-bg: #262626; --two: #9a9a9a; --focus: #7ea2ff; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --bg: #121212; --surface: #1c1c1c; --ink: #f1f1f1; --ink-2: #a6a6a6; --line: #2f2f2f; --one: #f1f1f1; --one-bg: #262626; --two: #9a9a9a; --focus: #7ea2ff; color-scheme: dark; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+button, textarea, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.top { position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+.top-in { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding-block: 12px; }
+.brand { font-weight: 800; font-size: 18px; letter-spacing: -0.01em; white-space: nowrap; }
+.brand span { color: var(--ink-2); font-weight: 600; }
+.total { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.spacer { flex: 1; }
+.btn { border: 1px solid var(--line); background: var(--bg); padding: 8px 14px; border-radius: var(--r); font-weight: 600; font-size: 14px; cursor: pointer; white-space: nowrap; min-height: 40px; }
+.btn:hover { border-color: var(--ink-2); }
+.btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn[disabled] { opacity: .45; cursor: default; }
+.parts { display: flex; gap: 6px; overflow-x: auto; padding-block: 0 10px; scrollbar-width: thin; }
+.parts button { flex: 0 0 auto; border: 1px solid var(--line); background: var(--bg); padding: 6px 12px; border-radius: 999px; font-weight: 600; font-size: 13px; cursor: pointer; color: var(--ink-2); display: flex; gap: 8px; align-items: baseline; white-space: nowrap; }
+.parts button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.parts button span { font-size: 12px; font-variant-numeric: tabular-nums; opacity: .8; font-weight: 500; }
+.progress { height: 3px; background: var(--surface); }
+.progress div { height: 100%; background: var(--ink); width: 0; transition: width .25s; }
+
+main { padding-block: 24px 96px; }
+.qhead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 6px; color: var(--ink-2); font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.qtext { font-size: clamp(22px, 3vw, 32px); font-weight: 800; letter-spacing: -0.015em; line-height: 1.15; margin: 0 0 6px; text-wrap: balance; }
+.how { color: var(--ink-2); font-size: 14px; margin: 0 0 16px; }
+.how b { color: var(--ink); }
+.opts { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); }
+.opts.stack { grid-template-columns: 1fr; }
+.opts.n5:not(.stack), .opts.n6:not(.stack) { grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+.opt { position: relative; display: flex; flex-direction: column; text-align: left; border: 2px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--bg); padding: 0; cursor: pointer; min-width: 0; transition: border-color .12s; }
+.opt:hover { border-color: var(--ink-2); }
+.opt[data-rank="1"] { border-color: var(--one); box-shadow: 0 0 0 2px var(--one); }
+.opt[data-rank="2"] { border-color: var(--two); border-style: dashed; }
+.opt .render { flex: 1; min-height: 110px; display: flex; flex-direction: column; justify-content: center; pointer-events: none; }
+.opt .render > .spec { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.opt .lab { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-top: 1px solid var(--line); font-weight: 600; font-size: 15px; }
+.opt[data-rank="1"] .lab { background: var(--one-bg); }
+.opt .key { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--line); font-size: 13px; font-weight: 700; flex: 0 0 auto; background: var(--bg); color: var(--ink); }
+.opt .rank { margin-left: auto; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+.opt[data-rank="1"] .rank { background: var(--one); color: var(--bg); }
+.opt[data-rank="2"] .rank { border: 1px dashed var(--two); color: var(--ink-2); }
+.opt.textonly .render { display: none; }
+.opt.textonly .lab { border-top: 0; min-height: 64px; }
+.after { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 16px; }
+.after .btn[aria-pressed="true"] { background: var(--one-bg); border-color: var(--ink); }
+.hint { font-size: 13px; color: var(--ink-2); margin-left: auto; }
+kbd { font: 600 12px var(--font); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; background: var(--bg); }
+.loading { padding: 80px 0; text-align: center; color: var(--ink-2); }
+
+.intro { max-width: 720px; padding: 24px 0; }
+.intro h1 { font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 12px; }
+.intro p { color: var(--ink-2); margin: 0 0 12px; }
+.intro ol { padding-left: 20px; margin: 0 0 20px; color: var(--ink-2); }
+.intro li { margin-bottom: 6px; }
+.intro li b { color: var(--ink); }
+.pgrid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); margin-top: 20px; }
+.pcard { text-align: left; border: 1px solid var(--line); background: var(--bg); border-radius: 12px; padding: 14px 16px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
+.pcard:hover { border-color: var(--ink-2); }
+.pcard b { font-size: 16px; }
+.pcard span { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.pcard .pbar { height: 3px; background: var(--surface); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+.pcard .pbar i { display: block; height: 100%; background: var(--ink); }
+
+.overview h2 { font-size: 20px; font-weight: 800; margin: 24px 0 10px; }
+.olist { display: grid; gap: 6px; }
+.orow { display: grid; grid-template-columns: 48px minmax(0, 1fr) minmax(0, 260px); gap: 12px; align-items: center; text-align: left; border: 1px solid var(--line); background: var(--bg); border-radius: var(--r); padding: 9px 12px; cursor: pointer; }
+.orow:hover { border-color: var(--ink-2); }
+.orow .n { color: var(--ink-2); font-variant-numeric: tabular-nums; font-size: 13px; }
+.orow .a { font-weight: 700; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.orow .a.none { color: var(--ink-2); font-weight: 500; }
+.done { text-align: center; padding: 56px 0; }
+.done h2 { font-size: 28px; font-weight: 800; margin: 0 0 8px; }
+.done p { color: var(--ink-2); margin: 0 auto 20px; max-width: 52ch; }
+.done .after { justify-content: center; }
+.note { margin: 24px auto 0; display: flex; flex-direction: column; gap: 6px; max-width: 720px; text-align: left; }
+.note label { font-weight: 600; font-size: 14px; }
+.note textarea { width: 100%; min-height: 72px; resize: vertical; border: 1px solid var(--line); border-radius: var(--r); padding: 8px 10px; background: var(--bg); }
+
+dialog { border: 1px solid var(--line); border-radius: 14px; padding: 0; width: min(560px, calc(100vw - 32px)); background: var(--bg); color: var(--ink); }
+dialog::backdrop { background: rgba(0,0,0,.4); }
+.dlg { padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+.dlg h2 { margin: 0; font-size: 22px; }
+.dlg p { margin: 0; color: var(--ink-2); font-size: 14px; }
+.dlg .row { display: flex; flex-wrap: wrap; gap: 8px; }
+.dlg textarea { width: 100%; min-height: 120px; border: 1px solid var(--line); border-radius: var(--r); padding: 10px; background: var(--surface); font-size: 13px; }
+.toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: var(--r); font-weight: 600; font-size: 14px; z-index: 60; }
+@media (max-width: 640px) { .hint { display: none; } .orow { grid-template-columns: 40px minmax(0, 1fr); } .orow .a { grid-column: 2; } .top { position: static; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="wrap top-in">
+    <span class="brand">Elevate <span>designquiz</span></span>
+    <span class="total" id="total"></span>
+    <div class="spacer"></div>
+    <button type="button" class="btn" id="home">Alla delar</button>
+    <button type="button" class="btn" id="toggleView">Översikt</button>
+    <button type="button" class="btn primary" id="exportBtn">Skicka svaren</button>
+  </div>
+  <div class="wrap parts" id="parts" role="group" aria-label="Del"></div>
+  <div class="progress"><div id="bar"></div></div>
+</div>
+
+<main class="wrap" id="main"><p class="loading">Laddar…</p></main>
+
+<dialog id="exportDlg" aria-labelledby="exportTitle">
+  <div class="dlg">
+    <h2 id="exportTitle">Skicka svaren till Claude</h2>
+    <p id="exportInfo"></p>
+    <p>Kopiera och klistra in i chatten. Är det mycket blir det lättare att skicka en del i taget, eller att ladda ner filen och bifoga den.</p>
+    <div class="row">
+      <button type="button" class="btn primary" data-x="copy-all">Kopiera allt</button>
+      <button type="button" class="btn" data-x="copy-part">Kopiera den här delen</button>
+      <button type="button" class="btn" data-x="download">Ladda ner fil</button>
+    </div>
+    <textarea readonly hidden aria-label="Svaren som text"></textarea>
+    <p><b>Byta dator?</b> Ladda ner filen här och läs in den på den andra.</p>
+    <div class="row">
+      <label class="btn" style="display:inline-flex;align-items:center">Läs in fil<input type="file" accept=".json,application/json" hidden data-x="import"></label>
+      <button type="button" class="btn" data-x="close">Stäng</button>
+    </div>
+  </div>
+</dialog>
+
+<script src="manifest.js"></script>
+<script src="engine.js"></script>
+</body>
+</html>
