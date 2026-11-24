@@ -1087,8 +1087,8 @@
   );
 
   add('stilar',
-    Q('stil-utskuren', 'Hur tjocka ska de utskurna detaljerna i fyllda ikoner vara?', [1.5, 2, 2.75].map(kw =>
-      O(fmt(kw) + ' px utskärning', W(grid({ st: 'fill', s: 32, kw }, ['home', 'user-circle', 'mail', 'calendar', 'lock', 'clock', 'info', 'check-circle'], 'gap:18px 22px')))))
+    Q('stil-utskuren', 'Hur tjocka ska de utskurna detaljerna i fyllda ikoner vara?', [1.25, 2, 3].map(kw =>
+      O(fmt(kw) + ' px utskärning', W(grid({ st: 'fill', s: 44, kw }, ['home', 'user-circle', 'mail', 'calendar', 'lock', 'clock', 'info', 'check-circle'], 'gap:16px 14px')))))
   );
 
   add('listor',
@@ -1096,6 +1096,9 @@
       ['Dokumentikon', n => I('doc', { s: 22, c: 'var(--smuted)' })], ['Filtyp som etikett', (n, t) => `<span style="display:grid;place-items:center;width:34px;height:22px;border-radius:5px;background:var(--tint);color:var(--brand);font-size:10px;font-weight:800">${t}</span>`], ['Ingen ikon', () => '']
     ].map(([l, f]) => O(l, W(`<div class="stack syx-w" style="gap:6px">${[['Prislista 2026', 'PDF'], ['Villkor', 'PDF'], ['Bokningsmall', 'XLS']].map(([t, ty]) => `<div class="syx-l" style="gap:10px;background:var(--box);border-radius:8px;padding:9px 12px">${f(t, ty)}<span style="flex:1;min-width:0">${t}</span>${I('download', { s: 18, c: 'var(--brand)' })}</div>`).join('')}</div>`))))
   );
+
+  // Lägg ”Symboler: fler” direkt efter de andra symbolgrupperna
+  G.splice(G.findIndex(g => g.key === 'symboler-objekt') + 1, 0, ...G.splice(G.findIndex(g => g.key === 'symboler-fler'), 1));
 
   /* @@FLER@@ */
 

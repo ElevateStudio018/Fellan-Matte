@@ -1055,7 +1055,7 @@
         ['Platt: inga skuggor, bara kanter', [BD, 'none', 'none']],
         ['Lätt djup: hårfina skuggor', ['1px solid rgba(26,28,30,.06)', SH.hair, '0 6px 16px rgba(26,28,30,.10)']],
         ['Tydligt djup: mjuka skuggor', ['none', '0 10px 26px rgba(26,28,30,.10)', '0 18px 40px rgba(26,28,30,.16)']],
-      ].map(([l, [b, c, m]]) => [l, scene(`<div style="display:flex;flex-direction:column;gap:12px"><div style="background:#fff;border:${b};box-shadow:${c};border-radius:10px;height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 12px"><span style="font-weight:700;font-size:14px">Logotyp</span>${ico('<path d="M4 7h16M4 12h16M4 17h16"/>', 'width:18px;height:18px')}</div><div style="position:relative">${card({ bd: b, sh: c, pad: '16px', gap: '6px', body: H3s + TX })}<div style="position:absolute;right:12px;top:52px;width:130px;background:#fff;border-radius:10px;border:${b === 'none' ? 'none' : BD};box-shadow:${m};padding:4px 0">${['Redigera', 'Dela', 'Ta bort'].map(t => `<div style="padding:7px 12px;font-size:13px">${t}</div>`).join('')}</div></div></div>`, { pad: '28px 24px' })])),
+      ].map(([l, [b, c, m]]) => [l, scene(`<div style="display:flex;flex-direction:column;gap:12px"><div style="background:#fff;border:${b};box-shadow:${c};border-radius:10px;height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 12px"><span style="font-weight:700;font-size:14px">Logotyp</span>${ico('<path d="M4 7h16M4 12h16M4 17h16"/>', 'width:18px;height:18px')}</div><div style="display:flex;flex-direction:column">${card({ bd: b, sh: c, pad: '16px 16px 26px', gap: '6px', body: H3s + '<p class="muted small">Kort text</p>' })}<div style="position:relative;align-self:flex-end;margin:-16px 12px 0 0;width:130px;background:#fff;border-radius:10px;border:${b === 'none' ? 'none' : BD};box-shadow:${m};padding:4px 0">${['Redigera', 'Dela', 'Ta bort'].map(t => `<div style="padding:7px 12px;font-size:13px">${t}</div>`).join('')}</div></div></div>`, { pad: '28px 24px' })])),
   );
 
   sektioner.push(
@@ -1213,6 +1213,9 @@
       { key: 'textur', title: 'Mönster och textur', questions: textur },
       { key: 'gradienter', title: 'Gradienter', questions: gradienter },
       { key: 'morkt', title: 'Ytor i mörkt läge', questions: morkt },
+      { key: 'kortvarianter', title: 'Kortvarianter', questions: kortvarianter },
+      { key: 'flytande', title: 'Flytande ytor', questions: flytande },
+      { key: 'listor', title: 'Listor och tabeller', questions: listor },
     ],
   });
 })();
