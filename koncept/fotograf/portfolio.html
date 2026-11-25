@@ -6,14 +6,14 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Portfolio – Linnea Strand Foto</title>
 <meta name="description" content="Porträtt, företagsbilder och landskap av Linnea Strand, fotograf i Sundsvall.">
-<meta name="theme-color" content="#24170F">
-<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/cormorant-garamond-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#121110">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@200,300,400,500,600,700&display=swap">
 <link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%236E4A36'/%3E%3Ctext x='16' y='22.5' font-family='Georgia' font-size='18' font-weight='700' fill='white' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23A84B2B'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='17' font-weight='700' fill='white' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
 <script src="main.js" defer></script>
 </head>
-<body>
+<body class="ls-dark">
 <a class="ev-skip" href="#innehall">Hoppa till innehållet</a>
 
 <header class="ev-header">
@@ -59,10 +59,10 @@
 
 <section class="ev-wrap ev-pagehead" aria-labelledby="sid-rubrik">
   <h1 id="sid-rubrik" class="ev-dot">Portfolio</h1>
-  <p>Porträtt, företag och landskap från de senaste åren. Alla naturbilder går att köpa som tryck.</p>
+  <p>Fyra serier med porträtt, företag och landskap. Tryck på en bild för att se den i helskärm.</p>
 </section>
 
-<section class="ev-wrap" aria-label="Bilder" style="padding-bottom:96px">
+<div class="ev-wrap">
   <div class="pf-bar">
     <div class="ev-chips" role="group" aria-label="Visa kategori">
       <button class="ev-chip" type="button" data-filter="alla" aria-pressed="true">Alla</button>
@@ -72,78 +72,113 @@
     </div>
     <p class="pf-count" data-count aria-live="polite">Visar 20 bilder</p>
   </div>
-  <ul class="pf-grid" data-gallery>
-      <li class="pf-item" data-id="portratt-1" data-cat="portratt" data-title="Emma, studio" data-meta="Porträtt i studion i Stenstan. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/portratt-1.jpg" alt="Porträtt av en kvinna med långt blont hår mot ljusgrå bakgrund" width="800" height="1000" style="object-position:50% 30%"></span><span class="ls-shot__cap"><b>Emma, studio</b><span>Porträtt</span></span></button>
-      </li>
-      <li class="pf-item" data-id="tag-hostskog" data-cat="natur" data-title="Höst över dalen" data-meta="Natur, finns som tryck. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/tag-hostskog.jpg" alt="Tåg genom ett höstlandskap med åkrar och orange lövträd" width="1400" height="787" style="object-position:38% 50%"></span><span class="ls-shot__cap"><b>Höst över dalen</b><span>Natur</span></span></button>
-      </li>
-      <li class="pf-item" data-id="kontor-team" data-cat="foretag" data-title="Team på ett IT-bolag" data-meta="Företag, miljöbild hos kunden. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/kontor-team.jpg" alt="Fyra kollegor samlade kring en skärm och skrattar" width="1400" height="788" style="object-position:40% 50%"></span><span class="ls-shot__cap"><b>Team på ett IT-bolag</b><span>Företag</span></span></button>
-      </li>
-      <li class="pf-item" data-id="skog-sjo" data-cat="natur" data-title="Bryggan i augusti" data-meta="Natur, finns som tryck. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/skog-sjo.jpg" alt="Brygga ut i en blank skogssjö med vass och barrskog" width="1400" height="933" style="object-position:62% 50%"></span><span class="ls-shot__cap"><b>Bryggan i augusti</b><span>Natur</span></span></button>
-      </li>
-      <li class="pf-item" data-id="portratt-2" data-cat="portratt" data-title="Johan, profilbild" data-meta="Porträtt i studion, ljus bakgrund. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/portratt-2.jpg" alt="Leende man med armarna i kors i svart t-shirt" loading="lazy" width="800" height="1000" style="object-position:50% 30%"></span><span class="ls-shot__cap"><b>Johan, profilbild</b><span>Porträtt</span></span></button>
-      </li>
-      <li class="pf-item" data-id="fjallen-vandring" data-cat="natur" data-title="Morgon i fjällbyn" data-meta="Natur, finns som tryck. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/fjallen-vandring.jpg" alt="Person i gul jacka på en snöig stig mellan stugor i rosa vinterljus" loading="lazy" width="700" height="1050" style="object-position:50% 50%"></span><span class="ls-shot__cap"><b>Morgon i fjällbyn</b><span>Natur</span></span></button>
-      </li>
-      <li class="pf-item" data-id="bilverkstad" data-cat="foretag" data-title="Verkstaden" data-meta="Företag, porträtt i arbetsmiljö. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/bilverkstad.jpg" alt="Leende mekaniker med en pärm bredvid en orange bil i verkstaden" loading="lazy" width="1400" height="933" style="object-position:40% 40%"></span><span class="ls-shot__cap"><b>Verkstaden</b><span>Företag</span></span></button>
-      </li>
-      <li class="pf-item" data-id="stugor-sjo" data-cat="natur" data-title="Stugorna vid sjön" data-meta="Natur, finns som tryck. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/stugor-sjo.jpg" alt="Röda stugor bland tallar vid en blank skogssjö under dramatisk himmel" loading="lazy" width="1400" height="787" style="object-position:32% 50%"></span><span class="ls-shot__cap"><b>Stugorna vid sjön</b><span>Natur</span></span></button>
-      </li>
-      <li class="pf-item" data-id="mote" data-cat="foretag" data-title="Möte på byrån" data-meta="Företag, miljöbild hos kunden. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/mote.jpg" alt="Avslappnat möte i en soffgrupp framför stora fönster" loading="lazy" width="1400" height="788" style="object-position:30% 50%"></span><span class="ls-shot__cap"><b>Möte på byrån</b><span>Företag</span></span></button>
-      </li>
-      <li class="pf-item" data-id="skidor-ovanifran" data-cat="natur" data-title="Spår i nysnö" data-meta="Natur, finns som tryck. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/skidor-ovanifran.jpg" alt="Två skidåkare i en spårig backe, sedda rakt ovanifrån med långa skuggor" loading="lazy" width="1200" height="800" style="object-position:72% 50%"></span><span class="ls-shot__cap"><b>Spår i nysnö</b><span>Natur</span></span></button>
-      </li>
-      <li class="pf-item" data-id="portratt-3" data-cat="portratt" data-title="Karin, på kontoret" data-meta="Porträtt hos företaget. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/portratt-3.jpg" alt="Leende kvinna med blond page i ett ljust kontor" loading="lazy" width="800" height="1000" style="object-position:50% 30%"></span><span class="ls-shot__cap"><b>Karin, på kontoret</b><span>Porträtt</span></span></button>
-      </li>
-      <li class="pf-item" data-id="station-vinter" data-cat="natur" data-title="Stationen i januari" data-meta="Natur, finns som tryck. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/station-vinter.jpg" alt="Röd och vit motorvagn framför ett gult stationshus i snö" loading="lazy" width="1400" height="787" style="object-position:28% 50%"></span><span class="ls-shot__cap"><b>Stationen i januari</b><span>Natur</span></span></button>
-      </li>
-      <li class="pf-item" data-id="snickare" data-cat="foretag" data-title="Snickeriet" data-meta="Företag, detaljbild till webben. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/snickare.jpg" alt="Händer märker ut en träbit med blyertspenna bland kutterspån" loading="lazy" width="1400" height="933" style="object-position:50% 50%"></span><span class="ls-shot__cap"><b>Snickeriet</b><span>Företag</span></span></button>
-      </li>
-      <li class="pf-item" data-id="fjallen" data-cat="natur" data-title="Fjället i mars" data-meta="Natur, finns som tryck. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/fjallen.jpg" alt="Snötäckt fjäll under blå himmel med drivande moln" loading="lazy" width="800" height="580" style="object-position:40% 50%"></span><span class="ls-shot__cap"><b>Fjället i mars</b><span>Natur</span></span></button>
-      </li>
-      <li class="pf-item" data-id="laptop" data-cat="foretag" data-title="Arbetsplatsen" data-meta="Företag, detaljbild till webben. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/laptop.jpg" alt="Bärbar dator på ett ljust skrivbord i trä bredvid en växt" loading="lazy" width="1400" height="933" style="object-position:50% 50%"></span><span class="ls-shot__cap"><b>Arbetsplatsen</b><span>Företag</span></span></button>
-      </li>
-      <li class="pf-item" data-id="gardar-kvall" data-cat="natur" data-title="Gårdarna i kvällsljus" data-meta="Natur, finns som tryck. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/gardar-kvall.jpg" alt="Åkrar och röda gårdar i sensommarens kvällsljus" loading="lazy" width="1400" height="787" style="object-position:60% 50%"></span><span class="ls-shot__cap"><b>Gårdarna i kvällsljus</b><span>Natur</span></span></button>
-      </li>
-      <li class="pf-item" data-id="bageri" data-cat="foretag" data-title="Morgon på bageriet" data-meta="Företag, produktbild. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/bageri.jpg" alt="Bröddisk med croissanter, baguetter och bullar" loading="lazy" width="1400" height="934" style="object-position:50% 50%"></span><span class="ls-shot__cap"><b>Morgon på bageriet</b><span>Företag</span></span></button>
-      </li>
-      <li class="pf-item" data-id="vinter-skidor" data-cat="natur" data-title="Sista åket" data-meta="Natur, finns som tryck. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/vinter-skidor.jpg" alt="Skidåkare vid en lift i blått kvällsljus" loading="lazy" width="1600" height="1067" style="object-position:30% 50%"></span><span class="ls-shot__cap"><b>Sista åket</b><span>Natur</span></span></button>
-      </li>
-      <li class="pf-item" data-id="perrong-fjall" data-cat="natur" data-title="Perrongen under fjället" data-meta="Natur, finns som tryck. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/perrong-fjall.jpg" alt="Tåg vid en perrong med fjäll och röda hus i bakgrunden" loading="lazy" width="1400" height="787" style="object-position:45% 50%"></span><span class="ls-shot__cap"><b>Perrongen under fjället</b><span>Natur</span></span></button>
-      </li>
-      <li class="pf-item" data-id="tag-rapsfalt" data-cat="natur" data-title="Rapsen i juni" data-meta="Natur, finns som tryck. Exempelbild.">
-        <button class="pf-open" type="button" aria-haspopup="dialog"><span class="ls-shot__img"><img src="img/tag-rapsfalt.jpg" alt="Tåg genom ett blommande gult rapsfält" loading="lazy" width="1400" height="940" style="object-position:50% 60%"></span><span class="ls-shot__cap"><b>Rapsen i juni</b><span>Natur</span></span></button>
-      </li>
-  </ul>
+
+  <div data-gallery>
+    <section class="pf-series" aria-labelledby="serie-portratt">
+      <div class="pf-series__head">
+        <p class="ls-meta"><span>Serie 01</span><span>Porträtt</span><span>3 bilder</span></p>
+        <h2 id="serie-portratt" class="ev-dot">Porträtt, Sundsvall 2026</h2>
+        <p>Mjukt fönsterljus och lugnt tempo, i studion i Stenstan och hos kunden. Exempelporträtt.</p>
+      </div>
+      <ul class="pf-grid pf-grid--tall">
+        <li class="pf-item is-tall" data-id="portratt-1" data-cat="portratt" data-title="Emma, studio" data-meta="Porträtt i studion i Stenstan. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/portratt-1.jpg" alt="Porträtt av en kvinna med långt blont hår mot ljusgrå bakgrund" width="800" height="1000" style="object-position:50% 30%"></span><span class="pf-cap"><b>Emma, studio</b><span>01</span></span></button>
+        </li>
+        <li class="pf-item is-tall" data-id="portratt-2" data-cat="portratt" data-title="Johan, profilbild" data-meta="Porträtt i studion, ljus bakgrund. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/portratt-2.jpg" alt="Leende man med armarna i kors i svart t-shirt" width="800" height="1000" style="object-position:50% 30%"></span><span class="pf-cap"><b>Johan, profilbild</b><span>02</span></span></button>
+        </li>
+        <li class="pf-item is-tall" data-id="portratt-3" data-cat="portratt" data-title="Karin, på kontoret" data-meta="Porträtt hos företaget. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/portratt-3.jpg" alt="Leende kvinna med blond page i ett ljust kontor" width="800" height="1000" style="object-position:50% 30%" loading="lazy"></span><span class="pf-cap"><b>Karin, på kontoret</b><span>03</span></span></button>
+        </li>
+      </ul>
+    </section>
+    <section class="pf-series" aria-labelledby="serie-foretag">
+      <div class="pf-series__head">
+        <p class="ls-meta"><span>Serie 02</span><span>Företag</span><span>6 bilder</span></p>
+        <h2 id="serie-foretag" class="ev-dot">Företag i Medelpad</h2>
+        <p>Miljöbilder och detaljer från verkstäder, kontor och bagerier, till webben och rekryteringen.</p>
+      </div>
+      <ul class="pf-grid">
+        <li class="pf-item" data-id="bilverkstad" data-cat="foretag" data-title="Verkstaden" data-meta="Företag, porträtt i arbetsmiljö. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/bilverkstad.jpg" alt="Leende mekaniker med en pärm bredvid en orange bil i verkstaden" width="1400" height="933" style="object-position:40% 40%" loading="lazy"></span><span class="pf-cap"><b>Verkstaden</b><span>01</span></span></button>
+        </li>
+        <li class="pf-item" data-id="snickare" data-cat="foretag" data-title="Snickeriet" data-meta="Företag, detaljbild till webben. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/snickare.jpg" alt="Händer märker ut en träbit med blyertspenna bland kutterspån" width="1400" height="933" style="object-position:50% 50%" loading="lazy"></span><span class="pf-cap"><b>Snickeriet</b><span>02</span></span></button>
+        </li>
+        <li class="pf-item" data-id="kontor-team" data-cat="foretag" data-title="Team på ett IT-bolag" data-meta="Företag, miljöbild hos kunden. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/kontor-team.jpg" alt="Fyra kollegor samlade kring en skärm och skrattar" width="1400" height="788" style="object-position:40% 50%" loading="lazy"></span><span class="pf-cap"><b>Team på ett IT-bolag</b><span>03</span></span></button>
+        </li>
+        <li class="pf-item" data-id="bageri" data-cat="foretag" data-title="Morgon på bageriet" data-meta="Företag, produktbild. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/bageri.jpg" alt="Bröddisk med croissanter, baguetter och bullar" width="1400" height="934" style="object-position:50% 50%" loading="lazy"></span><span class="pf-cap"><b>Morgon på bageriet</b><span>04</span></span></button>
+        </li>
+        <li class="pf-item" data-id="mote" data-cat="foretag" data-title="Möte på byrån" data-meta="Företag, miljöbild hos kunden. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/mote.jpg" alt="Avslappnat möte i en soffgrupp framför stora fönster" width="1400" height="788" style="object-position:30% 50%" loading="lazy"></span><span class="pf-cap"><b>Möte på byrån</b><span>05</span></span></button>
+        </li>
+        <li class="pf-item" data-id="laptop" data-cat="foretag" data-title="Arbetsplatsen" data-meta="Företag, detaljbild till webben. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/laptop.jpg" alt="Bärbar dator på ett ljust skrivbord i trä bredvid en växt" width="1400" height="933" style="object-position:50% 50%" loading="lazy"></span><span class="pf-cap"><b>Arbetsplatsen</b><span>06</span></span></button>
+        </li>
+      </ul>
+    </section>
+    <section class="pf-series" aria-labelledby="serie-host">
+      <div class="pf-series__head">
+        <p class="ls-meta"><span>Serie 03</span><span>Natur</span><span>5 bilder</span></p>
+        <h2 id="serie-host" class="ev-dot">Sommar och höst i Medelpad</h2>
+        <p>Från rapsen i juni till första frosten. Alla naturbilder finns som tryck.</p>
+      </div>
+      <ul class="pf-grid">
+        <li class="pf-item" data-id="tag-hostskog" data-cat="natur" data-title="Höst över dalen" data-meta="Natur, finns som tryck. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/tag-hostskog.jpg" alt="Tåg genom ett höstlandskap med åkrar och orange lövträd" width="1400" height="787" style="object-position:38% 50%" loading="lazy"></span><span class="pf-cap"><b>Höst över dalen</b><span>01</span></span></button>
+        </li>
+        <li class="pf-item" data-id="skog-sjo" data-cat="natur" data-title="Bryggan i augusti" data-meta="Natur, finns som tryck. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/skog-sjo.jpg" alt="Brygga ut i en blank skogssjö med vass och barrskog" width="1400" height="933" style="object-position:62% 50%" loading="lazy"></span><span class="pf-cap"><b>Bryggan i augusti</b><span>02</span></span></button>
+        </li>
+        <li class="pf-item" data-id="gardar-kvall" data-cat="natur" data-title="Gårdarna i kvällsljus" data-meta="Natur, finns som tryck. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/gardar-kvall.jpg" alt="Åkrar och röda gårdar i sensommarens kvällsljus" width="1400" height="787" style="object-position:60% 50%" loading="lazy"></span><span class="pf-cap"><b>Gårdarna i kvällsljus</b><span>03</span></span></button>
+        </li>
+        <li class="pf-item" data-id="tag-rapsfalt" data-cat="natur" data-title="Rapsen i juni" data-meta="Natur, finns som tryck. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/tag-rapsfalt.jpg" alt="Tåg genom ett blommande gult rapsfält" width="1400" height="940" style="object-position:50% 60%" loading="lazy"></span><span class="pf-cap"><b>Rapsen i juni</b><span>04</span></span></button>
+        </li>
+        <li class="pf-item" data-id="stugor-sjo" data-cat="natur" data-title="Stugorna vid sjön" data-meta="Natur, finns som tryck. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/stugor-sjo.jpg" alt="Röda stugor bland tallar vid en blank skogssjö under dramatisk himmel" width="1400" height="787" style="object-position:32% 50%" loading="lazy"></span><span class="pf-cap"><b>Stugorna vid sjön</b><span>05</span></span></button>
+        </li>
+      </ul>
+    </section>
+    <section class="pf-series" aria-labelledby="serie-vinter">
+      <div class="pf-series__head">
+        <p class="ls-meta"><span>Serie 04</span><span>Natur</span><span>6 bilder</span></p>
+        <h2 id="serie-vinter" class="ev-dot">Vinter i fjällen</h2>
+        <p>Blått ljus, långa skuggor och stationer i snö. Alla bilder finns som tryck.</p>
+      </div>
+      <ul class="pf-grid">
+        <li class="pf-item" data-id="vinter-skidor" data-cat="natur" data-title="Sista åket" data-meta="Natur, finns som tryck. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/vinter-skidor.jpg" alt="Skidåkare vid en lift i blått kvällsljus" width="1600" height="1067" style="object-position:30% 50%" loading="lazy"></span><span class="pf-cap"><b>Sista åket</b><span>01</span></span></button>
+        </li>
+        <li class="pf-item is-tall" data-id="fjallen-vandring" data-cat="natur" data-title="Morgon i fjällbyn" data-meta="Natur, finns som tryck. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/fjallen-vandring.jpg" alt="Person i gul jacka på en snöig stig mellan stugor i rosa vinterljus" width="700" height="1050" style="object-position:50% 50%" loading="lazy"></span><span class="pf-cap"><b>Morgon i fjällbyn</b><span>02</span></span></button>
+        </li>
+        <li class="pf-item" data-id="skidor-ovanifran" data-cat="natur" data-title="Spår i nysnö" data-meta="Natur, finns som tryck. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/skidor-ovanifran.jpg" alt="Två skidåkare i en spårig backe, sedda rakt ovanifrån med långa skuggor" width="1200" height="800" style="object-position:72% 50%" loading="lazy"></span><span class="pf-cap"><b>Spår i nysnö</b><span>03</span></span></button>
+        </li>
+        <li class="pf-item" data-id="fjallen" data-cat="natur" data-title="Fjället i mars" data-meta="Natur, finns som tryck. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/fjallen.jpg" alt="Snötäckt fjäll under blå himmel med drivande moln" width="800" height="580" style="object-position:40% 50%" loading="lazy"></span><span class="pf-cap"><b>Fjället i mars</b><span>04</span></span></button>
+        </li>
+        <li class="pf-item" data-id="station-vinter" data-cat="natur" data-title="Stationen i januari" data-meta="Natur, finns som tryck. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/station-vinter.jpg" alt="Röd och vit motorvagn framför ett gult stationshus i snö" width="1400" height="787" style="object-position:28% 50%" loading="lazy"></span><span class="pf-cap"><b>Stationen i januari</b><span>05</span></span></button>
+        </li>
+        <li class="pf-item" data-id="perrong-fjall" data-cat="natur" data-title="Perrongen under fjället" data-meta="Natur, finns som tryck. Exempelbild.">
+          <button class="pf-open" type="button" aria-haspopup="dialog"><span class="pf-img"><img src="img/perrong-fjall.jpg" alt="Tåg vid en perrong med fjäll och röda hus i bakgrunden" width="1400" height="787" style="object-position:45% 50%" loading="lazy"></span><span class="pf-cap"><b>Perrongen under fjället</b><span>06</span></span></button>
+        </li>
+      </ul>
+    </section>
+  </div>
   <p class="pf-empty" data-empty hidden>Inga bilder i den här kategorin än. Välj Alla för att se allt.</p>
 
-  <div class="ev-section-head" style="margin:96px 0 0;padding-top:48px;border-top:1px solid var(--ev-line)">
-    <div>
-      <h2 class="ev-dot">Vill du ha bilder som de här</h2>
-      <p>Välj typ av fotografering, paket och dag. Det tar ungefär tre minuter, och inget är bindande förrän vi har pratat.</p>
-      <div class="ev-actions"><a class="ev-btn" href="boka.html"><span>Boka fotografering</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a><a class="ev-link" href="priser.html#tryck">Köp en bild som tryck<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
-    </div>
-  </div>
-</section>
+  <section class="pf-cta" aria-labelledby="cta-rubrik">
+    <h2 id="cta-rubrik" class="ev-dot">Vill du ha bilder som de här</h2>
+    <p>Välj typ av fotografering, paket och dag. Det tar ungefär tre minuter, och inget är bindande förrän vi har pratat.</p>
+    <div class="ev-actions"><a class="ev-btn" href="boka.html"><span>Boka fotografering</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a><a class="ev-link" href="priser.html#kop-tryck">Köp en bild som tryck<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+  </section>
+</div>
 
 <dialog class="lb" aria-label="Bildvisning" data-lightbox>
   <div class="lb__top">

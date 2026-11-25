@@ -1,79 +1,108 @@
 /* Linnea Strand Foto: designkoncept av Elevate Studio.
    Bygger på Elevate-tokens (docs/elevate/designregler.md). Värden märkta "standard" gäller tills beställaren
-   har svarat på delarna Typsnitt, Fält, Ytor, Navigering och Lägen. */
+   har svarat på delarna Typsnitt, Fält, Ytor, Navigering och Lägen.
+   Version 3 (25 nov 2026): "tråkig och AI-sloppfont". Mörk grund på startsida och portfolio, bildspel i heron,
+   redaktionella bilduppslag och General Sans i stället för Cormorant Garamond och Inter. */
 
-@font-face { font-family: 'Inter'; src: url('fonts/inter-latin-wght.woff2') format('woff2'); font-weight: 100 900; font-style: normal; font-display: swap; }
-/* Display-typsnitt för varumärket (Hero: mellanläget). Cormorant Garamond, OFL, självhostat. */
-@font-face { font-family: 'Cormorant Garamond'; src: url('fonts/cormorant-garamond-latin-600.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+/* General Sans (Indian Type Foundry via Fontshare), variabel 200–700, ITF Free Font License: fonts/FFL-general-sans.txt.
+   Officiell webbfil, oförändrad (licensen tillåter inte subsetting eller konvertering). */
+/* General Sans (Fontshare, ITF Free Font License) laddas från Fontshares CDN i <head>, så att typsnittsfilen inte distribueras i repot. */
 
 :root {
-  /* Varumärke: valnöt. 7,8:1 mot vitt, 7,3:1 mot den varma ljusgrå ytan. */
-  --ev-brand: #6E4A36;
+  /* Varumärke: rost, hämtat ur höstbilderna. 5,7:1 mot vit text, 5,0:1 mot papper, 3,3:1 mot den mörka grunden. */
+  --ev-brand: #A84B2B;
   --ev-brand-hover: color-mix(in srgb, var(--ev-brand) 50%, #000);
   --ev-brand-active: color-mix(in srgb, var(--ev-brand) 38%, #000);
   --ev-tint: color-mix(in srgb, var(--ev-brand) 12%, #fff);
   --ev-tint-btn: color-mix(in srgb, var(--ev-brand) 16%, #fff);
-  --ls-deep: #24170F;          /* varumärkets mörkaste ton: gradient i heron, rekommenderat paket */
-  --ls-light: #E9C9B5;         /* ljus varumärkeston på mörk yta, 10:1 mot --ls-deep */
+  --ls-bg: #121110;            /* mörk, neutralt varm grund: bilderna lyser */
+  --ls-bg-2: #1B1917;          /* mörk sektion för rytm */
+  --ls-fg: #F3F0EB;            /* 16,6:1 mot --ls-bg */
+  --ls-fg-2: #B9B3AB;          /* 9,1:1 mot --ls-bg, 8,3:1 mot --ls-bg-2 */
+  --ls-light: #E9A27F;         /* ljus rost på mörk yta, 8,9:1: länkar, rubrikprick, fokusring */
+  --ls-paper: #F4F1EC;         /* ljus grund på priser, bokning och kontakt */
+  --ls-link: var(--ev-brand);
+  --ls-focus: var(--ev-brand);
   --ev-ink: #1A1C1E;
-  --ev-ink-2: #4A4E53;
+  --ev-ink-2: #4A4E53;         /* 7,4:1 mot papper */
   --ev-line: rgba(26, 28, 30, .16);
   --ev-field-line: #858A90;    /* standard */
   --ev-surface: #FFFFFF;
-  --ev-surface-2: #F5F2EE;     /* standard, varm ljusgrå så att fotona inte blir kalla */
+  --ev-surface-2: #EAE5DE;     /* standard, varm ljusgrå */
   --ev-ok: #1E7A45; --ev-ok-tint: #E3F1E8;
   --ev-warn: #9A5B00; --ev-warn-tint: #F8EEDC;
   --ev-bad: #B3261E; --ev-bad-tint: #FBE9E7;
 
-  --ev-font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --ls-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
-  --ev-fs-body: 16px; --ev-lh-body: 1.5;
-  --ev-h-weight: 600;
+  /* Typsnitt: en familj för allt (rubrik, brödtext, knappar och fält). Standard tills Typsnitt besvarats, utom H1-vikten. */
+  --ev-font: 'General Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ev-fs-body: 16px; --ev-lh-body: 1.55;
+  --ev-h-weight: 600;          /* tx-h1-vikt */
 
   --ev-btn-h: 52px; --ev-btn-h-sm: 40px; --ev-btn-h-lg: 56px;
   --ev-btn-px: 20px; --ev-btn-px-icon: 16px; --ev-btn-min-w: 96px;
   --ev-btn-fs: 16px; --ev-btn-fw: 500; --ev-btn-gap: 6px; --ev-btn-border-2: 1.5px;
 
   --ev-r-pill: 999px; --ev-r-card: 16px; --ev-r-tooltip: 12px;
+  --ls-r-img: 2px;             /* bilder nästan raka, som tryck */
   --ev-field-h: 52px;
   --ev-gap-btns: 8px; --ev-gap-text-btns: 16px; --ev-gap-stack: 12px; --ev-gap-icon-text: 8px; --ev-gap-chips: 8px;
-  --ev-max-w: 1200px;
+  --ev-max-w: 1320px;
   --ev-header-h: 60px;
   --ev-dur-btn: 100ms; --ev-dur-arrow: 200ms; --ev-dur-icon: 600ms;
   --ev-ease: cubic-bezier(.2, .7, .2, 1);
 }
 @media (min-width: 900px) { :root { --ev-header-h: 72px; } }
 
+/* Mörk grund: tokens byts, så att alla komponenter följer med */
+.ls-dark {
+  --ev-ink: var(--ls-fg); --ev-ink-2: var(--ls-fg-2);
+  --ev-line: rgba(243, 240, 235, .16);
+  --ev-field-line: rgba(243, 240, 235, .5);
+  --ls-link: var(--ls-light); --ls-focus: var(--ls-light);
+  background: var(--ls-bg); color: var(--ls-fg);
+}
+/* Ljus yta inne i mörk sida (kontakt, kort, dialoger) */
+.ls-paper, .ls-paper-page {
+  --ev-ink: #1A1C1E; --ev-ink-2: #4A4E53;
+  --ev-line: rgba(26, 28, 30, .16); --ev-field-line: #858A90;
+  --ls-link: var(--ev-brand); --ls-focus: var(--ev-brand);
+  background: var(--ls-paper); color: var(--ev-ink);
+}
+
 /* ---------- Grund ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: 16px; scroll-padding-bottom: 96px; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-body { margin: 0; font: 400 var(--ev-fs-body)/var(--ev-lh-body) var(--ev-font); color: var(--ev-ink); background: var(--ev-surface);
+body { margin: 0; font: 400 var(--ev-fs-body)/var(--ev-lh-body) var(--ev-font); color: var(--ev-ink); background: var(--ls-paper);
   overflow-wrap: break-word; -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; height: auto; display: block; }
 [hidden] { display: none !important; }
 h1, h2, h3, p, ul, ol, figure, blockquote, dl, dd { margin: 0; }
 h1, h2, h3 { font-weight: var(--ev-h-weight); text-wrap: balance; }
-h1, h2 { font-family: var(--ls-display); letter-spacing: -.01em; }
-h1 { font-size: clamp(42px, 3.4vw + 26px, 72px); line-height: 1.04; }
-h2 { font-size: clamp(34px, 1.8vw + 26px, 48px); line-height: 1.08; }
-h3 { font-size: 18px; line-height: 1.3; }
-p { max-width: 68ch; }
-a { color: var(--ev-brand); }
+h1 { font-size: clamp(42px, 4vw + 24px, 84px); line-height: 1; letter-spacing: -.035em; }
+h2 { font-size: clamp(34px, 2.6vw + 22px, 60px); line-height: 1.02; letter-spacing: -.03em; }
+h3 { font-size: 19px; line-height: 1.25; letter-spacing: -.01em; }
+p { max-width: 64ch; }
+a { color: var(--ls-link); }
 button, input, select, textarea { font: inherit; color: inherit; }
-:focus-visible { outline: 2px solid var(--ev-brand); outline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--ls-focus); outline-offset: 2px; }
 main:focus, [tabindex="-1"]:focus { outline: none; }
 .ev-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.ev-skip { position: absolute; left: 16px; top: -100px; z-index: 100; padding: 12px 16px; border-radius: var(--ev-r-pill); background: var(--ev-ink); color: #fff; text-decoration: none; font-weight: 500; }
+.ev-skip { position: absolute; left: 16px; top: -100px; z-index: 100; padding: 12px 16px; border-radius: var(--ev-r-pill); background: #fff; color: #1A1C1E; text-decoration: none; font-weight: 500; }
 .ev-skip:focus { top: 12px; }
 .ev-wrap { width: 100%; max-width: calc(var(--ev-max-w) + 32px); margin: 0 auto; padding: 0 16px; }
-@media (min-width: 900px) { .ev-wrap { max-width: calc(var(--ev-max-w) + 64px); padding: 0 32px; } }
+@media (min-width: 900px) { .ev-wrap { max-width: calc(var(--ev-max-w) + 80px); padding: 0 40px; } }
 
-/* Rubrikprick i varumärkesfärg (pi-ac-rubrik) */
+/* Rubrikprick i varumärkesfärg (pi-ac-rubrik). På mörk yta ljus rost. */
 .ev-dot::after { content: "."; color: var(--ev-brand); }
-.ev-lead { font-size: 18px; color: var(--ev-ink-2); }
+.ls-dark .ev-dot::after, .ev-on-photo .ev-dot::after { color: var(--ls-light); }
+.ls-paper .ev-dot::after { color: var(--ev-brand); }
+.ev-lead { font-size: 19px; color: var(--ev-ink-2); }
 .ev-hint { font-size: 14px; color: var(--ev-ink-2); }
 .ev-price { font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Metadata: siffror och små bokstäver i stället för versaler (inga versaler i etiketter, se designregler) */
+.ls-meta { font-size: 13px; font-weight: 500; line-height: 1.4; color: var(--ev-ink-2); font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+.ls-num { font-variant-numeric: tabular-nums; font-weight: 500; color: var(--ev-ink-2); }
 
 /* ---------- Ikoner ---------- */
 .ev-icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor; stroke-width: var(--ev-stroke, 2px); stroke-linecap: round; stroke-linejoin: round; }
@@ -104,14 +133,16 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 .ev-btn--block { width: 100%; }
 .ev-btn--secondary { background: transparent; color: var(--ev-ink); border-color: var(--ev-ink); }
 .ev-btn--secondary:hover { background: var(--ev-ink); color: #fff; }
+.ls-dark .ev-btn--secondary:hover { color: var(--ls-bg); }
 .ev-on-white .ev-btn--secondary { background: var(--ev-tint-btn); border-color: transparent; }
 .ev-on-grey .ev-btn--secondary { background: #fff; border-color: transparent; }
 .ev-on-white .ev-btn--secondary:hover, .ev-on-grey .ev-btn--secondary:hover { background: var(--ev-ink); color: #fff; }
-.ev-on-photo .ev-btn, .ev-on-dark .ev-btn { background: #fff; color: var(--ev-ink); }
-.ev-on-photo .ev-btn:hover, .ev-on-dark .ev-btn:hover { background: #E6E7E9; }
-.ev-on-photo .ev-btn:active, .ev-on-dark .ev-btn:active { background: #D3D5D8; }
-.ev-on-photo :focus-visible, .ev-on-dark :focus-visible { outline-color: #fff; }
-.ev-btn[aria-disabled="true"] { background: #E4E5E7; color: var(--ev-ink-2); border-color: transparent; cursor: not-allowed; }
+/* På foto: vit knapp (kodmönstret .ev-on-photo) */
+.ev-on-photo .ev-btn { background: #fff; color: #1A1C1E; }
+.ev-on-photo .ev-btn:hover { background: #E6E7E9; }
+.ev-on-photo .ev-btn:active { background: #D3D5D8; }
+.ev-on-photo :focus-visible { outline-color: #fff; }
+.ev-btn[aria-disabled="true"] { background: #E4E5E7; color: #4A4E53; border-color: transparent; cursor: not-allowed; }
 .ev-btn[aria-disabled="true"] .ev-btn__arrow { transform: none; }
 .ev-btn.is-done { background: var(--ev-ok); }
 .ev-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ev-gap-btns); margin-top: var(--ev-gap-text-btns); }
@@ -122,44 +153,48 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 @media (prefers-reduced-motion: reduce) { .ev-btn, .ev-btn__arrow, .ev-link__arrow { transition: none; } }
 
 /* Textlänkknapp (kn-ter-*, pi-tj-lank, pi-hv-lank) */
-.ev-link { display: inline-flex; align-items: center; gap: 4px; min-height: 24px; color: var(--ev-brand); font: 600 15px/1.4 var(--ev-font); text-decoration: none; }
+.ev-link { display: inline-flex; align-items: center; gap: 4px; min-height: 24px; color: var(--ls-link); font: 600 15px/1.4 var(--ev-font); text-decoration: none; }
 .ev-link .ev-icon { width: 1em; height: 1em; --ev-stroke: 1.75px; }
 .ev-link__arrow { transition: transform var(--ev-dur-arrow) var(--ev-ease); }
 .ev-link:hover .ev-link__arrow { transform: translateX(4px); }
 .ev-link--back { color: var(--ev-ink); }
 .ev-link--back:hover .ev-link__arrow { transform: translateX(-4px); }
-.ev-prose a, .ev-inline { color: var(--ev-brand); text-decoration: underline; text-underline-offset: 3px; }
+.ev-prose a, .ev-inline { color: var(--ls-link); text-decoration: underline; text-underline-offset: 3px; }
 
 /* Ikonknapp: cirkel, 40 px (44 px på mobil) */
 .ev-iconbtn { display: inline-grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: none; color: var(--ev-ink); cursor: pointer; text-decoration: none; }
-.ev-iconbtn:hover { color: #000; }
+.ev-iconbtn:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
 .ev-iconbtn .ev-icon { width: 28px; height: 28px; }
 @media (min-width: 641px) { .ev-iconbtn { width: 40px; height: 40px; } .ev-iconbtn .ev-icon { width: 24px; height: 24px; } }
 
 /* Tagg och etiketter (pi-et-*, pi-tag-amne) */
 .ev-tag { display: inline-flex; align-items: center; height: 22px; padding: 0 9px; border-radius: var(--ev-r-pill); background: var(--ev-tint); color: var(--ev-brand); font: 600 12px/1 var(--ev-font); }
-.ev-ribbon { position: absolute; top: 14px; left: -34px; width: 120px; transform: rotate(-45deg); padding: 5px 9px; background: #fff; color: var(--ev-ink); font: 600 12px/1 var(--ev-font); text-align: center; }
+.ls-dark .ev-tag { background: rgba(233, 162, 127, .16); color: var(--ls-light); }
+.ls-paper .ev-tag { background: var(--ev-tint); color: var(--ev-brand); }
 
 /* Chips (pi-chip-*) */
-.ev-chips { display: flex; gap: var(--ev-gap-chips); overflow-x: auto; scrollbar-width: none; padding: 3px 3px; margin: -3px 0; }
+.ev-chips { display: flex; gap: var(--ev-gap-chips); overflow-x: auto; scrollbar-width: none; padding: 3px; margin: -3px; }
 .ev-chips::-webkit-scrollbar { display: none; }
 .ev-chip { display: inline-flex; align-items: center; flex: none; height: 34px; padding: 0 14px; border: 1px solid var(--ev-field-line); border-radius: var(--ev-r-pill);
-  background: #fff; color: var(--ev-ink); font: 500 14px/1 var(--ev-font); text-decoration: none; cursor: pointer; white-space: nowrap;
+  background: #fff; color: #1A1C1E; font: 500 14px/1 var(--ev-font); text-decoration: none; cursor: pointer; white-space: nowrap; font-variant-numeric: tabular-nums;
   transition: background-color var(--ev-dur-btn) ease, border-color var(--ev-dur-btn) ease, color var(--ev-dur-btn) ease; }
 .ev-chip:hover { border-color: var(--ev-ink); }
+.ls-dark .ev-chip { background: transparent; color: var(--ls-fg); }
+.ls-dark .ev-chip:hover { border-color: var(--ls-fg); }
 .ev-chip[aria-pressed="true"] { background: var(--ev-brand); border-color: var(--ev-brand); color: #fff; }
 
-/* ---------- Sidhuvud (standard tills Navigering besvarats) ---------- */
-.ev-header { position: relative; z-index: 20; height: var(--ev-header-h); background: #fff; border-bottom: 1px solid var(--ev-line); }
+/* ---------- Sidhuvud (standard tills Navigering besvarats): mörkt på alla sidor ---------- */
+.ev-header { position: relative; z-index: 20; height: var(--ev-header-h); background: var(--ls-bg); color: var(--ls-fg);
+  --ev-ink: var(--ls-fg); --ev-ink-2: var(--ls-fg-2); --ls-focus: var(--ls-light); }
 .ev-header__in { display: flex; align-items: center; gap: 24px; height: 100%; }
-.ls-logo { display: inline-flex; align-items: baseline; gap: 8px; color: var(--ev-ink); text-decoration: none; margin-right: auto; }
-.ls-logo b { font: 600 25px/1 var(--ls-display); letter-spacing: -.005em; }
-.ls-logo span { font: 500 13px/1 var(--ev-font); color: var(--ev-ink-2); }
+.ls-logo { display: inline-flex; align-items: baseline; gap: 10px; color: var(--ev-ink); text-decoration: none; margin-right: auto; white-space: nowrap; }
+.ls-logo b { font-weight: 600; font-size: 21px; letter-spacing: -.03em; }
+.ls-logo span { font-size: 13px; font-weight: 500; color: var(--ev-ink-2); }
 .ev-nav { display: none; }
-.ev-nav ul { display: flex; gap: 28px; list-style: none; padding: 0; margin: 0; }
-.ev-nav a { display: inline-flex; align-items: center; height: var(--ev-header-h); color: var(--ev-ink); font-size: 15px; font-weight: 500; text-decoration: none; border-bottom: 2px solid transparent; padding-top: 2px; }
-.ev-nav a:hover { border-bottom-color: var(--ev-line); }
-.ev-nav a[aria-current="page"] { font-weight: 600; border-bottom-color: var(--ev-ink); }
+.ev-nav ul { display: flex; gap: 32px; list-style: none; padding: 0; margin: 0; }
+.ev-nav a { display: inline-flex; align-items: center; height: var(--ev-header-h); color: var(--ls-fg); font-size: 15px; font-weight: 500; text-decoration: none; border-bottom: 2px solid transparent; padding-top: 2px; }
+.ev-nav a:hover { border-bottom-color: rgba(243, 240, 235, .3); }
+.ev-nav a[aria-current="page"] { border-bottom-color: var(--ls-light); }
 .ev-header__tools { display: flex; align-items: center; gap: 4px; margin-right: -10px; }
 @media (min-width: 900px) {
   .ev-nav { display: block; }
@@ -168,148 +203,236 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 }
 
 /* Mobilmeny: panel i helskärm (standard) i en native dialog, så att fokus fångas och Esc stänger */
-.ev-menu { width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 0; border: 0; background: #fff; color: var(--ev-ink); }
-.ev-menu::backdrop { background: rgba(26, 28, 30, .4); }
-.ev-menu__top { display: flex; align-items: center; justify-content: space-between; height: var(--ev-header-h); border-bottom: 1px solid var(--ev-line); }
-.ev-menu ul { list-style: none; margin: 0; padding: 16px 0; }
-.ev-menu li a { display: flex; align-items: center; justify-content: space-between; min-height: 56px; border-bottom: 1px solid var(--ev-line); color: var(--ev-ink); font: 600 28px/1.1 var(--ls-display); text-decoration: none; }
-.ev-menu li a .ev-icon { color: var(--ev-ink-2); width: 24px; height: 24px; }
+.ev-menu { width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 0; border: 0; background: var(--ls-bg); color: var(--ls-fg);
+  --ev-ink: var(--ls-fg); --ev-ink-2: var(--ls-fg-2); --ls-focus: var(--ls-light); }
+.ev-menu::backdrop { background: rgba(0, 0, 0, .5); }
+.ev-menu__top { display: flex; align-items: center; justify-content: space-between; height: var(--ev-header-h); }
+.ev-menu ul { list-style: none; margin: 0; padding: 24px 0; }
+.ev-menu li a { display: flex; align-items: center; justify-content: space-between; min-height: 64px; border-bottom: 1px solid rgba(243, 240, 235, .14); color: var(--ls-fg); font-size: 30px; font-weight: 600; letter-spacing: -.03em; text-decoration: none; }
+.ev-menu li a .ev-icon { color: var(--ls-fg-2); width: 24px; height: 24px; }
 .ev-menu__contact { padding: 8px 0 32px; display: grid; gap: 12px; font-size: 15px; }
-.ev-menu__contact a { color: var(--ev-ink); }
+.ev-menu__contact a { color: var(--ls-fg); }
 
 /* ---------- Sektioner ---------- */
-.ev-section { padding: 64px 0; }
+.ev-section { padding: 72px 0; }
 .ev-section--grey { background: var(--ev-surface-2); }
-@media (min-width: 900px) { .ev-section { padding: 112px 0; } }
-.ev-section-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 32px; margin-bottom: 32px; }
-.ev-section-head p { margin-top: 12px; color: var(--ev-ink-2); max-width: 52ch; }
-@media (min-width: 900px) { .ev-section-head { margin-bottom: 48px; } }
+@media (min-width: 900px) { .ev-section { padding: 128px 0; } }
+.ls-dark .ev-section--deep { background: var(--ls-bg-2); }
+.ev-section-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 32px; margin-bottom: 40px; }
+.ev-section-head p { margin-top: 14px; color: var(--ev-ink-2); max-width: 46ch; font-size: 17px; }
+@media (min-width: 900px) { .ev-section-head { margin-bottom: 64px; } }
 
 /* ================================================================
-   Hero (ny): mellanläget (24 nov 2026, regel 19b).
-   Foto i full höjd, texten mitt till höger (ny placering i serien), gradient från höger i varumärkets mörkaste
-   ton så att tåget, tallen och höstlövet till vänster står orörda. Rubrik i Cormorant Garamond, långsam Ken Burns
-   och förskjuten intoning en gång. Levande detalj: lediga datum i månaden, nere till vänster, räknade ur data.js.
+   Hero: bildspel i full höjd (mellanläget, regel 19b).
+   Fem bilder tonar över i varandra med mjuk Ken Burns. Gradient nerifrån i den mörka grunden, så att resten av
+   bilden lyser. Namnet stort nere till vänster, bildtext och räknare nere till höger, lediga datum ovanför räknaren.
+   Bildspelet pausas vid hover och fokus, har pausknapp och står stilla vid reducerad rörelse (2.2.2).
    ================================================================ */
-.ls-hero { position: relative; isolation: isolate; display: flex; min-height: calc(100svh - var(--ev-header-h)); color: #fff; overflow: hidden; background: var(--ls-deep); }
-.ls-hero__media { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
-.ls-hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 38% 50%; transform-origin: 30% 52%;
-  animation: ls-kenburns 20s cubic-bezier(.3, .1, .3, 1) both; }
-.ls-hero::before { content: ""; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(to top, rgba(36, 23, 15, .94) 0%, rgba(36, 23, 15, .84) 36%, rgba(36, 23, 15, .38) 56%, rgba(36, 23, 15, 0) 72%); }
-.ls-hero__in { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding-top: 16px; padding-bottom: 32px; }
-.ls-hero h1 { font-size: clamp(44px, 4.4vw + 24px, 86px); line-height: 1.0; letter-spacing: -.015em; max-width: 9.5em; }
-.ls-hero h1.ev-dot::after { color: var(--ls-light); }
-.ls-hero__text p { font-size: 18px; line-height: 1.5; max-width: 36ch; margin-top: 18px; color: #fff; }
-.ls-hero__text .ev-actions { margin-top: 28px; }
-
-/* Levande detalj: liten vit ruta med lediga datum som länkar in i bokningen med dagen förvald */
-.ls-free { align-self: flex-start; max-width: 100%; padding: 12px 14px 14px; border-radius: var(--ev-r-card); background: #fff; color: var(--ev-ink); box-shadow: 0 12px 32px rgba(20, 12, 6, .22); }
-.ls-free[hidden] { display: none; }
-.ls-free__head { margin: 0 0 8px; font: 600 13px/1.3 var(--ev-font); }
-.ls-free__head span { font-variant-numeric: tabular-nums; }
-.ls-free .ev-chips { flex-wrap: wrap; overflow: visible; }
-.ls-free .ev-chip { height: 34px; font-variant-numeric: tabular-nums; }
-.ls-free .ev-chip:hover { border-color: var(--ev-brand); color: var(--ev-brand); }
-.ls-free .ev-chip:focus-visible { outline-color: var(--ev-brand); }
-
+.ls-hero { position: relative; isolation: isolate; display: flex; min-height: calc(100svh - var(--ev-header-h)); color: #fff; overflow: hidden; background: var(--ls-bg); }
+.ls-slides { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+.ls-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1400ms ease; }
+.ls-slide.is-active { opacity: 1; }
+.ls-slide img { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); transform-origin: var(--origin, 50% 50%); }
+.ls-slide.is-active img, .ls-slide.is-leaving img { animation: ls-kenburns 9s cubic-bezier(.3, .1, .3, 1) forwards; }
+.ls-hero.is-paused .ls-slide img { animation-play-state: paused; }
 @keyframes ls-kenburns { from { transform: scale(1); } to { transform: scale(1.06); } }
+.ls-hero::before { content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, rgba(18, 17, 16, .92) 0%, rgba(18, 17, 16, .78) 26%, rgba(18, 17, 16, .3) 50%, rgba(18, 17, 16, 0) 66%); }
+.ls-hero__in { display: grid; grid-template-rows: auto 1fr auto auto; grid-template-areas: "reel" "." "free" "text"; gap: 20px; padding-top: 16px; padding-bottom: 28px; }
+.ls-hero__text { grid-area: text; }
+.ls-hero h1 { font-size: clamp(54px, 6.2vw + 12px, 96px); line-height: .94; letter-spacing: -.045em; }
+.ls-hero__text p { font-size: 18px; line-height: 1.45; max-width: 30ch; margin-top: 16px; color: #fff; }
+.ls-hero__text .ev-actions { margin-top: 24px; }
+
+/* Bildtext och räknare: "02 / 05  Höst, Medelpad" med paus och bläddring */
+.ls-reel { grid-area: reel; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ls-reel__cap { display: flex; align-items: baseline; gap: 12px; min-width: 0; font-size: 14px; font-weight: 500; text-shadow: 0 1px 12px rgba(0, 0, 0, .35); }
+.ls-reel__num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ls-reel__txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: rgba(255, 255, 255, .92); }
+.ls-reel__ctrl { display: flex; gap: 2px; flex: none; }
+.ls-reel__ctrl .ev-iconbtn { color: #fff; background: rgba(18, 17, 16, .55); }
+.ls-reel__ctrl .ev-iconbtn:hover { background: rgba(18, 17, 16, .8); }
+.ls-reel__ctrl .ev-iconbtn .ev-icon { width: 20px; height: 20px; --ev-stroke: 2px; }
+
+/* Levande detalj: lediga datum som länkar in i bokningen med dagen förvald */
+.ls-free { grid-area: free; justify-self: start; align-self: end; max-width: 100%; padding: 12px 14px 14px; border-radius: 14px; background: var(--ls-bg); color: var(--ls-fg); }
+.ls-free__head { margin: 0 0 8px; font-size: 13px; font-weight: 500; color: var(--ls-fg-2); }
+.ls-free__head span { color: var(--ls-fg); font-variant-numeric: tabular-nums; }
+.ls-free .ev-chips { flex-wrap: wrap; overflow: visible; }
+.ls-free .ev-chip { background: transparent; color: var(--ls-fg); border-color: rgba(243, 240, 235, .42); }
+.ls-free .ev-chip:hover { border-color: var(--ls-light); color: var(--ls-light); }
+.ls-free :focus-visible { outline-color: var(--ls-light); }
+
 @keyframes ls-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 .ls-hero__text > * { animation: ls-rise 700ms var(--ev-ease) both; }
 .ls-hero__text > :nth-child(1) { animation-delay: 100ms; }
 .ls-hero__text > :nth-child(2) { animation-delay: 240ms; }
 .ls-hero__text > :nth-child(3) { animation-delay: 380ms; }
-.ls-free { animation: ls-rise 700ms var(--ev-ease) 700ms both; }
-@media (prefers-reduced-motion: reduce) { .ls-hero__media img, .ls-hero__text > *, .ls-free { animation: none; } }
-
+.ls-free, .ls-reel { animation: ls-rise 700ms var(--ev-ease) 700ms both; }
+@media (prefers-reduced-motion: reduce) {
+  .ls-slide { transition: none; }
+  .ls-slide img, .ls-slide.is-active img, .ls-hero__text > *, .ls-free, .ls-reel { animation: none; }
+}
 @media (max-width: 640px) {
-  .ls-hero__media img { object-position: 13% 50%; transform-origin: 30% 52%; }
+  .ls-slide img { object-position: var(--pos-m, var(--pos, 50% 50%)); }
+  .ls-hero::before { background: linear-gradient(to top, rgba(18, 17, 16, .94) 0%, rgba(18, 17, 16, .82) 34%, rgba(18, 17, 16, .3) 58%, rgba(18, 17, 16, 0) 74%); }
   .ls-free { padding: 10px 12px 12px; }
   .ls-free__head { font-size: 12px; }
 }
+@media (max-width: 899px) {
+  /* Bildtexten ligger överst på mobil, där fotot kan vara ljust: egen mörk platta för AA */
+  .ls-reel__cap { padding: 0 14px; height: 44px; align-items: center; border-radius: var(--ev-r-pill); background: rgba(18, 17, 16, .72); text-shadow: none; }
+}
 @media (min-width: 900px) {
-  .ls-hero::before { background: linear-gradient(to left, rgba(36, 23, 15, .9) 0%, rgba(36, 23, 15, .8) 30%, rgba(36, 23, 15, .5) 46%, rgba(36, 23, 15, .14) 60%, rgba(36, 23, 15, 0) 70%); }
-  .ls-hero__in { display: grid; grid-template-columns: 1fr minmax(0, 560px); grid-template-rows: 1fr auto; column-gap: 48px; padding-top: 48px; padding-bottom: 48px; }
-  .ls-hero__text { grid-column: 2; grid-row: 1 / 3; align-self: center; padding-top: 24px; }
-  .ls-free { grid-column: 1; grid-row: 2; align-self: end; justify-self: start; padding: 16px 18px 18px; }
-  .ls-free__head { font-size: 14px; margin-bottom: 10px; }
-  .ls-hero__text p { font-size: 20px; }
+  .ls-hero::before { background: linear-gradient(to top, rgba(18, 17, 16, .9) 0%, rgba(18, 17, 16, .66) 24%, rgba(18, 17, 16, .18) 46%, rgba(18, 17, 16, 0) 60%); }
+  .ls-hero__in { grid-template-columns: minmax(0, 1fr) minmax(0, 380px); grid-template-rows: 1fr auto auto; grid-template-areas: ". ." "text free" "text reel"; column-gap: 64px; row-gap: 20px; padding-top: 40px; padding-bottom: 44px; }
+  .ls-hero__text { align-self: end; }
+  .ls-hero__text p { font-size: 20px; max-width: 34ch; margin-top: 20px; }
+  .ls-free { justify-self: end; padding: 14px 16px 16px; }
+  .ls-free__head { font-size: 14px; }
+  .ls-reel { align-self: end; justify-self: stretch; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .3); }
 }
 
-/* ---------- Utvalda bilder ---------- */
-.ls-shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; list-style: none; padding: 0; }
-@media (min-width: 900px) { .ls-shots { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px 24px; } }
-.ls-shot { position: relative; }
-.ls-shot__img { overflow: hidden; border-radius: 4px; background: var(--ev-surface-2); }
-.ls-shot__img img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 600ms var(--ev-ease); }
-.ls-shot a { color: inherit; text-decoration: none; }
-.ls-shot a::after { content: ""; position: absolute; inset: 0; }
-.ls-shot:hover .ls-shot__img img { transform: scale(1.025); }
-.ls-shot:focus-within { outline: 2px solid var(--ev-brand); outline-offset: 4px; border-radius: 4px; }
-.ls-shot a:focus-visible { outline: none; }
-.ls-shot__cap { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 8px; font-size: 14px; }
-.ls-shot__cap b { font-weight: 600; }
-.ls-shot__cap span { color: var(--ev-ink-2); }
-@media (prefers-reduced-motion: reduce) { .ls-shot__img img { transition: none; } }
+/* ---------- Gemensamt för sektionshuvud på mörk grund ---------- */
+.ls-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 40px; margin-bottom: 48px; }
+.ls-head p { margin-top: 14px; color: var(--ev-ink-2); font-size: 17px; max-width: 44ch; }
+@media (min-width: 900px) { .ls-head { margin-bottom: 80px; } }
 
-/* ---------- Tjänster: redaktionella rader, bilden leder ---------- */
-.ls-services { display: grid; gap: 64px; }
-.ls-service { display: grid; gap: 24px; align-items: center; }
-.ls-service__img img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 4px; }
-.ls-service h3 { font: 600 clamp(30px, 1.2vw + 24px, 40px)/1.08 var(--ls-display); letter-spacing: -.01em; }
-.ls-service p { margin-top: 12px; color: var(--ev-ink-2); }
-.ls-service ul { margin-top: 16px; padding-left: 20px; display: grid; gap: 6px; }
-.ls-service ul li::marker { color: var(--ev-brand); }
-.ls-service__foot { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--ev-line); }
-.ls-service__price { font-weight: 600; }
-.ls-service__price small { font-weight: 400; color: var(--ev-ink-2); font-size: 14px; }
+/* ---------- Utvalt arbete: redaktionella uppslag per serie ---------- */
+.ls-work { padding: 72px 0 24px; }
+@media (min-width: 900px) { .ls-work { padding: 136px 0 40px; } }
+.ls-spread { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 96px; }
+.ls-spread figure { position: relative; min-width: 0; }
+.ls-spread figure a { display: block; color: inherit; text-decoration: none; }
+.ls-spread .ls-img { display: block; overflow: hidden; border-radius: var(--ls-r-img); background: var(--ls-bg-2); }
+.ls-spread img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: var(--ar, 3 / 2); transition: transform 900ms var(--ev-ease); }
+.ls-spread figure a:hover img { transform: scale(1.02); }
+.ls-spread figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; font-size: 13px; font-weight: 500; color: var(--ev-ink-2); font-variant-numeric: tabular-nums; }
+.ls-spread figcaption b { font-weight: 500; color: var(--ev-ink); }
+.ls-spread figure a:focus-visible { outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .ls-spread img { transition: none; } }
+
+.ls-intro { grid-column: 1 / -1; padding: 8px 0 20px; }
+.ls-intro .ls-meta { display: flex; gap: 16px; }
+.ls-intro h3 { margin-top: 14px; font-size: clamp(30px, 1.6vw + 22px, 48px); line-height: 1.02; letter-spacing: -.035em; }
+.ls-intro p:not(.ls-meta) { margin-top: 12px; color: var(--ev-ink-2); max-width: 38ch; }
+.ls-intro .ev-link { margin-top: 16px; }
+
+/* Serie 1 (Höst): stor bild, text bredvid, två bilder förskjutna under */
+.ls-spread--a .s1 { grid-column: 1 / -1; --ar: 3 / 2; }
+.ls-spread--a .s2 { grid-column: 1; --ar: 4 / 5; }
+.ls-spread--a .s3 { grid-column: 2; --ar: 4 / 5; margin-top: 56px; }
+/* Serie 2 (Porträtt): text, ett stort porträtt och två mindre */
+.ls-spread--b .s1 { grid-column: 1 / -1; --ar: 4 / 5; }
+.ls-spread--b .s2 { grid-column: 1; --ar: 4 / 5; }
+.ls-spread--b .s3 { grid-column: 2; --ar: 4 / 5; margin-top: 56px; }
 @media (min-width: 900px) {
-  .ls-services { gap: 112px; }
-  .ls-service { grid-template-columns: 7fr 5fr; gap: 64px; }
-  .ls-service:nth-child(even) .ls-service__img { order: 2; }
-  .ls-service:nth-child(even) { grid-template-columns: 5fr 7fr; }
-  .ls-service__img img { aspect-ratio: 4 / 3; }
+  .ls-spread { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 32px; margin-bottom: 160px; }
+  .ls-intro { padding: 0; }
+  .ls-spread--a .s1 { grid-column: 1 / 9; grid-row: 1; }
+  .ls-spread--a .ls-intro { grid-column: 9 / 13; grid-row: 1; align-self: end; padding-bottom: 36px; }
+  .ls-spread--a .s2 { grid-column: 2 / 6; grid-row: 2; margin-top: 0; }
+  .ls-spread--a .s3 { grid-column: 7 / 13; grid-row: 2; --ar: 3 / 2; margin-top: 160px; }
+  .ls-spread--b .ls-intro { grid-column: 1 / 5; grid-row: 1; align-self: start; }
+  .ls-spread--b .s1 { grid-column: 5 / 10; grid-row: 1 / 3; }
+  .ls-spread--b .s2 { grid-column: 10 / 13; grid-row: 1 / 3; align-self: end; margin-top: 0; }
+  .ls-spread--b .s3 { grid-column: 2 / 5; grid-row: 2; align-self: end; margin-top: 0; }
 }
+
+/* Serie 3 (Vinter): vågrät rad som går att svepa, dra med musen eller bläddra med knapparna */
+.ls-row-sec { padding-bottom: 96px; }
+@media (min-width: 900px) { .ls-row-sec { padding-bottom: 152px; } }
+.ls-row-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; margin-bottom: 28px; }
+.ls-row-head .ls-intro { padding: 0; }
+.ls-row-nav { display: flex; gap: 8px; }
+.ls-row-nav .ev-iconbtn { border: 1px solid var(--ev-line); }
+.ls-row-nav .ev-iconbtn[aria-disabled="true"] { opacity: .35; cursor: default; }
+.ls-row { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain;
+  padding: 4px 16px 8px; scroll-padding: 0 16px; cursor: grab; }
+.ls-row::-webkit-scrollbar { display: none; }
+.ls-row.is-dragging { cursor: grabbing; user-select: none; }
+@media (pointer: coarse) { .ls-row { scroll-snap-type: x proximity; cursor: auto; } }
+.ls-row.is-dragging a { pointer-events: none; }
+.ls-row:focus-visible { outline-offset: -2px; }
+.ls-row figure { flex: none; scroll-snap-align: start; }
+.ls-row a { display: block; color: inherit; text-decoration: none; }
+.ls-row img { height: clamp(220px, 34vw + 120px, 600px); width: auto; max-width: none; border-radius: var(--ls-r-img); -webkit-user-drag: none; user-select: none; }
+.ls-row figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 10px; font-size: 13px; font-weight: 500; color: var(--ev-ink-2); font-variant-numeric: tabular-nums; }
+.ls-row figcaption b { font-weight: 500; color: var(--ev-ink); }
+@media (min-width: 900px) {
+  .ls-row { gap: 24px; padding-left: max(40px, calc((100vw - var(--ev-max-w)) / 2)); padding-right: 40px; scroll-padding-left: max(40px, calc((100vw - var(--ev-max-w)) / 2)); }
+}
+
+/* ---------- Tjänster: ett register med tre rader, hela raden är klickbar ---------- */
+.ls-index { list-style: none; padding: 0; border-top: 1px solid var(--ev-line); }
+.ls-index li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 112px; grid-template-areas: "num img" "title img" "desc desc" "price price"; column-gap: 16px;
+  padding: 24px 0; border-bottom: 1px solid var(--ev-line); }
+.ls-index .ls-num { grid-area: num; font-size: 13px; }
+.ls-index h3 { grid-area: title; font-size: clamp(34px, 2.4vw + 20px, 60px); line-height: 1; letter-spacing: -.04em; margin-top: 6px; }
+.ls-index h3 a { color: var(--ev-ink); text-decoration: none; }
+.ls-index h3 a::after { content: ""; position: absolute; inset: 0; }
+.ls-index h3 a:focus-visible { outline: none; }
+.ls-index li:focus-within { outline: 2px solid var(--ls-focus); outline-offset: 4px; }
+.ls-index p { grid-area: desc; margin-top: 12px; color: var(--ev-ink-2); max-width: 40ch; }
+.ls-index .ls-index__price { grid-area: price; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.ls-index__price small { font-size: 13px; color: var(--ev-ink-2); font-weight: 400; }
+.ls-index__price .ev-icon { color: var(--ls-link); transition: transform var(--ev-dur-arrow) var(--ev-ease); }
+.ls-index li:hover .ls-index__price .ev-icon { transform: translateX(6px); }
+.ls-index img { grid-area: img; width: 112px; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--ls-r-img); align-self: start; }
+@media (min-width: 900px) {
+  .ls-index li { grid-template-columns: 64px minmax(0, 1.25fr) minmax(0, 1fr) 200px 220px; grid-template-areas: "num title desc price img"; align-items: center; column-gap: 32px; padding: 28px 0; }
+  .ls-index .ls-num { align-self: start; padding-top: 14px; }
+  .ls-index h3, .ls-index p, .ls-index .ls-index__price { margin-top: 0; }
+  .ls-index .ls-index__price { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .ls-index__price .ev-icon { margin-top: 6px; }
+  .ls-index img { width: 220px; aspect-ratio: 3 / 2; align-self: center; transition: transform 600ms var(--ev-ease); }
+  .ls-index li:hover img { transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) { .ls-index img, .ls-index__price .ev-icon { transition: none; } }
 
 /* ---------- Om Linnea ---------- */
-.ls-about { display: grid; gap: 32px; align-items: center; }
-.ls-about__img img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 4px; }
-.ls-about__img figcaption { margin-top: 8px; font-size: 13px; color: var(--ev-ink-2); }
-.ls-about__text p + p { margin-top: 16px; }
-.ls-about__text h2 + p { margin-top: 20px; font-size: 18px; }
-.ls-facts { list-style: none; padding: 0; margin-top: 28px; display: grid; gap: 12px; }
-@media (min-width: 900px) { .ls-about { grid-template-columns: 5fr 6fr; gap: 96px; } }
+.ls-about { display: grid; gap: 32px; }
+.ls-about__img img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--ls-r-img); }
+.ls-about__img figcaption { margin-top: 10px; font-size: 13px; color: var(--ev-ink-2); }
+.ls-about__text .ev-lead { margin-top: 24px; color: var(--ev-ink); font-size: clamp(19px, .6vw + 16px, 24px); line-height: 1.4; letter-spacing: -.01em; max-width: 30ch; }
+.ls-about__text p + p { margin-top: 16px; color: var(--ev-ink-2); max-width: 46ch; }
+.ls-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--ev-line); }
+.ls-facts dd { font-size: clamp(28px, 1.6vw + 18px, 44px); font-weight: 600; line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.ls-facts dt { margin-top: 8px; font-size: 13px; line-height: 1.35; color: var(--ev-ink-2); }
+.ls-facts div { display: flex; flex-direction: column-reverse; justify-content: flex-end; }
+@media (min-width: 900px) { .ls-about { grid-template-columns: 6fr 5fr; gap: 96px; align-items: end; } .ls-about__img img { aspect-ratio: 5 / 6; } }
 
-/* ---------- Så går det till: lodrät steglista, 28 px cirklar med 2 px linje (pi-sg-lodrat) ---------- */
-.ls-how { display: grid; gap: 40px; }
-.ls-how__intro p { margin-top: 16px; color: var(--ev-ink-2); }
-.ls-how__intro .ev-hint { margin-top: 12px; }
-.ev-vsteps { list-style: none; padding: 0; counter-reset: s; }
-.ev-vsteps li { position: relative; padding: 0 0 32px 48px; counter-increment: s; }
-.ev-vsteps li:last-child { padding-bottom: 0; }
-.ev-vsteps li::before { content: counter(s); position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
-  background: var(--ev-brand); color: #fff; font: 600 14px/1 var(--ev-font); }
-.ev-vsteps li:not(:last-child)::after { content: ""; position: absolute; left: 13px; top: 34px; bottom: 6px; width: 2px; border-radius: 2px; background: var(--ev-tint-btn); }
-.ev-vsteps h3 { font-size: 18px; padding-top: 2px; }
-.ev-vsteps p { margin-top: 6px; color: var(--ev-ink-2); }
-@media (min-width: 900px) { .ls-how { grid-template-columns: 5fr 6fr; gap: 96px; align-items: start; } }
+/* ---------- Så går det till: fyra steg i rad ---------- */
+.ls-steps { list-style: none; padding: 0; display: grid; gap: 28px; margin-top: 40px; }
+.ls-steps li { padding-top: 16px; border-top: 1px solid var(--ev-line); }
+.ls-steps .ls-num { font-size: 13px; }
+.ls-steps h3 { margin-top: 10px; font-size: 22px; letter-spacing: -.02em; }
+.ls-steps p { margin-top: 6px; color: var(--ev-ink-2); font-size: 15px; }
+.ls-how__foot { margin-top: 48px; }
+.ls-how__foot .ev-hint { margin-top: 12px; }
+@media (min-width: 700px) { .ls-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 32px; } }
+@media (min-width: 1100px) { .ls-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 64px; } }
 
-/* ---------- Omdömen (exempel) ---------- */
-.ls-quotes { display: grid; gap: 32px; list-style: none; padding: 0; }
-.ls-quote blockquote { padding-left: 20px; border-left: 2px solid var(--ev-brand); font: 600 23px/1.3 var(--ls-display); }
+/* ---------- Omdömen (exempel): ett stort citat och två små ---------- */
+.ls-quotes { display: grid; gap: 40px; }
+.ls-quote blockquote { padding-left: 20px; border-left: 2px solid var(--ls-light); }
+.ls-quote blockquote p { font-size: 19px; line-height: 1.45; font-weight: 500; letter-spacing: -.01em; }
+.ls-quote--big blockquote p { font-size: clamp(26px, 1.8vw + 16px, 44px); line-height: 1.15; letter-spacing: -.03em; max-width: 26ch; }
 .ls-quote figcaption { margin-top: 14px; padding-left: 22px; font-size: 14px; color: var(--ev-ink-2); }
-.ls-quote figcaption b { display: block; color: var(--ev-ink); font-weight: 600; }
-@media (min-width: 900px) { .ls-quotes { grid-template-columns: repeat(3, 1fr); gap: 48px; } }
+.ls-quote figcaption b { color: var(--ev-ink); font-weight: 500; }
+.ls-quotes__small { list-style: none; padding: 0; display: grid; gap: 32px; }
+.ls-note { margin-top: 48px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; font-size: 14px; color: var(--ev-ink-2); }
+@media (min-width: 900px) { .ls-quotes { grid-template-columns: 7fr 4fr; gap: 96px; align-items: end; } }
 
-/* ---------- Kontakt ---------- */
+/* ---------- Kontakt (ljus yta) ---------- */
 .ls-contact { display: grid; gap: 40px; }
-.ls-ways { list-style: none; padding: 0; margin-top: 28px; display: grid; gap: 20px; }
+.ls-ways { list-style: none; padding: 0; margin-top: 32px; display: grid; gap: 20px; }
 .ls-ways li { display: flex; gap: 12px; align-items: flex-start; }
 .ls-ways .ev-icon { margin-top: 2px; width: 20px; height: 20px; }
 .ls-ways b { display: block; font-weight: 600; }
 .ls-ways a { color: var(--ev-ink); text-decoration: underline; text-underline-offset: 3px; }
 .ls-ways small { display: block; font-size: 14px; color: var(--ev-ink-2); }
-.ev-card { background: #fff; border-radius: var(--ev-r-card); padding: 24px; }
+.ev-card { background: #fff; border-radius: var(--ev-r-card); padding: 24px; color: #1A1C1E; }
 @media (min-width: 900px) { .ls-contact { grid-template-columns: 5fr 6fr; gap: 96px; } .ev-card { padding: 40px; } }
 
 /* ---------- Fält (standard tills Fält och kontroller besvarats) ---------- */
@@ -317,7 +440,7 @@ main:focus, [tabindex="-1"]:focus { outline: none; }
 .ev-field { display: grid; gap: 6px; }
 .ev-field label, .ev-label { font-size: 14px; font-weight: 600; }
 .ev-field label small, .ev-label small { font-weight: 400; color: var(--ev-ink-2); font-size: 14px; }
-.ev-input { width: 100%; height: var(--ev-field-h); padding: 0 20px; border: 1px solid var(--ev-field-line); border-radius: var(--ev-r-pill); background: #fff; font-size: 16px; }
+.ev-input { width: 100%; height: var(--ev-field-h); padding: 0 20px; border: 1px solid var(--ev-field-line); border-radius: var(--ev-r-pill); background: #fff; color: #1A1C1E; font-size: 16px; }
 textarea.ev-input { height: auto; min-height: 120px; padding: 14px 20px; border-radius: 16px; resize: vertical; }
 select.ev-input { appearance: none; padding-right: 48px; cursor: pointer;
   background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1C1E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") right 18px center / 20px no-repeat; }
@@ -333,7 +456,7 @@ select.ev-input { appearance: none; padding-right: 48px; cursor: pointer;
 .ev-missing[hidden] { display: none; }
 .ev-sent { display: grid; gap: 12px; }
 .ev-sent[hidden] { display: none; }
-.ev-sent h3 { font: 600 30px/1.1 var(--ls-display); display: flex; align-items: center; gap: 12px; }
+.ev-sent h3 { font-size: 30px; line-height: 1.1; letter-spacing: -.03em; display: flex; align-items: center; gap: 12px; }
 .ev-sent h3 .ev-icon { color: var(--ev-ok); width: 32px; height: 32px; --ev-stroke: 2.25px; }
 .ev-check path { stroke-dasharray: 30; stroke-dashoffset: 30; animation: ev-draw var(--ev-dur-icon) var(--ev-ease) 150ms forwards; }
 @keyframes ev-draw { to { stroke-dashoffset: 0; } }
@@ -342,57 +465,93 @@ select.ev-input { appearance: none; padding-right: 48px; cursor: pointer;
 /* ---------- Fast list på desktop (ux-cta-folj-med). Ingen på mobil (ux-mobil-fast-knapp). ---------- */
 .ev-stickybar { display: none; }
 @media (min-width: 900px) {
-  .ev-stickybar { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: #fff; border-top: 1px solid var(--ev-line);
-    box-shadow: 0 -8px 24px rgba(26, 28, 30, .06); transform: translateY(110%); visibility: hidden; transition: transform 240ms var(--ev-ease), visibility 0s 240ms; }
+  .ev-stickybar { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: var(--ls-bg); color: var(--ls-fg); border-top: 1px solid rgba(243, 240, 235, .16);
+    --ev-ink: var(--ls-fg); --ev-ink-2: var(--ls-fg-2); --ls-focus: var(--ls-light);
+    transform: translateY(110%); visibility: hidden; transition: transform 240ms var(--ev-ease), visibility 0s 240ms; }
   .ev-stickybar.is-on { transform: none; visibility: visible; transition: transform 240ms var(--ev-ease); }
   .ev-stickybar__in { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 76px; }
-  .ev-stickybar p { font-size: 15px; color: var(--ev-ink-2); }
-  .ev-stickybar p b { color: var(--ev-ink); font-weight: 600; }
+  .ev-stickybar p { font-size: 15px; color: var(--ls-fg-2); }
+  .ev-stickybar p b { color: var(--ls-fg); font-weight: 600; }
   .ev-stickybar .ev-actions { margin: 0; }
   body.has-stickybar .ev-footer { padding-bottom: 108px; }
 }
 @media (prefers-reduced-motion: reduce) { .ev-stickybar, .ev-stickybar.is-on { transition: none; } }
 
 /* ---------- Sidfot (standard) ---------- */
-.ev-footer { padding: 48px 0 32px; background: var(--ls-deep); color: #fff; }
-.ev-footer a { color: #fff; }
-.ev-footer__top { display: grid; gap: 24px; padding-bottom: 32px; border-bottom: 1px solid rgba(255, 255, 255, .18); }
-.ev-footer .ls-logo { color: #fff; }
-.ev-footer .ls-logo span { color: rgba(255, 255, 255, .78); }
+.ev-footer { padding: 56px 0 32px; background: #0B0A09; color: var(--ls-fg); --ls-focus: var(--ls-light); }
+.ev-footer a { color: var(--ls-fg); }
+.ev-footer__top { display: grid; gap: 24px; padding-bottom: 32px; border-bottom: 1px solid rgba(243, 240, 235, .16); }
+.ev-footer .ls-logo { color: var(--ls-fg); }
+.ev-footer .ls-logo b { font-size: clamp(32px, 3vw + 16px, 64px); letter-spacing: -.045em; }
+.ev-footer .ls-logo span { color: var(--ls-fg-2); }
 .ev-footer__contact { display: grid; gap: 6px; font-size: 15px; }
 .ev-footer__links { display: flex; flex-wrap: wrap; list-style: none; padding: 0; margin: 24px 0 0; font-size: 14px; }
 .ev-footer__links li { display: inline-flex; align-items: center; }
 .ev-footer__links li + li::before { content: ""; width: 3px; height: 3px; border-radius: 50%; background: currentColor; margin: 0 8px; }
 .ev-footer__links a { display: inline-flex; align-items: center; min-height: 32px; }
-.ev-concept { margin-top: 12px; font-size: 13px; color: rgba(255, 255, 255, .78); }
-.ev-footer :focus-visible { outline-color: #fff; }
-@media (min-width: 900px) { .ev-footer { padding-top: 64px; } .ev-footer__top { grid-template-columns: 1fr auto; align-items: end; } }
+.ev-concept { margin-top: 12px; font-size: 13px; color: var(--ls-fg-2); }
+@media (min-width: 900px) { .ev-footer { padding-top: 80px; } .ev-footer__top { grid-template-columns: 1fr auto; align-items: end; } }
 
 /* ---------- Undersidor ---------- */
-.ev-pagehead { padding-top: 40px; padding-bottom: 24px; }
-.ev-pagehead p { margin-top: 14px; color: var(--ev-ink-2); font-size: 18px; max-width: 56ch; }
-@media (min-width: 900px) { .ev-pagehead { padding-top: 72px; padding-bottom: 40px; } }
+.ev-pagehead { padding-top: 48px; padding-bottom: 32px; }
+.ev-pagehead h1 { font-size: clamp(48px, 5vw + 24px, 96px); letter-spacing: -.045em; line-height: .96; }
+.ev-pagehead p { margin-top: 18px; color: var(--ev-ink-2); font-size: 18px; max-width: 50ch; }
+@media (min-width: 900px) { .ev-pagehead { padding-top: 96px; padding-bottom: 56px; } .ev-pagehead p { font-size: 20px; } }
+.ls-band { background: var(--ls-bg); color: var(--ls-fg); }
 
-/* ---------- Portfolio ---------- */
-.pf-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-bottom: 20px; margin-bottom: 24px; border-bottom: 1px solid var(--ev-line); }
+/* ---------- Portfolio: serier som stora uppslag ---------- */
+.pf-bar { position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px;
+  padding: 12px 0; margin-bottom: 40px; background: var(--ls-bg); border-bottom: 1px solid var(--ev-line); }
 .pf-bar .ev-chips { max-width: 100%; }
 .pf-count { font-size: 14px; color: var(--ev-ink-2); font-variant-numeric: tabular-nums; }
-.pf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; list-style: none; padding: 0; }
-@media (min-width: 900px) { .pf-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px 24px; } }
+.pf-series { margin-bottom: 96px; }
+@media (min-width: 900px) { .pf-series { margin-bottom: 176px; } }
+.pf-series__head { display: grid; gap: 10px; margin-bottom: 32px; }
+.pf-series__head .ls-meta { display: flex; gap: 16px; }
+.pf-series__head h2 { font-size: clamp(32px, 2.2vw + 22px, 56px); letter-spacing: -.04em; }
+.pf-series__head p:not(.ls-meta) { color: var(--ev-ink-2); max-width: 46ch; }
+@media (min-width: 900px) { .pf-series__head { grid-template-columns: 1fr minmax(0, 420px); align-items: end; column-gap: 48px; margin-bottom: 56px; } .pf-series__head .ls-meta { grid-column: 1 / -1; } }
+.pf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 12px; list-style: none; padding: 0; }
+.pf-item { min-width: 0; }
 .pf-item[hidden] { display: none; }
-.pf-open { display: block; width: 100%; padding: 0; border: 0; background: none; text-align: left; cursor: zoom-in; border-radius: 4px; }
+.pf-item:nth-child(3n+1) { grid-column: 1 / -1; }
+.pf-item:nth-child(3n+0) { margin-top: 48px; }
+.pf-open { display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: zoom-in; border-radius: var(--ls-r-img); }
 .pf-open:focus-visible { outline-offset: 4px; }
-.pf-open .ls-shot__img img { aspect-ratio: 4 / 5; width: 100%; object-fit: cover; transition: transform 600ms var(--ev-ease); }
-.pf-open:hover .ls-shot__img img { transform: scale(1.025); }
-.pf-open .ls-shot__cap { color: var(--ev-ink); }
+.pf-img { display: block; overflow: hidden; border-radius: var(--ls-r-img); background: var(--ls-bg-2); }
+.pf-img img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform 900ms var(--ev-ease); }
+.pf-item.is-tall .pf-img img { aspect-ratio: 4 / 5; }
+.pf-open:hover .pf-img img { transform: scale(1.02); }
+.pf-cap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; margin-top: 10px; font-size: 13px; font-weight: 500; color: var(--ev-ink-2); font-variant-numeric: tabular-nums; }
+.pf-cap b { font-weight: 500; color: var(--ev-ink); font-size: 14px; }
+@media (prefers-reduced-motion: reduce) { .pf-img img { transition: none; } }
+@media (min-width: 900px) {
+  .pf-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 56px 24px; }
+  .pf-item:nth-child(n) { margin-top: 0; }
+  .pf-item:nth-child(5n+1) { grid-column: 1 / 8; }
+  .pf-item:nth-child(5n+2) { grid-column: 8 / 13; align-self: end; }
+  .pf-item:nth-child(5n+3) { grid-column: 2 / 7; }
+  .pf-item:nth-child(5n+4) { grid-column: 7 / 13; align-self: center; }
+  .pf-item:nth-child(5n+5) { grid-column: 1 / 13; }
+  .pf-item:nth-child(5n+5) .pf-img img { aspect-ratio: 21 / 9; }
+  .pf-item:nth-child(5n+1):last-child { grid-column: 3 / 13; }
+  .pf-item:nth-child(5n+2) .pf-img img { aspect-ratio: 4 / 5; }
+  /* Porträttserien: tre stående bilder, förskjutna */
+  .pf-grid--tall .pf-item:nth-child(1) { grid-column: 1 / 7; }
+  .pf-grid--tall .pf-item:nth-child(2) { grid-column: 8 / 13; align-self: start; margin-top: 200px; }
+  .pf-grid--tall .pf-item:nth-child(3) { grid-column: 3 / 8; margin-top: -120px; }
+}
 .pf-empty { padding: 48px 0; color: var(--ev-ink-2); }
+.pf-cta { padding: 56px 0 120px; border-top: 1px solid var(--ev-line); }
+.pf-cta h2 { max-width: 16ch; }
+.pf-cta p { margin-top: 14px; color: var(--ev-ink-2); font-size: 17px; }
 
 /* Ljusbox i native dialog: mörk yta så att bilden lyser */
-.lb { width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 0; border: 0; background: #14100D; color: #fff; overscroll-behavior: contain; }
-.lb::backdrop { background: #14100D; }
+.lb { width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 0; border: 0; background: #0B0A09; color: #fff; overscroll-behavior: contain; --ls-focus: #fff; }
+.lb::backdrop { background: #0B0A09; }
 .lb[open] { display: grid; grid-template-rows: auto 1fr auto; }
 .lb__top { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 8px 8px 8px 16px; }
-.lb__count { font-size: 14px; color: rgba(255, 255, 255, .8); font-variant-numeric: tabular-nums; }
+.lb__count { font-size: 14px; font-weight: 500; color: rgba(255, 255, 255, .8); font-variant-numeric: tabular-nums; }
 .lb__close { color: #fff; }
 .lb__close:hover { color: #fff; background: rgba(255, 255, 255, .1); }
 .lb__stage { position: relative; display: flex; align-items: center; justify-content: center; min-height: 0; overflow: hidden; padding: 0 12px; }
@@ -401,49 +560,50 @@ select.ev-input { appearance: none; padding-right: 48px; cursor: pointer;
 @keyframes lb-in { from { opacity: .2; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .lb__stage img.is-in { animation: none; } }
 .lb__foot { display: grid; gap: 14px; justify-items: center; padding: 16px 16px 24px; text-align: center; }
-.lb__cap b { display: block; font: 600 24px/1.2 var(--ls-display); }
+.lb__cap b { display: block; font-size: 22px; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; }
 .lb__cap span { font-size: 14px; color: rgba(255, 255, 255, .8); }
 .lb__nav { display: flex; gap: 8px; }
 .lb__btn { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--ev-brand); color: #fff; cursor: pointer; transition: background-color var(--ev-dur-btn) ease; }
-.lb__btn:hover { background: color-mix(in srgb, var(--ev-brand) 80%, #fff); }
+.lb__btn:hover { background: var(--ev-brand-hover); }
 .lb__btn .ev-icon { width: 20px; height: 20px; transition: transform var(--ev-dur-arrow) var(--ev-ease); }
 .lb__btn--next:hover .ev-icon { transform: translateX(3px); }
 .lb__btn--prev:hover .ev-icon { transform: translateX(-3px); }
-.lb :focus-visible { outline-color: #fff; }
 .lb__hint { font-size: 13px; color: rgba(255, 255, 255, .72); }
-@media (max-width: 640px) { .lb__hint { display: none; } }
+@media (max-width: 640px) { .lb__hint { display: none; } .lb__stage { padding: 0; } }
 
 /* ---------- Priser ---------- */
 .pr-section + .pr-section { border-top: 1px solid var(--ev-line); }
 .pr-head { display: grid; gap: 12px; margin-bottom: 28px; }
 .pr-head p { color: var(--ev-ink-2); }
+.pr-head__img { margin-top: 12px; }
+.pr-head__img img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--ls-r-img); }
 .pr-tabs { display: none; }
 .pr-panels { display: grid; gap: 16px; }
 .pr-pkg { display: grid; gap: 16px; padding: 24px; border: 1px solid var(--ev-line); border-radius: var(--ev-r-card); background: #fff; }
-.pr-pkg h3 { font: 600 30px/1.1 var(--ls-display); }
-.pr-pkg__price { font-size: 28px; font-weight: 600; font-variant-numeric: tabular-nums; }
-.pr-pkg__price small { font-size: 14px; font-weight: 400; color: var(--ev-ink-2); }
+.pr-pkg h3 { font-size: 30px; line-height: 1.05; letter-spacing: -.03em; }
+.pr-pkg__price { font-size: 28px; font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.pr-pkg__price small { font-size: 14px; font-weight: 400; letter-spacing: 0; color: var(--ev-ink-2); }
 .pr-pkg ul { padding-left: 20px; display: grid; gap: 6px; }
 .pr-pkg .ev-actions { margin-top: 4px; }
-.pr-pkg--rec { background: var(--ls-deep); border-color: var(--ls-deep); color: #fff; }
-.pr-pkg--rec .pr-pkg__price small, .pr-pkg--rec .pr-pkg__desc { color: rgba(255, 255, 255, .82); }
+.pr-pkg--rec { background: var(--ls-bg); border-color: var(--ls-bg); color: var(--ls-fg); --ls-link: var(--ls-light); --ls-focus: var(--ls-light); }
+.pr-pkg--rec .pr-pkg__price small, .pr-pkg--rec .pr-pkg__desc { color: var(--ls-fg-2); }
 .pr-pkg--rec ul li::marker { color: var(--ls-light); }
-.pr-pkg--rec .ev-tag { background: var(--ls-light); color: var(--ls-deep); justify-self: start; }
+.pr-pkg--rec .ev-tag { background: var(--ls-light); color: var(--ls-bg); justify-self: start; }
 .pr-pkg__desc { color: var(--ev-ink-2); }
 .pr-pkg ul li::marker { color: var(--ev-brand); }
 @media (max-width: 640px) { .pr-pkg .ev-actions .ev-link { align-self: flex-start; } }
 @media (min-width: 900px) {
-  [data-tabs] { max-width: 640px; }
+  [data-tabs] { max-width: 680px; }
   .pr-tabs { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--ev-line); border-radius: var(--ev-r-pill); background: #fff; margin-bottom: 20px; }
   .pr-tab { height: 44px; padding: 0 22px; border: 0; border-radius: var(--ev-r-pill); background: none; color: var(--ev-ink); font: 500 15px/1 var(--ev-font); cursor: pointer; }
   .pr-tab:hover { background: rgba(26, 28, 30, .06); }
   .pr-tab[aria-selected="true"] { background: var(--ev-tint-btn); font-weight: 600; }
-  .pr-panels { display: block; max-width: 640px; }
+  .pr-panels { display: block; max-width: 680px; }
   .pr-pkg:not(.is-active) { display: none; }
   .pr-pkg { grid-template-columns: 1fr auto; padding: 40px; column-gap: 40px; }
   .pr-pkg > * { grid-column: 1; }
   .pr-pkg > .pr-pkg__price { grid-column: 2; grid-row: 1 / 3; text-align: right; align-self: start; }
-  .pr-layout { display: grid; grid-template-columns: 5fr 7fr; gap: 64px; align-items: start; }
+  .pr-layout { display: grid; grid-template-columns: 5fr 7fr; gap: 72px; align-items: start; }
 }
 
 /* Dragspel: plus vrids till kryss (pi-drag-oppet) */
@@ -464,7 +624,7 @@ select.ev-input { appearance: none; padding-right: 48px; cursor: pointer;
 /* Tryck: välj motiv, storlek och ram */
 .pt-config { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
 .pt-table { margin-top: 24px; overflow-x: auto; }
-.pt-preview { position: relative; overflow: hidden; border-radius: 4px; background: var(--ev-surface-2); }
+.pt-preview { position: relative; overflow: hidden; border-radius: var(--ls-r-img); background: var(--ev-surface-2); }
 .pt-preview img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
 .pt-boxes { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; min-width: 0; }
 .pt-boxes legend { padding: 0; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
@@ -476,38 +636,37 @@ select.ev-input { appearance: none; padding-right: 48px; cursor: pointer;
 .pt-box input:checked + span { border-color: var(--ev-brand); box-shadow: inset 0 0 0 1px var(--ev-brand); background: var(--ev-tint); }
 .pt-box input:focus-visible + span { outline: 2px solid var(--ev-brand); outline-offset: 2px; }
 .pt-total { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding-top: 16px; border-top: 1px solid var(--ev-line); }
-.pt-total b { font-size: 28px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.pt-total b { font-size: 28px; font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 .pt-total span { font-size: 14px; color: var(--ev-ink-2); }
 @media (min-width: 900px) { .pt-config { grid-template-columns: 6fr 5fr; gap: 48px; align-items: start; } }
 
 /* ---------- Bokningsflödet ---------- */
 .bk { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 24px; padding-bottom: 64px; }
-@media (min-width: 900px) { .bk { grid-template-columns: minmax(0, 600px) minmax(0, 360px); justify-content: space-between; gap: 64px; padding-top: 48px; padding-bottom: 112px; } }
+@media (min-width: 900px) { .bk { grid-template-columns: minmax(0, 600px) minmax(0, 380px); justify-content: space-between; gap: 64px; padding-top: 56px; padding-bottom: 120px; } }
 .ev-flow { position: relative; max-width: 600px; }
 .ev-flow__close { position: absolute; top: -8px; right: -10px; color: var(--ev-ink-2); }
 .ev-flow__close:hover { color: var(--ev-ink); }
 .ev-flow__back { margin-bottom: 16px; min-height: 40px; }
-.ev-flow h1 { font-size: clamp(36px, 2vw + 28px, 52px); line-height: 1.05; padding-right: 48px; }
-.ev-flow > .ev-hint, .bk-step > .ev-hint { margin-top: 12px; font-size: 15px; }
+.ev-flow h1 { font-size: clamp(36px, 2.4vw + 26px, 56px); line-height: 1; letter-spacing: -.04em; padding-right: 48px; }
+.ev-flow > .ev-hint, .bk-step > .ev-hint { margin-top: 14px; font-size: 15px; }
 .bk-step[hidden] { display: none; }
 .bk-body { margin-top: 28px; }
 .ev-choices { display: grid; gap: 12px; }
-.ev-choice { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 16px; width: 100%; min-height: 72px; padding: 16px 20px; border: 1px solid var(--ev-field-line);
-  border-radius: var(--ev-r-card); background: #fff; color: var(--ev-ink); text-align: left; cursor: pointer;
+.ev-choice { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 16px; width: 100%; min-height: 72px; padding: 16px 20px; border: 1px solid var(--ev-field-line);
+  border-radius: var(--ev-r-card); background: #fff; color: #1A1C1E; text-align: left; cursor: pointer;
   transition: border-color var(--ev-dur-btn) ease, background-color var(--ev-dur-btn) ease; }
 .ev-choice:hover { border-color: var(--ev-ink); }
 .ev-choice:hover .ev-link__arrow { transform: translateX(4px); }
-.ev-choice b { font-size: 17px; font-weight: 600; }
+.ev-choice b { font-size: 18px; font-weight: 600; letter-spacing: -.01em; }
 .ev-choice small { grid-column: 1; font-size: 14px; color: var(--ev-ink-2); }
 .ev-choice__side { grid-column: 2; grid-row: 1 / 3; display: inline-flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .ev-choice__side .ev-icon { width: 20px; height: 20px; color: var(--ev-ink-2); }
 .ev-choice__side .ev-tag { font-weight: 600; }
 .ev-choice.is-current { border-color: var(--ev-brand); box-shadow: inset 0 0 0 1px var(--ev-brand); }
-.ev-choice--img { grid-template-columns: 64px 1fr auto; }
-.ev-choice--img img { grid-row: 1 / 3; width: 64px; height: 64px; object-fit: cover; border-radius: 8px; }
+.ev-choice--img { grid-template-columns: 72px minmax(0, 1fr) auto; }
+.ev-choice--img img { grid-row: 1 / 3; width: 72px; height: 72px; object-fit: cover; border-radius: 8px; }
 .ev-choice--img b, .ev-choice--img small { grid-column: 2; }
 .ev-choice--img .ev-choice__side { grid-column: 3; }
-@media (max-width: 400px) { .ev-choice--img { grid-template-columns: 48px 1fr auto; } .ev-choice--img img { width: 48px; height: 48px; } }
 
 .ev-flow__foot { display: grid; gap: 16px; margin-top: 32px; }
 .ev-steps { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 12px; font-size: 14px; color: var(--ev-ink-2); }
@@ -529,22 +688,22 @@ select.ev-input { appearance: none; padding-right: 48px; cursor: pointer;
 
 /* Datum: fält som öppnar en kalender (ux-val-dag), tider i rutnät (ux-val-tid) */
 .bk-datefield { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; height: var(--ev-field-h); padding: 0 16px 0 20px;
-  border: 1px solid var(--ev-field-line); border-radius: var(--ev-r-pill); background: #fff; color: var(--ev-ink); font-size: 16px; text-align: left; cursor: pointer; }
+  border: 1px solid var(--ev-field-line); border-radius: var(--ev-r-pill); background: #fff; color: #1A1C1E; font-size: 16px; text-align: left; cursor: pointer; }
 .bk-datefield:hover { border-color: var(--ev-ink-2); }
 .bk-datefield .is-empty { color: #767A80; }
-.bk-datefield .ev-icon { width: 24px; height: 24px; color: var(--ev-ink); }
+.bk-datefield .ev-icon { width: 24px; height: 24px; color: #1A1C1E; }
 .bk-datefield[aria-invalid="true"] { border-color: var(--ev-bad); }
 .bk-times { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; margin-top: 8px; }
-.bk-time { height: 44px; border: 1px solid var(--ev-field-line); border-radius: var(--ev-r-pill); background: #fff; font-weight: 500; font-variant-numeric: tabular-nums; cursor: pointer; }
+.bk-time { height: 44px; border: 1px solid var(--ev-field-line); border-radius: var(--ev-r-pill); background: #fff; color: #1A1C1E; font-weight: 500; font-variant-numeric: tabular-nums; cursor: pointer; }
 .bk-time:hover { border-color: var(--ev-ink); }
 .bk-time[aria-pressed="true"] { background: var(--ev-brand); border-color: var(--ev-brand); color: #fff; }
 .ev-or { display: flex; align-items: center; gap: 12px; margin: 28px 0 20px; font-size: 14px; color: var(--ev-ink-2); }
 .ev-or::before, .ev-or::after { content: ""; flex: 1; height: 1px; background: var(--ev-line); }
 
-.cal { width: min(360px, calc(100% - 32px)); padding: 20px; border: 0; border-radius: var(--ev-r-card); box-shadow: 0 24px 60px rgba(26, 28, 30, .24); color: var(--ev-ink); }
-.cal::backdrop { background: rgba(26, 28, 30, .36); }
+.cal { width: min(360px, calc(100% - 32px)); padding: 20px; border: 0; border-radius: var(--ev-r-card); box-shadow: 0 24px 60px rgba(26, 28, 30, .24); background: #fff; color: #1A1C1E; }
+.cal::backdrop { background: rgba(18, 17, 16, .5); }
 .cal__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
-.cal__head h2 { font: 600 17px/1.2 var(--ev-font); letter-spacing: 0; }
+.cal__head h2 { font-size: 17px; line-height: 1.2; letter-spacing: 0; }
 .cal__head h2::first-letter { text-transform: uppercase; }
 .cal__nav { display: flex; gap: 4px; }
 .cal__nav .ev-iconbtn[aria-disabled="true"] { opacity: .4; cursor: not-allowed; }
@@ -560,9 +719,9 @@ select.ev-input { appearance: none; padding-right: 48px; cursor: pointer;
 .cal__foot { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
 
 /* Sammanfattning: bredvid på desktop, längst ner på mobil (ux-flode-sammanfattning) */
-.bk-sum { align-self: start; padding: 24px; border-radius: var(--ev-r-card); background: var(--ev-surface-2); }
+.bk-sum { align-self: start; padding: 24px; border-radius: var(--ev-r-card); background: #fff; }
 @media (min-width: 900px) { .bk-sum { position: sticky; top: 24px; } }
-.bk-sum h2 { font: 600 28px/1.1 var(--ls-display); }
+.bk-sum h2 { font-size: 28px; line-height: 1.05; letter-spacing: -.03em; }
 .bk-sum dl { margin-top: 16px; }
 .bk-sum__row { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 12px 0; border-bottom: 1px solid var(--ev-line); }
 .bk-sum__row dt { font-size: 13px; color: var(--ev-ink-2); }
@@ -580,17 +739,9 @@ select.ev-input { appearance: none; padding-right: 48px; cursor: pointer;
 .ls-top { gap: 4px; }
 
 /* Smala skärmar: valkortens pris hamnar under texten, så att inget skjuter ut i sidled */
-.ev-choice { grid-template-columns: minmax(0, 1fr) auto; }
-.ev-choice--img { grid-template-columns: 64px minmax(0, 1fr) auto; }
 @media (max-width: 420px) {
-  .ev-choice, .ev-choice--img { grid-template-columns: minmax(0, 1fr) auto; }
-  .ev-choice--img { grid-template-columns: 48px minmax(0, 1fr); }
-  .ev-choice--img img { width: 48px; height: 48px; }
+  .ev-choice--img { grid-template-columns: 52px minmax(0, 1fr); }
+  .ev-choice--img img { width: 52px; height: 52px; }
   .ev-choice--img .ev-choice__side { grid-column: 2; grid-row: auto; margin-top: 6px; justify-content: space-between; }
   .ev-flow__close { right: -6px; }
-}
-@media (max-width: 640px) { .lb__stage { padding: 0; } }
-/* Hero på smalare desktop: texten börjar längre till vänster, så gradienten når längre in (AA för ingressen) */
-@media (min-width: 900px) and (max-width: 1279px) {
-  .ls-hero::before { background: linear-gradient(to left, rgba(36, 23, 15, .92) 0%, rgba(36, 23, 15, .86) 40%, rgba(36, 23, 15, .66) 58%, rgba(36, 23, 15, .2) 74%, rgba(36, 23, 15, 0) 84%); }
 }
