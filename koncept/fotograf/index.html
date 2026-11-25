@@ -6,16 +6,16 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Linnea Strand Foto – fotograf i Sundsvall för porträtt, företag och tryck</title>
 <meta name="description" content="Porträtt, företagsfoto och landskap för tryck. Studio i Stenstan i Sundsvall. Boka fotografering på tre minuter.">
-<meta name="theme-color" content="#24170F">
-<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/cormorant-garamond-latin-600.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#121110">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@200,300,400,500,600,700&display=swap">
 <link rel="preload" href="img/tag-hostskog.jpg" as="image" fetchpriority="high">
 <link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%236E4A36'/%3E%3Ctext x='16' y='22.5' font-family='Georgia' font-size='18' font-weight='700' fill='white' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23A84B2B'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='17' font-weight='700' fill='white' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
 <script src="data.js" defer></script>
 <script src="main.js" defer></script>
 </head>
-<body>
+<body class="ls-dark">
 <a class="ev-skip" href="#innehall">Hoppa till innehållet</a>
 
 <header class="ev-header">
@@ -59,160 +59,188 @@
 
 <main id="innehall" tabindex="-1">
 
-<!-- Hero (ny): mellanläget -->
-<section class="ls-hero ev-on-photo" aria-labelledby="hero-rubrik">
-  <div class="ls-hero__media"><img src="img/tag-hostskog.jpg" alt="Tåg genom ett höstlandskap med åkrar och orange lövträd, sett från en höjd" fetchpriority="high" width="1400" height="787"></div>
+<!-- 1. Hero: bildspel med fem bilder, namnet stort, en knapp och lediga datum -->
+<section class="ls-hero ev-on-photo" aria-labelledby="hero-rubrik" data-hero>
+  <div class="ls-slides" aria-roledescription="bildspel" aria-label="Utvalda bilder">
+    <figure class="ls-slide is-active" data-caption="Höst, Medelpad" style="--pos:38% 50%;--pos-m:14% 50%;--origin:30% 55%" aria-roledescription="bild" aria-label="1 av 5"><img src="img/tag-hostskog.jpg" alt="Tåg genom ett höstlandskap med åkrar och orange lövträd, sett från en höjd" width="1400" height="787" fetchpriority="high"></figure>
+    <figure class="ls-slide" data-caption="Verkstaden, Sundsvall" style="--pos:60% 40%;--pos-m:63% 40%;--origin:60% 40%" aria-roledescription="bild" aria-label="2 av 5" aria-hidden="true"><img src="img/bilverkstad.jpg" alt="Leende mekaniker med en pärm bredvid en orange bil i verkstaden" width="1400" height="933" fetchpriority="low"></figure>
+    <figure class="ls-slide" data-caption="Stugorna vid sjön, Jämtland" style="--pos:40% 50%;--pos-m:36% 50%;--origin:35% 60%" aria-roledescription="bild" aria-label="3 av 5" aria-hidden="true"><img src="img/stugor-sjo.jpg" alt="Röda stugor bland tallar vid en blank skogssjö under dramatisk himmel" width="1400" height="787" fetchpriority="low"></figure>
+    <figure class="ls-slide" data-caption="Sista åket, Åre" style="--pos:40% 50%;--pos-m:30% 50%;--origin:30% 45%" aria-roledescription="bild" aria-label="4 av 5" aria-hidden="true"><img src="img/vinter-skidor.jpg" alt="Skidåkare vid en lift i blått kvällsljus" width="1600" height="1067" fetchpriority="low"></figure>
+    <figure class="ls-slide" data-caption="Snickeriet, Matfors" style="--pos:45% 40%;--pos-m:42% 40%;--origin:45% 40%" aria-roledescription="bild" aria-label="5 av 5" aria-hidden="true"><img src="img/snickare.jpg" alt="Händer märker ut en träbit med blyertspenna bland kutterspån" width="1400" height="933" fetchpriority="low"></figure>
+  </div>
   <div class="ev-wrap ls-hero__in">
+    <div class="ls-hero__text">
+      <h1 id="hero-rubrik" class="ev-dot">Linnea Strand</h1>
+      <p>Fotograf i Sundsvall för porträtt, företag och landskap i lugnt, norrländskt ljus.</p>
+      <div class="ev-actions" data-sticky-anchor><a class="ev-btn ev-btn--lg" href="boka.html"><span>Boka fotografering</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+    </div>
     <aside class="ls-free" aria-labelledby="ls-free-rubrik" data-free hidden>
       <p class="ls-free__head" id="ls-free-rubrik" data-free-title>Lediga datum</p>
       <div class="ev-chips" data-free-days></div>
     </aside>
-    <div class="ls-hero__text">
-      <h1 id="hero-rubrik" class="ev-dot">Bilder i lugnt, norrländskt ljus</h1>
-      <p>Jag heter Linnea och fotograferar porträtt och företag i Sundsvall, och säljer mina landskap som tryck.</p>
-      <div class="ev-actions" data-sticky-anchor><a class="ev-btn ev-btn--lg" href="boka.html"><span>Boka fotografering</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+    <div class="ls-reel">
+      <p class="ls-reel__cap"><span class="ls-reel__num" data-reel-num>01 / 05</span><span class="ls-reel__txt" data-reel-cap>Höst, Medelpad</span></p>
+      <div class="ls-reel__ctrl">
+        <button class="ev-iconbtn" type="button" aria-label="Föregående bild" data-reel-prev><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button class="ev-iconbtn" type="button" aria-label="Pausa bildspelet" data-reel-pause><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true" data-icon-pause><path d="M9 6v12M15 6v12"/></svg><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true" data-icon-play hidden><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10-6.5a1 1 0 0 0 0-1.7l-10-6.5A1 1 0 0 0 8 5.5z"/></svg></button>
+        <button class="ev-iconbtn" type="button" aria-label="Nästa bild" data-reel-next><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- 1. Utvalda bilder: låt arbetet tala först -->
-<section class="ev-section" aria-labelledby="utvalda-rubrik">
+<!-- 2. Utvalt arbete: tre serier som redaktionella uppslag -->
+<section class="ls-work" aria-labelledby="arbete-rubrik">
   <div class="ev-wrap">
-    <div class="ev-section-head">
+    <div class="ls-head">
       <div>
-        <h2 id="utvalda-rubrik" class="ev-dot">Utvalda bilder</h2>
-        <p>Ett urval från det senaste året. Klicka på en bild för att se den större.</p>
+        <h2 id="arbete-rubrik" class="ev-dot">Utvalt arbete</h2>
+        <p>Tre serier från det senaste året. Tryck på en bild för att se den större.</p>
       </div>
       <a class="ev-link" href="portfolio.html">Se hela portfolion<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
     </div>
-    <ul class="ls-shots">
-      <li class="ls-shot"><div class="ls-shot__img"><img src="img/portratt-1.jpg" alt="Porträtt av en kvinna med långt blont hår mot ljusgrå bakgrund" loading="lazy" width="800" height="1000"></div><p class="ls-shot__cap"><a href="portfolio.html?bild=portratt-1"><b>Emma, studio</b></a><span>Porträtt</span></p></li>
-      <li class="ls-shot"><div class="ls-shot__img"><img src="img/skog-sjo.jpg" alt="Brygga ut i en blank skogssjö med vass och barrskog" loading="lazy" width="1400" height="933" style="object-position:62% 50%"></div><p class="ls-shot__cap"><a href="portfolio.html?bild=skog-sjo"><b>Bryggan i augusti</b></a><span>Natur</span></p></li>
-      <li class="ls-shot"><div class="ls-shot__img"><img src="img/kontor-team.jpg" alt="Fyra kollegor samlade kring en skärm och skrattar" loading="lazy" width="1400" height="788" style="object-position:40% 50%"></div><p class="ls-shot__cap"><a href="portfolio.html?bild=kontor-team"><b>Team på ett IT-bolag</b></a><span>Företag</span></p></li>
-      <li class="ls-shot"><div class="ls-shot__img"><img src="img/fjallen.jpg" alt="Snötäckt fjäll under blå himmel med drivande moln" loading="lazy" width="800" height="580" style="object-position:40% 50%"></div><p class="ls-shot__cap"><a href="portfolio.html?bild=fjallen"><b>Fjället i mars</b></a><span>Natur</span></p></li>
-      <li class="ls-shot"><div class="ls-shot__img"><img src="img/portratt-2.jpg" alt="Leende man med armarna i kors i svart t-shirt" loading="lazy" width="800" height="1000"></div><p class="ls-shot__cap"><a href="portfolio.html?bild=portratt-2"><b>Johan, profilbild</b></a><span>Porträtt</span></p></li>
-      <li class="ls-shot"><div class="ls-shot__img"><img src="img/skidor-ovanifran.jpg" alt="Två skidåkare i en spårig backe, sedda rakt ovanifrån med långa skuggor" loading="lazy" width="1200" height="800" style="object-position:72% 50%"></div><p class="ls-shot__cap"><a href="portfolio.html?bild=skidor-ovanifran"><b>Spår i nysnö</b></a><span>Natur</span></p></li>
-      <li class="ls-shot"><div class="ls-shot__img"><img src="img/mote.jpg" alt="Avslappnat möte i en soffgrupp framför stora fönster" loading="lazy" width="1400" height="788" style="object-position:30% 50%"></div><p class="ls-shot__cap"><a href="portfolio.html?bild=mote"><b>Möte på byrån</b></a><span>Företag</span></p></li>
-      <li class="ls-shot"><div class="ls-shot__img"><img src="img/station-vinter.jpg" alt="Röd och vit motorvagn framför ett gult stationshus i snö" loading="lazy" width="1400" height="787" style="object-position:28% 50%"></div><p class="ls-shot__cap"><a href="portfolio.html?bild=station-vinter"><b>Stationen i januari</b></a><span>Natur</span></p></li>
+
+    <div class="ls-spread ls-spread--a">
+      <figure class="s1"><a href="portfolio.html?bild=gardar-kvall"><span class="ls-img"><img src="img/gardar-kvall.jpg" alt="Åkrar och röda gårdar i sensommarens kvällsljus" loading="lazy" width="1400" height="787" style="object-position:60% 50%"></span></a><figcaption><b>Gårdarna i kvällsljus</b><span>01</span></figcaption></figure>
+      <div class="ls-intro">
+        <p class="ls-meta"><span>Serie 01</span><span>Natur</span><span>2025</span></p>
+        <h3>Höst i Medelpad</h3>
+        <p>Från sensommar till första frosten. Alla bilder i serien finns som tryck.</p>
+        <a class="ev-link" href="portfolio.html?kategori=natur">Se serien<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+      </div>
+      <figure class="s2"><a href="portfolio.html?bild=skog-sjo"><span class="ls-img"><img src="img/skog-sjo.jpg" alt="Brygga ut i en blank skogssjö med vass och barrskog" loading="lazy" width="1400" height="933" style="object-position:58% 50%"></span></a><figcaption><b>Bryggan i augusti</b><span>02</span></figcaption></figure>
+      <figure class="s3"><a href="portfolio.html?bild=tag-hostskog"><span class="ls-img"><img src="img/tag-hostskog.jpg" alt="Tåg genom ett höstlandskap med åkrar och orange lövträd" loading="lazy" width="1400" height="787" style="object-position:38% 50%"></span></a><figcaption><b>Höst över dalen</b><span>03</span></figcaption></figure>
+    </div>
+
+    <div class="ls-spread ls-spread--b">
+      <div class="ls-intro">
+        <p class="ls-meta"><span>Serie 02</span><span>Porträtt</span><span>2026</span></p>
+        <h3>Porträtt, Sundsvall 2026</h3>
+        <p>Mjukt fönsterljus, lugnt tempo och inga stela leenden. Exempelporträtt.</p>
+        <a class="ev-link" href="portfolio.html?kategori=portratt">Se alla porträtt<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+      </div>
+      <figure class="s1"><a href="portfolio.html?bild=portratt-1"><span class="ls-img"><img src="img/portratt-1.jpg" alt="Porträtt av en kvinna med långt blont hår mot ljusgrå bakgrund" loading="lazy" width="800" height="1000"></span></a><figcaption><b>Emma, studio</b><span>02</span></figcaption></figure>
+      <figure class="s2"><a href="portfolio.html?bild=portratt-2"><span class="ls-img"><img src="img/portratt-2.jpg" alt="Leende man med armarna i kors i svart t-shirt" loading="lazy" width="800" height="1000"></span></a><figcaption><b>Johan, profilbild</b><span>03</span></figcaption></figure>
+      <figure class="s3"><a href="portfolio.html?bild=portratt-3"><span class="ls-img"><img src="img/portratt-3.jpg" alt="Leende kvinna med blond page i ett ljust kontor" loading="lazy" width="800" height="1000" style="object-position:50% 30%"></span></a><figcaption><b>Karin, på kontoret</b><span>01</span></figcaption></figure>
+    </div>
+  </div>
+
+  <!-- Serie 3: vågrät rad som går att svepa och dra -->
+  <div class="ls-row-sec">
+    <div class="ev-wrap ls-row-head">
+      <div class="ls-intro">
+        <p class="ls-meta"><span>Serie 03</span><span>Natur</span><span>5 bilder</span></p>
+        <h3>Vinter i fjällen</h3>
+      </div>
+      <div class="ls-row-nav">
+        <button class="ev-iconbtn" type="button" aria-label="Bläddra bakåt i serien" aria-controls="vinter-rad" data-row-prev><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button class="ev-iconbtn" type="button" aria-label="Bläddra framåt i serien" aria-controls="vinter-rad" data-row-next><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="ls-row" id="vinter-rad" role="region" aria-label="Vinter i fjällen, svep eller dra i sidled" tabindex="0" data-row>
+      <figure><a href="portfolio.html?bild=skidor-ovanifran"><img src="img/skidor-ovanifran.jpg" alt="Två skidåkare i en spårig backe, sedda rakt ovanifrån med långa skuggor" loading="lazy" width="1200" height="800" draggable="false"></a><figcaption><b>Spår i nysnö</b><span>01</span></figcaption></figure>
+      <figure><a href="portfolio.html?bild=station-vinter"><img src="img/station-vinter.jpg" alt="Röd och vit motorvagn framför ett gult stationshus i snö" loading="lazy" width="1400" height="787" draggable="false"></a><figcaption><b>Stationen i januari</b><span>02</span></figcaption></figure>
+      <figure><a href="portfolio.html?bild=fjallen"><img src="img/fjallen.jpg" alt="Snötäckt fjäll under blå himmel med drivande moln" loading="lazy" width="800" height="580" draggable="false"></a><figcaption><b>Fjället i mars</b><span>03</span></figcaption></figure>
+      <figure><a href="portfolio.html?bild=vinter-skidor"><img src="img/vinter-skidor.jpg" alt="Skidåkare vid en lift i blått kvällsljus" loading="lazy" width="1600" height="1067" draggable="false"></a><figcaption><b>Sista åket</b><span>04</span></figcaption></figure>
+      <figure><a href="portfolio.html?bild=perrong-fjall"><img src="img/perrong-fjall.jpg" alt="Tåg vid en perrong med fjäll och röda hus i bakgrunden" loading="lazy" width="1400" height="787" draggable="false"></a><figcaption><b>Perrongen under fjället</b><span>05</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Tjänster: tre vägar in, med pris -->
+<section class="ev-section ev-section--deep" aria-labelledby="tjanster-rubrik">
+  <div class="ev-wrap">
+    <div class="ls-head">
+      <div>
+        <h2 id="tjanster-rubrik" class="ev-dot">Det här fotograferar jag</h2>
+        <p>Fasta priser. Du betalar efter fotograferingen, när du har sett bilderna.</p>
+      </div>
+      <a class="ev-link" href="priser.html">Se alla priser<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+    </div>
+    <ul class="ls-index">
+      <li>
+        <span class="ls-num">01</span>
+        <h3><a href="priser.html#portratt">Porträtt</a></h3>
+        <p>Till jobbet, hemsidan eller bara för dig. En timme i studion eller ute.</p>
+        <p class="ls-index__price"><span>Från 1&nbsp;495&nbsp;kr <small>inkl. moms</small></span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></p>
+        <img src="img/portratt-3.jpg" alt="" loading="lazy" width="800" height="1000" style="object-position:50% 30%">
+      </li>
+      <li>
+        <span class="ls-num">02</span>
+        <h3><a href="priser.html#foretag">Företag</a></h3>
+        <p>Profilbilder och miljöbilder hos er. Samma ljus för hela teamet, även nyanställda.</p>
+        <p class="ls-index__price"><span>Från 2&nbsp;900&nbsp;kr <small>exkl. moms</small></span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></p>
+        <img src="img/kontor-team.jpg" alt="" loading="lazy" width="1400" height="788" style="object-position:45% 50%">
+      </li>
+      <li>
+        <span class="ls-num">03</span>
+        <h3><a href="priser.html#tryck">Tryck</a></h3>
+        <p>Landskap på matt fine art-papper, från 30 × 40 till 100 × 140 cm.</p>
+        <p class="ls-index__price"><span>Från 895&nbsp;kr <small>inkl. moms</small></span><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></p>
+        <img src="img/stugor-sjo.jpg" alt="" loading="lazy" width="1400" height="787" style="object-position:32% 50%">
+      </li>
     </ul>
   </div>
 </section>
 
-<!-- 2. Tjänster: tre tydliga vägar in, med pris -->
-<section class="ev-section ev-section--grey" aria-labelledby="tjanster-rubrik">
-  <div class="ev-wrap">
-    <div class="ev-section-head">
-      <div>
-        <h2 id="tjanster-rubrik" class="ev-dot">Det här fotograferar jag</h2>
-        <p>Alla priser står öppet. Du betalar efter fotograferingen, när du har sett bilderna.</p>
-      </div>
-      <a class="ev-link" href="priser.html">Se alla priser<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
-    </div>
-    <div class="ls-services">
-      <article class="ls-service">
-        <div class="ls-service__img"><img src="img/portratt-3.jpg" alt="Leende kvinna med blond page i ett ljust kontor" loading="lazy" width="800" height="1000" style="object-position:50% 30%"></div>
-        <div>
-          <h3>Porträtt</h3>
-          <p>Till jobbet, till en ny hemsida eller bara för att du vill ha en bild du tycker om. Vi fotograferar i studion eller ute, i ett ljus som passar dig.</p>
-          <ul>
-            <li>60 minuter i studio eller utomhus</li>
-            <li>12 redigerade bilder i ett webbgalleri</li>
-            <li>Tips om kläder och hur du står, innan vi börjar</li>
-          </ul>
-          <div class="ls-service__foot"><span class="ls-service__price ev-price">Från 1&nbsp;495&nbsp;kr <small>inkl. moms</small></span><a class="ev-link" href="priser.html#portratt">Se porträttpaketen<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
-        </div>
-      </article>
-      <article class="ls-service">
-        <div class="ls-service__img"><img src="img/kontor-team.jpg" alt="Kollegor kring en skärm i ett kontor med växter" loading="lazy" width="1400" height="788"></div>
-        <div>
-          <h3>Företag</h3>
-          <p>Profilbilder, teambilder och bilder som visar hur ni faktiskt arbetar. Jag ställer upp en enkel studio i ett mötesrum, så att ingen behöver lämna jobbet mer än fem minuter.</p>
-          <ul>
-            <li>Samma ljus och bakgrund för hela teamet, även nyanställda senare</li>
-            <li>Fri användning på webben, i annonser och i tryck</li>
-            <li>Bilderna levereras inom fem arbetsdagar</li>
-          </ul>
-          <div class="ls-service__foot"><span class="ls-service__price ev-price">Från 2&nbsp;900&nbsp;kr <small>exkl. moms</small></span><a class="ev-link" href="priser.html#foretag">Se företagspaketen<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
-        </div>
-      </article>
-      <article class="ls-service">
-        <div class="ls-service__img"><img src="img/stugor-sjo.jpg" alt="Röda stugor bland tallar vid en blank skogssjö under dramatisk himmel" loading="lazy" width="1400" height="787"></div>
-        <div>
-          <h3>Tryck</h3>
-          <p>Landskap från Medelpad, Jämtland och Höga kusten, tryckta på matt fine art-papper som tål ljus i många år. Passar hemma, på kontoret och i väntrum.</p>
-          <ul>
-            <li>Fem storlekar från 30 × 40 till 100 × 140 cm</li>
-            <li>Med eller utan ram i ek</li>
-            <li>Urval och upphängning för företag</li>
-          </ul>
-          <div class="ls-service__foot"><span class="ls-service__price ev-price">Från 895&nbsp;kr <small>inkl. moms</small></span><a class="ev-link" href="priser.html#tryck">Se storlekar och priser<svg class="ev-icon ev-link__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- 3. Om Linnea: vem du möter -->
+<!-- 4. Om Linnea: vem du möter -->
 <section class="ev-section" id="om" aria-labelledby="om-rubrik">
   <div class="ev-wrap ls-about">
     <figure class="ls-about__img">
       <img src="img/fjallen-vandring.jpg" alt="Person i gul jacka på väg upp längs en snöig stig mellan stugor" loading="lazy" width="700" height="1050">
-      <figcaption>På väg ut före soluppgången, en vanlig arbetsmorgon i februari.</figcaption>
+      <figcaption>På väg ut före soluppgången, februari.</figcaption>
     </figure>
     <div class="ls-about__text">
       <h2 id="om-rubrik" class="ev-dot">Hej, jag heter Linnea</h2>
-      <p>Jag har fotograferat sedan 2014 och har min studio i Stenstan i Sundsvall. Innan dess arbetade jag som bildredaktör på en lokaltidning, och där lärde jag mig att de bästa bilderna sällan är de mest uppställda.</p>
-      <p>De flesta som kommer till mig tycker inte om att bli fotograferade. Därför tar vi det i din takt, pratar en stund först och fotograferar när du har landat. På fritiden är jag ute i fjällen och längs kusten, och de bilderna säljer jag som tryck.</p>
-      <ul class="ls-facts">
-        <li class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M8.5 7 10 4h4l1.5 3"/><circle cx="12" cy="13.5" r="3.5"/></svg><span>Fotograf sedan 2014, med porträtt och företag som vardag</span></li>
-        <li class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>Studio i Stenstan, och jag åker gärna till dig i hela Medelpad</span></li>
-        <li class="ev-iconline"><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Du får dina bilder inom fem arbetsdagar</span></li>
-      </ul>
+      <p class="ev-lead">Jag var bildredaktör på en lokaltidning innan jag öppnade studion i Stenstan. Där lärde jag mig att de bästa bilderna sällan är uppställda.</p>
+      <p>De flesta som kommer hit tycker inte om att bli fotograferade. Vi tar det i din takt och börjar när du har landat.</p>
+      <dl class="ls-facts">
+        <div><dt>Fotograf sedan</dt><dd>2014</dd></div>
+        <div><dt>Arbetsdagar till färdiga bilder</dt><dd>5</dd></div>
+        <div><dt>Resor från Sundsvall ingår</dt><dd>3 mil</dd></div>
+      </dl>
     </div>
   </div>
 </section>
 
-<!-- 4. Så går det till: sänker tröskeln före bokning -->
-<section class="ev-section ev-section--grey" aria-labelledby="hur-rubrik">
-  <div class="ev-wrap ls-how">
-    <div class="ls-how__intro">
-      <h2 id="hur-rubrik" class="ev-dot">Så går en fotografering till</h2>
-      <p>Du behöver inte veta exakt vad du vill innan du bokar. Det pratar vi om tillsammans.</p>
-      <div class="ev-actions"><a class="ev-btn" href="boka.html"><span>Boka fotografering</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
-      <p class="ev-hint">Bokningen tar ungefär tre minuter. Inget är bindande förrän vi har pratat.</p>
-    </div>
-    <ol class="ev-vsteps">
-      <li><h3>Du bokar en tid</h3><p>Välj typ av fotografering, paket och en dag som passar. Är du osäker på datum väljer du flexibelt.</p></li>
-      <li><h3>Vi pratar ihop oss</h3><p>Jag ringer dig inom ett par dagar. På en kvart går vi igenom plats, kläder och vad bilderna ska användas till.</p></li>
-      <li><h3>Vi fotograferar</h3><p>Vi tar det lugnt. De flesta känner sig stela de första tio minuterna, och det är helt normalt.</p></li>
-      <li><h3>Du väljer dina bilder</h3><p>Inom fem arbetsdagar får du ett webbgalleri. Där väljer du favoriter och laddar ner dem i full upplösning.</p></li>
+<!-- 5. Så går det till: sänker tröskeln före bokning -->
+<section class="ev-section ev-section--deep" aria-labelledby="hur-rubrik">
+  <div class="ev-wrap">
+    <h2 id="hur-rubrik" class="ev-dot">Så går det till</h2>
+    <ol class="ls-steps">
+      <li><span class="ls-num">01</span><h3>Du bokar</h3><p>Typ, paket och dag. Osäker på datum? Välj flexibelt.</p></li>
+      <li><span class="ls-num">02</span><h3>Vi pratar en kvart</h3><p>Jag ringer inom ett par dagar om plats, kläder och vad bilderna ska användas till.</p></li>
+      <li><span class="ls-num">03</span><h3>Vi fotograferar</h3><p>I lugnt tempo. De första tio minuterna känns stela för alla.</p></li>
+      <li><span class="ls-num">04</span><h3>Du väljer bilder</h3><p>Webbgalleri inom fem arbetsdagar, nedladdning i full upplösning.</p></li>
     </ol>
+    <div class="ls-how__foot">
+      <div class="ev-actions"><a class="ev-btn" href="boka.html"><span>Boka fotografering</span><svg class="ev-icon ev-btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a></div>
+      <p class="ev-hint">Tar ungefär tre minuter. Inget är bindande förrän vi har pratat.</p>
+    </div>
   </div>
 </section>
 
-<!-- 5. Omdömen: märkta som exempel -->
+<!-- 6. Omdömen: märkta som exempel -->
 <section class="ev-section" aria-labelledby="omdomen-rubrik">
   <div class="ev-wrap">
-    <div class="ev-section-head">
-      <div>
-        <h2 id="omdomen-rubrik" class="ev-dot">Vad kunderna säger</h2>
-        <p><span class="ev-tag">Exempel</span> Omdömena är exempeltext i ett designkoncept, inte riktiga kunder.</p>
-      </div>
+    <h2 id="omdomen-rubrik" class="ev-sr">Vad kunderna säger</h2>
+    <div class="ls-quotes">
+      <figure class="ls-quote ls-quote--big"><blockquote><p>”Jag har alltid hatat att bli fotograferad. Efter en halvtimme glömde jag bort kameran.”</p></blockquote><figcaption><b>Exempelkund</b>, porträtt i studion</figcaption></figure>
+      <ul class="ls-quotes__small">
+        <li><figure class="ls-quote"><blockquote><p>”Alla fjorton på kontoret på en förmiddag. De nyanställda kunde vi lägga till ett halvår senare.”</p></blockquote><figcaption><b>Exempelkund</b>, HR på ett IT-bolag</figcaption></figure></li>
+        <li><figure class="ls-quote"><blockquote><p>”Hon kom själv, hängde upp tavlorna och såg till att ljuset inte bländade.”</p></blockquote><figcaption><b>Exempelkund</b>, tryck 70 × 100 cm</figcaption></figure></li>
+      </ul>
     </div>
-    <ul class="ls-quotes">
-      <li><figure class="ls-quote"><blockquote>”Jag har alltid hatat att bli fotograferad. Efter en halvtimme glömde jag bort kameran, och nu har jag en bild jag faktiskt vill använda.”</blockquote><figcaption><b>Exempelkund</b>Porträtt i studion</figcaption></figure></li>
-      <li><figure class="ls-quote"><blockquote>”Linnea fotograferade alla fjorton på kontoret på en förmiddag. Bilderna blev enhetliga, och de nyanställda kunde vi lägga till ett halvår senare.”</blockquote><figcaption><b>Exempelkund</b>HR-ansvarig, IT-bolag</figcaption></figure></li>
-      <li><figure class="ls-quote"><blockquote>”Vi köpte tre tavlor till väntrummet. Hon kom själv, hängde upp dem och såg till att ljuset inte bländade.”</blockquote><figcaption><b>Exempelkund</b>Tryck, 70 × 100 cm</figcaption></figure></li>
-    </ul>
+    <p class="ls-note"><span class="ev-tag">Exempel</span> Omdömena är exempeltext i ett designkoncept, inte riktiga kunder.</p>
   </div>
 </section>
 
-<!-- 6. Kontakt: för den som vill fråga först -->
-<section class="ev-section ev-section--grey" id="kontakt" aria-labelledby="kontakt-rubrik">
+<!-- 7. Kontakt: för den som vill fråga först (ljus yta) -->
+<section class="ev-section ls-paper" id="kontakt" aria-labelledby="kontakt-rubrik">
   <div class="ev-wrap ls-contact">
     <div>
       <h2 id="kontakt-rubrik" class="ev-dot">Hör av dig</h2>
-      <p class="ev-lead" style="margin-top:16px">Undrar du något innan du bokar? Skriv eller ring, så svarar jag personligen.</p>
+      <p class="ev-lead" style="margin-top:16px">Undrar du något innan du bokar? Skriv eller ring, så svarar jag själv.</p>
       <ul class="ls-ways">
         <li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 3.6 6.3 4.2A2.3 2.3 0 0 0 4.6 6.6c.5 7 5.8 12.3 12.8 12.8a2.3 2.3 0 0 0 2.4-1.7l.6-2.3a1.5 1.5 0 0 0-.8-1.7l-2.8-1.3a1.5 1.5 0 0 0-1.8.4l-1 1.3a11 11 0 0 1-4.3-4.3l1.3-1a1.5 1.5 0 0 0 .4-1.8L10.3 4.4a1.5 1.5 0 0 0-1.7-.8z"/></svg><div><b>Telefon</b><a href="tel:+46100000000">010-000 00 00</a><small>Vardagar 9–17. Är jag ute och fotograferar ringer jag tillbaka samma dag.</small></div></li>
         <li><svg class="ev-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg><div><b>E-post</b><a href="mailto:hej@linneastrand.example">hej@linneastrand.example</a><small>Svarar oftast inom 2 timmar på vardagar.</small></div></li>

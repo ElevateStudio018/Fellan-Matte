@@ -32,6 +32,97 @@
     }
   }
 
+  /* ---------- Hero: bildspel som tonar över med mjuk Ken Burns ----------
+     Pausas vid hover och fokus, har pausknapp och bläddring, och står stilla vid reducerad rörelse (2.2.2). */
+  var hero = $('[data-hero]');
+  if (hero) {
+    var slides = $$('.ls-slide', hero), nSl = slides.length, cur = 0, timer = null;
+    var userPaused = false, hovering = false, focused = false;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var numEl = $('[data-reel-num]', hero), capEl = $('[data-reel-cap]', hero), pauseBtn = $('[data-reel-pause]', hero);
+    var two = function (i) { return (i < 10 ? '0' : '') + i; };
+    var DELAY = 6500;
+    var stopped = function () { return userPaused || hovering || focused || reduce.matches; };
+    var schedule = function () {
+      clearTimeout(timer);
+      hero.classList.toggle('is-paused', stopped());
+      if (!stopped()) timer = setTimeout(function () { go(cur + 1); }, DELAY);
+    };
+    var go = function (i) {
+      var prev = slides[cur];
+      cur = (i + nSl) % nSl;
+      var next = slides[cur];
+      if (prev !== next) {
+        prev.classList.add('is-leaving');
+        prev.classList.remove('is-active');
+        prev.setAttribute('aria-hidden', 'true');
+        setTimeout(function () { prev.classList.remove('is-leaving'); }, 1500);
+        next.classList.remove('is-leaving');
+        next.classList.add('is-active');
+        next.removeAttribute('aria-hidden');
+      }
+      numEl.textContent = two(cur + 1) + ' / ' + two(nSl);
+      capEl.textContent = next.dataset.caption;
+      schedule();
+    };
+    var setPaused = function (p) {
+      userPaused = p;
+      pauseBtn.setAttribute('aria-label', p ? 'Spela bildspelet' : 'Pausa bildspelet');
+      $('[data-icon-pause]', pauseBtn).hidden = p;
+      $('[data-icon-play]', pauseBtn).hidden = !p;
+      schedule();
+    };
+    pauseBtn.addEventListener('click', function () { setPaused(!userPaused); });
+    $('[data-reel-next]', hero).addEventListener('click', function () { go(cur + 1); });
+    $('[data-reel-prev]', hero).addEventListener('click', function () { go(cur - 1); });
+    hero.addEventListener('mouseenter', function () { hovering = true; schedule(); });
+    hero.addEventListener('mouseleave', function () { hovering = false; schedule(); });
+    hero.addEventListener('focusin', function () { focused = true; schedule(); });
+    hero.addEventListener('focusout', function (e) { if (!hero.contains(e.relatedTarget)) { focused = false; schedule(); } });
+    if (reduce.matches) setPaused(true);
+    reduce.addEventListener('change', function (e) { if (e.matches) setPaused(true); else schedule(); });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) clearTimeout(timer); else schedule(); });
+    schedule();
+  }
+
+  /* ---------- Vågrät bildrad: svep, dra med musen eller bläddra med knapparna ---------- */
+  $$('[data-row]').forEach(function (row) {
+    var prevB = $('[data-row-prev]'), nextB = $('[data-row-next]');
+    var update = function () {
+      var max = row.scrollWidth - row.clientWidth - 2;
+      if (prevB) prevB.setAttribute('aria-disabled', row.scrollLeft <= 2 ? 'true' : 'false');
+      if (nextB) nextB.setAttribute('aria-disabled', row.scrollLeft >= max ? 'true' : 'false');
+    };
+    var step = function (dir) {
+      row.scrollBy({ left: dir * Math.max(240, row.clientWidth * 0.7), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    };
+    if (prevB) prevB.addEventListener('click', function () { if (prevB.getAttribute('aria-disabled') !== 'true') step(-1); });
+    if (nextB) nextB.addEventListener('click', function () { if (nextB.getAttribute('aria-disabled') !== 'true') step(1); });
+    row.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+    /* Dra med musen (pekskärmar sveper som vanligt) */
+    var startX = 0, startLeft = 0, down = false, moved = false;
+    row.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; moved = false; startX = e.clientX; startLeft = row.scrollLeft;
+    });
+    row.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 6) { moved = true; row.classList.add('is-dragging'); row.setPointerCapture(e.pointerId); }
+      if (moved) row.scrollLeft = startLeft - dx;
+    });
+    var end = function () {
+      if (!down) return; down = false;
+      if (moved) setTimeout(function () { row.classList.remove('is-dragging'); }, 0);
+    };
+    row.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    row.addEventListener('pointerup', end);
+    row.addEventListener('pointercancel', end);
+    row.addEventListener('click', function (e) { if (moved) { e.preventDefault(); moved = false; } }, true);
+  });
+
   /* ---------- Fast list på desktop när heroknappen har scrollat bort ---------- */
   var bar = $('[data-stickybar]'), anchor = $('[data-sticky-anchor]');
   if (bar && anchor && 'IntersectionObserver' in window) {
@@ -108,6 +199,7 @@
     var applyFilter = function (cat, push) {
       chips.forEach(function (c) { c.setAttribute('aria-pressed', c.dataset.filter === cat ? 'true' : 'false'); });
       items.forEach(function (li) { li.hidden = !(cat === 'alla' || li.dataset.cat === cat); });
+      $$('.pf-series', grid).forEach(function (sec) { sec.hidden = !$$('.pf-item', sec).some(function (li) { return !li.hidden; }); });
       var n = visible().length;
       count.textContent = 'Visar ' + n + ' ' + (n === 1 ? 'bild' : labels[cat]);
       if (empty) empty.hidden = n > 0;
